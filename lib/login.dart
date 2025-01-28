@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'MOVIE+',
+              'STREAMSCAPE',
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
