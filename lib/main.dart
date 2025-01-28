@@ -18,7 +18,55 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const SplashScreen(
+        splashName: 'Streamscape', // Adjust splash name here
+        splashDuration: 3, // Adjust splash duration here (in seconds)
+      ),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  final String splashName;
+  final int splashDuration;
+
+  const SplashScreen({
+    super.key,
+    required this.splashName,
+    required this.splashDuration,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Navigate to the main home screen after the splash duration
+    Future.delayed(Duration(seconds: splashDuration), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MyHomePage()),
+      );
+    });
+
+    return Scaffold(
+      backgroundColor: const Color(0xFF171A1F), // Dark background color
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              splashName,
+              style: const TextStyle(
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFFD700), // Gold color
+              ),
+            ),
+            const SizedBox(height: 16),
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFD700)), // Gold color
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -37,7 +85,7 @@ class MyHomePage extends StatelessWidget {
             const Text(
               'STREAMSCAPE',
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 45,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFFFD700), // Gold color
               ),
