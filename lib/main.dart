@@ -12,71 +12,85 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Streamscape', // Set app title
+      debugShowCheckedModeBanner: false,
+      title: 'Streamscape',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 255, 255)), // Dark theme
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Streamscape'), // Set home page title
+      home: const MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black, // Black app bar background
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0), // Padded title
-          child: Text(
-            widget.title,
-            style: const TextStyle(color: Colors.white), // White title text
-          ),
-        ),
-      ),
+      backgroundColor: const Color(0xFF171A1F), // Dark background color
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'A streaming platform For Everyone',
-              style: TextStyle(fontSize: 18),
+              'STREAMSCAPE',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFFD700), // Gold color
+              ),
             ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginScreen()),
-                    );
-                  },
-                  child: const Text('Login'),
+            const SizedBox(height: 8),
+            const Text(
+              'streaming platform and downloads',
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFFFFD700), // Gold color
+              ),
+            ),
+            const SizedBox(height: 80), // Spacing before buttons
+            SizedBox(
+              width: 250,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFD700), // Gold button color
+                  foregroundColor: Colors.black, // Black text color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30), // Rounded button
+                  ),
                 ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignUpScreen()),
-                    );
-                  },
-                  child: const Text('Sign Up'),
+                child: const Text('Login', style: TextStyle(fontSize: 18)),
+              ),
+            ),
+            const SizedBox(height: 16), // Spacing between buttons
+            SizedBox(
+              width: 250,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFD700), // Gold button color
+                  foregroundColor: Colors.black, // Black text color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30), // Rounded button
+                  ),
                 ),
-              ],
+                child: const Text('Sign Up', style: TextStyle(fontSize: 18)),
+              ),
             ),
           ],
         ),
