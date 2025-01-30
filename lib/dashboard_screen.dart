@@ -31,6 +31,9 @@ class DashboardScreen extends StatelessWidget {
 
               // New Releases
               _buildNewReleases(),
+
+              // More Movies Section Below
+              _buildMoreMovies(),  // New Section for More Movies
             ],
           ),
         ),
@@ -195,6 +198,48 @@ class DashboardScreen extends StatelessWidget {
                 imageUrl:
                     'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
               ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+   Widget _buildMoreMovies() {
+    // New section for additional movies with horizontal scrolling
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Most Popular',
+              style: TextStyle(
+                color: Color(0xFF1A4D2E),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                // Implement view all functionality
+              },
+              child: const Text(
+                'View All',
+                style: TextStyle(
+                  color: Color(0xFF1A4D2E),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 15),
+        SizedBox(
+          height: 200,  // Ensure the height matches with other movie cards
+          child: ListView(
+            scrollDirection: Axis.horizontal,  // Scroll horizontally
+            children: const [
               _MovieCard(
                 title: 'The Batman',
                 rating: '★★★★☆',
@@ -223,12 +268,34 @@ class DashboardScreen extends StatelessWidget {
                 imageUrl:
                     'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
               ),
+              _MovieCard(
+                title: 'Top Gun: Maverick',
+                rating: '★★★★★',
+                reviews: '(180k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+              ),
+              _MovieCard(
+                title: 'Top Gun: Maverick',
+                rating: '★★★★★',
+                reviews: '(180k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+              ),
+              _MovieCard(
+                title: 'Top Gun: Maverick',
+                rating: '★★★★★',
+                reviews: '(180k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+              ),
             ],
           ),
         ),
       ],
     );
   }
+
 
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
