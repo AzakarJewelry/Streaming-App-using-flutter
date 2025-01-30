@@ -9,13 +9,13 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        backgroundColor: const Color(0xFF171A1F),
+        backgroundColor: Color(0xFF171A1F),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFF3C63F)), // Set icon color
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)), // Cream back arrow
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: const Color(0xFF171A1F), // Set background color for the entire screen
+      backgroundColor: Color(0xFF171A1F), // Set background color for the entire screen
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFF3C63F),
+                color: Color(0xFF1A4D2E), // Green text
               ),
             ),
             const SizedBox(height: 40),
@@ -34,27 +34,30 @@ class LoginScreen extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: 'Email or Username',
                 border: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Color(0xFFF3C63F)),
+                  borderSide: BorderSide(color: Color(0xFFF3C63F)),
                 ),
-                labelStyle: const TextStyle(color: Color(0xFFF3C63F)),
+                labelStyle: TextStyle(color: Color(0xFFF3C63F)),
               ),
-              style: const TextStyle(color: Color(0xFFF3C63F)),
+              style: TextStyle(color: Color(0xFFF3C63F)),
             ),
             const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Color(0xFFF3C63F)),
+                  borderSide: BorderSide(color: Color(0xFFF3C63F)),
                 ),
-                labelStyle: const TextStyle(color: Color(0xFFF3C63F)),
+                labelStyle: TextStyle(color: Color(0xFFF3C63F)),
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.visibility),
+                  icon: const Icon(Icons.visibility, color: Color(0xFF1A4D2E)), // Green icon
                   onPressed: () {},
+                ),
+                focusedBorder: OutlineInputBorder( // Green focused border
+                  borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
                 ),
               ),
               obscureText: true,
-              style: const TextStyle(color: Color(0xFFF3C63F)),
+              style: TextStyle(color: Color(0xFFF3C63F)),
             ),
             const SizedBox(height: 10),
             Align(
@@ -63,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                 onPressed: () {},
                 child: const Text(
                   'Forgot Password?',
-                  style: TextStyle(color: Color(0xFFF3C63F)),
+                  style: TextStyle(color: Color(0xFF1A4D2E)), // Green text
                 ),
               ),
             ),
@@ -77,8 +80,8 @@ class LoginScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFF3C63F), // Set button color
-                foregroundColor: const Color(0xFF171A1F), // Set text color
+                backgroundColor: Color(0xFFF3C63F), // Set button color
+                foregroundColor: Color(0xFF171A1F), // Set text color
                 minimumSize: const Size(double.infinity, 50), // Set width and height
               ),
               child: const Text('Log In'),

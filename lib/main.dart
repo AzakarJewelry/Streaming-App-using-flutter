@@ -15,12 +15,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Streamscape',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)), // Use F5EFE6 as seed
         useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xFFF5EFE6), // Set scaffold background to F5EFE6
       ),
       home: const SplashScreen(
-        splashName: 'Streamscape', // Adjust splash name here
-        splashDuration: 3, // Adjust splash duration here (in seconds)
+        splashName: 'Streamscape',
+        splashDuration: 3,
       ),
     );
   }
@@ -38,7 +39,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Navigate to the main home screen after the splash duration
     Future.delayed(Duration(seconds: splashDuration), () {
       Navigator.pushReplacement(
         context,
@@ -47,7 +47,7 @@ class SplashScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: const Color(0xFF171A1F), // Dark background color
+      backgroundColor: const Color(0xFFF5EFE6), // Dark background color (1A4D2E)
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -57,12 +57,12 @@ class SplashScreen extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 45,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFFD700), // Gold color
+                color: Color(0xFF1A4D2E), // Light color (F5EFE6)
               ),
             ),
             const SizedBox(height: 16),
             const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFFD700)), // Gold color
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF5EFE6)), // Light color (F5EFE6)
             ),
           ],
         ),
@@ -77,7 +77,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF171A1F), // Dark background color
+      backgroundColor: const Color(0xFFF5EFE6), // Light background color (F5EFE6)
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,7 @@ class MyHomePage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 45,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFFFFD700), // Gold color
+                color: Color(0xFF1A4D2E), // Dark color (1A4D2E)
               ),
             ),
             const SizedBox(height: 8),
@@ -95,10 +95,10 @@ class MyHomePage extends StatelessWidget {
               'streaming platform and downloads',
               style: TextStyle(
                 fontSize: 14,
-                color: Color(0xFFFFD700), // Gold color
+                color: Color(0xFF1A4D2E), // Dark color (1A4D2E)
               ),
             ),
-            const SizedBox(height: 80), // Spacing before buttons
+            const SizedBox(height: 80),
             SizedBox(
               width: 250,
               height: 50,
@@ -110,16 +110,16 @@ class MyHomePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFFD700), // Gold button color
-                  foregroundColor: Colors.black, // Black text color
+                  backgroundColor: const Color(0xFF1A4D2E), // Dark button color (1A4D2E)
+                  foregroundColor: const Color(0xFFF5EFE6), // Light text color (F5EFE6)
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Rounded button
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: const Text('Login', style: TextStyle(fontSize: 18)),
               ),
             ),
-            const SizedBox(height: 16), // Spacing between buttons
+            const SizedBox(height: 16),
             SizedBox(
               width: 250,
               height: 50,
@@ -131,10 +131,10 @@ class MyHomePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFFFD700), // Gold button color
-                  foregroundColor: Colors.black, // Black text color
+                  backgroundColor: const Color(0xFF1A4D2E), // Dark button color (1A4D2E)
+                  foregroundColor: const Color(0xFFF5EFE6), // Light text color (F5EFE6)
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30), // Rounded button
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: const Text('Sign Up', style: TextStyle(fontSize: 18)),
