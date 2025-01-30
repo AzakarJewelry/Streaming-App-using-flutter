@@ -236,7 +236,7 @@ class DashboardScreen extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 200,  // Ensure the height matches with other movie cards
+          height: 220,  // Ensure the height matches with other movie cards
           child: ListView(
             scrollDirection: Axis.horizontal,  // Scroll horizontally
             children: const [

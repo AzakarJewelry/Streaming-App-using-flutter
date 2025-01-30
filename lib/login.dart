@@ -9,6 +9,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
+        foregroundColor: const Color(0xFFF5EFE6), // Cream text
         backgroundColor: const Color(0xFF1A4D2E), // Green app bar
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)), // Cream back arrow
