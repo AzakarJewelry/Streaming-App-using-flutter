@@ -6,158 +6,188 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF171A1F),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Time and Location
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '10:45',
-                      style: TextStyle(
-                        color: Colors.grey[400],
-                        fontSize: 16,
-                      ),
-                    ),
-                    const Text(
-                      'Chandigarh',
-                      style: TextStyle(
-                        color: Color(0xFFF3C63F),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
+      backgroundColor: const Color(0xFFF5EFE6), // Cream background
+      body: SingleChildScrollView( // For scrollability
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Top Bar (Time, Location, Icons)
+              _buildTopBar(),
 
-                // Featured Movie
-                Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    image: const DecorationImage(
-                      image: NetworkImage('https://example.com/multiverse.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        'Dorongniger\nMULTIVERSE OF MADNESS',
-                        style: TextStyle(
-                          color: const Color(0xFFF3C63F),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.8),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
+              const SizedBox(height: 20),
 
-                // Genres
-                SizedBox(
-                  height: 40,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: const [
-                      _GenreChip(title: 'Gemres'),
-                      _GenreChip(title: 'Drama'),
-                      _GenreChip(title: 'Action'),
-                      _GenreChip(title: 'Romance'),
-                      _GenreChip(title: 'Comedy'),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 25),
+              // Featured Movie
+              _buildFeaturedMovie(),
 
-                // New Releases Header
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'New Releases',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'View All',
-                        style: TextStyle(
-                          color: Color(0xFFF3C63F),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 15),
+              const SizedBox(height: 25),
 
-                // New Releases List
-                SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: const [
-                      _MovieCard(
-                        title: 'Captain Marvel',
-                        rating: '★★★★★',
-                        reviews: '(100k)',
-                      ),
-                      _MovieCard(
-                        title: 'Jurassic World',
-                        rating: '★★★★☆',
-                        reviews: '(55k)',
-                      ),
-                      _MovieCard(
-                        title: 'Aqua',
-                        rating: '★★★☆☆',
-                        reviews: '(35k)',
-                      ),
-                    ],
-                  ),
-                ),
+              // Genres
+              _buildGenres(),
+
+              const SizedBox(height: 25),
+
+              // New Releases
+              _buildNewReleases(),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildTopBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
+          onPressed: () {
+            // Implement search
+          },
+        ),
+        Row(
+          children: [
+            Text(
+              '10:45', // Replace with actual time
+              style: TextStyle(
+                color: const Color(0xFF1A4D2E).withOpacity(0.6),
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              'StreamScape', // Replace with actual location
+              style: TextStyle(
+                color: Color(0xFF1A4D2E),
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        IconButton(
+          icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
+          onPressed: () {
+            // Implement notifications
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeaturedMovie() {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        image: const DecorationImage(
+          image: NetworkImage(
+              'https://via.placeholder.com/350x150'), // Placeholder image
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            'Doctor Strange\nMultiverse of Madness', // Replace with movie title
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  blurRadius: 10,
+                  color: Color(0xCC000000), // Equivalent to Colors.black.withOpacity(0.8)
+                )
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF171A1F),
-        selectedItemColor: const Color(0xFFF3C63F),
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+    );
+  }
+
+  Widget _buildGenres() {
+    return SizedBox(
+      height: 40,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5, // Replace with actual number of genres
+        itemBuilder: (context, index) {
+          return _GenreChip(title: 'Genre $index'); // Replace with actual genres
+        },
       ),
+    );
+  }
+
+  Widget _buildNewReleases() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'New Releases',
+              style: TextStyle(
+                color: Color(0xFF1A4D2E),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                'View All',
+                style: TextStyle(
+                  color: Color(0xFF1A4D2E),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 15),
+        SizedBox(
+          height: 200,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 3, // Replace with actual number of movies
+            itemBuilder: (context, index) {
+              return const _MovieCard(
+                title: 'Movie Title', // Replace with actual movie title
+                rating: '★★★★★', // Replace with actual rating
+                reviews: '(100k)', // Replace with actual reviews
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      backgroundColor: const Color(0xFFF5EFE6),
+      selectedItemColor: const Color(0xFF1A4D2E),
+      unselectedItemColor: const Color(0xFF1A4D2E).withOpacity(0.5),
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: 'Favorites',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }
@@ -173,13 +203,13 @@ class _GenreChip extends StatelessWidget {
       margin: const EdgeInsets.only(right: 10),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF2D333D),
+        color: const Color(0xFF1A4D2E),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         title,
         style: const TextStyle(
-          color: Colors.white,
+          color: Color(0xFFF5EFE6),
           fontSize: 16,
         ),
       ),
@@ -211,7 +241,7 @@ class _MovieCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               image: const DecorationImage(
-                image: NetworkImage('https://example.com/movie-poster.jpg'),
+                image: NetworkImage('https://via.placeholder.com/150'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -220,7 +250,7 @@ class _MovieCard extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              color: Colors.white,
+              color: Color(0xFF1A4D2E),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -236,8 +266,8 @@ class _MovieCard extends StatelessWidget {
               const SizedBox(width: 5),
               Text(
                 reviews,
-                style: const TextStyle(
-                  color: Colors.grey,
+                style: TextStyle(
+                  color: const Color(0xFF1A4D2E).withOpacity(0.5),
                   fontSize: 12,
                 ),
               ),

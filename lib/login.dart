@@ -9,13 +9,13 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        backgroundColor: Color(0xFF171A1F),
+        backgroundColor: const Color(0xFF1A4D2E), // Green app bar
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)), // Cream back arrow
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: Color(0xFF171A1F), // Set background color for the entire screen
+      backgroundColor: const Color(0xFFF5EFE6), // Cream background
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -34,20 +34,23 @@ class LoginScreen extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: 'Email or Username',
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF3C63F)),
+                  borderSide: BorderSide(color: const Color(0xFF1A4D2E)), // Green border
                 ),
-                labelStyle: TextStyle(color: Color(0xFFF3C63F)),
+                labelStyle: const TextStyle(color: Color(0xFF1A4D2E)), // Green label
+                focusedBorder: OutlineInputBorder( // Green focused border
+                  borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                ),
               ),
-              style: TextStyle(color: Color(0xFFF3C63F)),
+              style: const TextStyle(color: Color(0xFF1A4D2E)), // Green text
             ),
             const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF3C63F)),
+                  borderSide: BorderSide(color: const Color(0xFF1A4D2E)), // Green border
                 ),
-                labelStyle: TextStyle(color: Color(0xFFF3C63F)),
+                labelStyle: const TextStyle(color: Color(0xFF1A4D2E)), // Green label
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.visibility, color: Color(0xFF1A4D2E)), // Green icon
                   onPressed: () {},
@@ -57,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               obscureText: true,
-              style: TextStyle(color: Color(0xFFF3C63F)),
+              style: const TextStyle(color: Color(0xFF1A4D2E)), // Green text
             ),
             const SizedBox(height: 10),
             Align(
@@ -80,9 +83,9 @@ class LoginScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFF3C63F), // Set button color
-                foregroundColor: Color(0xFF171A1F), // Set text color
-                minimumSize: const Size(double.infinity, 50), // Set width and height
+                backgroundColor: const Color(0xFF1A4D2E), // Green button
+                foregroundColor: const Color(0xFFF5EFE6), // Cream text
+                minimumSize: const Size(double.infinity, 50),
               ),
               child: const Text('Log In'),
             ),
