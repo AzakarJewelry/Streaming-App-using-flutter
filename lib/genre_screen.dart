@@ -24,14 +24,8 @@ class GenreScreen extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: Text(
-          'Movies in $genre category',
-          style: const TextStyle(
-            color: Color(0xFF1A4D2E), // Dark green text
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+   
+          
       ),
     );
   }

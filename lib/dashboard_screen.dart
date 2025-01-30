@@ -156,7 +156,7 @@ class DashboardScreen extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 200,
+          height: 220,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: const [
@@ -232,9 +232,9 @@ class DashboardScreen extends StatelessWidget {
 
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFFF5EFE6),
-      selectedItemColor: const Color(0xFF1A4D2E),
-      unselectedItemColor: const Color(0xFF1A4D2E).withOpacity(0.5),
+      backgroundColor: const Color(0xFF1A4D2E),
+      selectedItemColor: const Color(0xFFF5EFE6),
+      unselectedItemColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
