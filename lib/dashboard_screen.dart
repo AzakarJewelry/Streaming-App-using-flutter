@@ -84,7 +84,8 @@ class DashboardScreen extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         image: const DecorationImage(
-          image: NetworkImage('https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba-1200-80.jpg'), // Replace with actual image URL
+          image: NetworkImage(
+              'https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba-1200-80.jpg'), // Replace with actual image URL
           fit: BoxFit.cover,
         ),
       ),
@@ -163,19 +164,64 @@ class DashboardScreen extends StatelessWidget {
                 title: 'Captain Marvel',
                 rating: '★★★★★',
                 reviews: '(100k)',
-                imageUrl: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5', // Replace with actual image URL
+                imageUrl:
+                    'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
               ),
               _MovieCard(
                 title: 'Jurassic World',
                 rating: '★★★★☆',
                 reviews: '(55k)',
-                imageUrl: 'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA', // Replace with actual image URL
+                imageUrl:
+                    'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
               ),
               _MovieCard(
-                title: 'Aqua',
+                title: 'Aquaman',
                 rating: '★★★☆☆',
                 reviews: '(35k)',
-                imageUrl: 'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w', // Replace with actual image URL
+                imageUrl:
+                    'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
+              ),
+              _MovieCard(
+                title: 'Infinity War',
+                rating: '★★★★★',
+                reviews: '(105k)',
+                imageUrl:
+                    'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
+              ),
+              _MovieCard(
+                title: 'Spider-Man: No Way Home',
+                rating: '★★★★★',
+                reviews: '(200k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
+              ),
+              _MovieCard(
+                title: 'The Batman',
+                rating: '★★★★☆',
+                reviews: '(95k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
+              ),
+              _MovieCard(
+                title: 'Black Panther',
+                rating: '★★★★★',
+                reviews: '(150k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
+              ),
+              _MovieCard(
+                title: 'Avatar: The Way of Water',
+                rating: '★★★★☆',
+                reviews: '(120k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
+              ),
+              _MovieCard(
+                title: 'Top Gun: Maverick',
+                rating: '★★★★★',
+                reviews: '(180k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
               ),
             ],
           ),
