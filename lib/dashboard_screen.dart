@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
 import 'genre_screen.dart'; // Import the GenreScreen
 
-class DashboardScreen extends StatefulWidget {
+class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
-
-  @override
-  _DashboardScreenState createState() => _DashboardScreenState();
-}
-
-class _DashboardScreenState extends State<DashboardScreen> {
-  String? selectedGenre;
-
-  void _onGenreSelected(String genre) {
-    setState(() {
-      selectedGenre = genre;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +31,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
               // New Releases
               _buildNewReleases(),
+
+              // More Movies Section Below
+              _buildMoreMovies(),  // New Section for More Movies
             ],
           ),
         ),
@@ -130,37 +120,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       height: 40,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: [
-          _GenreChip(
-            title: 'Fantasy',
-            genre: 'Fantasy',
-            isSelected: selectedGenre == 'Fantasy',
-            onSelected: _onGenreSelected,
-          ),
-          _GenreChip(
-            title: 'Drama',
-            genre: 'Drama',
-            isSelected: selectedGenre == 'Drama',
-            onSelected: _onGenreSelected,
-          ),
-          _GenreChip(
-            title: 'Action',
-            genre: 'Action',
-            isSelected: selectedGenre == 'Action',
-            onSelected: _onGenreSelected,
-          ),
-          _GenreChip(
-            title: 'Romance',
-            genre: 'Romance',
-            isSelected: selectedGenre == 'Romance',
-            onSelected: _onGenreSelected,
-          ),
-          _GenreChip(
-            title: 'Comedy',
-            genre: 'Comedy',
-            isSelected: selectedGenre == 'Comedy',
-            onSelected: _onGenreSelected,
-          ),
+        children: const [
+          _GenreChip(title: 'Fantasy', genre: 'Fantasy'),
+          _GenreChip(title: 'Drama', genre: 'Drama'),
+          _GenreChip(title: 'Action', genre: 'Action'),
+          _GenreChip(title: 'Romance', genre: 'Romance'),
+          _GenreChip(title: 'Comedy', genre: 'Comedy'),
         ],
       ),
     );
@@ -194,7 +159,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 220,
+          height: 200,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: const [
@@ -233,6 +198,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 imageUrl:
                     'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
               ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+   Widget _buildMoreMovies() {
+    // New section for additional movies with horizontal scrolling
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Most Popular',
+              style: TextStyle(
+                color: Color(0xFF1A4D2E),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                // Implement view all functionality
+              },
+              child: const Text(
+                'View All',
+                style: TextStyle(
+                  color: Color(0xFF1A4D2E),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 15),
+        SizedBox(
+          height: 200,  // Ensure the height matches with other movie cards
+          child: ListView(
+            scrollDirection: Axis.horizontal,  // Scroll horizontally
+            children: const [
               _MovieCard(
                 title: 'The Batman',
                 rating: '★★★★☆',
@@ -261,6 +268,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 imageUrl:
                     'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
               ),
+              _MovieCard(
+                title: 'Top Gun: Maverick',
+                rating: '★★★★★',
+                reviews: '(180k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+              ),
+              _MovieCard(
+                title: 'Top Gun: Maverick',
+                rating: '★★★★★',
+                reviews: '(180k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+              ),
+              _MovieCard(
+                title: 'Top Gun: Maverick',
+                rating: '★★★★★',
+                reviews: '(180k)',
+                imageUrl:
+                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+              ),
             ],
           ),
         ),
@@ -268,11 +296,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFF1A4D2E),
-      selectedItemColor: const Color(0xFFF5EFE6),
-      unselectedItemColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+      backgroundColor: const Color(0xFFF5EFE6),
+      selectedItemColor: const Color(0xFF1A4D2E),
+      unselectedItemColor: const Color(0xFF1A4D2E).withOpacity(0.5),
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -294,18 +323,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 class _GenreChip extends StatelessWidget {
   final String title;
   final String genre;
-  final bool isSelected;
-  final Function(String) onSelected;
 
-  const _GenreChip({
-    required this.title,
-    required this.genre,
-    required this.isSelected,
-    required this.onSelected,
-  });
+  const _GenreChip({required this.title, required this.genre});
 
   void _navigateToGenreScreen(BuildContext context) {
-    onSelected(genre);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -322,17 +343,13 @@ class _GenreChip extends StatelessWidget {
         margin: const EdgeInsets.only(right: 10),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1A4D2E) : Colors.white,
+          color: const Color(0xFF1A4D2E),
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: const Color(0xFF1A4D2E),
-            width: 1,
-          ),
         ),
         child: Text(
           title,
-          style: TextStyle(
-            color: isSelected ? const Color(0xFFF5EFE6) : const Color(0xFF1A4D2E),
+          style: const TextStyle(
+            color: Color(0xFFF5EFE6),
             fontSize: 16,
           ),
         ),
