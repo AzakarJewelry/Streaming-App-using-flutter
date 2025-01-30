@@ -80,11 +80,11 @@ class DashboardScreen extends StatelessWidget {
 
   Widget _buildFeaturedMovie() {
     return Container(
-      height: 200,
+      height: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         image: const DecorationImage(
-          image: NetworkImage('https://via.placeholder.com/350x150'), // Placeholder image
+          image: NetworkImage('https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba-1200-80.jpg'), // Replace with actual image URL
           fit: BoxFit.cover,
         ),
       ),
@@ -93,9 +93,9 @@ class DashboardScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Doctor Strange\nMultiverse of Madness', // Replace with movie title
+            'DOCTOR STRANGE MULTIVERSE OF MADNESS', // Replace with movie title
             style: const TextStyle(
-              color: Color(0xFF1A4D2E),
+              color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
               shadows: [
@@ -163,16 +163,19 @@ class DashboardScreen extends StatelessWidget {
                 title: 'Captain Marvel',
                 rating: '★★★★★',
                 reviews: '(100k)',
+                imageUrl: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5', // Replace with actual image URL
               ),
               _MovieCard(
                 title: 'Jurassic World',
                 rating: '★★★★☆',
                 reviews: '(55k)',
+                imageUrl: 'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA', // Replace with actual image URL
               ),
               _MovieCard(
                 title: 'Aqua',
                 rating: '★★★☆☆',
                 reviews: '(35k)',
+                imageUrl: 'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w', // Replace with actual image URL
               ),
             ],
           ),
@@ -246,11 +249,13 @@ class _MovieCard extends StatelessWidget {
   final String title;
   final String rating;
   final String reviews;
+  final String imageUrl;
 
   const _MovieCard({
     required this.title,
     required this.rating,
     required this.reviews,
+    required this.imageUrl,
   });
 
   @override
@@ -265,8 +270,8 @@ class _MovieCard extends StatelessWidget {
             height: 150,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                image: NetworkImage('https://via.placeholder.com/150'),
+              image: DecorationImage(
+                image: NetworkImage(imageUrl), // Use the provided image URL
                 fit: BoxFit.cover,
               ),
             ),
