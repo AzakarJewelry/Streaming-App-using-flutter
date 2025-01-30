@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dashboard_screen.dart'; // Import the DashboardScreen
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -8,13 +9,13 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        backgroundColor: Color(0xFF171A1F),
+        backgroundColor: const Color(0xFF171A1F),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF3C63F)), // Set icon color
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: Color(0xFF171A1F), // Set background color for the entire screen
+      backgroundColor: const Color(0xFF171A1F), // Set background color for the entire screen
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -33,34 +34,34 @@ class LoginScreen extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: 'Email or Username',
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF3C63F)),
+                  borderSide: const BorderSide(color: Color(0xFFF3C63F)),
                 ),
-                labelStyle: TextStyle(color: Color(0xFFF3C63F)),
+                labelStyle: const TextStyle(color: Color(0xFFF3C63F)),
               ),
-              style: TextStyle(color: Color(0xFFF3C63F)),
+              style: const TextStyle(color: Color(0xFFF3C63F)),
             ),
             const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFF3C63F)),
+                  borderSide: const BorderSide(color: Color(0xFFF3C63F)),
                 ),
-                labelStyle: TextStyle(color: Color(0xFFF3C63F)),
+                labelStyle: const TextStyle(color: Color(0xFFF3C63F)),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.visibility),
                   onPressed: () {},
                 ),
               ),
               obscureText: true,
-              style: TextStyle(color: Color(0xFFF3C63F)),
+              style: const TextStyle(color: Color(0xFFF3C63F)),
             ),
             const SizedBox(height: 10),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   'Forgot Password?',
                   style: TextStyle(color: Color(0xFFF3C63F)),
                 ),
@@ -69,11 +70,15 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                // Implement login logic here
+                // Navigate to the DashboardScreen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DashboardScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFF3C63F), // Set button color
-                foregroundColor: Color(0xFF171A1F), // Set text color
+                backgroundColor: const Color(0xFFF3C63F), // Set button color
+                foregroundColor: const Color(0xFF171A1F), // Set text color
                 minimumSize: const Size(double.infinity, 50), // Set width and height
               ),
               child: const Text('Log In'),
