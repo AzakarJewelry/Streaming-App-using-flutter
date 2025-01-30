@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'genre_screen.dart'; // Import the GenreScreen
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -7,7 +8,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5EFE6), // Cream background
-      body: SingleChildScrollView( // For scrollability
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -83,8 +84,7 @@ class DashboardScreen extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         image: const DecorationImage(
-          image: NetworkImage(
-              'https://via.placeholder.com/350x150'), // Placeholder image
+          image: NetworkImage('https://via.placeholder.com/350x150'), // Placeholder image
           fit: BoxFit.cover,
         ),
       ),
@@ -95,7 +95,7 @@ class DashboardScreen extends StatelessWidget {
           child: Text(
             'Doctor Strange\nMultiverse of Madness', // Replace with movie title
             style: const TextStyle(
-              color: Colors.white,
+              color: Color(0xFF1A4D2E),
               fontSize: 20,
               fontWeight: FontWeight.bold,
               shadows: [
@@ -114,12 +114,15 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildGenres() {
     return SizedBox(
       height: 40,
-      child: ListView.builder(
+      child: ListView(
         scrollDirection: Axis.horizontal,
-        itemCount: 5, // Replace with actual number of genres
-        itemBuilder: (context, index) {
-          return _GenreChip(title: 'Genre $index'); // Replace with actual genres
-        },
+        children: const [
+          _GenreChip(title: 'Fantasy', genre: 'Fantasy'),
+          _GenreChip(title: 'Drama', genre: 'Drama'),
+          _GenreChip(title: 'Action', genre: 'Action'),
+          _GenreChip(title: 'Romance', genre: 'Romance'),
+          _GenreChip(title: 'Comedy', genre: 'Comedy'),
+        ],
       ),
     );
   }
@@ -153,16 +156,25 @@ class DashboardScreen extends StatelessWidget {
         const SizedBox(height: 15),
         SizedBox(
           height: 200,
-          child: ListView.builder(
+          child: ListView(
             scrollDirection: Axis.horizontal,
-            itemCount: 3, // Replace with actual number of movies
-            itemBuilder: (context, index) {
-              return const _MovieCard(
-                title: 'Movie Title', // Replace with actual movie title
-                rating: '★★★★★', // Replace with actual rating
-                reviews: '(100k)', // Replace with actual reviews
-              );
-            },
+            children: const [
+              _MovieCard(
+                title: 'Captain Marvel',
+                rating: '★★★★★',
+                reviews: '(100k)',
+              ),
+              _MovieCard(
+                title: 'Jurassic World',
+                rating: '★★★★☆',
+                reviews: '(55k)',
+              ),
+              _MovieCard(
+                title: 'Aqua',
+                rating: '★★★☆☆',
+                reviews: '(35k)',
+              ),
+            ],
           ),
         ),
       ],
@@ -194,23 +206,36 @@ class DashboardScreen extends StatelessWidget {
 
 class _GenreChip extends StatelessWidget {
   final String title;
+  final String genre;
 
-  const _GenreChip({required this.title});
+  const _GenreChip({required this.title, required this.genre});
+
+  void _navigateToGenreScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GenreScreen(genre: genre),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1A4D2E),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Color(0xFFF5EFE6),
-          fontSize: 16,
+    return GestureDetector(
+      onTap: () => _navigateToGenreScreen(context),
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A4D2E),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Color(0xFFF5EFE6),
+            fontSize: 16,
+          ),
         ),
       ),
     );
