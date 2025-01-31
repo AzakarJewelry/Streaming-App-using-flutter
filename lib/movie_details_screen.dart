@@ -16,8 +16,10 @@ class MovieDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5EFE6),
+
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A4D2E),
+        foregroundColor: const Color(0xFFF5EFE6),
         title: Text(title),
       ),
       body: SingleChildScrollView(
@@ -25,11 +27,12 @@ class MovieDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 300,
+              width: MediaQuery.of(context).size.width,
+              height: 400, // Or adjust as needed
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(imageUrl),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain, // Use BoxFit.contain
                 ),
               ),
             ),

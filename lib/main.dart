@@ -15,14 +15,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Streamscape',
+      title: 'STREAMSCAPE',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)),
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFFF5EFE6),
       ),
       home: const SplashScreen(
-        splashName: 'Streamscape',
+        splashName: 'STREAMSCAPE',
         splashDuration: 3,
       ),
     );

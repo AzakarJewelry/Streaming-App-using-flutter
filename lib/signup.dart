@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login.dart'; // Import your existing login screen
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -16,12 +17,12 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: const Color(0xFFF5EFE6),
-      body: Center( // Center the entire content
+      body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
-          child: Center( // Center the form within the scroll view
-            child: ConstrainedBox( // Add ConstrainedBox for max width
-              constraints: const BoxConstraints(maxWidth: 400), // Adjust max width as needed
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 400),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -100,7 +101,11 @@ class SignUpScreen extends StatelessWidget {
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () {
-                      // Implement sign-up logic here
+                      // Navigate to the login screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginScreen()), // Use your LoginScreen widget
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1A4D2E),

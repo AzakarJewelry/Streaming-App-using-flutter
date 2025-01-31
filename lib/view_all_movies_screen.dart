@@ -12,6 +12,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF5EFE6),
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A4D2E),
+        foregroundColor: const Color(0xFFF5EFE6),
         title: const Text('All Movies'),
       ),
       body: GridView.builder(
