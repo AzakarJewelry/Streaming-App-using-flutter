@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'genre_screen.dart'; // Import the GenreScreen
+import 'movie_details_screen.dart';
+import 'genre_screen.dart'; 
+ // Import the MovieDetailsScreen
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -442,50 +444,64 @@ class _MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 150,
-      margin: const EdgeInsets.only(right: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 150,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: DecorationImage(
-                image: NetworkImage(imageUrl), // Use the provided image URL
-                fit: BoxFit.cover,
-              ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MovieDetailsScreen(
+              title: title,
+              imageUrl: imageUrl,
+              description: 'This is a detailed description of the movie $title.',
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Color(0xFF1A4D2E),
-              fontWeight: FontWeight.bold,
+        );
+      },
+      child: Container(
+        width: 150,
+        margin: const EdgeInsets.only(right: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  image: NetworkImage(imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ),
-          Row(
-            children: [
-              Text(
-                rating,
-                style: const TextStyle(
-                  color: Color(0xFFF3C63F),
-                  fontSize: 12,
-                ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: const TextStyle(
+                color: Color(0xFF1A4D2E),
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(width: 5),
-              Text(
-                reviews,
-                style: TextStyle(
-                  color: const Color(0xFF1A4D2E).withOpacity(0.5),
-                  fontSize: 12,
+            ),
+            Row(
+              children: [
+                Text(
+                  rating,
+                  style: const TextStyle(
+                    color: Color(0xFFF3C63F),
+                    fontSize: 12,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                const SizedBox(width: 5),
+                Text(
+                  reviews,
+                  style: TextStyle(
+                    color: const Color(0xFF1A4D2E).withOpacity(0.5),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
