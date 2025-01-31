@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
 import 'view_all_movies_screen.dart'; // Import the new screen
