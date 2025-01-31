@@ -33,8 +33,11 @@ class ViewAllMoviesScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => MovieDetailsScreen(
                     title: movie['title']!,
-                    imageUrl: movie['imageUrl']!,
+                    genre: movie['genre']!,
+                    duration: movie['duration']!,
+                    rating: movie['rating']!,
                     description: 'This is a detailed description of the movie ${movie['title']}.',
+                    imageUrl: movie['imageUrl']!,
                   ),
                 ),
               );

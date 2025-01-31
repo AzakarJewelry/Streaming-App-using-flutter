@@ -16,65 +16,118 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
 
+  // final List<Map<String, String>> newReleases = [
+  //   {
+  //     'title': 'Captain Marvel',
+  //     'rating': '★★★★★',
+  //     'reviews': '(100k)',
+  //     'imageUrl':
+  //         'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
+  //   },
+  //   {
+  //     'title': 'Jurassic World',
+  //     'rating': '★★★★☆',
+  //     'reviews': '(55k)',
+  //     'imageUrl':
+  //         'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
+  //   },
+  //   {
+  //     'title': 'Aquaman',
+  //     'rating': '★★★☆☆',
+  //     'reviews': '(35k)',
+  //     'imageUrl':
+  //         'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
+  //   },
+  //   {
+  //     'title': 'Infinity War',
+  //     'rating': '★★★★★',
+  //     'reviews': '(105k)',
+  //     'imageUrl':
+  //         'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
+  //   },
+  //   {
+  //     'title': 'Spider-Man: No Way Home',
+  //     'rating': '★★★★★',
+  //     'reviews': '(200k)',
+  //     'imageUrl':
+  //         'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
+  //   },
+  // ];
   final List<Map<String, String>> newReleases = [
-    {
-      'title': 'Captain Marvel',
-      'rating': '★★★★★',
-      'reviews': '(100k)',
-      'imageUrl':
-          'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
-    },
-    {
-      'title': 'Jurassic World',
-      'rating': '★★★★☆',
-      'reviews': '(55k)',
-      'imageUrl':
-          'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
-    },
-    {
-      'title': 'Aquaman',
-      'rating': '★★★☆☆',
-      'reviews': '(35k)',
-      'imageUrl':
-          'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
-    },
-    {
-      'title': 'Infinity War',
-      'rating': '★★★★★',
-      'reviews': '(105k)',
-      'imageUrl':
-          'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
-    },
-    {
-      'title': 'Spider-Man: No Way Home',
+  {
+    'title': 'Captain Marvel',
+    'rating': '★★★★★',
+    'reviews': '(100k)',
+    'imageUrl':
+        'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
+    'genre': 'Action',
+    'duration': '2h 4m',
+  },
+  {
+    'title': 'Jurassic World',
+    'rating': '★★★★☆',
+    'reviews': '(55k)',
+    'imageUrl':
+        'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
+    'genre': 'Adventure',
+    'duration': '2h 4m',
+  },
+  {
+    'title': 'Aquaman',
+    'rating': '★★★☆☆',
+    'reviews': '(35k)',
+    'imageUrl':
+        'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
+    'genre': 'Action',
+    'duration': '2h 4m',
+  },
+  {
+    'title': 'Infinity War',
+    'rating': '★★★★★',
+    'reviews': '(105k)',
+    'imageUrl':
+        'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
+        'genre': 'Action',
+    'duration': '2h 4m',
+  },
+  {
+    'title': 'Spider-Man: No Way Home',
       'rating': '★★★★★',
       'reviews': '(200k)',
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
+          'genre': 'Action',
+    'duration': '2h 4m',
     },
-  ];
+];
 
   final List<Map<String, String>> mostPopular = [
-    {
-      'title': 'The Batman',
-      'rating': '★★★★☆',
-      'reviews': '(95k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
-    },
-    {
-      'title': 'Black Panther',
-      'rating': '★★★★★',
-      'reviews': '(150k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
-    },
+     {
+    'title': 'The Batman',
+    'rating': '★★★★☆',
+    'reviews': '(95k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
+    'genre': 'Action',
+    'duration': '2h 56m',
+  },
+  {
+    'title': 'Black Panther',
+    'rating': '★★★★★',
+    'reviews': '(150k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
+    'genre': 'Action',
+    'duration': '2h 14m',
+  },
     {
       'title': 'Avatar: The Way of Water',
       'rating': '★★★★☆',
       'reviews': '(120k)',
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
+          'genre': 'Action',
+    'duration': '2h 14m',
     },
     {
       'title': 'Top Gun: Maverick',
@@ -82,6 +135,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'reviews': '(180k)',
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+          'genre': 'Action',
+    'duration': '2h 14m',
     },
   ];
 
@@ -362,6 +417,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               rating: movie['rating']!,
               reviews: movie['reviews']!,
               imageUrl: movie['imageUrl']!,
+              genre: movie['genre']!,
+              duration: movie['duration']!,
             )).toList(),
           ),
         ),
@@ -412,6 +469,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               rating: movie['rating']!,
               reviews: movie['reviews']!,
               imageUrl: movie['imageUrl']!,
+              genre: movie['genre']!,
+              duration: movie['duration']!,
             )).toList(),
           ),
         ),
@@ -505,12 +564,16 @@ class _MovieCard extends StatelessWidget {
   final String rating;
   final String reviews;
   final String imageUrl;
+  final String genre;
+  final String duration;
 
   const _MovieCard({
     required this.title,
     required this.rating,
     required this.reviews,
     required this.imageUrl,
+    required this.genre,
+    required this.duration,
   });
 
   @override
@@ -522,8 +585,11 @@ class _MovieCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => MovieDetailsScreen(
               title: title,
-              imageUrl: imageUrl,
+              genre: genre,
+              duration: duration,
+              rating: rating,
               description: 'This is a detailed description of the movie $title.',
+              imageUrl: imageUrl,
             ),
           ),
         );
