@@ -63,6 +63,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'genre': 'Action',
     'duration': '2h 4m',
     },
+    {
+    'title': 'Labyrinth',
+      'rating': '★★★★★',
+      'reviews': '(10k)',
+      'imageUrl':
+          'https://i5.walmartimages.com/asr/1732b38b-054d-49a7-9447-375f7ef523fc_1.5d63679e850c08000081448f9a897369.jpeg',
+          'genre': 'Fantasy',
+    'duration': '2h 4m',
+    },
 ];
 
   final List<Map<String, String>> mostPopular = [
@@ -90,7 +99,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'reviews': '(120k)',
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
-          'genre': 'Action',
+          'genre': 'Drama',
     'duration': '2h 14m',
     },
     {
@@ -111,6 +120,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'genre': 'Romance',
     'duration': '2h 14m',
     },
+     {
+    'title': 'The Little Man',
+    'rating': '★★★★☆',
+    'reviews': '(95k)',
+    'imageUrl':
+        'https://th.bing.com/th/id/OIP.VcW6HtnsQerz4KJBq6IxAwHaKb?w=588&h=828&rs=1&pid=ImgDetMain',
+    'genre': 'Comedy',
+    'duration': '2h 56m',
+  },
   ];
 
   @override
