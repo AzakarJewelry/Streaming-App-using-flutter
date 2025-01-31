@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'favorite_manager.dart'; // Import the favorite manager
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
@@ -23,10 +24,10 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
-  bool isFavorite = false;
-
   @override
   Widget build(BuildContext context) {
+    bool isFavorite = favoriteManager.isFavorite(widget.title);
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5EFE6),
       appBar: AppBar(
@@ -73,7 +74,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           ),
                           onPressed: () {
                             setState(() {
-                              isFavorite = !isFavorite;
+                              favoriteManager.toggleFavorite({
+                                'title': widget.title,
+                                'genre': widget.genre,
+                                'duration': widget.duration,
+                                'rating': widget.rating,
+                                'description': widget.description,
+                                'imageUrl': widget.imageUrl,
+                              });
                             });
                           },
                         ),
