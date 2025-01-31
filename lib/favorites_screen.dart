@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
+import 'movie_details_screen.dart'; // Import the movie details screen
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -24,7 +25,29 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               itemBuilder: (context, index) {
                 final movie = favoriteManager.favoriteMovies[index];
                 return ListTile(
-                  leading: Image.network(movie['imageUrl']!, width: 50, height: 50, fit: BoxFit.cover),
+                  leading: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MovieDetailsScreen(
+                            title: movie['title']!,
+                            genre: movie['genre']!,
+                            duration: movie['duration']!,
+                            rating: movie['rating']!,
+                            description: movie['description']!,
+                            imageUrl: movie['imageUrl']!,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Image.network(
+                      movie['imageUrl']!,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   title: Text(movie['title']!),
                   subtitle: Text(movie['genre']!),
                   trailing: IconButton(
@@ -35,6 +58,21 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       });
                     },
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetailsScreen(
+                          title: movie['title']!,
+                          genre: movie['genre']!,
+                          duration: movie['duration']!,
+                          rating: movie['rating']!,
+                          description: movie['description']!,
+                          imageUrl: movie['imageUrl']!,
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
