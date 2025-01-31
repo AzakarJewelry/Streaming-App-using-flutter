@@ -19,7 +19,7 @@ class MovieDetailsScreen extends StatefulWidget {
   });
 
   @override
-  _MovieDetailsScreenState createState() => _MovieDetailsScreenState();
+  State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
@@ -34,128 +34,123 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         foregroundColor: const Color(0xFFF5EFE6),
         title: Text(widget.title),
       ),
-      body: Column(
-        children: [
-          // Poster Image
-          Container(
-            width: double.infinity,
-            height: 300,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(widget.imageUrl),
-                fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 300,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(widget.imageUrl),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
-          ),
-
-          // Movie Details (Title, Genre, Duration, Rating)
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.title,
-                  style: const TextStyle(
-                    color: Color(0xFF1A4D2E),
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  widget.genre,
-                  style: TextStyle(
-                    color: const Color(0xFF1A4D2E).withOpacity(0.8),
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: const TextStyle(
+                            color: Color(0xFF1A4D2E),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? Colors.red : Colors.grey,
+                            size: 30,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              isFavorite = !isFavorite;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
                     Text(
-                      widget.duration,
+                      widget.genre,
                       style: TextStyle(
                         color: const Color(0xFF1A4D2E).withOpacity(0.8),
                         fontSize: 16,
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(width: 16),
-                    Text(
-                      widget.rating,
-                      style: const TextStyle(
-                        color: Color(0xFFF3C63F),
-                        fontSize: 16,
-                      ),
+                    const SizedBox(height: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.duration,
+                          style: TextStyle(
+                            color: const Color(0xFF1A4D2E).withOpacity(0.8),
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.rating,
+                          style: const TextStyle(
+                            color: Color(0xFFF3C63F),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-
-          // Favorite Button
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.grey,
-                    size: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  widget.description,
+                  style: const TextStyle(
+                    color: Color(0xFF1A4D2E),
+                    fontSize: 16,
                   ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                width: double.infinity,
+                child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
+                    // Add play movie functionality here
                   },
-                ),
-              ],
-            ),
-          ),
-
-          // Movie Description
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                widget.description,
-                style: const TextStyle(
-                  color: Color(0xFF1A4D2E),
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-
-          // Play Button
-          Container(
-            padding: const EdgeInsets.all(16.0),
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                // Add play movie functionality here
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A4D2E),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF1A4D2E),
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.play_arrow, color: Colors.white),
+                      SizedBox(width: 8),
+                      Text('Play Movie', style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
                 ),
               ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.play_arrow, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text('Play Movie', style: TextStyle(color: Colors.white)),
-                ],
-              ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
