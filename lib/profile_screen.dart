@@ -9,7 +9,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   String userName = 'John Vincent Diocampo';
-  String userEmail = 'john@gmail.com';
+  String userEmail = 'john.dio@example.com';
   String userBio = 'A short bio about the user...';
   List<String> userSkills = ['Flutter', 'Dart', 'UI/UX'];
   bool isEditing = false;
@@ -32,58 +32,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: CircleAvatar(
-                    radius: 80,
-                    backgroundColor: Colors.grey[300],
-                    backgroundImage: const NetworkImage(
-                        'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png'),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: CircleAvatar(
+                      radius: 80,
+                      backgroundColor: Colors.grey[300],
+                      backgroundImage: const NetworkImage(
+                          'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png'),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 20),
 
-                _buildEditableText('Name', userName, (value) => userName = value),
-                const SizedBox(height: 10),
-                _buildEditableText('Email', userEmail, (value) => userEmail = value, keyboardType: TextInputType.emailAddress),
-                const SizedBox(height: 10),
-                _buildEditableText('Bio', userBio, (value) => userBio = value, maxLines: 3),
-                const SizedBox(height: 20),
+                _buildEditableText('Name:', userName, (value) => userName = value),
+                const SizedBox(height: 15),
+                _buildEditableText('Email:', userEmail, (value) => userEmail = value, keyboardType: TextInputType.emailAddress),
+                const SizedBox(height: 15),
+                _buildEditableText('Bio:', userBio, (value) => userBio = value, maxLines: 3),
+                const SizedBox(height: 25),
 
                 // Skills Section
-                const Text(
-                  'Skills:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1A4D2E),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    'Skills:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1A4D2E),
+                    ),
                   ),
                 ),
                 if (isEditing)
                   _buildEditableSkills()
                 else
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 4.0,
-                    children: userSkills.map((skill) => Chip(label: Text(skill))).toList(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: Wrap(
+                      spacing: 8.0,
+                      runSpacing: 4.0,
+                      children: userSkills.map((skill) => Chip(label: Text(skill))).toList(),
+                    ),
                   ),
 
-                const SizedBox(height: 20),
-
                 Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        isEditing = !isEditing;
-                        if (!isEditing) {
-                          print(
-                              "Saving changes: Name: $userName, Email: $userEmail, Bio: $userBio, Skills: $userSkills");
-                        }
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1A4D2E),
-                      foregroundColor: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          isEditing = !isEditing;
+                          if (!isEditing) {
+                            print(
+                                "Saving changes: Name: $userName, Email: $userEmail, Bio: $userBio, Skills: $userSkills");
+                            // TODO: Implement saving logic here
+                          }
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1A4D2E),
+                        foregroundColor: Colors.white,
+                      ),
+                      child: Text(isEditing ? 'Save' : 'Edit Profile'),
                     ),
-                    child: Text(isEditing ? 'Save' : 'Edit Profile'),
                   ),
                 ),
               ],

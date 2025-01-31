@@ -123,17 +123,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildTopBar() {
+   Widget _buildTopBar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-          icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
-          onPressed: () {
-            // Implement search
-          },
-        ),
-        Row(
+        const SizedBox(width: 48), // Empty space on the left (or add an icon)
+
+        Row( // Time and Location
           children: [
             Text(
               '10:45', // Replace with actual time
@@ -152,15 +148,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ],
         ),
-        IconButton(
-          icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
-          onPressed: () {
-            // Implement notifications
-          },
+
+        Row( // Search and Notifications
+          children: [
+            IconButton(
+              icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
+              onPressed: () {
+                // Implement search
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
+              onPressed: () {
+                // Implement notifications
+              },
+            ),
+          ],
         ),
       ],
     );
   }
+
+
 
   Widget _buildFeaturedMovie() {
     return Container(

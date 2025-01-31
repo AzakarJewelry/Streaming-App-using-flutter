@@ -52,7 +52,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   icon: Icon(
                     isFavorite ? Icons.favorite : Icons.favorite_border,
                     color: isFavorite ? Colors.red : Colors.grey,
-                    size: 40,
+                    size: 25,
                   ),
                   onPressed: () {
                     setState(() {
