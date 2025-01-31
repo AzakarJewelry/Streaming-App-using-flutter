@@ -23,32 +23,34 @@ class MovieDetailsScreen extends StatelessWidget {
         title: Text(title),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 400, // Or adjust as needed
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(imageUrl),
-                  fit: BoxFit.contain, // Use BoxFit.contain
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                description,
-                style: const TextStyle(
-                  color: Color(0xFF1A4D2E),
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ],
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Container(
+        width: double.infinity, // ✅ Full screen width
+        height: 400, // ✅ Fixed height
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage(imageUrl),
+            fit: BoxFit.cover, // ✅ Ensures image covers the entire area
+          ),
         ),
       ),
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          description,
+          style: const TextStyle(
+            color: Color(0xFF1A4D2E),
+            fontSize: 16,
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+
+
     );
   }
 }

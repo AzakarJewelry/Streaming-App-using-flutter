@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
 import 'view_all_movies_screen.dart'; // Import the new screen
 import 'genre_screen.dart'; // Import the GenreScreen
+import 'favorites_screen.dart'; // Import the FavoriteScreen
+import 'profile_screen.dart'; // Import the ProfileScreen
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -387,32 +389,44 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      backgroundColor: const Color(0xFF1A4D2E),
-      selectedItemColor: const Color(0xFFF5EFE6),
-      unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
-      currentIndex: _selectedNavIndex,
-      onTap: (index) {
-        setState(() {
-          _selectedNavIndex = index; // Update the selected navigation index
-        });
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorites',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
-    );
-  }
+  return BottomNavigationBar(
+    backgroundColor: const Color(0xFF1A4D2E),
+    selectedItemColor: const Color(0xFFF5EFE6),
+    unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
+    currentIndex: _selectedNavIndex,
+    onTap: (index) {
+      setState(() {
+        _selectedNavIndex = index;
+      });
+
+      if (index == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+        );
+      } else if (index == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfileScreen()),
+        );
+      }
+    },
+    items: const [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: 'Home',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.favorite),
+        label: 'Favorites',
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.person),
+        label: 'Profile',
+      ),
+    ],
+  );
+}
 }
 
 class _GenreChip extends StatelessWidget {
