@@ -124,50 +124,59 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
    Widget _buildTopBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const SizedBox(width: 48), // Empty space on the left (or add an icon)
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      // Back Button to return to Login
+      IconButton(
+        icon: const Icon(Icons.arrow_back, color: Color(0xFF1A4D2E)),
+        onPressed: () {
+          // Navigate back to the Login Screen
+          Navigator.pop(context); // Or use Navigator.push to go to the Login Screen
+        },
+      ),
 
-        Row( // Time and Location
-          children: [
-            Text(
-              '10:45', // Replace with actual time
-              style: TextStyle(
-                color: const Color(0xFF1A4D2E).withOpacity(0.6),
-                fontSize: 16,
-              ),
+      // Time and Location
+      Row(
+        children: [
+          Text(
+            '10:45', // Replace with actual time
+            style: TextStyle(
+              color: const Color(0xFF1A4D2E).withOpacity(0.6),
+              fontSize: 16,
             ),
-            const SizedBox(width: 10),
-            const Text(
-              'StreamScape', // Replace with actual location
-              style: TextStyle(
-                color: Color(0xFF1A4D2E),
-                fontSize: 16,
-              ),
+          ),
+          const SizedBox(width: 10),
+          const Text(
+            'StreamScape', // Replace with actual location
+            style: TextStyle(
+              color: Color(0xFF1A4D2E),
+              fontSize: 16,
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
 
-        Row( // Search and Notifications
-          children: [
-            IconButton(
-              icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
-              onPressed: () {
-                // Implement search
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
-              onPressed: () {
-                // Implement notifications
-              },
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+      // Search and Notifications
+      Row(
+        children: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
+            onPressed: () {
+              // Implement search
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
+            onPressed: () {
+              // Implement notifications
+            },
+          ),
+        ],
+      ),
+    ],
+  );
+}
 
 
 
@@ -205,98 +214,111 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildGenres() {
-    return SizedBox(
-      height: 40,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          _GenreChip(
-            title: 'Fantasy',
-            genre: 'Fantasy',
-            isSelected: _selectedGenre == 'Fantasy',
-            onSelected: (genre) {
-              setState(() {
-                _selectedGenre = genre; // Update the selected genre
-              });
-              // Navigate to the genre screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GenreScreen(genre: genre),
-                ),
-              );
-            },
-          ),
-          _GenreChip(
-            title: 'Drama',
-            genre: 'Drama',
-            isSelected: _selectedGenre == 'Drama',
-            onSelected: (genre) {
-              setState(() {
-                _selectedGenre = genre;
-              });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GenreScreen(genre: genre),
-                ),
-              );
-            },
-          ),
-          _GenreChip(
-            title: 'Action',
-            genre: 'Action',
-            isSelected: _selectedGenre == 'Action',
-            onSelected: (genre) {
-              setState(() {
-                _selectedGenre = genre;
-              });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GenreScreen(genre: genre),
-                ),
-              );
-            },
-          ),
-          _GenreChip(
-            title: 'Romance',
-            genre: 'Romance',
-            isSelected: _selectedGenre == 'Romance',
-            onSelected: (genre) {
-              setState(() {
-                _selectedGenre = genre;
-              });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GenreScreen(genre: genre),
-                ),
-              );
-            },
-          ),
-          _GenreChip(
-            title: 'Comedy',
-            genre: 'Comedy',
-            isSelected: _selectedGenre == 'Comedy',
-            onSelected: (genre) {
-              setState(() {
-                _selectedGenre = genre;
-              });
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => GenreScreen(genre: genre),
-                ),
-              );
-            },
-          ),
-        ],
+ Widget _buildGenres() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text(
+        'Genres',
+        style: TextStyle(
+          color: Color(0xFF1A4D2E),
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
-    );
-  }
-
+      const SizedBox(height: 10), // Add some spacing between the title and the chips
+      SizedBox(
+        height: 40,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            _GenreChip(
+              title: 'Fantasy',
+              genre: 'Fantasy',
+              isSelected: _selectedGenre == 'Fantasy',
+              onSelected: (genre) {
+                setState(() {
+                  _selectedGenre = genre; // Update the selected genre
+                });
+                // Navigate to the genre screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenreScreen(genre: genre),
+                  ),
+                );
+              },
+            ),
+            _GenreChip(
+              title: 'Drama',
+              genre: 'Drama',
+              isSelected: _selectedGenre == 'Drama',
+              onSelected: (genre) {
+                setState(() {
+                  _selectedGenre = genre;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenreScreen(genre: genre),
+                  ),
+                );
+              },
+            ),
+            _GenreChip(
+              title: 'Action',
+              genre: 'Action',
+              isSelected: _selectedGenre == 'Action',
+              onSelected: (genre) {
+                setState(() {
+                  _selectedGenre = genre;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenreScreen(genre: genre),
+                  ),
+                );
+              },
+            ),
+            _GenreChip(
+              title: 'Romance',
+              genre: 'Romance',
+              isSelected: _selectedGenre == 'Romance',
+              onSelected: (genre) {
+                setState(() {
+                  _selectedGenre = genre;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenreScreen(genre: genre),
+                  ),
+                );
+              },
+            ),
+            _GenreChip(
+              title: 'Comedy',
+              genre: 'Comedy',
+              isSelected: _selectedGenre == 'Comedy',
+              onSelected: (genre) {
+                setState(() {
+                  _selectedGenre = genre;
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenreScreen(genre: genre),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
   Widget _buildNewReleases() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
