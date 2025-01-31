@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
-import 'genre_screen.dart'; 
- // Import the MovieDetailsScreen
+import 'view_all_movies_screen.dart'; // Import the new screen
+import 'genre_screen.dart'; // Import the GenreScreen
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -13,6 +13,75 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
+
+  final List<Map<String, String>> newReleases = [
+    {
+      'title': 'Captain Marvel',
+      'rating': '★★★★★',
+      'reviews': '(100k)',
+      'imageUrl':
+          'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
+    },
+    {
+      'title': 'Jurassic World',
+      'rating': '★★★★☆',
+      'reviews': '(55k)',
+      'imageUrl':
+          'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
+    },
+    {
+      'title': 'Aquaman',
+      'rating': '★★★☆☆',
+      'reviews': '(35k)',
+      'imageUrl':
+          'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
+    },
+    {
+      'title': 'Infinity War',
+      'rating': '★★★★★',
+      'reviews': '(105k)',
+      'imageUrl':
+          'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
+    },
+    {
+      'title': 'Spider-Man: No Way Home',
+      'rating': '★★★★★',
+      'reviews': '(200k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
+    },
+  ];
+
+  final List<Map<String, String>> mostPopular = [
+    {
+      'title': 'The Batman',
+      'rating': '★★★★☆',
+      'reviews': '(95k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
+    },
+    {
+      'title': 'Black Panther',
+      'rating': '★★★★★',
+      'reviews': '(150k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
+    },
+    {
+      'title': 'Avatar: The Way of Water',
+      'rating': '★★★★☆',
+      'reviews': '(120k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
+    },
+    {
+      'title': 'Top Gun: Maverick',
+      'rating': '★★★★★',
+      'reviews': '(180k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +302,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewAllMoviesScreen(movies: newReleases),
+                  ),
+                );
+              },
               child: const Text(
                 'View All',
                 style: TextStyle(
@@ -248,43 +324,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           height: 220,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: const [
-              _MovieCard(
-                title: 'Captain Marvel',
-                rating: '★★★★★',
-                reviews: '(100k)',
-                imageUrl:
-                    'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
-              ),
-              _MovieCard(
-                title: 'Jurassic World',
-                rating: '★★★★☆',
-                reviews: '(55k)',
-                imageUrl:
-                    'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
-              ),
-              _MovieCard(
-                title: 'Aquaman',
-                rating: '★★★☆☆',
-                reviews: '(35k)',
-                imageUrl:
-                    'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
-              ),
-              _MovieCard(
-                title: 'Infinity War',
-                rating: '★★★★★',
-                reviews: '(105k)',
-                imageUrl:
-                    'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
-              ),
-              _MovieCard(
-                title: 'Spider-Man: No Way Home',
-                rating: '★★★★★',
-                reviews: '(200k)',
-                imageUrl:
-                    'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
-              ),
-            ],
+            children: newReleases.map((movie) => _MovieCard(
+              title: movie['title']!,
+              rating: movie['rating']!,
+              reviews: movie['reviews']!,
+              imageUrl: movie['imageUrl']!,
+            )).toList(),
           ),
         ),
       ],
@@ -308,7 +353,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             TextButton(
               onPressed: () {
-                // Implement view all functionality
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewAllMoviesScreen(movies: mostPopular),
+                  ),
+                );
               },
               child: const Text(
                 'View All',
@@ -324,36 +374,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           height: 220,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: const [
-              _MovieCard(
-                title: 'The Batman',
-                rating: '★★★★☆',
-                reviews: '(95k)',
-                imageUrl:
-                    'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
-              ),
-              _MovieCard(
-                title: 'Black Panther',
-                rating: '★★★★★',
-                reviews: '(150k)',
-                imageUrl:
-                    'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
-              ),
-              _MovieCard(
-                title: 'Avatar: The Way of Water',
-                rating: '★★★★☆',
-                reviews: '(120k)',
-                imageUrl:
-                    'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
-              ),
-              _MovieCard(
-                title: 'Top Gun: Maverick',
-                rating: '★★★★★',
-                reviews: '(180k)',
-                imageUrl:
-                    'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
-              ),
-            ],
+            children: mostPopular.map((movie) => _MovieCard(
+              title: movie['title']!,
+              rating: movie['rating']!,
+              reviews: movie['reviews']!,
+              imageUrl: movie['imageUrl']!,
+            )).toList(),
           ),
         ),
       ],
