@@ -16,43 +16,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
 
-  // final List<Map<String, String>> newReleases = [
-  //   {
-  //     'title': 'Captain Marvel',
-  //     'rating': '★★★★★',
-  //     'reviews': '(100k)',
-  //     'imageUrl':
-  //         'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
-  //   },
-  //   {
-  //     'title': 'Jurassic World',
-  //     'rating': '★★★★☆',
-  //     'reviews': '(55k)',
-  //     'imageUrl':
-  //         'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
-  //   },
-  //   {
-  //     'title': 'Aquaman',
-  //     'rating': '★★★☆☆',
-  //     'reviews': '(35k)',
-  //     'imageUrl':
-  //         'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
-  //   },
-  //   {
-  //     'title': 'Infinity War',
-  //     'rating': '★★★★★',
-  //     'reviews': '(105k)',
-  //     'imageUrl':
-  //         'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
-  //   },
-  //   {
-  //     'title': 'Spider-Man: No Way Home',
-  //     'rating': '★★★★★',
-  //     'reviews': '(200k)',
-  //     'imageUrl':
-  //         'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
-  //   },
-  // ];
+
   final List<Map<String, String>> newReleases = [
   {
     'title': 'Captain Marvel',
@@ -136,6 +100,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
           'genre': 'Action',
+    'duration': '2h 14m',
+    }, 
+    {
+      'title': 'Titanic',
+      'rating': '★★★★★',
+      'reviews': '(180k)',
+      'imageUrl':
+          'https://picfiles.alphacoders.com/140/thumb-1920-140026.jpg',
+          'genre': 'Romance',
     'duration': '2h 14m',
     },
   ];
@@ -281,7 +254,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           fontWeight: FontWeight.bold,
         ),
       ),
-      const SizedBox(height: 10), // Add some spacing between the title and the chips
+      const SizedBox(height: 10),
       SizedBox(
         height: 40,
         child: ListView(
@@ -293,13 +266,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
               isSelected: _selectedGenre == 'Fantasy',
               onSelected: (genre) {
                 setState(() {
-                  _selectedGenre = genre; // Update the selected genre
+                  _selectedGenre = genre;
                 });
-                // Navigate to the genre screen
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GenreScreen(genre: genre),
+                    builder: (context) => GenreScreen(
+                      genre: genre,
+                      allMovies: [...newReleases, ...mostPopular],
+                    ),
                   ),
                 );
               },
@@ -315,7 +290,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GenreScreen(genre: genre),
+                    builder: (context) => GenreScreen(
+                      genre: genre,
+                      allMovies: [...newReleases, ...mostPopular],
+                    ),
                   ),
                 );
               },
@@ -331,7 +309,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GenreScreen(genre: genre),
+                    builder: (context) => GenreScreen(
+                      genre: genre,
+                      allMovies: [...newReleases, ...mostPopular],
+                    ),
                   ),
                 );
               },
@@ -347,7 +328,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GenreScreen(genre: genre),
+                    builder: (context) => GenreScreen(
+                      genre: genre,
+                      allMovies: [...newReleases, ...mostPopular],
+                    ),
                   ),
                 );
               },
@@ -363,7 +347,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => GenreScreen(genre: genre),
+                    builder: (context) => GenreScreen(
+                      genre: genre,
+                      allMovies: [...newReleases, ...mostPopular],
+                    ),
                   ),
                 );
               },
