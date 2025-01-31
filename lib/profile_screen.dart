@@ -102,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-  }
+     }
 
   Widget _buildEditableText(String label, String value, Function(String) onChanged, {TextInputType? keyboardType, int? maxLines}) {
     return Column(
