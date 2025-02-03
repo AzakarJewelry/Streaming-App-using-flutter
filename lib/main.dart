@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'login.dart'; // Import your existing login screen
 import 'signup.dart'; // Import your existing signup screen
-import 'forgotpassword.dart';  // Import the Forgot Password screen
+// Import the Forgot Password screen
 
 void main() {
   runApp(const MyApp());
