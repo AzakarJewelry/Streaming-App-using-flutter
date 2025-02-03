@@ -3,10 +3,6 @@
 import 'package:flutter/material.dart';
 import 'login.dart'; // Import your existing login screen
 import 'signup.dart'; // Import your existing signup screen
-<<<<<<< HEAD
-// Import the Forgot Password screen
-=======
->>>>>>> 6637a90c7d9bbaabc12d0e02861f9391c486c9b7
 
 void main() {
   runApp(const MyApp());

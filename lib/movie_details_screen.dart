@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
+import 'play_movie_screen.dart'; // Import the PlayMovie screen
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
@@ -146,25 +147,29 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               padding: const EdgeInsets.all(16.0),
               color: const Color(0xFFF5EFE6), // Match the background color
               child: ElevatedButton(
-                onPressed: () {
-                  // Add play movie functionality here
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A4D2E),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.play_arrow, color: Colors.white),
-                    SizedBox(width: 8),
-                    Text('Play Movies', style: TextStyle(color: Colors.white)),
-                  ],
-                ),
-              ),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PlayMovie()),
+    );
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: const Color(0xFF1A4D2E),
+    padding: const EdgeInsets.symmetric(vertical: 15),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+  child: const Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(Icons.play_arrow, color: Colors.white),
+      SizedBox(width: 8),
+      Text('Play Movies', style: TextStyle(color: Colors.white)),
+    ],
+  ),
+),
+
             ),
           ),
         ],
