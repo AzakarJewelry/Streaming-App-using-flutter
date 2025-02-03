@@ -35,130 +35,139 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         foregroundColor: const Color(0xFFF5EFE6),
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(widget.imageUrl),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget.title,
-                          style: const TextStyle(
-                            color: Color(0xFF1A4D2E),
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
-                            color: isFavorite ? Colors.red : Colors.grey,
-                            size: 30,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              favoriteManager.toggleFavorite({
-                                'title': widget.title,
-                                'genre': widget.genre,
-                                'duration': widget.duration,
-                                'rating': widget.rating,
-                                'description': widget.description,
-                                'imageUrl': widget.imageUrl,
-                              });
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      widget.genre,
-                      style: TextStyle(
-                        color: const Color(0xFF1A4D2E).withOpacity(0.8),
-                        fontSize: 16,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(widget.imageUrl),
+                        fit: BoxFit.cover,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 8),
-                    Column(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.title,
+                              style: const TextStyle(
+                                color: Color(0xFF1A4D2E),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                isFavorite ? Icons.favorite : Icons.favorite_border,
+                                color: isFavorite ? Colors.red : Colors.grey,
+                                size: 30,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  favoriteManager.toggleFavorite({
+                                    'title': widget.title,
+                                    'genre': widget.genre,
+                                    'duration': widget.duration,
+                                    'rating': widget.rating,
+                                    'description': widget.description,
+                                    'imageUrl': widget.imageUrl,
+                                  });
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
                         Text(
-                          widget.duration,
+                          widget.genre,
                           style: TextStyle(
                             color: const Color(0xFF1A4D2E).withOpacity(0.8),
                             fontSize: 16,
                           ),
+                          textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          widget.rating,
-                          style: const TextStyle(
-                            color: Color(0xFFF3C63F),
-                            fontSize: 16,
-                          ),
+                        const SizedBox(height: 8),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.duration,
+                              style: TextStyle(
+                                color: const Color(0xFF1A4D2E).withOpacity(0.8),
+                                fontSize: 16,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              widget.rating,
+                              style: const TextStyle(
+                                color: Color(0xFFF3C63F),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      widget.description,
+                      style: const TextStyle(
+                        color: Color(0xFF1A4D2E),
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 80), // Add extra space at the bottom
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(16.0),
+              color: const Color(0xFFF5EFE6), // Match the background color
+              child: ElevatedButton(
+                onPressed: () {
+                  // Add play movie functionality here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1A4D2E),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.play_arrow, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text('Play Movie', style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  widget.description,
-                  style: const TextStyle(
-                    color: Color(0xFF1A4D2E),
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Add play movie functionality here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1A4D2E),
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.play_arrow, color: Colors.white),
-                      SizedBox(width: 8),
-                      Text('Play Movie', style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

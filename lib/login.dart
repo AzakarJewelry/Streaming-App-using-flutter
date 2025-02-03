@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart'; // Import the DashboardScreen
+import 'forgotpassword.dart'; // Import the Forgot Password screen
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -67,7 +68,13 @@ class LoginScreen extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Navigate to Forgot Password screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                  );
+                },
                 child: const Text(
                   'Forgot Password?',
                   style: TextStyle(color: Color(0xFF1A4D2E)), // Green text
