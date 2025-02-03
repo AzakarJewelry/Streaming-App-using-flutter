@@ -118,6 +118,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         currentIndex: _selectedIndex,
         backgroundColor: const Color(0xFF1A4D2E),
         selectedItemColor: const Color(0xFFF5EFE6),
+        // ignore: deprecated_member_use
         unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
         onTap: _onItemTapped,
       ),
