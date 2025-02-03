@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
 
+import 'package:azakarstream/SearchScreen.dart';
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
 import 'view_all_movies_screen.dart'; // Import the new screen
@@ -208,12 +209,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
       // Search and Notifications
       Row(
         children: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
-            onPressed: () {
-              // Implement search
-            },
-          ),
+         IconButton(
+  icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SearchScreen  (
+          allMovies: [...newReleases, ...mostPopular],
+        ),
+      ),
+    );
+  },
+),
           IconButton(
             icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
             onPressed: () {
