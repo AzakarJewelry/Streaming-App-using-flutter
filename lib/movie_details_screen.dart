@@ -161,7 +161,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   children: [
                     Icon(Icons.play_arrow, color: Colors.white),
                     SizedBox(width: 8),
-                    Text('Play Movie', style: TextStyle(color: Colors.white)),
+                    Text('Play Movies', style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
