@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093549461753",
+    "project_id": "firefire-e5c5d",
+    "storage_bucket": "firefire-e5c5d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093549461753:android:c554df1e10eb95d8211228",
+        "android_client_info": {
+          "package_name": "com.example.azakarstream"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkwciQ3xddojtXYXlkD_HwqqVjxFNclwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
