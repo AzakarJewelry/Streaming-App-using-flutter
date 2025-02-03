@@ -54,6 +54,20 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.network(
+              'https://media-hosting.imagekit.io//538d55e725f4462b/Screenshot%202025-02-03%20105055.png?Expires=1833175824&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=X6neTindNEADa~ccjLiOQqKYdN5SwTWVgnHk1kt0AxaULUKSZXeq4WabXzgRf85HIDP4ILr8v9YSsQBw9O3zVXWGbLsnN5NBRN7rmTUcVViRMX498nzzOQUcUk6wZOLydaR62aIkKqlsqR23qixV-5M3DElhn~3ehUYuxc0-T3F-dfKunKlAmCwvgV34hPMCcH4tqLpP-Bmr-XoCVzTm1xeM9G2cIa6DsRS09qVZzzAdEirDmXD1P0wuanqSCylqm3CCrR9wxSPgSAwcKGZpBuoYg5SnJ0biv72VuHkRgiH2dL7S-gBC5aXrqQXMjfmt5PszxlotrWeT6KHpHD0jmA__', // Replace with your logo URL
+              width: 200,
+              height: 200,
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const CircularProgressIndicator();
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.image_not_supported, size: 100, color: Colors.grey);
+              },
+            ),
+            const SizedBox(height: 16),
             Text(
               splashName,
               style: const TextStyle(
@@ -85,9 +99,23 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 280.0),
+              padding: const EdgeInsets.only(top: 150.0),
               child: Column(
                 children: [
+                  Image.network(
+                    'https://media-hosting.imagekit.io//538d55e725f4462b/Screenshot%202025-02-03%20105055.png?Expires=1833175824&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=X6neTindNEADa~ccjLiOQqKYdN5SwTWVgnHk1kt0AxaULUKSZXeq4WabXzgRf85HIDP4ILr8v9YSsQBw9O3zVXWGbLsnN5NBRN7rmTUcVViRMX498nzzOQUcUk6wZOLydaR62aIkKqlsqR23qixV-5M3DElhn~3ehUYuxc0-T3F-dfKunKlAmCwvgV34hPMCcH4tqLpP-Bmr-XoCVzTm1xeM9G2cIa6DsRS09qVZzzAdEirDmXD1P0wuanqSCylqm3CCrR9wxSPgSAwcKGZpBuoYg5SnJ0biv72VuHkRgiH2dL7S-gBC5aXrqQXMjfmt5PszxlotrWeT6KHpHD0jmA__', // Replace with your logo URL
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.contain,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const CircularProgressIndicator();
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(Icons.image_not_supported, size: 100, color: Colors.grey);
+                    },
+                  ),
+                  const SizedBox(height: 16),
                   const Text(
                     'STREAMSCAPE',
                     style: TextStyle(
@@ -161,4 +189,3 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
