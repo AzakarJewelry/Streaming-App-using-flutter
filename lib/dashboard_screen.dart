@@ -176,20 +176,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      // Back Button to return to Login
-      IconButton(
-        icon: const Icon(Icons.arrow_back, color: Color(0xFF1A4D2E)),
-        onPressed: () {
-          // Navigate back to the Login Screen
-          Navigator.pop(context); // Or use Navigator.push to go to the Login Screen
-        },
-      ),
 
       // Time and Location
       Row(
         children: [
           Text(
-            '10:45', // Replace with actual time
+            '', // Replace with actual time
             style: TextStyle(
               color: const Color(0xFF1A4D2E).withOpacity(0.6),
               fontSize: 16,

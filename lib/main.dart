@@ -55,9 +55,9 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.network(
-              'https://media-hosting.imagekit.io//538d55e725f4462b/Screenshot%202025-02-03%20105055.png?Expires=1833175824&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=X6neTindNEADa~ccjLiOQqKYdN5SwTWVgnHk1kt0AxaULUKSZXeq4WabXzgRf85HIDP4ILr8v9YSsQBw9O3zVXWGbLsnN5NBRN7rmTUcVViRMX498nzzOQUcUk6wZOLydaR62aIkKqlsqR23qixV-5M3DElhn~3ehUYuxc0-T3F-dfKunKlAmCwvgV34hPMCcH4tqLpP-Bmr-XoCVzTm1xeM9G2cIa6DsRS09qVZzzAdEirDmXD1P0wuanqSCylqm3CCrR9wxSPgSAwcKGZpBuoYg5SnJ0biv72VuHkRgiH2dL7S-gBC5aXrqQXMjfmt5PszxlotrWeT6KHpHD0jmA__', // Replace with your logo URL
-              width: 200,
-              height: 200,
+              'https://media-hosting.imagekit.io//f8ddd5819f034d30/Screenshot_2025-02-03_105055-removebg-preview.png?Expires=1833179598&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=shHrrJrAMQaG3ZPdTGOTWebdnoaC8HUSeaqq7r9T-NsryIqW1amP-K2VHAoQ-~mgiH0s44QjofFP25TMS0zua1YgPZCMeoO7hEHbfHrQf-Omj6WQGNMi5b1bdoEMj6HOFYp8dtZF7WEBkqNQ1eHau8bVQ6yn5WfTzgSpLd1uJGZipsliuK7lZZKRyId6a8e8CV9i716NBJe6D6WUjYrvRKkDoGcxy6K9eABIcxA3TpUyYsW7aH8wcxTiVGHv8eEUuByVt0gP~wrS83r-udoz07sV~Yr-yPFylLfKN9gQQg1IOFKzN7X7~xjVdQjx~tWuI01xOUZnL10ZYdHmkCEtWw__', // Replace with your logo URL
+              width: 100,
+              height: 100,
               fit: BoxFit.contain,
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) return child;
@@ -103,9 +103,9 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 children: [
                   Image.network(
-                    'https://media-hosting.imagekit.io//538d55e725f4462b/Screenshot%202025-02-03%20105055.png?Expires=1833175824&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=X6neTindNEADa~ccjLiOQqKYdN5SwTWVgnHk1kt0AxaULUKSZXeq4WabXzgRf85HIDP4ILr8v9YSsQBw9O3zVXWGbLsnN5NBRN7rmTUcVViRMX498nzzOQUcUk6wZOLydaR62aIkKqlsqR23qixV-5M3DElhn~3ehUYuxc0-T3F-dfKunKlAmCwvgV34hPMCcH4tqLpP-Bmr-XoCVzTm1xeM9G2cIa6DsRS09qVZzzAdEirDmXD1P0wuanqSCylqm3CCrR9wxSPgSAwcKGZpBuoYg5SnJ0biv72VuHkRgiH2dL7S-gBC5aXrqQXMjfmt5PszxlotrWeT6KHpHD0jmA__', // Replace with your logo URL
-                    width: 150,
-                    height: 150,
+                    'https://media-hosting.imagekit.io//f8ddd5819f034d30/Screenshot_2025-02-03_105055-removebg-preview.png?Expires=1833179598&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=shHrrJrAMQaG3ZPdTGOTWebdnoaC8HUSeaqq7r9T-NsryIqW1amP-K2VHAoQ-~mgiH0s44QjofFP25TMS0zua1YgPZCMeoO7hEHbfHrQf-Omj6WQGNMi5b1bdoEMj6HOFYp8dtZF7WEBkqNQ1eHau8bVQ6yn5WfTzgSpLd1uJGZipsliuK7lZZKRyId6a8e8CV9i716NBJe6D6WUjYrvRKkDoGcxy6K9eABIcxA3TpUyYsW7aH8wcxTiVGHv8eEUuByVt0gP~wrS83r-udoz07sV~Yr-yPFylLfKN9gQQg1IOFKzN7X7~xjVdQjx~tWuI01xOUZnL10ZYdHmkCEtWw__', // Replace with your logo URL
+                    width: 100,
+                    height: 100,
                     fit: BoxFit.contain,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
