@@ -33,6 +33,7 @@ class SignUpScreen extends StatelessWidget {
                     height: 100, // Set height for the logo
                     width: 100,  // Set width for the logo
                   ),
+
                   const SizedBox(height: 20),
                   const Text(
                     'STREAMSCAPE',
@@ -42,6 +43,21 @@ class SignUpScreen extends StatelessWidget {
                       color: Color(0xFF1A4D2E),
                     ),
                   ),
+
+                 const SizedBox(height: 20),
+                   const Center(
+                   child: Text(
+                   'STREAMSCAPE',
+                   style: TextStyle(
+                   fontSize: 32,
+                   fontWeight: FontWeight.bold,
+                    color: Color(0xFF1A4D2E),
+                   ),
+                    textAlign: TextAlign.center,
+                   ),
+                   ),
+
+>>>>>>> 41a6880084715cb202110ef7edb1b5de3d948d44
                   const SizedBox(height: 20),
                   const Text(
                     'Create an account',
