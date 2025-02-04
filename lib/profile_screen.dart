@@ -96,6 +96,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 20),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _logout,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:const Color(0xFF1A4D2E),
+                      foregroundColor: Colors.white,
+                    ),
+                    child: const Text('Logout'),
+                  ),
+                ),
               ],
             ),
           ),
@@ -168,36 +179,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }),
     );
   }
-    void _logout() {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: const Text('Logout'),
-      content: const Text('Are you sure you want to logout?'),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context), // Close the dialog
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () async {
-            Navigator.pop(context); // Close the dialog
 
-            // Uncomment this line if using Firebase Authentication
-            // await FirebaseAuth.instance.signOut();
+  void _logout() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Logout'),
+        content: const Text('Are you sure you want to logout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context), // Close the dialog
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context); // Close the dialog
 
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const MyHomePage()),
-              (route) => false, // Removes all previous routes from the stack
-            );
-          },
-          child: const Text('Logout'),
-        ),
-      ],
-    ),
-  );
-}
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const MyHomePage()),
+                (route) => false, // Removes all previous routes from the stack
+              );
+            },
+            child: const Text('Logout'),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(

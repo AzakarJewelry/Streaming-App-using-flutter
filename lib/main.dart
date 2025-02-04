@@ -147,7 +147,7 @@ class MyHomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'StreamScape',
+                    'STREAMSCAPE',
                     style: TextStyle(
                       fontSize: 45,
                       fontWeight: FontWeight.bold,
