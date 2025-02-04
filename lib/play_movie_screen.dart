@@ -1,43 +1,66 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PlayMovie(),
-    );
-  }
-}
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
 class PlayMovie extends StatefulWidget {
-  const PlayMovie({super.key});
+  final String videoUrl; // Add a videoUrl parameter
+
+  const PlayMovie({super.key, required this.videoUrl});
 
   @override
-  State<PlayMovie> createState() => _PlayMovie();
+  State<PlayMovie> createState() => _PlayMovieState();
 }
 
-class _PlayMovie extends State<PlayMovie> {
-  Color mainColor = const Color(0xFF1A4D2E);
+class _PlayMovieState extends State<PlayMovie> {
+  late VideoPlayerController _videoPlayerController;
+  late ChewieController _chewieController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize the video player
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+
+    // Initialize the Chewie controller
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController,
+      autoPlay: true, // Auto-play the video
+      looping: true, // Loop the video
+      // Additional options (optional)
+      materialProgressColors: ChewieProgressColors(
+        playedColor: Colors.red,
+        handleColor: Colors.red,
+        backgroundColor: Colors.grey,
+        bufferedColor: Colors.grey[300]!,
+      ),
+      placeholder: Container(
+        color: Colors.black,
+      ),
+      autoInitialize: true,
+    );
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controllers
+    _videoPlayerController.dispose();
+    _chewieController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mainColor,
+      backgroundColor: const Color(0xFF1A4D2E),
       appBar: AppBar(
-        backgroundColor: mainColor,
+        backgroundColor: const Color(0xFF1A4D2E),
         elevation: 0.0,
         title: const Text("Video Player"),
       ),
-      body: const Center(
-        child: Text(
-          "This is the PlayMovie screen",
-          style: TextStyle(color: Colors.white, fontSize: 18),
+      body: Center(
+        child: Chewie(
+          controller: _chewieController,
         ),
       ),
     );

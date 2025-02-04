@@ -148,11 +148,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               color: const Color(0xFFF5EFE6), // Match the background color
               child: ElevatedButton(
   onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const PlayMovie()),
-    );
-  },
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => PlayMovie(
+        videoUrl: 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4', // Replace with your video URL
+      ),
+    ),
+  );
+},
   style: ElevatedButton.styleFrom(
     backgroundColor: const Color(0xFF1A4D2E),
     padding: const EdgeInsets.symmetric(vertical: 15),

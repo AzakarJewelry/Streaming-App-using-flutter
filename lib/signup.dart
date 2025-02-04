@@ -38,7 +38,6 @@ class SignUpScreen extends StatelessWidget {
                     'STREAMSCAPE',
                     style: TextStyle(
                       fontSize: 32,
-                      textBaseline: Center(above),
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF1A4D2E),
                     ),
