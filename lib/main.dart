@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'login.dart'; // Import your existing login screen
-import 'signup.dart'; // Import your existing signup screen
+import 'login.dart';
+import 'signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   final String splashName;
   final int splashDuration;
 
@@ -40,52 +40,82 @@ class SplashScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: splashDuration), () {
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000), // Adjust duration as needed
+    );
+    _scale = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _controller.forward(); // Start the animation
+    Future.delayed(Duration(seconds: widget.splashDuration), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MyHomePage()),
       );
     });
+  }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5EFE6),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              'https://media-hosting.imagekit.io//f8ddd5819f034d30/Screenshot_2025-02-03_105055-removebg-preview.png?Expires=1833179598&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=shHrrJrAMQaG3ZPdTGOTWebdnoaC8HUSeaqq7r9T-NsryIqW1amP-K2VHAoQ-~mgiH0s44QjofFP25TMS0zua1YgPZCMeoO7hEHbfHrQf-Omj6WQGNMi5b1bdoEMj6HOFYp8dtZF7WEBkqNQ1eHau8bVQ6yn5WfTzgSpLd1uJGZipsliuK7lZZKRyId6a8e8CV9i716NBJe6D6WUjYrvRKkDoGcxy6K9eABIcxA3TpUyYsW7aH8wcxTiVGHv8eEUuByVt0gP~wrS83r-udoz07sV~Yr-yPFylLfKN9gQQg1IOFKzN7X7~xjVdQjx~tWuI01xOUZnL10ZYdHmkCEtWw__', // Replace with your logo URL
-              width: 100,
-              height: 100,
-              fit: BoxFit.contain,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return const CircularProgressIndicator();
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.image_not_supported, size: 100, color: Colors.grey);
-              },
-            ),
-            const SizedBox(height: 16),
-            Text(
-              splashName,
-              style: const TextStyle(
-                fontSize: 45,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF1A4D2E),
+        child: ScaleTransition( // Use ScaleTransition for scaling effect
+          scale: _scale,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.network(
+                'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__',
+                width: 150,
+                height: 150,
+                fit: BoxFit.contain,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const CircularProgressIndicator();
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.image_not_supported,
+                      size: 100, color: Colors.grey);
+                },
               ),
-            ),
-            const SizedBox(height: 16),
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1A4D2E)),
-            ),
-          ],
+              const SizedBox(height: 16),
+              Text(
+                widget.splashName,
+                style: const TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1A4D2E),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1A4D2E)),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -103,9 +133,9 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 children: [
                   Image.network(
-                    'https://media-hosting.imagekit.io//f8ddd5819f034d30/Screenshot_2025-02-03_105055-removebg-preview.png?Expires=1833179598&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=shHrrJrAMQaG3ZPdTGOTWebdnoaC8HUSeaqq7r9T-NsryIqW1amP-K2VHAoQ-~mgiH0s44QjofFP25TMS0zua1YgPZCMeoO7hEHbfHrQf-Omj6WQGNMi5b1bdoEMj6HOFYp8dtZF7WEBkqNQ1eHau8bVQ6yn5WfTzgSpLd1uJGZipsliuK7lZZKRyId6a8e8CV9i716NBJe6D6WUjYrvRKkDoGcxy6K9eABIcxA3TpUyYsW7aH8wcxTiVGHv8eEUuByVt0gP~wrS83r-udoz07sV~Yr-yPFylLfKN9gQQg1IOFKzN7X7~xjVdQjx~tWuI01xOUZnL10ZYdHmkCEtWw__', // Replace with your logo URL
-                    width: 100,
-                    height: 100,
+                    'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__', // Replace with your logo URL
+                    width: 150,
+                    height: 150,
                     fit: BoxFit.contain,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
@@ -117,7 +147,7 @@ class MyHomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   const Text(
-                    'STREAMSCAPE',
+                    'StreamScape',
                     style: TextStyle(
                       fontSize: 45,
                       fontWeight: FontWeight.bold,
