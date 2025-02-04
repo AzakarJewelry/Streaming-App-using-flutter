@@ -1,6 +1,7 @@
-import 'package:azakarstream/main.dart';
 import 'package:flutter/material.dart';
-
+import 'dashboard_screen.dart'; // Import your dashboard screen
+import 'favorites_screen.dart'; // Import your favorites screen
+import 'main.dart'; // Import your main.dart file
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,6 +16,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String userBio = 'A short bio about the user...';
   List<String> userSkills = ['Flutter', 'Dart', 'UI/UX'];
   bool isEditing = false;
+  int _selectedNavIndex = 2; // Set initial index to 2 for Profile
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text('Profile'),
         backgroundColor: const Color(0xFF1A4D2E),
         foregroundColor: Colors.white,
-        actions: [
-
-        ],
       ),
       backgroundColor: const Color(0xFFF5EFE6),
       body: Center(
@@ -47,15 +46,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-
                 _buildEditableText('Name:', userName, (value) => userName = value),
                 const SizedBox(height: 15),
                 _buildEditableText('Email:', userEmail, (value) => userEmail = value, keyboardType: TextInputType.emailAddress),
                 const SizedBox(height: 15),
                 _buildEditableText('Bio:', userBio, (value) => userBio = value, maxLines: 3),
                 const SizedBox(height: 25),
-
-                // Skills Section
                 const Padding(
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: Text(
@@ -78,39 +74,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: userSkills.map((skill) => Chip(label: Text(skill))).toList(),
                     ),
                   ),
-
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20.0),
-                    child: Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              isEditing = !isEditing;
-                              if (!isEditing) {
-                                print(
-                                    "Saving changes: Name: $userName, Email: $userEmail, Bio: $userBio, Skills: $userSkills");
-                                // TODO: Implement saving logic here
-                              }
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF1A4D2E),
-                            foregroundColor: Colors.white,
-                          ),
-                          child: Text(isEditing ? 'Save' : 'Edit Profile'),
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: _logout,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF1A4D2E),
-                            foregroundColor: Colors.white,
-                          ),
-                          child: const Text('Logout'),
-                        ),
-                      ],
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          isEditing = !isEditing;
+                          if (!isEditing) {
+                            print(
+                                "Saving changes: Name: $userName, Email: $userEmail, Bio: $userBio, Skills: $userSkills");
+                            // TODO: Implement saving logic here
+                          }
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF1A4D2E),
+                        foregroundColor: Colors.white,
+                      ),
+                      child: Text(isEditing ? 'Save' : 'Edit Profile'),
                     ),
                   ),
                 ),
@@ -119,6 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
@@ -185,8 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }),
     );
   }
-
-  void _logout() {
+    void _logout() {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -217,7 +199,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
   );
 }
 
-  
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      backgroundColor: const Color(0xFF1A4D2E),
+      selectedItemColor: const Color(0xFFF5EFE6),
+      unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
+      currentIndex: _selectedNavIndex,
+      onTap: (index) {
+        setState(() {
+          _selectedNavIndex = index;
+        });
+
+        if (index == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          );
+        } else if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+          );
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: 'Favorites',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
+    );
+  }
 }
 
 class _AddSkillDialog extends StatefulWidget {
@@ -246,14 +266,7 @@ class _AddSkillDialogState extends State<_AddSkillDialog> {
           onPressed: () => Navigator.pop(context, _controller.text),
           child: const Text('Add'),
         ),
-        
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
