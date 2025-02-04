@@ -1,4 +1,6 @@
+import 'package:azakarstream/main.dart';
 import 'package:flutter/material.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -21,6 +23,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text('Profile'),
         backgroundColor: const Color(0xFF1A4D2E),
         foregroundColor: Colors.white,
+        actions: [
+
+        ],
       ),
       backgroundColor: const Color(0xFFF5EFE6),
       body: Center(
@@ -77,22 +82,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          isEditing = !isEditing;
-                          if (!isEditing) {
-                            print(
-                                "Saving changes: Name: $userName, Email: $userEmail, Bio: $userBio, Skills: $userSkills");
-                            // TODO: Implement saving logic here
-                          }
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1A4D2E),
-                        foregroundColor: Colors.white,
-                      ),
-                      child: Text(isEditing ? 'Save' : 'Edit Profile'),
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              isEditing = !isEditing;
+                              if (!isEditing) {
+                                print(
+                                    "Saving changes: Name: $userName, Email: $userEmail, Bio: $userBio, Skills: $userSkills");
+                                // TODO: Implement saving logic here
+                              }
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF1A4D2E),
+                            foregroundColor: Colors.white,
+                          ),
+                          child: Text(isEditing ? 'Save' : 'Edit Profile'),
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: _logout,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF1A4D2E),
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text('Logout'),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -102,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-     }
+  }
 
   Widget _buildEditableText(String label, String value, Function(String) onChanged, {TextInputType? keyboardType, int? maxLines}) {
     return Column(
@@ -167,6 +185,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }),
     );
   }
+
+  void _logout() {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Logout'),
+      content: const Text('Are you sure you want to logout?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context), // Close the dialog
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context); // Close the dialog
+
+            // Uncomment this line if using Firebase Authentication
+            // await FirebaseAuth.instance.signOut();
+
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const MyHomePage()),
+              (route) => false, // Removes all previous routes from the stack
+            );
+          },
+          child: const Text('Logout'),
+        ),
+      ],
+    ),
+  );
+}
+
+  
 }
 
 class _AddSkillDialog extends StatefulWidget {
@@ -195,6 +246,7 @@ class _AddSkillDialogState extends State<_AddSkillDialog> {
           onPressed: () => Navigator.pop(context, _controller.text),
           child: const Text('Add'),
         ),
+        
       ],
     );
   }
