@@ -54,6 +54,7 @@ class _PlayMovieState extends State<PlayMovie> {
     return Scaffold(
       backgroundColor: const Color(0xFF1A4D2E),
       appBar: AppBar(
+        foregroundColor: const Color(0xFFF5EFE6), // Cream text
         backgroundColor: const Color(0xFF1A4D2E),
         elevation: 0.0,
         title: const Text("Video Player"),

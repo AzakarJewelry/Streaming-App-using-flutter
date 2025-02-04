@@ -152,8 +152,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     context,
     MaterialPageRoute(
       builder: (context) => PlayMovie(
-        videoUrl: 'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4', // Replace with your video URL
-      ),
+        videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', // Replace with your video URL
+      )
     ),
   );
 },
