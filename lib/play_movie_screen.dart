@@ -16,43 +16,35 @@ class PlayMovie extends StatefulWidget {
 class _PlayMovieState extends State<PlayMovie> {
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;
-  SubtitleController? _subtitleController; // Nullable for null safety
-  bool _isLoadingSubtitles = true; // Track subtitle loading
-  bool _subtitlesError = false; // Track if subtitles failed to load
+  SubtitleController? _subtitleController;
+  bool _isLoadingSubtitles = true;
+  bool _subtitlesError = false;
+  bool _isFullscreen = false;
 
   @override
   void initState() {
     super.initState();
+    _initializeVideoPlayer();
+    _loadSubtitles();
+  }
 
-    // Test asset loading during initialization
-    testAssetLoading();
-
-    // Initialize the video player
+  void _initializeVideoPlayer() {
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
       ..initialize().then((_) {
-        setState(() {}); // Update UI when video is initialized
+        setState(() {});
       });
 
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       autoPlay: true,
       looping: false,
+      allowFullScreen: false,
     );
-
-    _loadSubtitles();
   }
 
   Future<void> _loadSubtitles() async {
     try {
-      // Debug: Log before attempting to load the file
-      debugPrint("Attempting to load subtitles from assets/tears.srt");
-
-      // Load subtitles
       String subtitleData = await rootBundle.loadString('assets/tears.srt');
-
-      // Debug: Log success
-      debugPrint("Subtitles loaded successfully: $subtitleData");
-
       setState(() {
         _subtitleController = SubtitleController(
           subtitlesContent: subtitleData,
@@ -61,9 +53,6 @@ class _PlayMovieState extends State<PlayMovie> {
         _isLoadingSubtitles = false;
       });
     } catch (e) {
-      // Debug: Log any errors
-      debugPrint("Error loading subtitles: $e");
-
       setState(() {
         _isLoadingSubtitles = false;
         _subtitlesError = true;
@@ -71,14 +60,21 @@ class _PlayMovieState extends State<PlayMovie> {
     }
   }
 
-  // Test function for verifying asset loading
-  void testAssetLoading() async {
-    try {
-      debugPrint("Testing asset loading...");
-      String data = await rootBundle.loadString('assets/tears.srt');
-      debugPrint("Asset loaded successfully: $data");
-    } catch (e) {
-      debugPrint("Failed to load asset: $e");
+  void _enterFullscreen() {
+    setState(() => _isFullscreen = true);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  }
+
+  void _exitFullscreen() {
+    setState(() => _isFullscreen = false);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+  }
+
+  void _toggleFullscreen() {
+    if (_isFullscreen) {
+      _exitFullscreen();
+    } else {
+      _enterFullscreen();
     }
   }
 
@@ -89,8 +85,66 @@ class _PlayMovieState extends State<PlayMovie> {
     super.dispose();
   }
 
+  Widget _buildVideoPlayer() {
+    final subtitleWrapper = SubtitleWrapper(
+      videoPlayerController: _videoPlayerController,
+      subtitleController: _subtitleController ??
+          SubtitleController(
+            subtitlesContent: "",
+            subtitleType: SubtitleType.srt,
+          ),
+      subtitleStyle: const SubtitleStyle(
+        textColor: Colors.white,
+        fontSize: 16,
+        hasBorder: true,
+      ),
+      videoChild: Chewie(controller: _chewieController),
+    );
+
+    return _isLoadingSubtitles
+        ? const CircularProgressIndicator()
+        : Stack(
+            children: [
+              AspectRatio(
+                aspectRatio: _videoPlayerController.value.aspectRatio,
+                child: subtitleWrapper,
+              ),
+              Positioned(
+                bottom: 25.0,
+                right: 25.0,
+                child: IconButton(
+                  icon: Icon(
+                    _isFullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
+                    color: Colors.white,
+                  ),
+                  onPressed: _toggleFullscreen,
+                ),
+              ),
+            ],
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_isFullscreen) {
+      return Scaffold(
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            Center(child: _buildVideoPlayer()),
+            Positioned(
+              top: 30,
+              left: 16,
+              child: IconButton(
+                icon: const Icon(Icons.close, color: Colors.white),
+                onPressed: _exitFullscreen,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xFF1A4D2E),
       appBar: AppBar(
@@ -101,23 +155,8 @@ class _PlayMovieState extends State<PlayMovie> {
       ),
       body: Center(
         child: _videoPlayerController.value.isInitialized
-            ? _isLoadingSubtitles
-                ? const CircularProgressIndicator() // Show loading indicator
-                : SubtitleWrapper(
-  videoPlayerController: _videoPlayerController,
-  subtitleController: _subtitleController ??
-      SubtitleController(
-        subtitlesContent: "", // Fallback
-        subtitleType: SubtitleType.srt,
-      ),
-  subtitleStyle: const SubtitleStyle(
-    textColor: Colors.white,
-    fontSize: 16,
-    hasBorder: true,
-  ),
-  videoChild: Chewie(controller: _chewieController),
-)
-            : const CircularProgressIndicator(), // Show loading until video is initialized
+            ? _buildVideoPlayer()
+            : const CircularProgressIndicator(),
       ),
       bottomNavigationBar: _subtitlesError
           ? const Padding(
