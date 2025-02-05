@@ -88,11 +88,8 @@ class _PlayMovieState extends State<PlayMovie> {
   Widget _buildVideoPlayer() {
     final subtitleWrapper = SubtitleWrapper(
       videoPlayerController: _videoPlayerController,
-      subtitleController: _subtitleController ??
-          SubtitleController(
-            subtitlesContent: "",
-            subtitleType: SubtitleType.srt,
-          ),
+      subtitleController: _subtitleController ?? 
+          SubtitleController(subtitlesContent: "", subtitleType: SubtitleType.srt),
       subtitleStyle: const SubtitleStyle(
         textColor: Colors.white,
         fontSize: 16,
@@ -146,17 +143,38 @@ class _PlayMovieState extends State<PlayMovie> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1A4D2E),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF1A4D2E),
+        foregroundColor: Colors.black, // Set back button color to white
+        backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: const Text("Video Player"),
+        
       ),
-      body: Center(
-        child: _videoPlayerController.value.isInitialized
-            ? _buildVideoPlayer()
-            : const CircularProgressIndicator(),
+      body: Column(
+        children: [
+         Container(
+  width: double.infinity,
+  
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(15),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.2),
+        blurRadius: 5,
+        spreadRadius: 2,
+        offset: const Offset(0, 3),
+      ),
+    ],
+  ),
+            child: ClipRRect(
+              
+               child: AspectRatio(
+      aspectRatio: _videoPlayerController.value.aspectRatio, // Makes sure video fills the space
+      child: _buildVideoPlayer(),
+    ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: _subtitlesError
           ? const Padding(
