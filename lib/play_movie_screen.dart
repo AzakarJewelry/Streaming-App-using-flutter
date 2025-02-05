@@ -16,12 +16,16 @@ class PlayMovie extends StatefulWidget {
 class _PlayMovieState extends State<PlayMovie> {
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;
-  SubtitleController? _subtitleController; // Nullable
+  SubtitleController? _subtitleController; // Nullable for null safety
   bool _isLoadingSubtitles = true; // Track subtitle loading
+  bool _subtitlesError = false; // Track if subtitles failed to load
 
   @override
   void initState() {
     super.initState();
+
+    // Test asset loading during initialization
+    testAssetLoading();
 
     // Initialize the video player
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
@@ -40,7 +44,15 @@ class _PlayMovieState extends State<PlayMovie> {
 
   Future<void> _loadSubtitles() async {
     try {
-      String subtitleData = await rootBundle.loadString('Assets/movie.srt');
+      // Debug: Log before attempting to load the file
+      debugPrint("Attempting to load subtitles from assets/movie.srt");
+
+      // Load subtitles
+      String subtitleData = await rootBundle.loadString('assets/movie.srt');
+
+      // Debug: Log success
+      debugPrint("Subtitles loaded successfully: $subtitleData");
+
       setState(() {
         _subtitleController = SubtitleController(
           subtitlesContent: subtitleData,
@@ -49,10 +61,24 @@ class _PlayMovieState extends State<PlayMovie> {
         _isLoadingSubtitles = false;
       });
     } catch (e) {
+      // Debug: Log any errors
       debugPrint("Error loading subtitles: $e");
+
       setState(() {
         _isLoadingSubtitles = false;
+        _subtitlesError = true;
       });
+    }
+  }
+
+  // Test function for verifying asset loading
+  void testAssetLoading() async {
+    try {
+      debugPrint("Testing asset loading...");
+      String data = await rootBundle.loadString('assets/movie.srt');
+      debugPrint("Asset loaded successfully: $data");
+    } catch (e) {
+      debugPrint("Failed to load asset: $e");
     }
   }
 
@@ -76,19 +102,33 @@ class _PlayMovieState extends State<PlayMovie> {
       body: Center(
         child: _videoPlayerController.value.isInitialized
             ? _isLoadingSubtitles
-                ? const CircularProgressIndicator() // Show loading indicator while subtitles load
+                ? const CircularProgressIndicator() // Show loading indicator
                 : SubtitleWrapper(
-                    videoPlayerController: _videoPlayerController,
-                    subtitleController: _subtitleController!,
-                    subtitleStyle: const SubtitleStyle(
-                      textColor: Colors.white,
-                      fontSize: 16,
-                      hasBorder: true,
-                    ),
-                    videoChild: Chewie(controller: _chewieController),
-                  )
+  videoPlayerController: _videoPlayerController,
+  subtitleController: _subtitleController ??
+      SubtitleController(
+        subtitlesContent: "", // Fallback
+        subtitleType: SubtitleType.srt,
+      ),
+  subtitleStyle: const SubtitleStyle(
+    textColor: Colors.white,
+    fontSize: 16,
+    hasBorder: true,
+  ),
+  videoChild: Chewie(controller: _chewieController),
+)
             : const CircularProgressIndicator(), // Show loading until video is initialized
       ),
+      bottomNavigationBar: _subtitlesError
+          ? const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Error loading subtitles.",
+                style: TextStyle(color: Colors.red),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : null,
     );
   }
 }

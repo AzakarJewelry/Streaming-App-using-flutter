@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
-import 'play_movie_screen.dart'; // Import the PlayMovie screen
+import 'play_movie_screen.dart'; // Import the PlayMovie screen 
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
