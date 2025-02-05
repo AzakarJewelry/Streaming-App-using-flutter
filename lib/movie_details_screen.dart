@@ -1,6 +1,12 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:azakarstream/favorites_screen.dart';
 import 'package:flutter/material.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
-import 'play_movie_screen.dart'; // Import the PlayMovie screen 
+import 'play_movie_screen.dart'; // Import the PlayMovie screen
+import 'dashboard_screen.dart'; // Import your DashboardScreen
+import 'favorites_screen.dart'; // Import your FavoriteScreen
+import 'profile_screen.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
@@ -25,9 +31,13 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+  int _selectedNavIndex = 0; // Track the selected navigation index
+
+  bool isFavorite = false; // Keep track of the favorite status
+
   @override
   Widget build(BuildContext context) {
-    bool isFavorite = favoriteManager.isFavorite(widget.title);
+    isFavorite = favoriteManager.isFavorite(widget.title);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5EFE6),
@@ -147,37 +157,83 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               padding: const EdgeInsets.all(16.0),
               color: const Color(0xFFF5EFE6), // Match the background color
               child: ElevatedButton(
-  onPressed: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => PlayMovie(
-        videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', // Replace with your video URL
-      )
-    ),
-  );
-},
-  style: ElevatedButton.styleFrom(
-    backgroundColor: const Color(0xFF1A4D2E),
-    padding: const EdgeInsets.symmetric(vertical: 15),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
-    ),
-  ),
-  child: const Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Icon(Icons.play_arrow, color: Colors.white),
-      SizedBox(width: 8),
-      Text('Play Movies', style: TextStyle(color: Colors.white)),
-    ],
-  ),
-),
-
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlayMovie(
+                        videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', // Replace with your video URL
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF1A4D2E),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.play_arrow, color: Colors.white),
+                    SizedBox(width: 8),
+                    Text('Play Movies', style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
       ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      backgroundColor: const Color(0xFF1A4D2E),
+      selectedItemColor: const Color(0xFFF5EFE6),
+      unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
+      currentIndex: _selectedNavIndex,
+      onTap: (index) {
+        setState(() {
+          _selectedNavIndex = index;
+        });
+
+        if (index == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          );
+        } else if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+          );
+          } else if (index == 2) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfileScreen()), // Add this case
+    );
+  
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: 'Favorites',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
     );
   }
 }
