@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import 'package:subtitle_wrapper_package/subtitle_wrapper_package.dart';
+import 'package:flutter/services.dart';
 
 class PlayMovie extends StatefulWidget {
-  final String videoUrl; // Add a videoUrl parameter
+  final String videoUrl;
 
   const PlayMovie({super.key, required this.videoUrl});
 
@@ -14,36 +16,48 @@ class PlayMovie extends StatefulWidget {
 class _PlayMovieState extends State<PlayMovie> {
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;
+  SubtitleController? _subtitleController; // Nullable
+  bool _isLoadingSubtitles = true; // Track subtitle loading
 
   @override
   void initState() {
     super.initState();
 
     // Initialize the video player
-    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
+      ..initialize().then((_) {
+        setState(() {}); // Update UI when video is initialized
+      });
 
-    // Initialize the Chewie controller
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      autoPlay: true, // Auto-play the video
-      looping: true, // Loop the video
-      // Additional options (optional)
-      materialProgressColors: ChewieProgressColors(
-        playedColor: Colors.red,
-        handleColor: Colors.red,
-        backgroundColor: Colors.grey,
-        bufferedColor: Colors.grey[300]!,
-      ),
-      placeholder: Container(
-        color: Colors.black,
-      ),
-      autoInitialize: true,
+      autoPlay: true,
+      looping: false,
     );
+
+    _loadSubtitles();
+  }
+
+  Future<void> _loadSubtitles() async {
+    try {
+      String subtitleData = await rootBundle.loadString('Assets/movie.srt');
+      setState(() {
+        _subtitleController = SubtitleController(
+          subtitlesContent: subtitleData,
+          subtitleType: SubtitleType.srt,
+        );
+        _isLoadingSubtitles = false;
+      });
+    } catch (e) {
+      debugPrint("Error loading subtitles: $e");
+      setState(() {
+        _isLoadingSubtitles = false;
+      });
+    }
   }
 
   @override
   void dispose() {
-    // Dispose of the controllers
     _videoPlayerController.dispose();
     _chewieController.dispose();
     super.dispose();
@@ -54,15 +68,26 @@ class _PlayMovieState extends State<PlayMovie> {
     return Scaffold(
       backgroundColor: const Color(0xFF1A4D2E),
       appBar: AppBar(
-        foregroundColor: const Color(0xFFF5EFE6), // Cream text
+        foregroundColor: const Color(0xFFF5EFE6),
         backgroundColor: const Color(0xFF1A4D2E),
         elevation: 0.0,
         title: const Text("Video Player"),
       ),
       body: Center(
-        child: Chewie(
-          controller: _chewieController,
-        ),
+        child: _videoPlayerController.value.isInitialized
+            ? _isLoadingSubtitles
+                ? const CircularProgressIndicator() // Show loading indicator while subtitles load
+                : SubtitleWrapper(
+                    videoPlayerController: _videoPlayerController,
+                    subtitleController: _subtitleController!,
+                    subtitleStyle: const SubtitleStyle(
+                      textColor: Colors.white,
+                      fontSize: 16,
+                      hasBorder: true,
+                    ),
+                    videoChild: Chewie(controller: _chewieController),
+                  )
+            : const CircularProgressIndicator(), // Show loading until video is initialized
       ),
     );
   }
