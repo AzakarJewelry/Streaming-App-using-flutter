@@ -45,10 +45,10 @@ class _PlayMovieState extends State<PlayMovie> {
   Future<void> _loadSubtitles() async {
     try {
       // Debug: Log before attempting to load the file
-      debugPrint("Attempting to load subtitles from assets/movie.srt");
+      debugPrint("Attempting to load subtitles from assets/tears.srt");
 
       // Load subtitles
-      String subtitleData = await rootBundle.loadString('assets/movie.srt');
+      String subtitleData = await rootBundle.loadString('assets/tears.srt');
 
       // Debug: Log success
       debugPrint("Subtitles loaded successfully: $subtitleData");
@@ -75,7 +75,7 @@ class _PlayMovieState extends State<PlayMovie> {
   void testAssetLoading() async {
     try {
       debugPrint("Testing asset loading...");
-      String data = await rootBundle.loadString('assets/movie.srt');
+      String data = await rootBundle.loadString('assets/tears.srt');
       debugPrint("Asset loaded successfully: $data");
     } catch (e) {
       debugPrint("Failed to load asset: $e");
