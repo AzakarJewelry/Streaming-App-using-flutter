@@ -1,4 +1,3 @@
-// play_movie_screen.dart
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
@@ -45,7 +44,6 @@ class _PlayMovieState extends State<PlayMovie> {
 
   Future<void> _loadSubtitles() async {
     try {
-      // Update the asset path if needed or use different subtitle files per movie.
       String subtitleData = await rootBundle.loadString('assets/tears.srt');
       setState(() {
         _subtitleController = SubtitleController(
@@ -125,21 +123,27 @@ class _PlayMovieState extends State<PlayMovie> {
 
   @override
   Widget build(BuildContext context) {
+    final isDesktop = MediaQuery.of(context).size.width >= 600;
+
     if (_isFullscreen) {
       return Scaffold(
         backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            Center(child: _buildVideoPlayer()),
-            Positioned(
-              top: 30,
-              left: 16,
-              child: IconButton(
-                icon: const Icon(Icons.close, color: Colors.white),
-                onPressed: _exitFullscreen,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              // Fullscreen video player
+              Center(child: _buildVideoPlayer()),
+              // Exit fullscreen button
+              Positioned(
+                top: 30,
+                left: 16,
+                child: IconButton(
+                  icon: const Icon(Icons.close, color: Colors.white),
+                  onPressed: _exitFullscreen,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
@@ -151,40 +155,47 @@ class _PlayMovieState extends State<PlayMovie> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 5,
-                  spreadRadius: 2,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              child: AspectRatio(
-                aspectRatio: _videoPlayerController.value.aspectRatio,
-                child: _buildVideoPlayer(),
-              ),
-            ),
+      body: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: isDesktop ? 800 : double.infinity, // Restrict width on larger screens
           ),
-        ],
-      ),
-      bottomNavigationBar: _subtitlesError
-          ? const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "Error loading subtitles.",
-                style: TextStyle(color: Colors.red),
-                textAlign: TextAlign.center,
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 5,
+                      spreadRadius: 2,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: AspectRatio(
+                    aspectRatio: _videoPlayerController.value.aspectRatio,
+                    child: _buildVideoPlayer(),
+                  ),
+                ),
               ),
-            )
-          : null,
+              if (_subtitlesError)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Error loading subtitles.",
+                    style: TextStyle(color: Colors.red, fontSize: isDesktop ? 18 : 14),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
