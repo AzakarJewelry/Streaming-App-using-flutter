@@ -152,7 +152,7 @@ class _PlayMovieState extends State<PlayMovie> {
       ),
       body: Column(
         children: [
-         Container(
+    Container(
   width: double.infinity,
   
   decoration: BoxDecoration(
@@ -168,7 +168,7 @@ class _PlayMovieState extends State<PlayMovie> {
   ),
             child: ClipRRect(
               
-               child: AspectRatio(
+      child: AspectRatio(
       aspectRatio: _videoPlayerController.value.aspectRatio, // Makes sure video fills the space
       child: _buildVideoPlayer(),
     ),

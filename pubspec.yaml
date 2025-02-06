@@ -40,6 +40,7 @@
     video_player: ^2.9.2
     subtitle_wrapper_package: ^2.2.1
 
+  # The following section is specific to Flutter.
   dev_dependencies:
     flutter_test:
       sdk: flutter

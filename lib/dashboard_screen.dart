@@ -172,11 +172,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-   Widget _buildTopBar() {
+ Widget _buildTopBar() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-
       // Time and Location
       Row(
         children: [
@@ -188,11 +187,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           const SizedBox(width: 10),
-          const Text(
-            'StreamScape', // Replace with actual location
-            style: TextStyle(
-              color: Color(0xFF1A4D2E),
-              fontSize: 16,
+          Padding(
+            padding: const EdgeInsets.only(top: 40.0), // Add padding to move text down
+            child: const Text(
+              'StreamScape', // Replace with actual location
+              style: TextStyle(
+                color: Color(0xFF1A4D2E),
+                fontSize: 20,
+              ),
             ),
           ),
         ],
@@ -201,19 +203,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
       // Search and Notifications
       Row(
         children: [
-         IconButton(
-  icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SearchScreen  (
-          allMovies: [...newReleases, ...mostPopular],
-        ),
-      ),
-    );
-  },
-),
+          IconButton(
+            icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchScreen(
+                    allMovies: [...newReleases, ...mostPopular],
+                  ),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
             onPressed: () {
@@ -225,7 +227,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ],
   );
 }
-
 
 
   Widget _buildFeaturedMovie() {
