@@ -152,7 +152,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             MaterialPageRoute(
               builder: (context) => PlayMovie(
                 videoUrl:
-                    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+                    'https://res.cloudinary.com/dywykbqpw/video/upload/zrf1mbajhv8m24n9gxi7.mp4',
               ),
             ),
           );
