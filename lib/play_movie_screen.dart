@@ -1,3 +1,4 @@
+// play_movie_screen.dart
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
@@ -44,6 +45,7 @@ class _PlayMovieState extends State<PlayMovie> {
 
   Future<void> _loadSubtitles() async {
     try {
+      // Update the asset path if needed or use different subtitle files per movie.
       String subtitleData = await rootBundle.loadString('assets/tears.srt');
       setState(() {
         _subtitleController = SubtitleController(
@@ -88,7 +90,7 @@ class _PlayMovieState extends State<PlayMovie> {
   Widget _buildVideoPlayer() {
     final subtitleWrapper = SubtitleWrapper(
       videoPlayerController: _videoPlayerController,
-      subtitleController: _subtitleController ?? 
+      subtitleController: _subtitleController ??
           SubtitleController(subtitlesContent: "", subtitleType: SubtitleType.srt),
       subtitleStyle: const SubtitleStyle(
         textColor: Colors.white,
@@ -145,33 +147,30 @@ class _PlayMovieState extends State<PlayMovie> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        foregroundColor: Colors.black, // Set back button color to white
+        foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        
       ),
       body: Column(
         children: [
-    Container(
-  width: double.infinity,
-  
-  decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(15),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.2),
-        blurRadius: 5,
-        spreadRadius: 2,
-        offset: const Offset(0, 3),
-      ),
-    ],
-  ),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 5,
+                  spreadRadius: 2,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
             child: ClipRRect(
-              
-      child: AspectRatio(
-      aspectRatio: _videoPlayerController.value.aspectRatio, // Makes sure video fills the space
-      child: _buildVideoPlayer(),
-    ),
+              child: AspectRatio(
+                aspectRatio: _videoPlayerController.value.aspectRatio,
+                child: _buildVideoPlayer(),
+              ),
             ),
           ),
         ],

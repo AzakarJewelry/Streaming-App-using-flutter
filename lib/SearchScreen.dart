@@ -68,6 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           rating: movie['rating']!,
                           description: 'This is a detailed description of the movie ${movie['title']!}.',
                           imageUrl: movie['imageUrl']!,
+                          videoUrl: movie['videoUrl']!,
                         ),
                       ),
                     );

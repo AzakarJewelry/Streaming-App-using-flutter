@@ -1,3 +1,4 @@
+// movie_details_screen.dart
 import 'package:flutter/material.dart';
 import 'favorite_manager.dart';
 import 'play_movie_screen.dart';
@@ -12,6 +13,7 @@ class MovieDetailsScreen extends StatefulWidget {
   final String rating;
   final String description;
   final String imageUrl;
+  final String videoUrl; // Added videoUrl
 
   const MovieDetailsScreen({
     super.key,
@@ -21,6 +23,7 @@ class MovieDetailsScreen extends StatefulWidget {
     required this.rating,
     required this.description,
     required this.imageUrl,
+    required this.videoUrl,
   });
 
   @override
@@ -45,11 +48,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             pinned: true,
             backgroundColor: const Color(0xFF1A4D2E),
             leading: IconButton(
-    icon: const Icon(Icons.arrow_back, color: Colors.white), // White back button
-    onPressed: () {
-      Navigator.pop(context); // Navigate back when pressed
-    },
-  ),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
                 widget.imageUrl,
@@ -89,6 +92,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               'rating': widget.rating,
                               'description': widget.description,
                               'imageUrl': widget.imageUrl,
+                              'videoUrl': widget.videoUrl,
                             });
                           });
                         },
@@ -137,7 +141,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 80), // Extra space at the bottom
+                  const SizedBox(height: 80),
                 ],
               ),
             ),
@@ -147,12 +151,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       bottomNavigationBar: _buildBottomNavigationBar(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          // Pass the movie-specific videoUrl to PlayMovie
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => PlayMovie(
-                videoUrl:
-                    'https://res.cloudinary.com/dywykbqpw/video/upload/zrf1mbajhv8m24n9gxi7.mp4',
+                videoUrl: widget.videoUrl,
               ),
             ),
           );

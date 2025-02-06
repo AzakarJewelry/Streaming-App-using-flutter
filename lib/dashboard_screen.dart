@@ -1,3 +1,4 @@
+// dashboard_screen.dart
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
 
 import 'package:azakarstream/SearchScreen.dart';
@@ -19,91 +20,100 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
 
-
+  // Updated movie lists with videoUrl field.
   final List<Map<String, String>> newReleases = [
-  {
-    'title': 'Captain Marvel',
-    'rating': '★★★★★',
-    'reviews': '(100k)',
-    'imageUrl':
-        'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTvwUrWZA7dCe_ggg96fG625dfkSMopojxVqCQAuFBff88WdpV5',
-    'genre': 'Action',
-    'duration': '2h 4m',
-  },
-  {
-    'title': 'Jurassic World',
-    'rating': '★★★★☆',
-    'reviews': '(55k)',
-    'imageUrl':
-        'https://play-lh.googleusercontent.com/qWv3eGPqFKhTG4vCuoDLDsfMkkMxZRGn646EZo-3C2tC3sL4tAjnmoeA9EEdUFrChqgTHA',
-    'genre': 'Adventure',
-    'duration': '2h 4m',
-  },
-  {
-    'title': 'Aquaman',
-    'rating': '★★★☆☆',
-    'reviews': '(35k)',
-    'imageUrl':
-        'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
-    'genre': 'Action',
-    'duration': '2h 4m',
-  },
-  {
-    'title': 'Infinity War',
-    'rating': '★★★★★',
-    'reviews': '(105k)',
-    'imageUrl':
-        'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
-        'genre': 'Action',
-    'duration': '2h 4m',
-  },
-  {
-    'title': 'Spider-Man: No Way Home',
+    {
+      'title': 'One Piece',
+      'rating': '★★★★★',
+      'reviews': '(100k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_.jpg',
+      'genre': 'Action',
+      'duration': '2h 4m',
+      'videoUrl': 'https://res.cloudinary.com/dywykbqpw/video/upload/zrf1mbajhv8m24n9gxi7.mp4', // Unique video URL
+    },
+    {
+      'title': 'One Punch Man',
+      'rating': '★★★★☆',
+      'reviews': '(55k)',
+      'imageUrl':
+          'https://upload.wikimedia.org/wikipedia/en/c/c3/OnePunchMan_manga_cover.png',
+      'genre': 'Adventure',
+      'duration': '2h 4m',
+      'videoUrl': 'https://res.cloudinary.com/dywykbqpw/video/upload/One_Punch_Man_Season_1_-_Episode_05_English_Sub_gvmv1g.mp4',
+    },
+    {
+      'title': 'Aquaman',
+      'rating': '★★★☆☆',
+      'reviews': '(35k)',
+      'imageUrl':
+          'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
+      'genre': 'Action',
+      'duration': '2h 4m',
+      'videoUrl': 'https://example.com/aquaman.mp4',
+    },
+    {
+      'title': 'Infinity War',
+      'rating': '★★★★★',
+      'reviews': '(105k)',
+      'imageUrl':
+          'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
+      'genre': 'Action',
+      'duration': '2h 4m',
+      'videoUrl': 'https://example.com/infinity_war.mp4',
+    },
+    {
+      'title': 'Spider-Man: No Way Home',
       'rating': '★★★★★',
       'reviews': '(200k)',
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
-          'genre': 'Action',
-    'duration': '2h 4m',
+      'genre': 'Action',
+      'duration': '2h 4m',
+      'videoUrl': 'https://example.com/spiderman_no_way_home.mp4',
     },
     {
-    'title': 'Labyrinth',
+      'title': 'Labyrinth',
       'rating': '★★★★★',
       'reviews': '(10k)',
       'imageUrl':
           'https://i5.walmartimages.com/asr/1732b38b-054d-49a7-9447-375f7ef523fc_1.5d63679e850c08000081448f9a897369.jpeg',
-          'genre': 'Fantasy',
-    'duration': '2h 4m',
+      'genre': 'Fantasy',
+      'duration': '2h 4m',
+      'videoUrl': 'https://example.com/labyrinth.mp4',
     },
-];
+  ];
 
   final List<Map<String, String>> mostPopular = [
-     {
-    'title': 'The Batman',
-    'rating': '★★★★☆',
-    'reviews': '(95k)',
-    'imageUrl':
-        'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
-    'genre': 'Action',
-    'duration': '2h 56m',
-  },
-  {
-    'title': 'Black Panther',
-    'rating': '★★★★★',
-    'reviews': '(150k)',
-    'imageUrl':
-        'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
-    'genre': 'Action',
-    'duration': '2h 14m',
-  },
+    {
+      'title': 'The Batman',
+      'rating': '★★★★☆',
+      'reviews': '(95k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
+      'genre': 'Action',
+      'duration': '2h 56m',
+      'videoUrl': 'https://example.com/the_batman.mp4',
+    },
+    {
+      'title': 'Black Panther',
+      'rating': '★★★★★',
+      'reviews': '(150k)',
+      'imageUrl':
+          'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
+      'genre': 'Action',
+      'duration': '2h 14m',
+      'videoUrl': 'https://example.com/black_panther.mp4',
+    },
     {
       'title': 'Avatar: The Way of Water',
       'rating': '★★★★☆',
       'reviews': '(120k)',
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
-          'genre': 'Drama',
-    'duration': '2h 14m',
+      'genre': 'Drama',
+      'duration': '2h 14m',
+      'videoUrl': 'https://example.com/avatar_the_way_of_water.mp4',
     },
     {
       'title': 'Top Gun: Maverick',
@@ -111,27 +121,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'reviews': '(180k)',
       'imageUrl':
           'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
-          'genre': 'Action',
-    'duration': '2h 14m',
-    }, 
+      'genre': 'Action',
+      'duration': '2h 14m',
+      'videoUrl': 'https://example.com/top_gun_maverick.mp4',
+    },
     {
       'title': 'Titanic',
       'rating': '★★★★★',
       'reviews': '(180k)',
-      'imageUrl':
-          'https://picfiles.alphacoders.com/140/thumb-1920-140026.jpg',
-          'genre': 'Romance',
-    'duration': '2h 14m',
+      'imageUrl': 'https://picfiles.alphacoders.com/140/thumb-1920-140026.jpg',
+      'genre': 'Romance',
+      'duration': '2h 14m',
+      'videoUrl': 'https://example.com/titanic.mp4',
     },
-     {
-    'title': 'The Little Man',
-    'rating': '★★★★☆',
-    'reviews': '(95k)',
-    'imageUrl':
-        'https://th.bing.com/th/id/OIP.VcW6HtnsQerz4KJBq6IxAwHaKb?w=588&h=828&rs=1&pid=ImgDetMain',
-    'genre': 'Comedy',
-    'duration': '2h 56m',
-  },
+    {
+      'title': 'The Little Man',
+      'rating': '★★★★☆',
+      'reviews': '(95k)',
+      'imageUrl':
+          'https://th.bing.com/th/id/OIP.VcW6HtnsQerz4KJBq6IxAwHaKb?w=588&h=828&rs=1&pid=ImgDetMain',
+      'genre': 'Comedy',
+      'duration': '2h 56m',
+      'videoUrl': 'https://example.com/the_little_man.mp4',
+    },
   ];
 
   @override
@@ -146,22 +158,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               // Top Bar (Time, Location, Icons)
               _buildTopBar(),
-
               const SizedBox(height: 20),
-
               // Featured Movie
               _buildFeaturedMovie(),
-
               const SizedBox(height: 25),
-
               // Genres
               _buildGenres(),
-
               const SizedBox(height: 25),
-
               // New Releases
               _buildNewReleases(),
-
               // More Movies Section Below
               _buildMoreMovies(),
             ],
@@ -172,62 +177,60 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
- Widget _buildTopBar() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      // Time and Location
-      Row(
-        children: [
-          Text(
-            '', // Replace with actual time
-            style: TextStyle(
-              color: const Color(0xFF1A4D2E).withOpacity(0.6),
-              fontSize: 16,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Padding(
-            padding: const EdgeInsets.only(top: 40.0), // Add padding to move text down
-            child: const Text(
-              'StreamScape', // Replace with actual location
+  Widget _buildTopBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Time and Location
+        Row(
+          children: [
+            Text(
+              '', // Replace with actual time if needed
               style: TextStyle(
-                color: Color(0xFF1A4D2E),
-                fontSize: 20,
+                color: const Color(0xFF1A4D2E).withOpacity(0.6),
+                fontSize: 16,
               ),
             ),
-          ),
-        ],
-      ),
-
-      // Search and Notifications
-      Row(
-        children: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchScreen(
-                    allMovies: [...newReleases, ...mostPopular],
-                  ),
+            const SizedBox(width: 10),
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: const Text(
+                'StreamScape',
+                style: TextStyle(
+                  color: Color(0xFF1A4D2E),
+                  fontSize: 20,
                 ),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
-            onPressed: () {
-              // Implement notifications
-            },
-          ),
-        ],
-      ),
-    ],
-  );
-}
-
+              ),
+            ),
+          ],
+        ),
+        // Search and Notifications
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.search, color: Color(0xFF1A4D2E)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchScreen(
+                      allMovies: [...newReleases, ...mostPopular],
+                    ),
+                  ),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.notifications, color: Color(0xFF1A4D2E)),
+              onPressed: () {
+                // Implement notifications
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
   Widget _buildFeaturedMovie() {
     return Container(
@@ -236,7 +239,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         borderRadius: BorderRadius.circular(15),
         image: const DecorationImage(
           image: NetworkImage(
-              'https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba-1200-80.jpg'), // Replace with actual image URL
+              'https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba-1200-80.jpg'),
           fit: BoxFit.cover,
         ),
       ),
@@ -245,7 +248,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'DOCTOR STRANGE MULTIVERSE OF MADNESS', // Replace with movie title
+            'DOCTOR STRANGE MULTIVERSE OF MADNESS',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -253,7 +256,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               shadows: [
                 Shadow(
                   blurRadius: 10,
-                  color: Color(0xCC000000), // Equivalent to Colors.black.withOpacity(0.8)
+                  color: Color(0xCC000000),
                 )
               ],
             ),
@@ -263,125 +266,126 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
- Widget _buildGenres() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const Text(
-        'Genres',
-        style: TextStyle(
-          color: Color(0xFF1A4D2E),
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+  Widget _buildGenres() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Genres',
+          style: TextStyle(
+            color: Color(0xFF1A4D2E),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
-      const SizedBox(height: 10),
-      SizedBox(
-        height: 40,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: [
-            _GenreChip(
-              title: 'Fantasy',
-              genre: 'Fantasy',
-              isSelected: _selectedGenre == 'Fantasy',
-              onSelected: (genre) {
-                setState(() {
-                  _selectedGenre = genre;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GenreScreen(
-                      genre: genre,
-                      allMovies: [...newReleases, ...mostPopular],
+        const SizedBox(height: 10),
+        SizedBox(
+          height: 40,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              _GenreChip(
+                title: 'Fantasy',
+                genre: 'Fantasy',
+                isSelected: _selectedGenre == 'Fantasy',
+                onSelected: (genre) {
+                  setState(() {
+                    _selectedGenre = genre;
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GenreScreen(
+                        genre: genre,
+                        allMovies: [...newReleases, ...mostPopular],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-            _GenreChip(
-              title: 'Drama',
-              genre: 'Drama',
-              isSelected: _selectedGenre == 'Drama',
-              onSelected: (genre) {
-                setState(() {
-                  _selectedGenre = genre;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GenreScreen(
-                      genre: genre,
-                      allMovies: [...newReleases, ...mostPopular],
+                  );
+                },
+              ),
+              _GenreChip(
+                title: 'Drama',
+                genre: 'Drama',
+                isSelected: _selectedGenre == 'Drama',
+                onSelected: (genre) {
+                  setState(() {
+                    _selectedGenre = genre;
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GenreScreen(
+                        genre: genre,
+                        allMovies: [...newReleases, ...mostPopular],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-            _GenreChip(
-              title: 'Action',
-              genre: 'Action',
-              isSelected: _selectedGenre == 'Action',
-              onSelected: (genre) {
-                setState(() {
-                  _selectedGenre = genre;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GenreScreen(
-                      genre: genre,
-                      allMovies: [...newReleases, ...mostPopular],
+                  );
+                },
+              ),
+              _GenreChip(
+                title: 'Action',
+                genre: 'Action',
+                isSelected: _selectedGenre == 'Action',
+                onSelected: (genre) {
+                  setState(() {
+                    _selectedGenre = genre;
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GenreScreen(
+                        genre: genre,
+                        allMovies: [...newReleases, ...mostPopular],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-            _GenreChip(
-              title: 'Romance',
-              genre: 'Romance',
-              isSelected: _selectedGenre == 'Romance',
-              onSelected: (genre) {
-                setState(() {
-                  _selectedGenre = genre;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GenreScreen(
-                      genre: genre,
-                      allMovies: [...newReleases, ...mostPopular],
+                  );
+                },
+              ),
+              _GenreChip(
+                title: 'Romance',
+                genre: 'Romance',
+                isSelected: _selectedGenre == 'Romance',
+                onSelected: (genre) {
+                  setState(() {
+                    _selectedGenre = genre;
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GenreScreen(
+                        genre: genre,
+                        allMovies: [...newReleases, ...mostPopular],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-            _GenreChip(
-              title: 'Comedy',
-              genre: 'Comedy',
-              isSelected: _selectedGenre == 'Comedy',
-              onSelected: (genre) {
-                setState(() {
-                  _selectedGenre = genre;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GenreScreen(
-                      genre: genre,
-                      allMovies: [...newReleases, ...mostPopular],
+                  );
+                },
+              ),
+              _GenreChip(
+                title: 'Comedy',
+                genre: 'Comedy',
+                isSelected: _selectedGenre == 'Comedy',
+                onSelected: (genre) {
+                  setState(() {
+                    _selectedGenre = genre;
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GenreScreen(
+                        genre: genre,
+                        allMovies: [...newReleases, ...mostPopular],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
+
   Widget _buildNewReleases() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -402,8 +406,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ViewAllMoviesScreen(movies: newReleases),
-                  ),
+                      builder: (context) =>
+                          ViewAllMoviesScreen(movies: newReleases)),
                 );
               },
               child: const Text(
@@ -420,14 +424,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           height: 220,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: newReleases.map((movie) => _MovieCard(
-              title: movie['title']!,
-              rating: movie['rating']!,
-              reviews: movie['reviews']!,
-              imageUrl: movie['imageUrl']!,
-              genre: movie['genre']!,
-              duration: movie['duration']!,
-            )).toList(),
+            children: newReleases
+                .map(
+                  (movie) => _MovieCard(
+                    title: movie['title']!,
+                    rating: movie['rating']!,
+                    reviews: movie['reviews']!,
+                    imageUrl: movie['imageUrl']!,
+                    genre: movie['genre']!,
+                    duration: movie['duration']!,
+                    videoUrl: movie['videoUrl']!,
+                  ),
+                )
+                .toList(),
           ),
         ),
       ],
@@ -454,8 +463,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ViewAllMoviesScreen(movies: mostPopular),
-                  ),
+                      builder: (context) =>
+                          ViewAllMoviesScreen(movies: mostPopular)),
                 );
               },
               child: const Text(
@@ -472,14 +481,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           height: 220,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: mostPopular.map((movie) => _MovieCard(
-              title: movie['title']!,
-              rating: movie['rating']!,
-              reviews: movie['reviews']!,
-              imageUrl: movie['imageUrl']!,
-              genre: movie['genre']!,
-              duration: movie['duration']!,
-            )).toList(),
+            children: mostPopular
+                .map(
+                  (movie) => _MovieCard(
+                    title: movie['title']!,
+                    rating: movie['rating']!,
+                    reviews: movie['reviews']!,
+                    imageUrl: movie['imageUrl']!,
+                    genre: movie['genre']!,
+                    duration: movie['duration']!,
+                    videoUrl: movie['videoUrl']!,
+                  ),
+                )
+                .toList(),
           ),
         ),
       ],
@@ -487,44 +501,44 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildBottomNavigationBar() {
-  return BottomNavigationBar(
-    backgroundColor: const Color(0xFF1A4D2E),
-    selectedItemColor: const Color(0xFFF5EFE6),
-    unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
-    currentIndex: _selectedNavIndex,
-    onTap: (index) {
-      setState(() {
-        _selectedNavIndex = index;
-      });
+    return BottomNavigationBar(
+      backgroundColor: const Color(0xFF1A4D2E),
+      selectedItemColor: const Color(0xFFF5EFE6),
+      unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
+      currentIndex: _selectedNavIndex,
+      onTap: (index) {
+        setState(() {
+          _selectedNavIndex = index;
+        });
 
-      if (index == 1) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-        );
-      } else if (index == 2) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProfileScreen()),
-        );
-      }
-    },
-    items: const [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.favorite),
-        label: 'Favorites',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: 'Profile',
-      ),
-    ],
-  );
-}
+        if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+          );
+        } else if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
+          );
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: 'Favorites',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
+    );
+  }
 }
 
 class _GenreChip extends StatelessWidget {
@@ -574,6 +588,7 @@ class _MovieCard extends StatelessWidget {
   final String imageUrl;
   final String genre;
   final String duration;
+  final String videoUrl;
 
   const _MovieCard({
     required this.title,
@@ -582,12 +597,14 @@ class _MovieCard extends StatelessWidget {
     required this.imageUrl,
     required this.genre,
     required this.duration,
+    required this.videoUrl,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        // Pass all details including videoUrl to the MovieDetailsScreen
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -598,6 +615,7 @@ class _MovieCard extends StatelessWidget {
               rating: rating,
               description: 'This is a detailed description of the movie $title.',
               imageUrl: imageUrl,
+              videoUrl: videoUrl,
             ),
           ),
         );

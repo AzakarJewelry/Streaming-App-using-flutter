@@ -61,6 +61,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             rating: movie['rating']!,
                             description: movie['description']!,
                             imageUrl: movie['imageUrl']!,
+                            videoUrl: movie['videoUrl']!,
                           ),
                         ),
                       );
@@ -93,6 +94,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           rating: movie['rating']!,
                           description: movie['description']!,
                           imageUrl: movie['imageUrl']!,
+                          videoUrl: movie['videoUrl']!,
                         ),
                       ),
                     );
