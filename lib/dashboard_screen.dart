@@ -57,7 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'rating': '★★★★★',
       'reviews': '(105k)',
       'imageUrl':
-          'https://res.cloudinary.com/dkhe2vgto/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1739159949/iatw_nld6o9.jpg',
+          'https://res.cloudinary.com/dkhe2vgto/image/upload/9f76212f36053b1cb40bf7468b463e82_dyctyj.jpg',
       'genre': 'Romance',
       'duration': '2h 4m',
       'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_I_Have_a_Crush_at_Work_-_01_1080p_v0.mkv_fslfz2.mp4',
@@ -421,7 +421,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 220,
+          height: 250,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: newReleases
@@ -478,7 +478,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 220,
+          height: 250,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: mostPopular
@@ -627,12 +627,12 @@ class _MovieCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 150,
+              height: 185,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
                   image: NetworkImage(imageUrl),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
