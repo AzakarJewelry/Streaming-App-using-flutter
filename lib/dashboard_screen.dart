@@ -43,24 +43,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'videoUrl': 'https://res.cloudinary.com/dywykbqpw/video/upload/One_Punch_Man_Season_1_-_Episode_05_English_Sub_gvmv1g.mp4',
     },
     {
-      'title': 'Aquaman',
-      'rating': '★★★☆☆',
+      'title': 'Sakamoto Days',
+      'rating': '★★★★★',
       'reviews': '(35k)',
       'imageUrl':
-          'https://images.squarespace-cdn.com/content/v1/57b29c442994cab73855c706/1545901747909-0M8FCPH08T51S65T0S5Q/Aquaman.jpg?format=1000w',
+          'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739157398/Sakamoto_qmwwmw.jpg',
       'genre': 'Action',
       'duration': '2h 4m',
-      'videoUrl': 'https://example.com/aquaman.mp4',
+      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
     },
     {
-      'title': 'Infinity War',
+      'title': 'I Have a Crush at Work',
       'rating': '★★★★★',
       'reviews': '(105k)',
       'imageUrl':
-          'https://es.web.img3.acsta.net/c_310_420/pictures/18/03/16/15/33/3988420.jpg',
-      'genre': 'Action',
+          'https://res.cloudinary.com/dkhe2vgto/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1739159949/iatw_nld6o9.jpg',
+      'genre': 'Romance',
       'duration': '2h 4m',
-      'videoUrl': 'https://example.com/infinity_war.mp4',
+      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_I_Have_a_Crush_at_Work_-_01_1080p_v0.mkv_fslfz2.mp4',
     },
     {
       'title': 'Spider-Man: No Way Home',
@@ -70,17 +70,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
       'genre': 'Action',
       'duration': '2h 4m',
-      'videoUrl': 'https://example.com/spiderman_no_way_home.mp4',
+      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/y2mate.com_-_Defeating_Doc_Ock_SpiderMan_2_Voyage_With_Captions_1080_eufgx6.mp4',
     },
     {
-      'title': 'Labyrinth',
+      'title': 'Horimiya: The Missing Pieces',
       'rating': '★★★★★',
       'reviews': '(10k)',
       'imageUrl':
-          'https://i5.walmartimages.com/asr/1732b38b-054d-49a7-9447-375f7ef523fc_1.5d63679e850c08000081448f9a897369.jpeg',
+          'https://res.cloudinary.com/dkhe2vgto/image/upload/horimiya_mekupa.jpg',
       'genre': 'Fantasy',
       'duration': '2h 4m',
-      'videoUrl': 'https://example.com/labyrinth.mp4',
+      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/SubsPlease_Horimiya_-_Piece_-_01_1080p_F8A2CB28_.mkv_wan7d0.mp4',
     },
   ];
 
@@ -129,7 +129,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'title': 'Titanic',
       'rating': '★★★★★',
       'reviews': '(180k)',
-      'imageUrl': 'https://picfiles.alphacoders.com/140/thumb-1920-140026.jpg',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/titanic_xowrkm.jpg',
       'genre': 'Romance',
       'duration': '2h 14m',
       'videoUrl': 'https://example.com/titanic.mp4',
