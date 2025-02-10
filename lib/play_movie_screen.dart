@@ -99,11 +99,13 @@ class _PlayMovieState extends State<PlayMovie> {
     );
 
     return _isLoadingSubtitles
-        ? const CircularProgressIndicator()
+        ? const Center(child: CircularProgressIndicator())
         : Stack(
             children: [
               AspectRatio(
-                aspectRatio: _videoPlayerController.value.aspectRatio,
+                aspectRatio: _videoPlayerController.value.isInitialized
+                    ? _videoPlayerController.value.aspectRatio
+                    : 16 / 9,
                 child: subtitleWrapper,
               ),
               Positioned(
@@ -155,44 +157,50 @@ class _PlayMovieState extends State<PlayMovie> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: isDesktop ? 800 : double.infinity, // Restrict width on larger screens
-          ),
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 5,
-                      spreadRadius: 2,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: AspectRatio(
-                    aspectRatio: _videoPlayerController.value.aspectRatio,
-                    child: _buildVideoPlayer(),
-                  ),
-                ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: isDesktop ? 800 : double.infinity, // Restrict width on larger screens
               ),
-              if (_subtitlesError)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Error loading subtitles.",
-                    style: TextStyle(color: Colors.red, fontSize: isDesktop ? 18 : 14),
-                    textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 5,
+                          spreadRadius: 2,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: AspectRatio(
+                        aspectRatio: _videoPlayerController.value.isInitialized
+                            ? _videoPlayerController.value.aspectRatio
+                            : 16 / 9,
+                        child: _buildVideoPlayer(),
+                      ),
+                    ),
                   ),
-                ),
-            ],
+                  if (_subtitlesError)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Error loading subtitles.",
+                        style: TextStyle(color: Colors.red, fontSize: isDesktop ? 18 : 14),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
