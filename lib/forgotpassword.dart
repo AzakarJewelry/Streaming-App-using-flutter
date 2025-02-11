@@ -1,12 +1,5 @@
-// ignore_for_file: library_private_types_in_public_api
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: ForgotPasswordScreen(),
-  ));
-}
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -20,39 +13,64 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _sendResetEmail() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.sendPasswordResetEmail(
+          email: _emailController.text.trim(),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Password reset email sent to ${_emailController.text}"),
+          ),
+        );
+      } on FirebaseAuthException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message ?? "Failed to send reset email")),
+        );
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFAF5EE), // Matches background color
+      backgroundColor: const Color(0xFFFAF5EE),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: const Color(0xFF1A4D2E)), // Green button
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF1A4D2E)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               "Forgot password",
-              style: TextStyle(fontSize: 20, color: Colors.green[900]),
+              style: TextStyle(fontSize: 20, color: Color(0xFF1A4D2E)),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Form(
               key: _formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Email",
-                    style: TextStyle(fontSize: 16, color: Colors.green[900]),
+                    style: TextStyle(fontSize: 16, color: Color(0xFF1A4D2E)),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -61,10 +79,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(color: Colors.black),
+                        borderSide: const BorderSide(color: Colors.black),
                       ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 12,
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -79,24 +99,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  // Implement "Send Code" functionality here
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Code Sent to ${_emailController.text}")),
-                  );
-                }
-              },
+              onPressed: _sendResetEmail,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A4D2E), // Green button
-                minimumSize: Size(double.infinity, 50),
+                backgroundColor: const Color(0xFF1A4D2E),
+                minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 "Send Code",
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
