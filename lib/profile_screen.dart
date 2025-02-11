@@ -70,138 +70,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF1A4D2E),
-      body: Column(
-        children: [
-          // Profile Header
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 40),
-            color: const Color(0xFF1A4D2E),
-            child: Column(
-              children: [
-                const CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                    color: const Color(0xFF1A4D2E),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  userName,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  userEmail,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  userBio,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white60,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // Menu Options
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: ListView(
-                padding: const EdgeInsets.all(20),
-                children: [
-                  _buildMenuItem(
-                    icon: Icons.edit,
-                    title: 'Edit Profile',
-                    onTap: () {
-                      setState(() {
-                        isEditing = true;
-                      });
-                      _showEditProfileDialog();
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.settings,
-                    title: 'Settings',
-                    onTap: () {
-                      // Navigate to Settings
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.star_rate,
-                    title: 'Rate Us',
-                    onTap: () {
-                      // Navigate to Rate Us
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.logout,
-                    title: 'Logout',
-                    onTap: _logout,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
-    );
-  }
-
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: Colors.black,
-        ),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        onTap: onTap,
-        tileColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: Colors.grey.shade300),
-        ),
-      ),
-    );
-  }
-
   void _logout() {
     showDialog(
       context: context,
@@ -284,6 +152,133 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF1A4D2E),
+      body: Column(
+        children: [
+          // Profile Header
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 40),
+            color: const Color(0xFF1A4D2E),
+            child: Column(
+              children: [
+                const CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.person,
+                    size: 50,
+                    color: const Color(0xFF1A4D2E),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  userName,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  userEmail,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white70,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  userBio,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white60,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Menu Options
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  _buildMenuItem(
+                    icon: Icons.edit,
+                    title: 'Edit Profile',
+                    onTap: () {
+                      setState(() {
+                        isEditing = true;
+                      });
+                      _showEditProfileDialog();
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.settings,
+                    title: 'Settings',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SettingsScreen()),
+                      );
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.info_outline,
+                    title: 'Terms & Conditions',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const TermsAndConditionsScreen()),
+                      );
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.logout,
+                    title: 'Logout',
+                    onTap: _logout,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String title,
+    VoidCallback? onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.black),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      ),
+      onTap: onTap,
+    );
+  }
+
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       backgroundColor: const Color(0xFF1A4D2E),
@@ -321,6 +316,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
           label: 'Profile',
         ),
       ],
+    );
+  }
+}
+
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  bool isDarkMode = false;
+
+  void _toggleDarkMode(bool value) {
+    setState(() {
+      isDarkMode = value;
+    });
+    // Logic to apply dark mode can be added here
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings'),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          SwitchListTile(
+            title: const Text('Dark Mode'),
+            value: isDarkMode,
+            onChanged: _toggleDarkMode,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TermsAndConditionsScreen extends StatelessWidget {
+  const TermsAndConditionsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Terms and Conditions'),
+      ),
+      body: const Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Text(
+          'Terms and Conditions\n\n1. Acceptance of Terms By accessing or using the App, you agree to these Terms and Conditions and our Privacy Policy. If you do not agree, you must stop using the App immediately. \n\n2. Changes to Terms We reserve the right to change these Terms and Conditions at any time. Any changes will be effective immediately upon posting the revised version on the App. \n\n3. Privacy Policy Our Privacy Policy is available at [insert link]. By using the App, you agree to the terms of our Privacy Policy. \n\n4. Contact Us If you have any questions about these Terms and Conditions, please contact us at azakar@gmail.com. \n\nLast updated: 1 January 2025',
+          style: TextStyle(fontSize: 16),
+        ),
+      ),
     );
   }
 }
