@@ -39,6 +39,8 @@
     chewie: ^1.10.0
     video_player: ^2.9.2
     subtitle_wrapper_package: ^2.2.1
+    firebase_core: ^3.11.0
+    firebase_auth: ^5.4.2
 
   # The following section is specific to Flutter.
   dev_dependencies:

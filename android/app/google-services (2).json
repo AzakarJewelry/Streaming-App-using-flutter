@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410748627345",
+    "project_id": "streamscapefire",
+    "storage_bucket": "streamscapefire.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410748627345:android:e30560ab201ffdc310d230",
+        "android_client_info": {
+          "package_name": "com.example.azakarstream"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCquv7eXe7Cwn_UO4vD77VurafPrGixDpY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
