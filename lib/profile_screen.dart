@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dashboard_screen.dart'; // Import your dashboard screen
-import 'favorites_screen.dart'; // Import your favorites screen
-import 'main.dart'; // Import your main.dart file
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dashboard_screen.dart';
+import 'favorites_screen.dart';
+import 'main.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,12 +13,50 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String userName = 'John Vincent Diocampo';
-  String userEmail = 'john.dio@example.com';
+  String userName = 'Loading...';
+  String userEmail = 'Loading...';
   String userBio = 'A short bio about the user...';
   List<String> userSkills = ['Flutter', 'Dart', 'UI/UX'];
   bool isEditing = false;
   int _selectedNavIndex = 2; // Set initial index to 2 for Profile
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserProfile();
+  }
+
+  void _fetchUserProfile() async {
+    User? currentUser = _auth.currentUser;
+    if (currentUser != null) {
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(currentUser.uid).get();
+
+      if (userDoc.exists) {
+        setState(() {
+          userName = userDoc['username'] ?? 'No Name';
+          userEmail = userDoc['email'] ?? 'No Email';
+          userBio = userDoc['bio'] ?? 'A short bio about the user...';
+          userSkills = List<String>.from(userDoc['skills'] ?? ['Flutter', 'Dart', 'UI/UX']);
+        });
+      }
+    }
+  }
+
+  void _saveProfileChanges() async {
+    User? currentUser = _auth.currentUser;
+    if (currentUser != null) {
+      await _firestore.collection('users').doc(currentUser.uid).set({
+        'username': userName,
+        'email': userEmail,
+        'bio': userBio,
+        'skills': userSkills,
+      }, SetOptions(merge: true));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +117,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         setState(() {
                           isEditing = !isEditing;
                           if (!isEditing) {
-                            print(
-                                "Saving changes: Name: $userName, Email: $userEmail, Bio: $userBio, Skills: $userSkills");
-                            // TODO: Implement saving logic here
+                            _saveProfileChanges();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Profile updated successfully!')),
+                            );
                           }
                         });
                       },
@@ -96,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: ElevatedButton(
                     onPressed: _logout,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:const Color(0xFF1A4D2E),
+                      backgroundColor: const Color(0xFF1A4D2E),
                       foregroundColor: Colors.white,
                     ),
                     child: const Text('Logout'),
@@ -183,17 +224,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         content: const Text('Are you sure you want to logout?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context), // Close the dialog
+            onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context); // Close the dialog
-
+              _auth.signOut();
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const MyHomePage()),
-                (route) => false, // Removes all previous routes from the stack
+                (route) => false,
               );
             },
             child: const Text('Logout'),

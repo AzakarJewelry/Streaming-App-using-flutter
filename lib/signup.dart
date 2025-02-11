@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 
@@ -15,6 +16,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
+
+  // Variables to handle password visibility
+  bool _passwordVisible = false;
+  bool _confirmPasswordVisible = false;
 
   @override
   void dispose() {
@@ -42,6 +47,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // Update user display name
       await credential.user!.updateDisplayName(_nameController.text.trim());
+
+      // Save user details to Firestore
+      await FirebaseFirestore.instance.collection('users').doc(credential.user!.uid).set({
+        'username': _nameController.text.trim(),
+        'email': _emailController.text.trim(),
+      });
 
       if (!mounted) return;
       Navigator.pushReplacement(
@@ -113,12 +124,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Email or Username',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
-                      ),
+                      border: const OutlineInputBorder(),
                       labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
                       ),
                     ),
                     style: const TextStyle(color: Color(0xFF1A4D2E)),
@@ -128,12 +137,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _nameController,
                     decoration: InputDecoration(
                       labelText: 'Name',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
-                      ),
+                      border: const OutlineInputBorder(),
                       labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
                       ),
                     ),
                     style: const TextStyle(color: Color(0xFF1A4D2E)),
@@ -141,33 +148,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 20),
                   TextField(
                     controller: _passwordController,
+                    obscureText: !_passwordVisible, // Toggle visibility
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
-                      ),
+                      border: const OutlineInputBorder(),
                       labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                          color: const Color(0xFF1A4D2E),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
                       ),
                     ),
-                    obscureText: true,
                     style: const TextStyle(color: Color(0xFF1A4D2E)),
                   ),
                   const SizedBox(height: 20),
                   TextField(
                     controller: _confirmPasswordController,
+                    obscureText: !_confirmPasswordVisible, // Toggle visibility
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
-                      ),
+                      border: const OutlineInputBorder(),
                       labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                          color: const Color(0xFF1A4D2E),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _confirmPasswordVisible = !_confirmPasswordVisible;
+                          });
+                        },
                       ),
                     ),
-                    obscureText: true,
                     style: const TextStyle(color: Color(0xFF1A4D2E)),
                   ),
                   const SizedBox(height: 30),
