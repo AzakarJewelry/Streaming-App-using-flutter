@@ -536,118 +536,219 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
 
   Widget _buildNewReleases() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'New Releases',
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'New Releases',
+            style: TextStyle(
+              color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ViewAllMoviesScreen(movies: newReleases)),
+              );
+            },
+            child: Text(
+              'View All',
               style: TextStyle(
                 color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ViewAllMoviesScreen(movies: newReleases)),
-                );
-              },
-              child: Text(
-                'View All',
-                style: TextStyle(
-                   color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+          ),
+        ],
+      ),
+      const SizedBox(height: 15),
+      SizedBox(
+        height: 250,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: newReleases.length,
+          itemBuilder: (context, index) {
+            final movie = newReleases[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.4, // Scales to 40% of screen width
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                          child: Image.network(
+                            movie['imageUrl']!,
+                            width: double.infinity,
+                            fit: BoxFit.cover, // Ensures the image fits within the card
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              movie['title']!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: _isDarkMode
+                                    ? Colors.white
+                                    : const Color(0xFF1A4D2E),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Rating: ${movie['rating']}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: _isDarkMode
+                                    ? Colors.grey[300]
+                                    : Colors.grey[700],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            );
+          },
         ),
-        const SizedBox(height: 15),
-        SizedBox(
-          height: 250,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: newReleases
-                .map(
-                  (movie) => _MovieCard(
-                    title: movie['title']!,
-                    rating: movie['rating']!,
-                    reviews: movie['reviews']!,
-                    imageUrl: movie['imageUrl']!,
-                    genre: movie['genre']!,
-                    duration: movie['duration']!,
-                    videoUrl: movie['videoUrl']!,
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
-  Widget _buildMoreMovies() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Most Popular',
+Widget _buildMoreMovies() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Most Popular',
+            style: TextStyle(
+              color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ViewAllMoviesScreen(movies: mostPopular)),
+              );
+            },
+            child: Text(
+              'View All',
               style: TextStyle(
-                 color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+                color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ViewAllMoviesScreen(movies: mostPopular)),
-                );
-              },
-              child: Text(
-                'View All',
-                style: TextStyle(
-                   color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+          ),
+        ],
+      ),
+      const SizedBox(height: 15),
+      SizedBox(
+        height: 250,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: mostPopular.length,
+          itemBuilder: (context, index) {
+            final movie = mostPopular[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.4, // Scales to 40% of screen width
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                          child: Image.network(
+                            movie['imageUrl']!,
+                            width: double.infinity,
+                            fit: BoxFit.cover, // Ensures the image fits within the card
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              movie['title']!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: _isDarkMode
+                                    ? Colors.white
+                                    : const Color(0xFF1A4D2E),
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Rating: ${movie['rating']}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: _isDarkMode
+                                    ? Colors.grey[300]
+                                    : Colors.grey[700],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            );
+          },
         ),
-        const SizedBox(height: 15),
-        SizedBox(
-          height: 250,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: mostPopular
-                .map(
-                  (movie) => _MovieCard(
-                    title: movie['title']!,
-                    rating: movie['rating']!,
-                    reviews: movie['reviews']!,
-                    imageUrl: movie['imageUrl']!,
-                    genre: movie['genre']!,
-                    duration: movie['duration']!,
-                    videoUrl: movie['videoUrl']!,
-                  ),
-                )
-                .toList(),
-          ),
-        ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
 
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
