@@ -15,13 +15,15 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   String userName = 'Loading...';
   String userEmail = 'Loading...';
-  String userBio = 'A short bio about the user...';
-  List<String> userSkills = ['Flutter', 'Dart', 'UI/UX'];
+  String userBio = 'Loading...';
   bool isEditing = false;
   int _selectedNavIndex = 2; // Set initial index to 2 for Profile
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
 
   @override
   void initState() {
@@ -39,8 +41,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         setState(() {
           userName = userDoc['username'] ?? 'No Name';
           userEmail = userDoc['email'] ?? 'No Email';
-          userBio = userDoc['bio'] ?? 'A short bio about the user...';
-          userSkills = List<String>.from(userDoc['skills'] ?? ['Flutter', 'Dart', 'UI/UX']);
+          userBio = userDoc['bio'] ?? 'No Bio';
+          _nameController.text = userName;
+          _emailController.text = userEmail;
+          _bioController.text = userBio;
         });
       }
     }
@@ -50,169 +54,151 @@ class _ProfileScreenState extends State<ProfileScreen> {
     User? currentUser = _auth.currentUser;
     if (currentUser != null) {
       await _firestore.collection('users').doc(currentUser.uid).set({
-        'username': userName,
-        'email': userEmail,
-        'bio': userBio,
-        'skills': userSkills,
+        'username': _nameController.text,
+        'email': _emailController.text,
+        'bio': _bioController.text,
       }, SetOptions(merge: true));
+      setState(() {
+        userName = _nameController.text;
+        userEmail = _emailController.text;
+        userBio = _bioController.text;
+        isEditing = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profile updated successfully!')),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5EFE6),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
+      backgroundColor: const Color(0xFF1A4D2E),
+      body: Column(
+        children: [
+          // Profile Header
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 40),
+            color: const Color(0xFF1A4D2E),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: CircleAvatar(
-                      radius: 80,
-                      backgroundColor: Colors.grey[300],
-                      backgroundImage: const NetworkImage(
-                          'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png'),
-                    ),
+                const CircleAvatar(
+                  radius: 60,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.person,
+                    size: 50,
+                    color: const Color(0xFF1A4D2E),
                   ),
                 ),
-                _buildEditableText('Name:', userName, (value) => userName = value),
-                const SizedBox(height: 15),
-                _buildEditableText('Email:', userEmail, (value) => userEmail = value, keyboardType: TextInputType.emailAddress),
-                const SizedBox(height: 15),
-                _buildEditableText('Bio:', userBio, (value) => userBio = value, maxLines: 3),
-                const SizedBox(height: 25),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    'Skills:',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1A4D2E),
-                    ),
+                const SizedBox(height: 10),
+                Text(
+                  userName,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                if (isEditing)
-                  _buildEditableSkills()
-                else
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: Wrap(
-                      spacing: 8.0,
-                      runSpacing: 4.0,
-                      children: userSkills.map((skill) => Chip(label: Text(skill))).toList(),
-                    ),
-                  ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          isEditing = !isEditing;
-                          if (!isEditing) {
-                            _saveProfileChanges();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Profile updated successfully!')),
-                            );
-                          }
-                        });
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1A4D2E),
-                        foregroundColor: Colors.white,
-                      ),
-                      child: Text(isEditing ? 'Save' : 'Edit Profile'),
-                    ),
+                const SizedBox(height: 5),
+                Text(
+                  userEmail,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white70,
                   ),
                 ),
-                const SizedBox(height: 20),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: _logout,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1A4D2E),
-                      foregroundColor: Colors.white,
-                    ),
-                    child: const Text('Logout'),
+                const SizedBox(height: 10),
+                Text(
+                  userBio,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white60,
                   ),
                 ),
               ],
             ),
           ),
-        ),
+
+          // Menu Options
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  _buildMenuItem(
+                    icon: Icons.edit,
+                    title: 'Edit Profile',
+                    onTap: () {
+                      setState(() {
+                        isEditing = true;
+                      });
+                      _showEditProfileDialog();
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.settings,
+                    title: 'Settings',
+                    onTap: () {
+                      // Navigate to Settings
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.star_rate,
+                    title: 'Rate Us',
+                    onTap: () {
+                      // Navigate to Rate Us
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.logout,
+                    title: 'Logout',
+                    onTap: _logout,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
-  Widget _buildEditableText(String label, String value, Function(String) onChanged, {TextInputType? keyboardType, int? maxLines}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ListTile(
+        leading: Icon(
+          icon,
+          color: Colors.black,
+        ),
+        title: Text(
+          title,
           style: const TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1A4D2E),
+            fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(height: 5),
-        if (isEditing)
-          TextField(
-            onChanged: onChanged,
-            decoration: const InputDecoration(border: OutlineInputBorder()),
-            keyboardType: keyboardType,
-            maxLines: maxLines,
-            style: const TextStyle(color: Color(0xFF1A4D2E)),
-          )
-        else
-          Text(
-            value,
-            style: const TextStyle(color: Color(0xFF1A4D2E)),
-          ),
-      ],
-    );
-  }
-
-  Widget _buildEditableSkills() {
-    return Wrap(
-      spacing: 8.0,
-      runSpacing: 4.0,
-      children: List.generate(userSkills.length + 1, (index) {
-        if (index < userSkills.length) {
-          return Chip(
-            label: Text(userSkills[index]),
-            onDeleted: () {
-              setState(() {
-                userSkills.removeAt(index);
-              });
-            },
-          );
-        } else {
-          return ActionChip(
-            label: const Text('+ Add Skill'),
-            onPressed: () async {
-              final newSkill = await showDialog<String>(
-                context: context,
-                builder: (context) => _AddSkillDialog(),
-              );
-              if (newSkill != null && newSkill.isNotEmpty) {
-                setState(() {
-                  userSkills.add(newSkill);
-                });
-              }
-            },
-          );
-        }
-      }),
+        onTap: onTap,
+        tileColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(color: Colors.grey.shade300),
+        ),
+      ),
     );
   }
 
@@ -243,11 +229,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  void _showEditProfileDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Edit Profile'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Name',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _bioController,
+              decoration: const InputDecoration(
+                labelText: 'Bio',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                isEditing = false;
+              });
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              _saveProfileChanges();
+              Navigator.pop(context);
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       backgroundColor: const Color(0xFF1A4D2E),
-      selectedItemColor: const Color(0xFFF5EFE6),
-      unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white.withOpacity(0.5),
       currentIndex: _selectedNavIndex,
       onTap: (index) {
         setState(() {
@@ -278,37 +319,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
           label: 'Profile',
-        ),
-      ],
-    );
-  }
-}
-
-class _AddSkillDialog extends StatefulWidget {
-  @override
-  _AddSkillDialogState createState() => _AddSkillDialogState();
-}
-
-class _AddSkillDialogState extends State<_AddSkillDialog> {
-  final _controller = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Add Skill'),
-      content: TextField(
-        controller: _controller,
-        autofocus: true,
-        decoration: const InputDecoration(hintText: 'Enter skill'),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context, _controller.text),
-          child: const Text('Add'),
         ),
       ],
     );
