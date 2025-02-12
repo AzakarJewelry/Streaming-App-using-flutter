@@ -45,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: const Text('Settings'),
         // AppBar color adjusts based on dark mode.
-        backgroundColor: widget.isDarkMode ? Colors.grey[900] : Colors.blue,
+        backgroundColor: widget.isDarkMode ? Colors.black : const Color.fromARGB(255, 1, 54, 4),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),

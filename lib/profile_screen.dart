@@ -197,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // Profile Header
           Container(
             padding: const EdgeInsets.symmetric(vertical: 40),
-            color: isDark ? Colors.grey[900] : const Color(0xFF1A4D2E),
+            color: isDark ? Colors.black : const Color(0xFF1A4D2E),
             child: Column(
               children: [
                 Stack(

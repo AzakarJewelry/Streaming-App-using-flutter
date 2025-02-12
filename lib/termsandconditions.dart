@@ -29,7 +29,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Terms and Conditions'),
-        backgroundColor: const Color(0xFFF5EFE6),
+        backgroundColor: Color(0xFF1A4D2E),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
