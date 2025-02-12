@@ -1,6 +1,10 @@
+import 'package:azakarstream/settings_screen.dart';
+import 'package:azakarstream/termsandconditions.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'dashboard_screen.dart';
 import 'favorites_screen.dart';
 import 'main.dart';
@@ -16,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String userName = 'Loading...';
   String userEmail = 'Loading...';
   String userBio = 'Loading...';
+  String? profilePhotoUrl;
   bool isEditing = false;
   int _selectedNavIndex = 2; // Set initial index to 2 for Profile
 
@@ -42,10 +47,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
           userName = userDoc['username'] ?? 'No Name';
           userEmail = userDoc['email'] ?? 'No Email';
           userBio = userDoc['bio'] ?? 'No Bio';
+          profilePhotoUrl = userDoc['profilePhoto'] ?? null;
           _nameController.text = userName;
           _emailController.text = userEmail;
           _bioController.text = userBio;
         });
+      }
+    }
+  }
+
+  Future<void> _editProfilePhoto() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image =
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+
+    if (image != null) {
+      // Save the photo URL to Firestore (assumes file uploading logic exists)
+      User? currentUser = _auth.currentUser;
+      if (currentUser != null) {
+        String newPhotoUrl = image.path; // Replace this with the actual URL
+        await _firestore.collection('users').doc(currentUser.uid).update({
+          'profilePhoto': newPhotoUrl,
+        });
+
+        setState(() {
+          profilePhotoUrl = newPhotoUrl;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profile photo updated successfully!')),
+        );
       }
     }
   }
@@ -164,14 +195,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: const Color(0xFF1A4D2E),
             child: Column(
               children: [
-                const CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                    color: const Color(0xFF1A4D2E),
-                  ),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundImage: profilePhotoUrl != null
+                          ? FileImage(File(profilePhotoUrl!))
+                          : null,
+                      child: profilePhotoUrl == null
+                          ? const Icon(
+                              Icons.person,
+                              size: 60,
+                              color: Colors.white,
+                            )
+                          : null,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: IconButton(
+                        onPressed: _editProfilePhoto,
+                        icon: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -291,12 +342,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
 
         if (index == 0) {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const DashboardScreen()),
           );
         } else if (index == 1) {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const FavoriteScreen()),
           );
@@ -316,63 +367,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           label: 'Profile',
         ),
       ],
-    );
-  }
-}
-
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
-
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool isDarkMode = false;
-
-  void _toggleDarkMode(bool value) {
-    setState(() {
-      isDarkMode = value;
-    });
-    // Logic to apply dark mode can be added here
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        children: [
-          SwitchListTile(
-            title: const Text('Dark Mode'),
-            value: isDarkMode,
-            onChanged: _toggleDarkMode,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TermsAndConditionsScreen extends StatelessWidget {
-  const TermsAndConditionsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Terms and Conditions'),
-      ),
-      body: const Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Text(
-          'Terms and Conditions\n\n1. Acceptance of Terms By accessing or using the App, you agree to these Terms and Conditions and our Privacy Policy. If you do not agree, you must stop using the App immediately. \n\n2. Changes to Terms We reserve the right to change these Terms and Conditions at any time. Any changes will be effective immediately upon posting the revised version on the App. \n\n3. Privacy Policy Our Privacy Policy is available at [insert link]. By using the App, you agree to the terms of our Privacy Policy. \n\n4. Contact Us If you have any questions about these Terms and Conditions, please contact us at azakar@gmail.com. \n\nLast updated: 1 January 2025',
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
     );
   }
 }

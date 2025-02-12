@@ -802,6 +802,8 @@ class _MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: () {
         // Pass all details including videoUrl to the MovieDetailsScreen
@@ -839,8 +841,8 @@ class _MovieCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               title,
-              style: const TextStyle(
-                color: Color(0xFF1A4D2E),
+              style: TextStyle(
+                color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -848,8 +850,8 @@ class _MovieCard extends StatelessWidget {
               children: [
                 Text(
                   rating,
-                  style: const TextStyle(
-                    color: Color(0xFFF3C63F),
+                  style: TextStyle(
+                    color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
                     fontSize: 12,
                   ),
                 ),
@@ -857,7 +859,9 @@ class _MovieCard extends StatelessWidget {
                 Text(
                   reviews,
                   style: TextStyle(
-                    color: const Color(0xFF1A4D2E).withOpacity(0.5),
+                    color: isDarkMode
+                        ? Colors.white.withOpacity(0.7)
+                        : const Color(0xFF1A4D2E).withOpacity(0.5),
                     fontSize: 12,
                   ),
                 ),
