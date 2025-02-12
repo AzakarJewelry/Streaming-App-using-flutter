@@ -49,7 +49,7 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
       },
     );
     bannerAd = BannerAd(
-      size: AdSize.banner,
+      size: AdSize.fluid,
       adUnitId: bannerId,
       request: adRequest!,
       listener: bannerAdListener,
