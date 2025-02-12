@@ -11,12 +11,12 @@ import 'profile_screen.dart'; // Import the ProfileScreen
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io' show Platform;
 
-
-void main()  {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   runApp(const DashboardScreen());
 }
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -27,24 +27,26 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
-  bool _isDarkMode = false; // Track dark mode state
+
   AdRequest? adRequest;
   BannerAd? bannerAd;
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
-String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" : "ca-app-pub-3940256099942544/2934735716";
-// ca-app-pub-3181461073325424/8227629369
+    String bannerId = Platform.isAndroid
+        ? "ca-app-pub-3940256099942544/6300978111"
+        : "ca-app-pub-3940256099942544/2934735716";
 
     adRequest = const AdRequest(
       nonPersonalizedAds: false,
     );
     BannerAdListener bannerAdListener = BannerAdListener(
-      onAdClosed: (ad){
+      onAdClosed: (ad) {
         bannerAd!.load();
       },
-      onAdFailedToLoad: (ad, error){
+      onAdFailedToLoad: (ad, error) {
         bannerAd!.load();
       },
     );
@@ -56,8 +58,9 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
     );
     bannerAd!.load();
   }
+
   @override
-  void dispose(){
+  void dispose() {
     bannerAd!.dispose();
     super.dispose();
   }
@@ -72,7 +75,8 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
           'https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_.jpg',
       'genre': 'Action',
       'duration': '2h 4m',
-      'videoUrl': 'https://res.cloudinary.com/dywykbqpw/video/upload/zrf1mbajhv8m24n9gxi7.mp4', // Unique video URL
+      'videoUrl':
+          'https://res.cloudinary.com/dywykbqpw/video/upload/zrf1mbajhv8m24n9gxi7.mp4',
     },
     {
       'title': 'One Punch Man',
@@ -82,7 +86,8 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
           'https://upload.wikimedia.org/wikipedia/en/c/c3/OnePunchMan_manga_cover.png',
       'genre': 'Adventure',
       'duration': '2h 4m',
-      'videoUrl': 'https://res.cloudinary.com/dywykbqpw/video/upload/One_Punch_Man_Season_1_-_Episode_05_English_Sub_gvmv1g.mp4',
+      'videoUrl':
+          'https://res.cloudinary.com/dywykbqpw/video/upload/One_Punch_Man_Season_1_-_Episode_05_English_Sub_gvmv1g.mp4',
     },
     {
       'title': 'Sakamoto Days',
@@ -92,7 +97,8 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
           'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739157398/Sakamoto_qmwwmw.jpg',
       'genre': 'Action',
       'duration': '2h 4m',
-      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
+      'videoUrl':
+          'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
     },
     {
       'title': 'I Have a Crush at Work',
@@ -102,7 +108,8 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
           'https://res.cloudinary.com/dkhe2vgto/image/upload/9f76212f36053b1cb40bf7468b463e82_dyctyj.jpg',
       'genre': 'Romance',
       'duration': '2h 4m',
-      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_I_Have_a_Crush_at_Work_-_01_1080p_v0.mkv_fslfz2.mp4',
+      'videoUrl':
+          'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_I_Have_a_Crush_at_Work_-_01_1080p_v0.mkv_fslfz2.mp4',
     },
     {
       'title': 'Spider-Man: No Way Home',
@@ -112,7 +119,8 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
           'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
       'genre': 'Action',
       'duration': '2h 4m',
-      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/y2mate.com_-_Defeating_Doc_Ock_SpiderMan_2_Voyage_With_Captions_1080_eufgx6.mp4',
+      'videoUrl':
+          'https://res.cloudinary.com/dkhe2vgto/video/upload/y2mate.com_-_Defeating_Doc_Ock_SpiderMan_2_Voyage_With_Captions_1080_eufgx6.mp4',
     },
     {
       'title': 'Horimiya: The Missing Pieces',
@@ -122,7 +130,8 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
           'https://res.cloudinary.com/dkhe2vgto/image/upload/horimiya_mekupa.jpg',
       'genre': 'Fantasy',
       'duration': '2h 4m',
-      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/SubsPlease_Horimiya_-_Piece_-_01_1080p_F8A2CB28_.mkv_wan7d0.mp4',
+      'videoUrl':
+          'https://res.cloudinary.com/dkhe2vgto/video/upload/SubsPlease_Horimiya_-_Piece_-_01_1080p_F8A2CB28_.mkv_wan7d0.mp4',
     },
   ];
 
@@ -190,28 +199,23 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
 
   @override
   Widget build(BuildContext context) {
+    // Remove the local dark mode theme setting.
     return MaterialApp(
-      theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
       home: Scaffold(
-        backgroundColor: _isDarkMode ? Colors.grey[900] : const Color(0xFFF5EFE6), // Cream background
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Top Bar (Time, Location, Icons)
                 _buildTopBar(),
                 const SizedBox(height: 20),
-                // Featured Movie
                 _buildFeaturedMovie(),
                 const SizedBox(height: 25),
-                // Genres
                 _buildGenres(),
                 const SizedBox(height: 25),
-                // New Releases
                 _buildNewReleases(),
-                // More Movies Section Below
                 _buildMoreMovies(),
               ],
             ),
@@ -233,16 +237,19 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
   }
 
   Widget _buildTopBar() {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Time and Location
+        // Time and Location (if needed)
         Row(
           children: [
             Text(
               '', // Replace with actual time if needed
               style: TextStyle(
-                color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E).withOpacity(0.6),
+                color: isDark
+                    ? Colors.white
+                    : const Color(0xFF1A4D2E).withOpacity(0.6),
                 fontSize: 16,
               ),
             ),
@@ -252,18 +259,19 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
               child: Text(
                 'StreamScape',
                 style: TextStyle(
-                  color: _isDarkMode ? Colors.white : Color(0xFF1A4D2E),
+                  color: isDark ? Colors.white : const Color(0xFF1A4D2E),
                   fontSize: 20,
                 ),
               ),
             ),
           ],
         ),
-        // Search and Notifications
+        // Search and Notifications (removed dark mode switch)
         Row(
           children: [
             IconButton(
-              icon: Icon(Icons.search, color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E)),
+              icon: Icon(Icons.search,
+                  color: isDark ? Colors.white : const Color(0xFF1A4D2E)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -276,20 +284,11 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
               },
             ),
             IconButton(
-              icon: Icon(Icons.notifications, color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E)),
+              icon: Icon(Icons.notifications,
+                  color: isDark ? Colors.white : const Color(0xFF1A4D2E)),
               onPressed: () {
                 // Implement notifications
               },
-            ),
-            Switch(
-              value: _isDarkMode,
-              onChanged: (value) {
-                setState(() {
-                  _isDarkMode = value;
-                });
-              },
-              activeColor: Colors.white,
-              inactiveThumbColor: Colors.grey,
             ),
           ],
         ),
@@ -332,13 +331,14 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
   }
 
   Widget _buildGenres() {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Genres',
           style: TextStyle(
-            color: _isDarkMode ? Colors.white : Color(0xFF1A4D2E),
+            color: isDark ? Colors.white : const Color(0xFF1A4D2E),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -546,47 +546,46 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
                 onSelected: (genre) {
                   setState(() {
                     _selectedGenre = genre;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GenreScreen(
-                      genre: genre,
-                      allMovies: [...newReleases, ...mostPopular],
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GenreScreen(
+                        genre: genre,
+                        allMovies: [...newReleases, ...mostPopular],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-            _GenreChip(
-              title: 'Documentary',
-              genre: 'Documentary',
-              isSelected: _selectedGenre == 'Documentary',
-              onSelected: (genre) {
-                setState(() {
-                  _selectedGenre = genre;
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => GenreScreen(
-                      genre: genre,
-                      allMovies: [...newReleases, ...mostPopular],
+                  );
+                },
+              ),
+              _GenreChip(
+                title: 'Documentary',
+                genre: 'Documentary',
+                isSelected: _selectedGenre == 'Documentary',
+                onSelected: (genre) {
+                  setState(() {
+                    _selectedGenre = genre;
+                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GenreScreen(
+                        genre: genre,
+                        allMovies: [...newReleases, ...mostPopular],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-    ],
-  );
-}
-
-
+      ],
+    );
+  }
 
   Widget _buildNewReleases() {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -596,7 +595,7 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
             Text(
               'New Releases',
               style: TextStyle(
-                color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+                color: isDark ? Colors.white : const Color(0xFF1A4D2E),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -613,7 +612,7 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
               child: Text(
                 'View All',
                 style: TextStyle(
-                   color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+                  color: isDark ? Colors.white : const Color(0xFF1A4D2E),
                 ),
               ),
             ),
@@ -644,6 +643,7 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
   }
 
   Widget _buildMoreMovies() {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -653,7 +653,7 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
             Text(
               'Most Popular',
               style: TextStyle(
-                 color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+                color: isDark ? Colors.white : const Color(0xFF1A4D2E),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -670,7 +670,7 @@ String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" :
               child: Text(
                 'View All',
                 style: TextStyle(
-                   color: _isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+                  color: isDark ? Colors.white : const Color(0xFF1A4D2E),
                 ),
               ),
             ),
@@ -802,11 +802,11 @@ class _MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: () {
-        // Pass all details including videoUrl to the MovieDetailsScreen
+        // Pass details including videoUrl to the MovieDetailsScreen.
         Navigator.push(
           context,
           MaterialPageRoute(

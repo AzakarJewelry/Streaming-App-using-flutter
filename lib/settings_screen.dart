@@ -1,41 +1,37 @@
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  final bool isDarkMode;
+  final ValueChanged<bool> onToggleDarkMode;
+
+  const SettingsScreen({
+    super.key,
+    required this.isDarkMode,
+    required this.onToggleDarkMode,
+  });
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool isDarkMode = false;
-  String selectedLanguage = 'Englishh';
-
-  void _toggleDarkMode(bool value) {
-    setState(() {
-      isDarkMode = value;
-    });
-    // Logic to apply dark mode can be added here
-  }
+  String selectedLanguage = 'English';
 
   void _changeLanguage(String? language) {
     if (language != null) {
       setState(() {
         selectedLanguage = language;
       });
-      // Logic to apply language changes can be added here
     }
   }
 
   void _manageAccount() {
-    // Implement account management actions
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Account management clicked!')),
     );
   }
 
   void _sendFeedback() {
-    // Implement feedback or help actions
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Feedback clicked!')),
     );
@@ -44,25 +40,49 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Background color is determined by the global dark mode value.
+      backgroundColor: widget.isDarkMode ? Colors.black : Colors.white,
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: const Color(0xFFF5EFE6),
+        // AppBar color adjusts based on dark mode.
+        backgroundColor: widget.isDarkMode ? Colors.grey[900] : Colors.blue,
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          const Text(
+          Text(
             'General',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: widget.isDarkMode ? Colors.white : Colors.black,
+            ),
           ),
           SwitchListTile(
-            title: const Text('Dark Mode'),
-            value: isDarkMode,
-            onChanged: _toggleDarkMode,
+            title: Text(
+              'Dark Mode',
+              style: TextStyle(
+                color: widget.isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
+            // Use the global dark mode state.
+            value: widget.isDarkMode,
+            // When toggled, call the global toggle function.
+            onChanged: widget.onToggleDarkMode,
           ),
           ListTile(
-            title: const Text('Change Language'),
-            subtitle: Text(selectedLanguage),
+            title: Text(
+              'Change Language',
+              style: TextStyle(
+                color: widget.isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
+            subtitle: Text(
+              selectedLanguage,
+              style: TextStyle(
+                color: widget.isDarkMode ? Colors.white70 : Colors.black54,
+              ),
+            ),
             trailing: DropdownButton<String>(
               value: selectedLanguage,
               onChanged: _changeLanguage,
@@ -83,18 +103,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             'Account',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: widget.isDarkMode ? Colors.white : Colors.black,
+            ),
           ),
           ListTile(
-            leading: const Icon(Icons.person_outline),
-            title: const Text('Manage Account'),
+            leading: Icon(
+              Icons.person_outline,
+              color: widget.isDarkMode ? Colors.white : Colors.black,
+            ),
+            title: Text(
+              'Manage Account',
+              style: TextStyle(
+                color: widget.isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
             onTap: _manageAccount,
           ),
           ListTile(
-            leading: const Icon(Icons.feedback_outlined),
-            title: const Text('Send Feedback / Help'),
+            leading: Icon(
+              Icons.feedback_outlined,
+              color: widget.isDarkMode ? Colors.white : Colors.black,
+            ),
+            title: Text(
+              'Send Feedback / Help',
+              style: TextStyle(
+                color: widget.isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
             onTap: _sendFeedback,
           ),
         ],

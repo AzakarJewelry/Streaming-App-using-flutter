@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       // Save the photo URL to Firestore (assumes file uploading logic exists)
       User? currentUser = _auth.currentUser;
       if (currentUser != null) {
-        String newPhotoUrl = image.path; // Replace this with the actual URL
+        String newPhotoUrl = image.path; // Replace with the actual URL after uploading
         await _firestore.collection('users').doc(currentUser.uid).update({
           'profilePhoto': newPhotoUrl,
         });
@@ -185,14 +185,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Determine whether the global theme is dark.
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: const Color(0xFF1A4D2E),
+      // For the overall scaffold, we set the background based on dark mode.
+      backgroundColor: isDark ? Colors.black : const Color(0xFF1A4D2E),
       body: Column(
         children: [
           // Profile Header
           Container(
             padding: const EdgeInsets.symmetric(vertical: 40),
-            color: const Color(0xFF1A4D2E),
+            color: isDark ? Colors.grey[900] : const Color(0xFF1A4D2E),
             child: Column(
               children: [
                 Stack(
@@ -253,13 +257,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
-
           // Menu Options
           Expanded(
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: isDark ? Colors.grey[850] : Colors.white,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
@@ -281,11 +284,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     icon: Icons.settings,
                     title: 'Settings',
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SettingsScreen()),
-                      );
+                      // Retrieve the global dark mode state from MyApp.
+                      final myAppState = MyApp.of(context);
+                      if (myAppState != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SettingsScreen(
+                              isDarkMode: myAppState.isDarkMode,
+                              onToggleDarkMode: myAppState.toggleDarkMode,
+                            ),
+                          ),
+                        );
+                      }
                     },
                   ),
                   _buildMenuItem(
@@ -295,8 +306,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                const TermsAndConditionsScreen()),
+                          builder: (context) =>
+                              const TermsAndConditionsScreen(),
+                        ),
                       );
                     },
                   ),
@@ -320,19 +332,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required String title,
     VoidCallback? onTap,
   }) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return ListTile(
-      leading: Icon(icon, color: Colors.black),
+      leading: Icon(icon, color: isDark ? Colors.white : Colors.black),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: isDark ? Colors.white : Colors.black,
+        ),
       ),
       onTap: onTap,
     );
   }
 
   Widget _buildBottomNavigationBar() {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFF1A4D2E),
+      backgroundColor: isDark ? Colors.grey[900] : const Color(0xFF1A4D2E),
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white.withOpacity(0.5),
       currentIndex: _selectedNavIndex,

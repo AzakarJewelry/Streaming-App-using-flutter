@@ -4,6 +4,7 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
+import 'settings_screen.dart'; // Import the settings screen
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,20 +14,51 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  // Static accessor to retrieve the state of MyApp from anywhere in the widget tree.
+  static _MyAppState? of(BuildContext context) {
+    return context.findAncestorStateOfType<_MyAppState>();
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isDarkMode = false;
+
+  // Global toggle for dark mode.
+  void toggleDarkMode(bool value) {
+    setState(() {
+      isDarkMode = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'STREAMSCAPE',
+      // Light theme configuration
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)),
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFF5EFE6),
+        // Using default scaffold background for light mode.
       ),
-      home: const SplashScreen(
+      // Dark theme configuration
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey[900],
+        ),
+        // Additional dark theme customization if needed.
+      ),
+      // Switch between themes based on isDarkMode.
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      home: SplashScreen(
         splashName: 'STREAMSCAPE',
         splashDuration: 3,
       ),
@@ -58,10 +90,10 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1000), // Adjust duration as needed
+      duration: const Duration(milliseconds: 1000),
     );
     _scale = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _controller.forward(); // Start the animation
+    _controller.forward();
     Future.delayed(Duration(seconds: widget.splashDuration), () {
       Navigator.pushReplacement(
         context,
@@ -78,10 +110,11 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    // Use the theme's scaffoldBackgroundColor instead of a hardcoded color.
     return Scaffold(
-      backgroundColor: const Color(0xFFF5EFE6),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
-        child: ScaleTransition( // Use ScaleTransition for scaling effect
+        child: ScaleTransition(
           scale: _scale,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -121,14 +154,13 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5EFE6),
+      // Removed explicit backgroundColor to let the global theme apply.
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +170,7 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 children: [
                   Image.network(
-                    'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__', // Replace with your logo URL
+                    'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__',
                     width: 150,
                     height: 150,
                     fit: BoxFit.contain,
@@ -147,7 +179,8 @@ class MyHomePage extends StatelessWidget {
                       return const CircularProgressIndicator();
                     },
                     errorBuilder: (context, error, stackTrace) {
-                      return const Icon(Icons.image_not_supported, size: 100, color: Colors.grey);
+                      return const Icon(Icons.image_not_supported,
+                          size: 100, color: Colors.grey);
                     },
                   ),
                   const SizedBox(height: 16),
