@@ -8,7 +8,15 @@ import 'view_all_movies_screen.dart'; // Import the new screen
 import 'genre_screen.dart'; // Import the GenreScreen
 import 'favorites_screen.dart'; // Import the FavoriteScreen
 import 'profile_screen.dart'; // Import the ProfileScreen
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'dart:io' show Platform;
 
+
+void main()  {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
+  runApp(const DashboardScreen());
+}
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -20,6 +28,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
   bool _isDarkMode = false; // Track dark mode state
+  AdRequest? adRequest;
+  BannerAd? bannerAd;
+  @override
+  void initState(){
+    super.initState();
+
+String bannerId = Platform.isAndroid? "ca-app-pub-3940256099942544/6300978111" : "ca-app-pub-3940256099942544/2934735716";
+// ca-app-pub-3181461073325424/8227629369
+
+    adRequest = const AdRequest(
+      nonPersonalizedAds: false,
+    );
+    BannerAdListener bannerAdListener = BannerAdListener(
+      onAdClosed: (ad){
+        bannerAd!.load();
+      },
+      onAdFailedToLoad: (ad, error){
+        bannerAd!.load();
+      },
+    );
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: bannerId,
+      request: adRequest!,
+      listener: bannerAdListener,
+    );
+    bannerAd!.load();
+  }
+  @override
+  void dispose(){
+    bannerAd!.dispose();
+    super.dispose();
+  }
 
   // Updated movie lists with videoUrl field.
   final List<Map<String, String>> newReleases = [
@@ -176,7 +217,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: _buildBottomNavigationBar(),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (bannerAd != null)
+              SizedBox(
+                height: 50,
+                child: AdWidget(ad: bannerAd!),
+              ),
+            _buildBottomNavigationBar(),
+          ],
+        ),
       ),
     );
   }
