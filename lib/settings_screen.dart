@@ -9,7 +9,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool isDarkMode = false;
-  String selectedLanguage = 'English';
+  String selectedLanguage = 'Englishh';
 
   void _toggleDarkMode(bool value) {
     setState(() {
