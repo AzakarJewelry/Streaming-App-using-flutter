@@ -161,7 +161,16 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // Removed explicit backgroundColor to let the global theme apply.
-      body: Center(
+      body:Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)], // Gradient colors
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+      
+      child:  Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -254,6 +263,7 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+    )
     );
   }
 }

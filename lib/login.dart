@@ -109,8 +109,16 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       backgroundColor: const Color(0xFFF5EFE6),
-      body: Center(
-        child: SingleChildScrollView(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)], // Gradient colors
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -227,6 +235,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    )
     );
+  
   }
 }
