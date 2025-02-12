@@ -43,11 +43,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           await _firestore.collection('users').doc(currentUser.uid).get();
 
       if (userDoc.exists) {
+        final data = userDoc.data() as Map<String, dynamic>?; // Safely cast to Map
         setState(() {
-          userName = userDoc['username'] ?? 'No Name';
-          userEmail = userDoc['email'] ?? 'No Email';
-          userBio = userDoc['bio'] ?? 'No Bio';
-          profilePhotoUrl = userDoc['profilePhoto'] ?? null;
+          userName = data?['username'] ?? 'No Name';
+          userEmail = data?['email'] ?? 'No Email';
+          userBio = data?['bio'] ?? 'No Bio'; // Handle missing bio field gracefully
+          profilePhotoUrl = data?['profilePhoto'];
           _nameController.text = userName;
           _emailController.text = userEmail;
           _bioController.text = userBio;
