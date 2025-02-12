@@ -87,7 +87,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
       backgroundColor: const Color(0xFFF5EFE6),
-      body: Center(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)], // Gradient colors
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child:Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Center(
@@ -213,6 +221,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ),
+      )
     );
   }
 }
