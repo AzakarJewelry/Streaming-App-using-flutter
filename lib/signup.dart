@@ -123,7 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      labelText: 'Email or Username',
+                      labelText: 'Email',
                       border: const OutlineInputBorder(),
                       labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
                       focusedBorder: const OutlineInputBorder(
