@@ -217,8 +217,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           : null,
                     ),
                     Positioned(
-                      bottom: 0,
-                      right: 0,
+                      bottom: -15,
+                      right: -15,
                       child: IconButton(
                         onPressed: _editProfilePhoto,
                         icon: const Icon(
