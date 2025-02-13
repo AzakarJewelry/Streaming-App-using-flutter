@@ -168,7 +168,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        backgroundColor: const Color(0xFF1A4D2E),
+        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.grey[900] : const Color(0xFF1A4D2E),
         selectedItemColor: const Color(0xFFF5EFE6),
         unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
         onTap: _onItemTapped,
