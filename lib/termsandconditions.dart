@@ -29,7 +29,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Terms and Conditions'),
-        backgroundColor: Color(0xFF1A4D2E),
+        backgroundColor: Colors.white60,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -65,6 +65,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF1A4D2E),
+                  foregroundColor: const Color(0xFFF5EFE6),
                 ),
                 onPressed: _submitAgreement,
                 child: const Text('Submit'),
