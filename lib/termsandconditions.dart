@@ -44,7 +44,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   'If you do not agree, you must stop using the App immediately.\n\n'
                   '2. Changes to Terms\nWe reserve the right to change these Terms and Conditions at any time. '
                   'Any changes will be effective immediately upon posting the revised version on the App.\n\n'
-                  '3. Privacy Policy\nOur Privacy Policy is available at [insert link]. By using the App, you agree to the terms of our Privacy Policy.\n\n'
+                  '3. Privacy Policy\nOur Privacy Policy is available at Azakar. By using the App, you agree to the terms of our Privacy Policy.\n\n'
                   '4. Contact Us\nIf you have any questions about these Terms and Conditions, please contact us at azakar@gmail.com.\n\n'
                   'Last updated: 1 January 2025',
                   style: TextStyle(fontSize: 16),
