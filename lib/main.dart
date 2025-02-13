@@ -4,7 +4,6 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
-import 'settings_screen.dart'; // Import the settings screen
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

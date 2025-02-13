@@ -18,7 +18,7 @@ void main() {
 }
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -44,10 +44,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
     BannerAdListener bannerAdListener = BannerAdListener(
       onAdClosed: (ad) {
-        bannerAd!.load();
+        bannerAd?.load();
       },
       onAdFailedToLoad: (ad, error) {
-        bannerAd!.load();
+        bannerAd?.load();
       },
     );
     bannerAd = BannerAd(
@@ -61,7 +61,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void dispose() {
-    bannerAd!.dispose();
+    bannerAd?.dispose();
     super.dispose();
   }
 
@@ -245,7 +245,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Row(
           children: [
             Text(
-              '', // Replace with actual time if needed
+              '', // Replace with actual time if needed.
               style: TextStyle(
                 color: isDark
                     ? Colors.white
@@ -266,7 +266,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ],
         ),
-        // Search and Notifications (removed dark mode switch)
+        // Search and Notifications
         Row(
           children: [
             IconButton(
@@ -287,7 +287,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               icon: Icon(Icons.notifications,
                   color: isDark ? Colors.white : const Color(0xFF1A4D2E)),
               onPressed: () {
-                // Implement notifications
+                // Implement notifications if needed.
               },
             ),
           ],
@@ -748,11 +748,12 @@ class _GenreChip extends StatelessWidget {
   final Function(String) onSelected;
 
   const _GenreChip({
+    Key? key,
     required this.title,
     required this.genre,
     required this.isSelected,
     required this.onSelected,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -772,7 +773,8 @@ class _GenreChip extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            color: isSelected ? const Color(0xFFF5EFE6) : const Color(0xFF1A4D2E),
+            color:
+                isSelected ? const Color(0xFFF5EFE6) : const Color(0xFF1A4D2E),
             fontSize: 16,
           ),
         ),
@@ -791,6 +793,7 @@ class _MovieCard extends StatelessWidget {
   final String videoUrl;
 
   const _MovieCard({
+    Key? key,
     required this.title,
     required this.rating,
     required this.reviews,
@@ -798,7 +801,7 @@ class _MovieCard extends StatelessWidget {
     required this.genre,
     required this.duration,
     required this.videoUrl,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

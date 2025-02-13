@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 class PlayMovie extends StatefulWidget {
   final String videoUrl;
 
-  const PlayMovie({super.key, required this.videoUrl});
+  const PlayMovie({Key? key, required this.videoUrl}) : super(key: key);
 
   @override
   State<PlayMovie> createState() => _PlayMovieState();
@@ -15,7 +15,7 @@ class PlayMovie extends StatefulWidget {
 
 class _PlayMovieState extends State<PlayMovie> {
   late VideoPlayerController _videoPlayerController;
-  late ChewieController _chewieController;
+  ChewieController? _chewieController; // Nullable for delayed creation.
   SubtitleController? _subtitleController;
   bool _isLoadingSubtitles = true;
   bool _subtitlesError = false;
@@ -31,15 +31,15 @@ class _PlayMovieState extends State<PlayMovie> {
   void _initializeVideoPlayer() {
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
       ..initialize().then((_) {
-        setState(() {});
+        // Create ChewieController only after the video is fully initialized.
+        _chewieController = ChewieController(
+          videoPlayerController: _videoPlayerController,
+          autoPlay: true,
+          looping: false,
+          allowFullScreen: false,
+        );
+        setState(() {}); // Refresh the UI.
       });
-
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
-      autoPlay: true,
-      looping: false,
-      allowFullScreen: false,
-    );
   }
 
   Future<void> _loadSubtitles() async {
@@ -81,7 +81,7 @@ class _PlayMovieState extends State<PlayMovie> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
-    _chewieController.dispose();
+    _chewieController?.dispose();
     super.dispose();
   }
 
@@ -89,13 +89,16 @@ class _PlayMovieState extends State<PlayMovie> {
     final subtitleWrapper = SubtitleWrapper(
       videoPlayerController: _videoPlayerController,
       subtitleController: _subtitleController ??
-          SubtitleController(subtitlesContent: "", subtitleType: SubtitleType.srt),
+          SubtitleController(
+              subtitlesContent: "", subtitleType: SubtitleType.srt),
       subtitleStyle: const SubtitleStyle(
         textColor: Colors.white,
         fontSize: 16,
         hasBorder: true,
       ),
-      videoChild: Chewie(controller: _chewieController),
+      videoChild: _chewieController != null
+          ? Chewie(controller: _chewieController!)
+          : const Center(child: CircularProgressIndicator()),
     );
 
     return _isLoadingSubtitles
@@ -125,7 +128,7 @@ class _PlayMovieState extends State<PlayMovie> {
 
   @override
   Widget build(BuildContext context) {
-    final isDesktop = MediaQuery.of(context).size.width >= 600;
+    final bool isDesktop = MediaQuery.of(context).size.width >= 600;
 
     if (_isFullscreen) {
       return Scaffold(
@@ -133,9 +136,7 @@ class _PlayMovieState extends State<PlayMovie> {
         body: SafeArea(
           child: Stack(
             children: [
-              // Fullscreen video player
               Center(child: _buildVideoPlayer()),
-              // Exit fullscreen button
               Positioned(
                 top: 30,
                 left: 16,
@@ -162,7 +163,7 @@ class _PlayMovieState extends State<PlayMovie> {
           child: Center(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth: isDesktop ? 800 : double.infinity, // Restrict width on larger screens
+                maxWidth: isDesktop ? 800 : double.infinity,
               ),
               child: Column(
                 children: [
@@ -194,7 +195,10 @@ class _PlayMovieState extends State<PlayMovie> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Error loading subtitles.",
-                        style: TextStyle(color: Colors.red, fontSize: isDesktop ? 18 : 14),
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: isDesktop ? 18 : 14,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),

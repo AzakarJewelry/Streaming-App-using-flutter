@@ -1,10 +1,9 @@
-// movie_details_screen.dart
 import 'package:flutter/material.dart';
-import 'favorite_manager.dart';
-import 'play_movie_screen.dart';
 import 'dashboard_screen.dart';
 import 'favorites_screen.dart';
 import 'profile_screen.dart';
+import 'play_movie_screen.dart';
+import 'favorite_manager.dart'; // Ensure you have this file for managing favorites
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
@@ -13,10 +12,10 @@ class MovieDetailsScreen extends StatefulWidget {
   final String rating;
   final String description;
   final String imageUrl;
-  final String videoUrl; // Added videoUrl
+  final String videoUrl;
 
   const MovieDetailsScreen({
-    super.key,
+    Key? key,
     required this.title,
     required this.genre,
     required this.duration,
@@ -24,19 +23,19 @@ class MovieDetailsScreen extends StatefulWidget {
     required this.description,
     required this.imageUrl,
     required this.videoUrl,
-  });
+  }) : super(key: key);
 
   @override
   State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
-  int _selectedNavIndex = 0; // Track the selected navigation index
-  bool isFavorite = false; // Keep track of the favorite status
+  int _selectedNavIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    isFavorite = favoriteManager.isFavorite(widget.title);
+    // Retrieve the current favorite status.
+    final bool isFavorite = favoriteManager.isFavorite(widget.title);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5EFE6),
@@ -49,9 +48,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             backgroundColor: const Color(0xFF1A4D2E),
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
             ),
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
@@ -67,14 +64,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        widget.title,
-                        style: const TextStyle(
-                          color: Color(0xFF1A4D2E),
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          widget.title,
+                          style: const TextStyle(
+                            color: Color(0xFF1A4D2E),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       IconButton(
@@ -110,7 +108,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   ),
                   const SizedBox(height: 8),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         widget.duration,
@@ -151,19 +148,20 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       bottomNavigationBar: _buildBottomNavigationBar(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Pass the movie-specific videoUrl to PlayMovie
+          // Navigate to the PlayMovie screen with the movie's videoUrl.
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PlayMovie(
-                videoUrl: widget.videoUrl,
-              ),
+              builder: (context) => PlayMovie(videoUrl: widget.videoUrl),
             ),
           );
         },
         backgroundColor: const Color(0xFF1A4D2E),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
-        label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
+        label: const Text(
+          'Play Movie',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
@@ -178,7 +176,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         setState(() {
           _selectedNavIndex = index;
         });
-
         if (index == 0) {
           Navigator.push(
             context,
