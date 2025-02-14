@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dashboard_screen.dart';
-import 'favorites_screen.dart';
-import 'profile_screen.dart';
 import 'play_movie_screen.dart';
 import 'favorite_manager.dart'; // Ensure you have this file for managing favorites
 
@@ -30,8 +27,6 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
-  int _selectedNavIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     // Retrieve the current favorite status.
@@ -145,7 +140,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Navigate to the PlayMovie screen with the movie's videoUrl.
@@ -163,50 +157,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      backgroundColor: const Color(0xFF1A4D2E),
-      selectedItemColor: const Color(0xFFF5EFE6),
-      unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
-      currentIndex: _selectedNavIndex,
-      onTap: (index) {
-        setState(() {
-          _selectedNavIndex = index;
-        });
-        if (index == 0) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const DashboardScreen()),
-          );
-        } else if (index == 1) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-          );
-        } else if (index == 2) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfileScreen()),
-          );
-        }
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorites',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
     );
   }
 }
