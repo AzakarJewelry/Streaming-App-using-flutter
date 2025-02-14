@@ -345,7 +345,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 10),
         SizedBox(
-          height: 40,
+          height: 42,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
@@ -620,7 +620,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 250,
+          height: 265,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: newReleases
@@ -678,7 +678,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 250,
+          height: 265,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: mostPopular
@@ -749,40 +749,85 @@ class _GenreChip extends StatelessWidget {
   final Function(String) onSelected;
 
   const _GenreChip({
-    Key? key,
     required this.title,
     required this.genre,
     required this.isSelected,
     required this.onSelected,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, Color> genreColors = {
+      'Fantasy': const Color(0xFF2B0038), // Very Dark Purple
+      'Drama': const Color(0xFF00141E),   // Very Dark Blue
+      'Action': const Color(0xFF400000),  // Dark Crimson
+      'Romance': const Color(0xFF400021), // Deep Plum
+      'Comedy': const Color(0xFF333333),  // Dark Charcoal
+      'Anime': const Color(0xFF1A1A40),   // Dark Indigo Navy
+      'Horror': const Color(0xFF0A0A0A),  // Deep Jet Black
+      'Thriller': const Color(0xFF1E0C08), // Dark Coffee
+      'Sci-Fi': const Color(0xFF0B003E),  // Deep Midnight Blue
+      'Mystery': const Color(0xFF1B2F2F), // Deep Slate Grey
+      'Adventure': const Color(0xFF001D0E), // Deep Forest Green
+      'Documentary': const Color(0xFF1C1C1C), // Deep Gunmetal Grey
+    };
+
+    final Color backgroundColor = genreColors[genre] ?? Colors.grey;
+
     return GestureDetector(
       onTap: () => onSelected(genre),
       child: Container(
-        margin: const EdgeInsets.only(right: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        margin: const EdgeInsets.only(right: 8),
+        width: 120,
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1A4D2E) : Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: const Color(0xFF1A4D2E),
-            width: 1,
-          ),
+          borderRadius: BorderRadius.circular(12),
+          color: isSelected ? backgroundColor : backgroundColor.withOpacity(0.6),
+          boxShadow: [
+            if (isSelected)
+              BoxShadow(
+                color: backgroundColor.withOpacity(0.5),
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+          ],
         ),
-        child: Text(
-          title,
-          style: TextStyle(
-            color:
-                isSelected ? const Color(0xFFF5EFE6) : const Color(0xFF1A4D2E),
-            fontSize: 16,
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Genre Image Placeholder
+            Expanded(
+              child: ClipRRect(
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                child: Image.asset(
+                  'assets/images/${genre.toLowerCase()}.jpg', // Replace with your genre images
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+              ),
+            ),
+            const SizedBox(height: 9),
+            // Genre Title
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white, // White text for strong contrast
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
         ),
       ),
     );
   }
 }
+
 
 class _MovieCard extends StatelessWidget {
   final String title;
@@ -808,9 +853,24 @@ class _MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
+    // Reusable text styles
+    final titleStyle = TextStyle(
+      color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+      fontWeight: FontWeight.bold,
+    );
+    final ratingStyle = TextStyle(
+      color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
+      fontSize: 12,
+    );
+    final reviewsStyle = TextStyle(
+      color: isDarkMode
+          ? Colors.white.withOpacity(0.7)
+          : const Color(0xFF1A4D2E).withOpacity(0.5),
+      fontSize: 12,
+    );
+
     return GestureDetector(
       onTap: () {
-        // Pass details including videoUrl to the MovieDetailsScreen.
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -832,42 +892,42 @@ class _MovieCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Movie Poster
             Container(
               height: 185,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
                   image: NetworkImage(imageUrl),
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
             const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(
-                color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
-                fontWeight: FontWeight.bold,
+
+            // Movie Title
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: Text(
+                title,
+                style: titleStyle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
+            const SizedBox(height: 4),
+
+            // Rating and Reviews
             Row(
               children: [
                 Text(
                   rating,
-                  style: TextStyle(
-                    color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
-                    fontSize: 12,
-                  ),
+                  style: ratingStyle,
                 ),
                 const SizedBox(width: 5),
                 Text(
                   reviews,
-                  style: TextStyle(
-                    color: isDarkMode
-                        ? Colors.white.withOpacity(0.7)
-                        : const Color(0xFF1A4D2E).withOpacity(0.5),
-                    fontSize: 12,
-                  ),
+                  style: reviewsStyle,
                 ),
               ],
             ),
@@ -877,3 +937,4 @@ class _MovieCard extends StatelessWidget {
     );
   }
 }
+
