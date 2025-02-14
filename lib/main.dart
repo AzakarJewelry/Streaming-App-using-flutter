@@ -4,6 +4,7 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
+// Import other screens as needed (DashboardScreen, etc.)
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,10 +17,9 @@ void main() async {
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // Static accessor to retrieve the state of MyApp from anywhere in the widget tree.
-  static _MyAppState? of(BuildContext context) {
-    return context.findAncestorStateOfType<_MyAppState>();
-  }
+  // Static accessor if needed for toggling dark mode from anywhere.
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -42,13 +42,15 @@ class _MyAppState extends State<MyApp> {
       title: 'STREAMSCAPE',
       // Light theme configuration
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)),
         useMaterial3: true,
-        // Using default scaffold background for light mode.
+        scaffoldBackgroundColor: Colors.white,
+        // You can override scaffoldBackgroundColor for light mode here if needed.
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)),
       ),
       // Dark theme configuration
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        useMaterial3: true,
         scaffoldBackgroundColor: Colors.black,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey[900],
@@ -57,6 +59,7 @@ class _MyAppState extends State<MyApp> {
       ),
       // Switch between themes based on isDarkMode.
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      // This is your single MaterialApp that all screens share.
       home: SplashScreen(
         splashName: 'STREAMSCAPE',
         splashDuration: 3,
@@ -93,7 +96,9 @@ class _SplashScreenState extends State<SplashScreen>
     );
     _scale = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _controller.forward();
+
     Future.delayed(Duration(seconds: widget.splashDuration), () {
+      // Use Navigator.pushReplacement to navigate without creating a new MaterialApp.
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MyHomePage()),
@@ -109,7 +114,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    // Use the theme's scaffoldBackgroundColor instead of a hardcoded color.
+    // Use the theme's scaffoldBackgroundColor
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
@@ -128,8 +133,11 @@ class _SplashScreenState extends State<SplashScreen>
                   return const CircularProgressIndicator();
                 },
                 errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.image_not_supported,
-                      size: 100, color: Colors.grey);
+                  return const Icon(
+                    Icons.image_not_supported,
+                    size: 100,
+                    color: Colors.grey,
+                  );
                 },
               ),
               const SizedBox(height: 16),
@@ -158,111 +166,115 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Your home page uses the shared MaterialApp theme.
     return Scaffold(
-      // Removed explicit backgroundColor to let the global theme apply.
-      body:Container(
+      // No explicit backgroundColor here, so it uses the global theme.
+      body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)], // Gradient colors
+            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-      
-      child:  Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 150.0),
-              child: Column(
-                children: [
-                  Image.network(
-                    'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__',
-                    width: 150,
-                    height: 150,
-                    fit: BoxFit.contain,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return const CircularProgressIndicator();
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Icon(Icons.image_not_supported,
-                          size: 100, color: Colors.grey);
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'STREAMSCAPE',
-                    style: TextStyle(
-                      fontSize: 45,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF1A4D2E),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'streaming platform and downloads',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF1A4D2E),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 80.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: 300,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const LoginScreen()),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 150.0),
+                child: Column(
+                  children: [
+                    Image.network(
+                      'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__',
+                      width: 150,
+                      height: 150,
+                      fit: BoxFit.contain,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const CircularProgressIndicator();
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(
+                          Icons.image_not_supported,
+                          size: 100,
+                          color: Colors.grey,
                         );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1A4D2E),
-                        foregroundColor: const Color(0xFFF5EFE6),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text('Login', style: TextStyle(fontSize: 18)),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 300,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const SignUpScreen()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1A4D2E),
-                        foregroundColor: const Color(0xFFF5EFE6),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'STREAMSCAPE',
+                      style: TextStyle(
+                        fontSize: 45,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1A4D2E),
                       ),
-                      child: const Text('Sign Up', style: TextStyle(fontSize: 18)),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    const Text(
+                      'streaming platform and downloads',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF1A4D2E),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 80.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Navigate without wrapping the screen in a new MaterialApp.
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginScreen()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1A4D2E),
+                          foregroundColor: const Color(0xFFF5EFE6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: const Text('Login', style: TextStyle(fontSize: 18)),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: 300,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1A4D2E),
+                          foregroundColor: const Color(0xFFF5EFE6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                        child: const Text('Sign Up', style: TextStyle(fontSize: 18)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    )
     );
   }
 }

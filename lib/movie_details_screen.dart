@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'play_movie_screen.dart';
-import 'favorite_manager.dart'; // Ensure you have this file for managing favorites
+import 'favorite_manager.dart'; // Ensure this is implemented
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
@@ -29,18 +29,22 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    // Retrieve the current favorite status.
+    // Debug print to verify theme brightness
+    print('MovieDetailsScreen brightness: ${Theme.of(context).brightness}');
+
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5EFE6),
+      // Force black background for testing
+      backgroundColor: Colors.black,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 400,
             floating: false,
             pinned: true,
-            backgroundColor: const Color(0xFF1A4D2E),
+            // Force appBar color to a dark color
+            backgroundColor: Colors.grey[900],
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => Navigator.pop(context),
@@ -58,13 +62,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Title & Favorite Button
                   Row(
                     children: [
                       Expanded(
                         child: Text(
                           widget.title,
                           style: const TextStyle(
-                            color: Color(0xFF1A4D2E),
+                            color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
@@ -73,7 +78,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       IconButton(
                         icon: Icon(
                           isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : Colors.grey,
+                          color: isFavorite ? Colors.red : Colors.white,
                           size: 30,
                         ),
                         onPressed: () {
@@ -93,21 +98,23 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     ],
                   ),
                   const SizedBox(height: 8),
+                  // Genre
                   Text(
                     widget.genre,
-                    style: TextStyle(
-                      color: const Color(0xFF1A4D2E).withOpacity(0.8),
+                    style: const TextStyle(
+                      color: Colors.white70,
                       fontSize: 16,
                     ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
+                  // Duration & Rating
                   Column(
                     children: [
                       Text(
                         widget.duration,
-                        style: TextStyle(
-                          color: const Color(0xFF1A4D2E).withOpacity(0.8),
+                        style: const TextStyle(
+                          color: Colors.white70,
                           fontSize: 16,
                         ),
                       ),
@@ -115,19 +122,20 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       Text(
                         widget.rating,
                         style: const TextStyle(
-                          color: Color(0xFFF3C63F),
+                          color: Colors.amber,
                           fontSize: 16,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
+                  // Description
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       widget.description,
                       style: const TextStyle(
-                        color: Color(0xFF1A4D2E),
+                        color: Colors.white,
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
@@ -142,7 +150,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigate to the PlayMovie screen with the movie's videoUrl.
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -150,12 +157,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
           );
         },
-        backgroundColor: const Color(0xFF1A4D2E),
+        backgroundColor: Colors.teal,
         icon: const Icon(Icons.play_arrow, color: Colors.white),
-        label: const Text(
-          'Play Movie',
-          style: TextStyle(color: Colors.white),
-        ),
+        label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
       ),
     );
   }

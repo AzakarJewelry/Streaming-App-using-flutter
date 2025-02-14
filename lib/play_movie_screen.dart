@@ -14,9 +14,9 @@ class PlayMovie extends StatefulWidget {
 
 class _PlayMovieState extends State<PlayMovie> {
   late VideoPlayerController _videoPlayerController;
-  ChewieController? _chewieController; // Nullable
+  ChewieController? _chewieController;
   bool _isFullscreen = false;
-  bool _isDisposed = false; // Track if disposed
+  bool _isDisposed = false;
 
   @override
   void initState() {
@@ -27,13 +27,14 @@ class _PlayMovieState extends State<PlayMovie> {
   void _initializeVideoPlayer() {
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
       ..initialize().then((_) {
+        _videoPlayerController.setVolume(1.0);
         if (mounted) {
           setState(() {
             _chewieController = ChewieController(
               videoPlayerController: _videoPlayerController,
               autoPlay: true,
               looping: false,
-              allowFullScreen: false, // We'll handle fullscreen manually
+              allowFullScreen: false,
             );
           });
         }
@@ -67,7 +68,7 @@ class _PlayMovieState extends State<PlayMovie> {
 
   @override
   void dispose() {
-    _isDisposed = true; // Mark as disposed
+    _isDisposed = true;
     _videoPlayerController.dispose();
     _chewieController?.dispose();
     super.dispose();
@@ -77,7 +78,6 @@ class _PlayMovieState extends State<PlayMovie> {
     if (_isDisposed || !_videoPlayerController.value.isInitialized) {
       return const Center(child: CircularProgressIndicator());
     }
-
     return Stack(
       children: [
         AspectRatio(
@@ -101,6 +101,7 @@ class _PlayMovieState extends State<PlayMovie> {
 
   @override
   Widget build(BuildContext context) {
+    print('PlayMovie brightness: ${Theme.of(context).brightness}');
     if (_isFullscreen) {
       return Scaffold(
         backgroundColor: Colors.black,
@@ -112,7 +113,7 @@ class _PlayMovieState extends State<PlayMovie> {
                 top: 30,
                 left: 16,
                 child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white),
+                  icon: Icon(Icons.close, color: Colors.white),
                   onPressed: _exitFullscreen,
                 ),
               ),
@@ -121,18 +122,15 @@ class _PlayMovieState extends State<PlayMovie> {
         ),
       );
     }
-
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black, // Force dark background
       appBar: AppBar(
-        foregroundColor: Colors.black,
+        foregroundColor: Colors.white,
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
       body: SafeArea(
-        child: Center(
-          child: _buildVideoPlayer(),
-        ),
+        child: Center(child: _buildVideoPlayer()),
       ),
     );
   }
