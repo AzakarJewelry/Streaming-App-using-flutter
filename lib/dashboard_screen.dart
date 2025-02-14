@@ -620,7 +620,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 250,
+          height: 281,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: newReleases
@@ -678,7 +678,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         const SizedBox(height: 15),
         SizedBox(
-          height: 250,
+          height: 281,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: mostPopular
@@ -827,49 +827,99 @@ class _MovieCard extends StatelessWidget {
         );
       },
       child: Container(
-        width: 150,
+        width: 160, // Set a fixed width for consistency
         margin: const EdgeInsets.only(right: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: isDarkMode ? Colors.black : Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 185,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  image: NetworkImage(imageUrl),
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: TextStyle(
-                color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Row(
+            Stack(
               children: [
-                Text(
-                  rating,
-                  style: TextStyle(
-                    color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
-                    fontSize: 12,
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                  child: Image.network(
+                    imageUrl,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover, // Ensures the image scales proportionally
                   ),
                 ),
-                const SizedBox(width: 5),
-                Text(
-                  reviews,
-                  style: TextStyle(
-                    color: isDarkMode
-                        ? Colors.white.withOpacity(0.7)
-                        : const Color(0xFF1A4D2E).withOpacity(0.5),
-                    fontSize: 12,
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.6),
+                        Colors.transparent,
+                      ],
+                    ),
                   ),
                 ),
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 2, // Prevents text overflow
+                    overflow: TextOverflow.ellipsis, // Adds "..." for overflowing text
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
+                        size: 14,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        rating,
+                        style: TextStyle(
+                          color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded( // Prevents the reviews text from exceeding the width
+                        child: Text(
+                          '($reviews reviews)',
+                          maxLines: 1, // Ensures the text stays on one line
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: isDarkMode
+                                ? Colors.white.withOpacity(0.7)
+                                : const Color(0xFF1A4D2E).withOpacity(0.5),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
