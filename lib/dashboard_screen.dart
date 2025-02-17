@@ -756,26 +756,57 @@ class _GenreChip extends StatelessWidget {
     required this.onSelected,
   }) : super(key: key);
 
+  // Function to determine the background color based on the genre
+  Color getGenreColor(String genre) {
+    switch (genre) {
+      case 'Romance':
+        return Colors.pink;
+      case 'Action':
+        return Colors.red;
+      case 'Fantasy':
+        return Colors.purple;
+      case 'Drama':
+        return Colors.blue;
+      case 'Comedy':
+        return Colors.orange;
+      case 'Adventure':
+        return Colors.green;
+      case 'Horror':
+        return Colors.brown;
+      case 'Thriller':
+        return Colors.deepPurple;
+      case 'Sci-Fi':
+        return Colors.cyan;
+      case 'Mystery':
+        return Colors.indigo;
+      case 'Documentary':
+        return Colors.teal;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => onSelected(genre),
+      hoverColor: getGenreColor(genre).withOpacity(0.5), // Highlight color on hover
+      borderRadius: BorderRadius.circular(20), // Match the chip's border radius
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF1A4D2E) : Colors.white,
+          color: isSelected ? getGenreColor(genre) : Colors.white, // Background color
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: const Color(0xFF1A4D2E),
+            color: getGenreColor(genre), // Border color matches the background
             width: 1,
           ),
         ),
         child: Text(
           title,
           style: TextStyle(
-            color:
-                isSelected ? const Color(0xFFF5EFE6) : const Color(0xFF1A4D2E),
+            color: isSelected ? Colors.white : getGenreColor(genre), // Text color
             fontSize: 16,
           ),
         ),
