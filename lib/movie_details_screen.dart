@@ -157,7 +157,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             ),
           );
         },
-        backgroundColor: Colors.teal,
+        backgroundColor: const Color(0xFF1A4D2E),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
         label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
       ),

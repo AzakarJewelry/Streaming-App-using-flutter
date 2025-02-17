@@ -4,7 +4,7 @@ import 'movie_details_screen.dart';
 class ViewAllMoviesScreen extends StatelessWidget {
   final List<Map<String, String>> movies;
 
-  const ViewAllMoviesScreen({super.key, required this.movies});
+  const ViewAllMoviesScreen({super.key, required this.movies, required Color scaffoldBackgroundColor});
 
   @override
   Widget build(BuildContext context) {
