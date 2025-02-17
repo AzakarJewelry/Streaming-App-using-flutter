@@ -8,6 +8,9 @@ import 'dart:io';
 import 'dashboard_screen.dart';
 import 'favorites_screen.dart';
 import 'main.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -269,58 +272,133 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               child: ListView(
-                padding: const EdgeInsets.all(20),
-                children: [
-                  _buildMenuItem(
-                    icon: Icons.edit,
-                    title: 'Edit Profile',
-                    onTap: () {
-                      setState(() {
-                        isEditing = true;
-                      });
-                      _showEditProfileDialog();
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.settings,
-                    title: 'Settings',
-                    onTap: () {
-                      // Retrieve the global dark mode state from MyApp.
-                      final myAppState = MyApp.of(context);
-                      if (myAppState != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SettingsScreen(
-                              isDarkMode: myAppState.isDarkMode,
-                              onToggleDarkMode: myAppState.toggleDarkMode,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.info_outline,
-                    title: 'Terms & Conditions',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const TermsAndConditionsScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.logout,
-                    title: 'Logout',
-                    onTap: _logout,
-                  ),
-                ],
+  padding: const EdgeInsets.all(20),
+  children: [
+    _buildMenuItem(
+      icon: Icons.edit,
+      title: 'Edit Profile',
+      onTap: () {
+        setState(() {
+          isEditing = true;
+        });
+        _showEditProfileDialog();
+      },
+    ),
+    _buildMenuItem(
+      icon: Icons.settings,
+      title: 'Settings',
+      onTap: () {
+        final myAppState = MyApp.of(context);
+        if (myAppState != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SettingsScreen(
+                isDarkMode: myAppState.isDarkMode,
+                onToggleDarkMode: myAppState.toggleDarkMode,
               ),
             ),
+          );
+        }
+      },
+    ),
+    _buildMenuItem(
+      icon: Icons.info_outline,
+      title: 'Terms & Conditions',
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TermsAndConditionsScreen(),
+          ),
+        );
+      },
+    ),
+    const SizedBox(height: 15),
+    
+    GestureDetector(
+      onTap: () {
+        launchUrl(Uri.parse("https://www.facebook.com/brljewelry"));
+      },
+      child: Row(
+        children: [
+      const SizedBox(width: 17),
+          Icon(
+            FontAwesomeIcons.facebook,
+            color: Colors.black,
+          ),
+          const SizedBox(width: 17),
+          const Text(
+            "Follow us on FACEBOOK",
+            style: TextStyle(
+              fontSize: 16,
+              
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    ),
+    const SizedBox(height: 28),
+    GestureDetector(
+  onTap: () {
+    launchUrl(Uri.parse("https://www.instagram.com/brljewelry/?fbclid=IwY2xjawIfd-9leHRuA2FlbQIxMAABHQNDxTVHF8beBPiz_bU0nq9LQYKF4jotLMDMxAWENi_VsixRsk3uk6iyyw_aem_NzsftROLtfWkvdZRic5d3w#"));
+  },
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      const SizedBox(width: 17),
+      Icon(
+        FontAwesomeIcons.instagram,
+        color: Colors.black,
+      ),
+      const SizedBox(width: 17),
+      const Text(
+        "Follow us on INSTAGRAM",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ],
+  ),
+),
+const SizedBox(height: 30),
+GestureDetector(
+  onTap: () {
+    launchUrl(Uri.parse("https://www.tiktok.com/@brljewelry?fbclid=IwY2xjawIfeIdleHRuA2FlbQIxMAABHeZJoXIR5sEwkoKjaA1DpupQfQQ5j868v7KIXlPpp-rSdvq61PgeuxBr0Q_aem_-lFBLucTu7Rp2lZyD7AMPQ"));
+  },
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      const SizedBox(width: 17),
+      Icon(
+        FontAwesomeIcons.tiktok,
+        color: Colors.black,
+      ),
+      const SizedBox(width: 17),
+      const Text(
+        "Follow us on TIKTOK",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ],
+  ),
+),
+
+    const SizedBox(height: 20),
+    _buildMenuItem(
+      icon: Icons.logout,
+      title: 'Logout',
+      onTap: _logout,
+    ),
+  ],
+          ),
+          ),
           ),
         ],
       ),
