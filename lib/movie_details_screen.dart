@@ -12,7 +12,7 @@ class MovieDetailsScreen extends StatefulWidget {
   final String videoUrl;
 
   const MovieDetailsScreen({
-    Key? key,
+    super.key,
     required this.title,
     required this.genre,
     required this.duration,
@@ -20,7 +20,7 @@ class MovieDetailsScreen extends StatefulWidget {
     required this.description,
     required this.imageUrl,
     required this.videoUrl,
-  }) : super(key: key);
+  });
 
   @override
   State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();

@@ -1,6 +1,5 @@
 // dashboard_screen.dart
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
-// patotoya
 
 import 'package:azakarstream/SearchScreen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ void main() {
 }
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
@@ -750,12 +749,12 @@ class _GenreChip extends StatelessWidget {
   final Function(String) onSelected;
 
   const _GenreChip({
-    Key? key,
+    super.key,
     required this.title,
     required this.genre,
     required this.isSelected,
     required this.onSelected,
-  }) : super(key: key);
+  });
 
   // Function to determine the background color based on the genre
   Color getGenreColor(String genre) {
@@ -826,7 +825,7 @@ class _MovieCard extends StatelessWidget {
   final String videoUrl;
 
   const _MovieCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.rating,
     required this.reviews,
@@ -834,7 +833,7 @@ class _MovieCard extends StatelessWidget {
     required this.genre,
     required this.duration,
     required this.videoUrl,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

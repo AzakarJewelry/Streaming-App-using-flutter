@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 class PlayMovie extends StatefulWidget {
   final String videoUrl;
 
-  const PlayMovie({Key? key, required this.videoUrl}) : super(key: key);
+  const PlayMovie({super.key, required this.videoUrl});
 
   @override
   State<PlayMovie> createState() => _PlayMovieState();
