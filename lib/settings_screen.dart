@@ -163,7 +163,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               '- Butch Nino Butas – Technical Architect & Backend Developer\n\n'
               'Together, we form a team that’s committed to pushing the boundaries of digital entertainment, ensuring that every user has a smooth and enjoyable experience.\n\n'
               'Azakar Jewelry isn’t just a name; it represents a passion for perfection and innovation. Our company prides itself on creating products and services that are not only functional but also beautifully crafted to enhance your everyday life.\n\n'
-              'Thank you for choosing Azakar Jewelry – we look forward to being part of your entertainment journey.',
+              'Thank you for choosing Azakar Jewelry – we look forward to being part of your entertainment journey lets go.',
               style: TextStyle(
                 color: widget.isDarkMode ? Colors.white : Colors.black,
                 fontSize: 14,
