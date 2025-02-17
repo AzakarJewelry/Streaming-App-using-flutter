@@ -608,7 +608,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       builder: (context) =>
                           ViewAllMoviesScreen(
                             movies: newReleases,
-                            scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                           
                           )),
                 );
               },
@@ -669,7 +669,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       builder: (context) =>
                           ViewAllMoviesScreen(
                             movies: mostPopular,
-                            scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                          
                           )),
                 );
               },

@@ -4,12 +4,14 @@ import 'movie_details_screen.dart';
 class ViewAllMoviesScreen extends StatelessWidget {
   final List<Map<String, String>> movies;
 
-  const ViewAllMoviesScreen({super.key, required this.movies, required Color scaffoldBackgroundColor});
+  const ViewAllMoviesScreen({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5EFE6),
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.black // Dark mode background
+          : const Color(0xFFF5EFE6), // Light mode background
       appBar: AppBar(
         backgroundColor: const Color(0xFF1A4D2E),
         foregroundColor: const Color(0xFFF5EFE6),
@@ -50,6 +52,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
                   );
                 },
                 child: Card(
+                  color: Colors.white, // Ensure movie cards always remain white
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
