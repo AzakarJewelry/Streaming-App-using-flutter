@@ -10,6 +10,7 @@ import 'favorites_screen.dart'; // Import the FavoriteScreen
 import 'profile_screen.dart'; // Import the ProfileScreen
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io' show Platform;
+import 'package:carousel_slider/carousel_slider.dart'; // <-- Added import
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -197,43 +198,80 @@ class _DashboardScreenState extends State<DashboardScreen> {
     },
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    // Remove the local dark mode theme setting.
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildTopBar(),
-                const SizedBox(height: 20),
-                _buildFeaturedMovie(),
-                const SizedBox(height: 25),
-                _buildGenres(),
-                const SizedBox(height: 25),
-                _buildNewReleases(),
-                _buildMoreMovies(),
-              ],
+  /// Updated _buildFeaturedMovie() using CarouselSlider with a manually defined list of 5 items.
+  Widget _buildFeaturedMovie() {
+    // Replace the imageUrl and title values below with your own links and text.
+    final List<Map<String, String>> featuredMovies = [
+      {
+        'title': 'Dandadan',
+        'imageUrl': 'https://static.wikia.nocookie.net/dandadan/images/c/c6/Dandadan_Key_Visual.png/revision/latest?cb=20231127152958',
+      },
+      {
+        'title': 'Dr Strange Multiverse of Madness',
+        'imageUrl': 'https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba.jpg',
+      },
+      {
+        'title': 'Deadpool and Wolverine',
+        'imageUrl': 'https://m.media-amazon.com/images/M/MV5BZTk5ODY0MmQtMzA3Ni00NGY1LThiYzItZThiNjFiNDM4MTM3XkEyXkFqcGc@._V1_.jpg',
+      },
+      {
+        'title': 'Sakamoto Days',
+        'imageUrl': 'https://m.media-amazon.com/images/M/MV5BM2MwZDRmYWItNGIzZC00ZWExLWEwNWYtNmM1ZmU3OTA3NmY4XkEyXkFqcGc@._V1_.jpg',
+      },
+      {
+        'title': 'Oppenheimer',
+        'imageUrl': 'https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg',
+      },
+    ];
+
+    return CarouselSlider(
+  options: CarouselOptions(
+    height: MediaQuery.of(context).size.height * 0.4, // Adjust height dynamically
+    autoPlay: true,
+    autoPlayInterval: const Duration(seconds: 3),
+    aspectRatio: 16 / 7, // Adjust to display more of the image
+    viewportFraction: 1.0, // Ensures full width
+    enlargeCenterPage: false, // Disable to prevent resizing
+  ),
+  items: featuredMovies.map((movie) {
+    return Builder(
+      builder: (BuildContext context) {
+        return Container(
+          width: MediaQuery.of(context).size.width, // Ensure full width
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: NetworkImage(movie['imageUrl']!),
+              fit: BoxFit.cover, // Ensures full image display
             ),
           ),
-        ),
-        bottomNavigationBar: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (bannerAd != null)
-              SizedBox(
-                height: 50,
-                child: AdWidget(ad: bannerAd!),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                movie['title'] ?? '',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 10,
+                      color: Color(0xCC000000),
+                    )
+                  ],
+                ),
               ),
-            _buildBottomNavigationBar(),
-          ],
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
+  }).toList(),
+);
+
   }
 
   Widget _buildTopBar() {
@@ -293,40 +331,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
       ],
-    );
-  }
-
-  Widget _buildFeaturedMovie() {
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        image: const DecorationImage(
-          image: NetworkImage(
-              'https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba-1200-80.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            'DOCTOR STRANGE MULTIVERSE OF MADNESS',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              shadows: [
-                Shadow(
-                  blurRadius: 10,
-                  color: Color(0xCC000000),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -738,6 +742,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
           label: 'Profile',
         ),
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Remove the local dark mode theme setting.
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildTopBar(),
+                const SizedBox(height: 20),
+                _buildFeaturedMovie(), // <-- Carousel Slider with 5 manually set items.
+                const SizedBox(height: 25),
+                _buildGenres(),
+                const SizedBox(height: 25),
+                _buildNewReleases(),
+                _buildMoreMovies(),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (bannerAd != null)
+              SizedBox(
+                height: 50,
+                child: AdWidget(ad: bannerAd!),
+              ),
+            _buildBottomNavigationBar(),
+          ],
+        ),
+      ),
     );
   }
 }
