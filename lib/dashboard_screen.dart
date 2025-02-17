@@ -606,10 +606,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          ViewAllMoviesScreen(
-                            movies: newReleases,
-                           
-                          )),
+                          ViewAllMoviesScreen(movies: newReleases)),
                 );
               },
               child: Text(
@@ -667,10 +664,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          ViewAllMoviesScreen(
-                            movies: mostPopular,
-                          
-                          )),
+                          ViewAllMoviesScreen(movies: mostPopular)),
                 );
               },
               child: Text(
@@ -811,122 +805,120 @@ class _MovieCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-Widget build(BuildContext context) {
-  final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+  Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-  return GestureDetector(
-    onTap: () {
-      // Pass details including videoUrl to the MovieDetailsScreen.
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MovieDetailsScreen(
-            title: title,
-            genre: genre,
-            duration: duration,
-            rating: rating,
-            description: 'This is a detailed description of the movie $title.',
-            imageUrl: imageUrl,
-            videoUrl: videoUrl,
+    return GestureDetector(
+      onTap: () {
+        // Pass details including videoUrl to the MovieDetailsScreen.
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MovieDetailsScreen(
+              title: title,
+              genre: genre,
+              duration: duration,
+              rating: rating,
+              description: 'This is a detailed description of the movie $title.',
+              imageUrl: imageUrl,
+              videoUrl: videoUrl,
+            ),
           ),
+        );
+      },
+      child: Container(
+        width: 160, // Set a fixed width for consistency
+        margin: const EdgeInsets.only(right: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: isDarkMode ? Colors.black : Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
-      );
-    },
-    child: Container(
-      width: 160, // Set a fixed width for consistency
-      margin: const EdgeInsets.only(right: 15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: isDarkMode ? Colors.black : Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                child: Image.network(
-                  imageUrl,
-                  height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover, // Ensures the image scales proportionally
-                ),
-              ),
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.6),
-                      Colors.transparent,
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                Text(
-                  title,
-                  maxLines: 2, // Prevents text overflow
-                  overflow: TextOverflow.ellipsis, // Adds "..." for overflowing text
-                  style: TextStyle(
-                    color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                  child: Image.network(
+                    imageUrl,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover, // Ensures the image scales proportionally
                   ),
                 ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    // Removed the Icon
-                    const SizedBox(width: 5),
-                    Text(
-                      rating,
-                      style: TextStyle(
-                        color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.6),
+                        Colors.transparent,
+                      ],
                     ),
-                    const SizedBox(width: 10),
-                    Expanded( // Prevents the reviews text from exceeding the width
-                      child: Text(
-                        '($reviews reviews)',
-                        maxLines: 1, // Ensures the text stays on one line
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: isDarkMode
-                              ? Colors.white.withOpacity(0.7)
-                              : const Color(0xFF1A4D2E).withOpacity(0.5),
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 2, // Prevents text overflow
+                    overflow: TextOverflow.ellipsis, // Adds "..." for overflowing text
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      const SizedBox(width: 5),
+                      Text(
+                        rating,
+                        style: TextStyle(
+                          color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded( // Prevents the reviews text from exceeding the width
+                        child: Text(
+                          '($reviews reviews)',
+                          maxLines: 1, // Ensures the text stays on one line
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: isDarkMode
+                                ? Colors.white.withOpacity(0.7)
+                                : const Color(0xFF1A4D2E).withOpacity(0.5),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
-}
-
