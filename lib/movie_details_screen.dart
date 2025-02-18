@@ -46,9 +46,23 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           setState(() {
             _interstitialAd = ad;
           });
+          // Set up dismissal callback when ad is loaded
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              ad.dispose();
+              _interstitialAd = null;
+              _navigateToPlayMovie(); // Navigate after ad is dismissed
+            },
+            onAdFailedToShowFullScreenContent: (ad, error) {
+              ad.dispose();
+              _interstitialAd = null;
+              _navigateToPlayMovie(); // Navigate even if ad fails to show
+            },
+          );
         },
         onAdFailedToLoad: (error) {
           print('Ad failed to load: $error');
+          _navigateToPlayMovie(); // Navigate directly if ad fails to load
         },
       ),
     );
@@ -58,10 +72,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   void _showInterstitialAd() {
     if (_interstitialAd != null) {
       _interstitialAd?.show();
-      _interstitialAd = null; // Make sure to reset it after showing
     } else {
-      // If no ad is loaded, directly navigate to the PlayMovie screen
-      _navigateToPlayMovie();
+      _navigateToPlayMovie(); // Fallback if ad isn't loaded
     }
   }
 
