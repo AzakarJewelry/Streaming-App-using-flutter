@@ -202,28 +202,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildFeaturedMovie() {
     // Replace the imageUrl and title values below with your own links and text.
     final List<Map<String, String>> featuredMovies = [
-      {
+{
         'title': 'Dandadan',
-        'imageUrl': 'https://static.wikia.nocookie.net/dandadan/images/c/c6/Dandadan_Key_Visual.png/revision/latest?cb=20231127152958',
+        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845371/4bf31391f0e3625ab6354559837ceaa3_toiu6i.jpg',
       },
       {
         'title': 'Dr Strange Multiverse of Madness',
-        'imageUrl': 'https://cdn.mos.cms.futurecdn.net/NJXQ8h3mUd9mhsh2m8xpba.jpg',
+        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845887/NJXQ8h3mUd9mhsh2m8xpba_q1xb3d.jpg',
       },
       {
         'title': 'Deadpool and Wolverine',
-        'imageUrl': 'https://m.media-amazon.com/images/M/MV5BZTk5ODY0MmQtMzA3Ni00NGY1LThiYzItZThiNjFiNDM4MTM3XkEyXkFqcGc@._V1_.jpg',
+        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739844746/f1c7ce3e91b7b22bf3f1f5ec5b45afa8_uezt9b.jpg',
       },
       {
         'title': 'Sakamoto Days',
-        'imageUrl': 'https://www.animenewsnetwork.com/images/encyc/A32767-3226086565.1731473418.jpg',
+        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/e1bcaa8cce3b5b4ca11e4ed9580e4a17_um4bt0.jpg',
       },
       {
         'title': 'Oppenheimer',
-        'imageUrl': 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8d499f0f-dff2-44b2-925d-a4247abf376d/dg36hcs-3b178ac6-9734-49cc-9dd5-01ac556a0d59.jpg/v1/fill/w_894,h_894,q_70,strp/oppenheimer_ost__custom_aw__2__by_jt00567_dg36hcs-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcLzhkNDk5ZjBmLWRmZjItNDRiMi05MjVkLWE0MjQ3YWJmMzc2ZFwvZGczNmhjcy0zYjE3OGFjNi05NzM0LTQ5Y2MtOWRkNS0wMWFjNTU2YTBkNTkuanBnIiwid2lkdGgiOiI8PTEwODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.B6wuKYbscW_lsU1ENtAWJQ40WayUgpxJBq1azM_evNQ',
+        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1739844423/51599e316a0a4a3ad751721f505ca4e4_baxqnf.jpg',
       },
     ];
-
+    
     return CarouselSlider(
   options: CarouselOptions(
     height: MediaQuery.of(context).size.height * 0.4, // Adjust height dynamically
