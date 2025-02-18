@@ -1,4 +1,5 @@
 import 'package:azakarstream/settings_screen.dart';
+import 'package:azakarstream/socialmedia.dart';
 import 'package:azakarstream/termsandconditions.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -314,82 +315,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 15),
-                  // Social Media Links with dark mode support
-                  GestureDetector(
+                  _buildMenuItem(
+                    icon: Icons.info_outline,
+                    title: 'Visit our Social Media Platforms',
                     onTap: () {
-                      launchUrl(
-                          Uri.parse("https://www.facebook.com/brljewelry"));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const SocialMediaLinks(),
+                        ),
+                      );
                     },
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 17),
-                        Icon(
-                          FontAwesomeIcons.facebook,
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                        const SizedBox(width: 17),
-                        Text(
-                          "Follow us on FACEBOOK",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
-                  const SizedBox(height: 28),
-                  GestureDetector(
-                    onTap: () {
-                      launchUrl(Uri.parse(
-                          "https://www.instagram.com/brljewelry/?fbclid=IwY2xjawIfd-9leHRuA2FlbQIxMAABHQNDxTVHF8beBPiz_bU0nq9LQYKF4jotLMDMxAWENi_VsixRsk3uk6iyyw_aem_NzsftROLtfWkvdZRic5d3w#"));
-                    },
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 17),
-                        Icon(
-                          FontAwesomeIcons.instagram,
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                        const SizedBox(width: 17),
-                        Text(
-                          "Follow us on INSTAGRAM",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  GestureDetector(
-                    onTap: () {
-                      launchUrl(Uri.parse(
-                          "https://www.tiktok.com/@brljewelry?fbclid=IwY2xjawIfeIdleHRuA2FlbQIxMAABHeZJoXIR5sEwkoKjaA1DpupQfQQ5j868v7KIXlPpp-rSdvq61PgeuxBr0Q_aem_-lFBLucTu7Rp2lZyD7AMPQ"));
-                    },
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 17),
-                        Icon(
-                          FontAwesomeIcons.tiktok,
-                          color: isDark ? Colors.white : Colors.black,
-                        ),
-                        const SizedBox(width: 17),
-                        Text(
-                          "Follow us on TIKTOK",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                
                   const SizedBox(height: 20),
                   _buildMenuItem(
                     icon: Icons.logout,
