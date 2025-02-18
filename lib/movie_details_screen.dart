@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'play_movie_screen.dart';
-import 'favorite_manager.dart'; // Ensure this is implemented
+import 'favorite_manager.dart'; // Ensure this is implemented and properly connected to Firestore
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
@@ -29,13 +29,10 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    // Debug print to verify theme brightness
-    print('MovieDetailsScreen brightness: ${Theme.of(context).brightness}');
-
+    // Check if the current movie is a favorite.
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
 
     return Scaffold(
-      // Force black background for testing
       backgroundColor: Colors.black,
       body: CustomScrollView(
         slivers: [
@@ -43,7 +40,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             expandedHeight: 400,
             floating: false,
             pinned: true,
-            // Force appBar color to a dark color
             backgroundColor: Colors.grey[900],
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -82,8 +78,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           size: 30,
                         ),
                         onPressed: () async {
-                          setState(() {
-                             favoriteManager.toggleFavorite({
+                          try {
+                            // Toggle favorite in Firestore and local list.
+                            await favoriteManager.toggleFavorite({
                               'title': widget.title,
                               'genre': widget.genre,
                               'duration': widget.duration,
@@ -92,7 +89,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               'imageUrl': widget.imageUrl,
                               'videoUrl': widget.videoUrl,
                             });
-                          });
+                          } catch (error) {
+                            debugPrint('Error toggling favorite: $error');
+                          }
+                          // Refresh UI after toggle.
+                          setState(() {});
                         },
                       ),
                     ],
