@@ -81,9 +81,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           color: isFavorite ? Colors.red : Colors.white,
                           size: 30,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
-                            favoriteManager.toggleFavorite({
+                             favoriteManager.toggleFavorite({
                               'title': widget.title,
                               'genre': widget.genre,
                               'duration': widget.duration,

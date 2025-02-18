@@ -216,11 +216,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
       {
         'title': 'Sakamoto Days',
-        'imageUrl': 'https://m.media-amazon.com/images/M/MV5BM2MwZDRmYWItNGIzZC00ZWExLWEwNWYtNmM1ZmU3OTA3NmY4XkEyXkFqcGc@._V1_.jpg',
+        'imageUrl': 'https://www.animenewsnetwork.com/images/encyc/A32767-3226086565.1731473418.jpg',
       },
       {
         'title': 'Oppenheimer',
-        'imageUrl': 'https://upload.wikimedia.org/wikipedia/en/4/4a/Oppenheimer_%28film%29.jpg',
+        'imageUrl': 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/8d499f0f-dff2-44b2-925d-a4247abf376d/dg36hcs-3b178ac6-9734-49cc-9dd5-01ac556a0d59.jpg/v1/fill/w_894,h_894,q_70,strp/oppenheimer_ost__custom_aw__2__by_jt00567_dg36hcs-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcLzhkNDk5ZjBmLWRmZjItNDRiMi05MjVkLWE0MjQ3YWJmMzc2ZFwvZGczNmhjcy0zYjE3OGFjNi05NzM0LTQ5Y2MtOWRkNS0wMWFjNTU2YTBkNTkuanBnIiwid2lkdGgiOiI8PTEwODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.B6wuKYbscW_lsU1ENtAWJQ40WayUgpxJBq1azM_evNQ',
       },
     ];
 
