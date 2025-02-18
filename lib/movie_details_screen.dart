@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'play_movie_screen.dart';
 import 'favorite_manager.dart'; // Ensure this is implemented and properly connected to Firestore
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
@@ -27,6 +28,53 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+  InterstitialAd? _interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadInterstitialAd(); // Load ad when the screen is initialized
+  }
+
+  // Load the Interstitial Ad
+  void _loadInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Replace with your ad unit ID
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          setState(() {
+            _interstitialAd = ad;
+          });
+        },
+        onAdFailedToLoad: (error) {
+          print('Ad failed to load: $error');
+        },
+      ),
+    );
+  }
+
+  // Show the interstitial ad
+  void _showInterstitialAd() {
+    if (_interstitialAd != null) {
+      _interstitialAd?.show();
+      _interstitialAd = null; // Make sure to reset it after showing
+    } else {
+      // If no ad is loaded, directly navigate to the PlayMovie screen
+      _navigateToPlayMovie();
+    }
+  }
+
+  // Navigate to the PlayMovie screen
+  void _navigateToPlayMovie() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PlayMovie(videoUrl: widget.videoUrl),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Check if the current movie is a favorite.
@@ -150,18 +198,17 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PlayMovie(videoUrl: widget.videoUrl),
-            ),
-          );
-        },
+        onPressed: _showInterstitialAd, // Show ad before navigating to video screen
         backgroundColor: const Color(0xFF1A4D2E),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
         label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _interstitialAd?.dispose(); // Dispose of the ad when the screen is disposed
+    super.dispose();
   }
 }

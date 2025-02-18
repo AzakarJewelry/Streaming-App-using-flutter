@@ -9,8 +9,6 @@ import 'dart:io';
 import 'dashboard_screen.dart';
 import 'favorites_screen.dart';
 import 'main.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

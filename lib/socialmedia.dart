@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialMediaLinks extends StatelessWidget {
-  const SocialMediaLinks({Key? key}) : super(key: key);
+  const SocialMediaLinks({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -792,7 +792,6 @@ class _GenreChip extends StatelessWidget {
   final Function(String) onSelected;
 
   const _GenreChip({
-    super.key,
     required this.title,
     required this.genre,
     required this.isSelected,
@@ -868,7 +867,6 @@ class _MovieCard extends StatelessWidget {
   final String videoUrl;
 
   const _MovieCard({
-    super.key,
     required this.title,
     required this.rating,
     required this.reviews,
