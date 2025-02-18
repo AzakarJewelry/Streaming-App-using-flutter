@@ -1,10 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
-// Import other screens as needed (DashboardScreen, etc.)
+import 'package:google_fonts/google_fonts.dart'; // Added import
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,12 +38,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'STREAMSCAPE',
+      title: 'DramaMania',
       // Light theme configuration
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
-        // You can override scaffoldBackgroundColor for light mode here if needed.
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)),
       ),
       // Dark theme configuration
@@ -55,13 +53,12 @@ class _MyAppState extends State<MyApp> {
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.grey[900],
         ),
-        // Additional dark theme customization if needed.
       ),
       // Switch between themes based on isDarkMode.
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      // This is your single MaterialApp that all screens share.
+      // Shared MaterialApp for all screens.
       home: SplashScreen(
-        splashName: 'STREAMSCAPE',
+        splashName: 'DramaMania',
         splashDuration: 3,
       ),
     );
@@ -98,7 +95,6 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     Future.delayed(Duration(seconds: widget.splashDuration), () {
-      // Use Navigator.pushReplacement to navigate without creating a new MaterialApp.
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MyHomePage()),
@@ -114,7 +110,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    // Use the theme's scaffoldBackgroundColor
+    // Uses the theme's scaffoldBackgroundColor.
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
@@ -143,10 +139,10 @@ class _SplashScreenState extends State<SplashScreen>
               const SizedBox(height: 16),
               Text(
                 widget.splashName,
-                style: const TextStyle(
+                style: GoogleFonts.pacifico(
                   fontSize: 45,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1A4D2E),
+                  color: const Color(0xFF1A4D2E),
                 ),
               ),
               const SizedBox(height: 16),
@@ -166,9 +162,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Your home page uses the shared MaterialApp theme.
     return Scaffold(
-      // No explicit backgroundColor here, so it uses the global theme.
+      // No explicit backgroundColor here; uses the global theme.
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -203,12 +198,12 @@ class MyHomePage extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 16),
-                    const Text(
-                      'STREAMSCAPE',
-                      style: TextStyle(
+                    Text(
+                      'DramaMania',
+                      style: GoogleFonts.pacifico(
                         fontSize: 45,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1A4D2E),
+                        color: const Color(0xFF1A4D2E),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -231,10 +226,10 @@ class MyHomePage extends StatelessWidget {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          // Navigate without wrapping the screen in a new MaterialApp.
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const LoginScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -255,7 +250,8 @@ class MyHomePage extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => const SignUpScreen()),
                           );
                         },
                         style: ElevatedButton.styleFrom(

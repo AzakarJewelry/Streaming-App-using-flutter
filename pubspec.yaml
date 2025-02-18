@@ -49,6 +49,7 @@
     font_awesome_flutter: ^10.5.1
     flutter_rating_bar: ^4.0.1
     carousel_slider: ^5.0.0
+    google_fonts: ^6.2.1
     
 
   # The following section is specific to Flutter.

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -111,10 +112,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     width: 100,
                   ),
                   const SizedBox(height: 20),
-                  const Center(
+                  Center(
                     child: Text(
-                      'STREAMSCAPE',
-                      style: TextStyle(
+                      'DramaMania',
+                     style: GoogleFonts.pacifico(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF1A4D2E),
@@ -167,7 +168,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       suffixIcon: IconButton(
                         icon: Icon(
                           _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                          color: const Color(0xFF1A4D2E),
+                          color: Color(0xFF1A4D2E),
                         ),
                         onPressed: () {
                           setState(() {

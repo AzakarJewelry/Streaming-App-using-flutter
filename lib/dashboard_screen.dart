@@ -295,7 +295,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 40.0),
               child: Text(
-                'StreamScape',
+                'DramaMania',
                 style: TextStyle(
                   color: isDark ? Colors.white : const Color(0xFF1A4D2E),
                   fontSize: 20,
