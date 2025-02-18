@@ -49,7 +49,7 @@ class _PlayMovieState extends State<PlayMovie> {
           _interstitialAd?.fullScreenContentCallback = FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) {
               print('Ad dismissed.');
-              ad.dispose(); // Dispose ad once it’s dismissed
+              ad.dispose(); // Dispose ad once it's dismissed
               _playVideo(); // Start video after ad is dismissed
             },
             onAdFailedToShowFullScreenContent: (ad, error) {
@@ -75,7 +75,7 @@ class _PlayMovieState extends State<PlayMovie> {
           setState(() {
             _chewieController = ChewieController(
               videoPlayerController: _videoPlayerController,
-              autoPlay: false,  // Start video only after the ad is shown
+              autoPlay: false, // Start video only after the ad is shown
               looping: false,
               allowFullScreen: false,
             );
@@ -92,9 +92,9 @@ class _PlayMovieState extends State<PlayMovie> {
         _isAdPlaying = true; // Track ad playback status
       });
       _interstitialAd?.show(); // Show interstitial ad
-      _interstitialAd = null; // Make sure to dispose after showing
+      _interstitialAd = null; // Reset after showing
     } else {
-      _playVideo(); // If no ad, directly play video
+      _playVideo(); // If no ad is loaded, play the video immediately
     }
   }
 
@@ -102,7 +102,7 @@ class _PlayMovieState extends State<PlayMovie> {
   void _playVideo() {
     setState(() {
       _chewieController?.play();
-      _isAdPlaying = false; // Video is now playing, ad is done
+      _isAdPlaying = false; // Video is now playing; ad is done
     });
   }
 
@@ -110,14 +110,19 @@ class _PlayMovieState extends State<PlayMovie> {
   void _enterFullscreen() {
     setState(() => _isFullscreen = true);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
   }
 
   // Exit fullscreen mode
   void _exitFullscreen() {
     setState(() => _isFullscreen = false);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
   }
 
   // Toggle fullscreen mode
@@ -166,39 +171,17 @@ class _PlayMovieState extends State<PlayMovie> {
 
   @override
   Widget build(BuildContext context) {
-    // Prevent navigating back to MovieDetailsScreen when the ad is dismissed
     if (_isAdPlaying) {
       return Scaffold(
         backgroundColor: Colors.black,
         body: Center(
-          child: CircularProgressIndicator(), // Loading state while ad is showing
-        ),
-      );
-    }
-
-    if (_isFullscreen) {
-      return Scaffold(
-        backgroundColor: Colors.black,
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Center(child: _buildVideoPlayer()),
-              Positioned(
-                top: 30,
-                left: 16,
-                child: IconButton(
-                  icon: Icon(Icons.close, color: Colors.white),
-                  onPressed: _exitFullscreen,
-                ),
-              ),
-            ],
-          ),
+          child: CircularProgressIndicator(), // Display while the ad is showing
         ),
       );
     }
 
     return Scaffold(
-      backgroundColor: Colors.black, // Force dark background
+      backgroundColor: Colors.black, // Dark background
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: Colors.transparent,
@@ -206,7 +189,7 @@ class _PlayMovieState extends State<PlayMovie> {
       ),
       body: SafeArea(
         child: Center(
-          child: _buildVideoPlayer(), // Automatically start the video after ad
+          child: _buildVideoPlayer(), // Video player appears here after the ad
         ),
       ),
     );
