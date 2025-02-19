@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Center(
                     child: Text(
                       'DramaMania',
-                     style: GoogleFonts.pacifico(
+                        style: GoogleFonts.pacifico(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF1A4D2E),
