@@ -120,7 +120,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__',
+                'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
@@ -139,15 +139,14 @@ class _SplashScreenState extends State<SplashScreen>
               const SizedBox(height: 16),
               Text(
                 widget.splashName,
-                style: GoogleFonts.pacifico(
+                style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1A4D2E),
+                  color: const Color(0xFF4d0066),
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1A4D2E)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4d0066)),
               ),
             ],
           ),
@@ -181,7 +180,7 @@ class MyHomePage extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.network(
-                      'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__',
+                      'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
                       width: 150,
                       height: 150,
                       fit: BoxFit.contain,
@@ -200,10 +199,10 @@ class MyHomePage extends StatelessWidget {
                     const SizedBox(height: 16),
                     Text(
                       'DramaMania',
-                      style: GoogleFonts.pacifico(
+                      style: GoogleFonts.publicSans(
                         fontSize: 45,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFF1A4D2E),
+                
+                        color: const Color(0xFF4d0066),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -211,7 +210,7 @@ class MyHomePage extends StatelessWidget {
                       'streaming platform and downloads',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Color(0xFF1A4D2E),
+                        color: Color(0xFF4d0066),
                       ),
                     ),
                   ],
