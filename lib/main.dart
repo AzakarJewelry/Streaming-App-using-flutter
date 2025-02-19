@@ -166,7 +166,7 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)],
+            colors: [Color.fromARGB(255, 249, 224, 255), Color(0xFF290033)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -232,7 +232,7 @@ class MyHomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4d0066),
+                          backgroundColor: const Color(0xFF5500ff),
                           foregroundColor: const Color(0xFFF5EFE6),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -254,7 +254,7 @@ class MyHomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4d0066),
+                          backgroundColor: const Color(0xFF4c00e6),
                           foregroundColor: const Color(0xFFF5EFE6),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
