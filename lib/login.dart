@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF1A4D2E),
+        backgroundColor: const Color(0xFF4d0066),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: GoogleFonts.pacifico(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF1A4D2E),
+                    color: const Color(0xFF4d0066),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -152,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
                     ),
                   ),
-                  style: const TextStyle(color: Color(0xFF1A4D2E)),
+                  style: const TextStyle(color: Color(0xFF4d0066)),
                 ),
                 const SizedBox(height: 20),
                 TextField(
@@ -160,13 +160,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
                     ),
-                    labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
+                    labelStyle: const TextStyle(color: Color(0xFF4d0066)),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                        color: const Color(0xFF1A4D2E),
+                        color: const Color(0xFF4d0066),
                       ),
                       onPressed: () {
                         setState(() {
@@ -175,11 +175,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
                     ),
                   ),
                   obscureText: !_isPasswordVisible,
-                  style: const TextStyle(color: Color(0xFF1A4D2E)),
+                  style: const TextStyle(color: Color(0xFF4d0066)),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -194,11 +194,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               _rememberMe = value ?? false;
                             });
                           },
-                          activeColor: const Color(0xFF1A4D2E),
+                          activeColor: const Color(0xFF4d0066),
                         ),
                         const Text(
                           'Remember Me',
-                          style: TextStyle(color: Color(0xFF1A4D2E)),
+                          style: TextStyle(color: Color(0xFF4d0066)),
                         ),
                       ],
                     ),
@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: const Text(
                         'Forgot Password?',
-                        style: TextStyle(color: Color(0xFF1A4D2E)),
+                        style: TextStyle(color: Color(0xFF4d0066)),
                       ),
                     ),
                   ],
@@ -222,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: _isLoading ? null : _login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1A4D2E),
+                    backgroundColor: const Color(0xFF4d0066),
                     foregroundColor: const Color(0xFFF5EFE6),
                     minimumSize: const Size(double.infinity, 50),
                   ),

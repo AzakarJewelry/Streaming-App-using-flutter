@@ -35,7 +35,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Favorites'),
-        backgroundColor: const Color(0xFF1A4D2E),
+        backgroundColor: const Color(0xFF4d0066),
         foregroundColor: const Color(0xFFF5EFE6),
       ),
       body: favoriteManager.favoriteMovies.isEmpty
@@ -63,7 +63,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF1A4D2E),
+                      backgroundColor: const Color(0xFF4d0066),
                       foregroundColor: const Color(0xFFF5EFE6),
                     ),
                     child: const Text('Explore Movies'),
@@ -168,7 +168,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.grey[900] : const Color(0xFF1A4D2E),
+        backgroundColor:  const Color(0xFF4d0066),
         selectedItemColor: const Color(0xFFF5EFE6),
         unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
         onTap: _onItemTapped,

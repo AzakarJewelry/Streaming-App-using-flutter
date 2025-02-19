@@ -13,7 +13,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
           ? Colors.black // Dark mode background
           : const Color(0xFFF5EFE6), // Light mode background
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1A4D2E),
+        backgroundColor: const Color(0xFF4d0066),
         foregroundColor: const Color(0xFFF5EFE6),
         title: const Text('All Movies'),
       ),
@@ -83,7 +83,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                color: Color(0xFF1A4D2E),
+                                color: Color(0xFF4d0066),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -105,7 +105,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      color: const Color(0xFF1A4D2E)
+                                      color: const Color(0xFF4d0066)
                                           .withOpacity(0.5),
                                       fontSize: 12,
                                     ),

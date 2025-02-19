@@ -309,7 +309,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             IconButton(
               icon: Icon(Icons.search,
-                  color: isDark ? Colors.white : const Color(0xFF1A4D2E)),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -323,7 +323,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             IconButton(
               icon: Icon(Icons.notifications,
-                  color: isDark ? Colors.white : const Color(0xFF1A4D2E)),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066)),
               onPressed: () {
                 // Implement notifications if needed.
               },
@@ -599,7 +599,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Text(
               'New Releases',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF1A4D2E),
+                color: isDark ? Colors.white : const Color(0xFF4d0066),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -616,7 +616,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Text(
                 'View All',
                 style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF1A4D2E),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066),
                 ),
               ),
             ),
@@ -657,7 +657,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Text(
               'Most Popular',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF1A4D2E),
+                color: isDark ? Colors.white : const Color(0xFF4d0066),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -674,7 +674,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Text(
                 'View All',
                 style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF1A4D2E),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066),
                 ),
               ),
             ),
@@ -707,7 +707,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildBottomNavigationBar() {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return BottomNavigationBar(
-      backgroundColor: isDark ? Colors.grey[900] : const Color(0xFF1A4D2E),
+      backgroundColor: const Color(0xFF4d0066),
       selectedItemColor: const Color(0xFFF5EFE6),
       unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
       currentIndex: _selectedNavIndex,

@@ -192,13 +192,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       // Set the overall background based on dark mode.
-      backgroundColor: isDark ? Colors.black : const Color(0xFF1A4D2E),
+      backgroundColor: isDark ? Colors.black : const Color(0xFF4d0066),
       body: Column(
         children: [
           // Profile Header
           Container(
             padding: const EdgeInsets.symmetric(vertical: 40),
-            color: isDark ? Colors.black : const Color(0xFF1A4D2E),
+            color: isDark ? Colors.black : const Color(0xFF4d0066),
             child: Column(
               children: [
                 Stack(
@@ -366,7 +366,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildBottomNavigationBar() {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return BottomNavigationBar(
-      backgroundColor: isDark ? Colors.grey[900] : const Color(0xFF1A4D2E),
+      backgroundColor:  const Color(0xFF4d0066),
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white.withOpacity(0.5),
       currentIndex: _selectedNavIndex,

@@ -233,7 +233,7 @@ class MyHomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1A4D2E),
+                          backgroundColor: const Color(0xFF4d0066),
                           foregroundColor: const Color(0xFFF5EFE6),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -255,7 +255,7 @@ class MyHomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1A4D2E),
+                          backgroundColor: const Color(0xFF4d0066),
                           foregroundColor: const Color(0xFFF5EFE6),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
