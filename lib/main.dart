@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d0066)),
       ),
       // Dark theme configuration
       darkTheme: ThemeData(
@@ -113,7 +113,22 @@ class _SplashScreenState extends State<SplashScreen>
     // Uses the theme's scaffoldBackgroundColor.
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Center(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        colors: [
+          Color(0xFFf9e6ff),
+          Color(0xFFf9e6ff),
+          Color(0xFFf2ccff),
+          Color(0xFFecb3ff),
+          Color(0xFFe699ff),
+          Color(0xFFdf80ff),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+          ),
+        ),
+      child: Center(
         child: ScaleTransition(
           scale: _scale,
           child: Column(
@@ -132,7 +147,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return const Icon(
                     Icons.image_not_supported,
                     size: 100,
-                    color: Color.fromARGB(255, 252, 176, 255),
+                    color: Color(0xFF4d0066),
                   );
                 },
               ),
@@ -152,6 +167,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ),
       ),
+      )
     );
   }
 }
@@ -166,7 +182,14 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFF5EFE6), Color.fromARGB(255, 255, 205, 242)],
+            colors: [Color(0xFFf9e6ff),
+            Color(0xFFf9e6ff),
+            Color(0xFFf2ccff),
+            Color(0xFFecb3ff),
+            Color(0xFFe699ff),
+            Color(0xFFdf80ff),
+            ],
+            
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
