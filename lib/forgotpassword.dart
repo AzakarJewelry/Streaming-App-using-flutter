@@ -45,7 +45,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1A4D2E)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF4d0066)),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -58,7 +58,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           children: [
             const Text(
               "Forgot password",
-              style: TextStyle(fontSize: 20, color: Color(0xFF1A4D2E)),
+              style: TextStyle(fontSize: 20, color: Color(0xFF4d0066)),
             ),
             const SizedBox(height: 20),
             Form(
@@ -68,7 +68,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 children: [
                   const Text(
                     "Email",
-                    style: TextStyle(fontSize: 16, color: Color(0xFF1A4D2E)),
+                    style: TextStyle(fontSize: 16, color: Color(0xFF4d0066)),
                   ),
                   const SizedBox(height: 5),
                   TextFormField(
@@ -103,7 +103,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ElevatedButton(
               onPressed: _sendResetEmail,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF1A4D2E),
+                backgroundColor: const Color(0xFF4d0066),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),

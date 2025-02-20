@@ -132,7 +132,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return const Icon(
                     Icons.image_not_supported,
                     size: 100,
-                    color: Colors.grey,
+                    color: Color.fromARGB(255, 252, 176, 255),
                   );
                 },
               ),
@@ -141,12 +141,12 @@ class _SplashScreenState extends State<SplashScreen>
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: const Color(0xFF1A4D2E),
+                  color: const Color(0xFF4d0066),
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1A4D2E)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4d0066)),
               ),
             ],
           ),
@@ -166,7 +166,7 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)],
+            colors: [Color(0xFFF5EFE6), Color.fromARGB(255, 255, 205, 242)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
