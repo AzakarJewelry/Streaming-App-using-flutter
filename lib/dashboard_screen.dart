@@ -748,10 +748,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     // Remove the local dark mode theme setting.
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFb300b3),
+              Color(0xFF990099),
+              Color(0xFF800080),
+              Color(0xFF660066),
+              Color(0xFF4d004d),
+              Color(0xFF330033),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -769,17 +783,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (bannerAd != null)
-              SizedBox(
-                height: 50,
-                child: AdWidget(ad: bannerAd!),
-              ),
-            _buildBottomNavigationBar(),
-          ],
-        ),
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (bannerAd != null)
+            SizedBox(
+              height: 50,
+              child: AdWidget(ad: bannerAd!),
+            ),
+          _buildBottomNavigationBar(),
+        ],
       ),
     );
   }
