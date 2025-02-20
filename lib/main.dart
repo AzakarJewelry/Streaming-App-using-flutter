@@ -3,7 +3,7 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'signup.dart';
-import 'package:google_fonts/google_fonts.dart'; // Added import
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +16,6 @@ void main() async {
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // Static accessor if needed for toggling dark mode from anywhere.
   static _MyAppState? of(BuildContext context) =>
       context.findAncestorStateOfType<_MyAppState>();
 
@@ -27,7 +26,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool isDarkMode = false;
 
-  // Global toggle for dark mode.
   void toggleDarkMode(bool value) {
     setState(() {
       isDarkMode = value;
@@ -39,13 +37,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DramaMania',
-      // Light theme configuration
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFF5EFE6)),
       ),
-      // Dark theme configuration
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         useMaterial3: true,
@@ -54,9 +50,7 @@ class _MyAppState extends State<MyApp> {
           backgroundColor: Colors.grey[900],
         ),
       ),
-      // Switch between themes based on isDarkMode.
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      // Shared MaterialApp for all screens.
       home: SplashScreen(
         splashName: 'DramaMania',
         splashDuration: 3,
@@ -110,7 +104,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    // Uses the theme's scaffoldBackgroundColor.
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
@@ -132,7 +125,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return const Icon(
                     Icons.image_not_supported,
                     size: 100,
-                    color: Color.fromARGB(255, 252, 176, 255),
+                    color: Colors.grey,
                   );
                 },
               ),
@@ -161,8 +154,10 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return Scaffold(
-      // No explicit backgroundColor here; uses the global theme.
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -172,103 +167,96 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 150.0),
-                child: Column(
-                  children: [
-                    Image.network(
-                      'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
-                      width: 150,
-                      height: 150,
-                      fit: BoxFit.contain,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return const CircularProgressIndicator();
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(
-                          Icons.image_not_supported,
-                          size: 100,
-                          color: Colors.grey,
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'DramaMania',
-                      style: GoogleFonts.publicSans(
-                        fontSize: 45,
-                        
-                        color: const Color(0xFF4d0066),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'streaming platform and downloads',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Color(0xFF4d0066),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 80.0),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 300,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoginScreen()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4d0066),
-                          foregroundColor: const Color(0xFFF5EFE6),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        child: const Text('Login', style: TextStyle(fontSize: 18)),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: 300,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUpScreen()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4d0066),
-                          foregroundColor: const Color(0xFFF5EFE6),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        child: const Text('Sign Up', style: TextStyle(fontSize: 18)),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          child: isLandscape ? _buildLandscapeLayout(context) : _buildPortraitLayout(context),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPortraitLayout(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const SizedBox(height: 150),
+        _logoAndText(),
+        const SizedBox(height: 30),
+        _buttons(context),
+        const SizedBox(height: 80),
+      ],
+    );
+  }
+
+  Widget _buildLandscapeLayout(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(child: _logoAndText()), // Logo & text on the left
+        const SizedBox(width: 40),
+        Expanded(child: _buttons(context)), // Buttons on the right
+      ],
+    );
+  }
+
+  Widget _logoAndText() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.network(
+          'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+          width: 150,
+          height: 150,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'DramaMania',
+          style: GoogleFonts.publicSans(
+            fontSize: 45,
+            color: const Color(0xFF4d0066),
           ),
         ),
+        const SizedBox(height: 8),
+        const Text(
+          'Streaming platform and downloads',
+          style: TextStyle(
+            fontSize: 14,
+            color: Color(0xFF4d0066),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buttons(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildButton(context, 'Login', const LoginScreen()),
+        const SizedBox(height: 20),
+        _buildButton(context, 'Sign Up', const SignUpScreen()),
+      ],
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String text, Widget screen) {
+    return SizedBox(
+      width: 300,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => screen),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF4d0066),
+          foregroundColor: const Color(0xFFF5EFE6),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        child: Text(text, style: const TextStyle(fontSize: 18)),
       ),
     );
   }
