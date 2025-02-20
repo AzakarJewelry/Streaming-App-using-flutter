@@ -342,7 +342,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Text(
           'Genres',
           style: TextStyle(
-            color: isDark ? Colors.white : const Color(0xFF1A4D2E),
+            color: isDark ? Colors.white : const Color(0xFF4d0066),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),

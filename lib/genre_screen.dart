@@ -15,49 +15,72 @@ class GenreScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('$genre Movies'),
+        backgroundColor: const Color(0xFF4d0066),
+        foregroundColor: const Color(0xFFF5EFE6),
       ),
-      body: ListView.builder(
-        itemCount: filteredMovies.length,
-        itemBuilder: (context, index) {
-          final movie = filteredMovies[index];
-          return ListTile(
-            leading: Image.network(movie['imageUrl']!),
-            title: Text(movie['title']!),
-            subtitle: Text('${movie['rating']} ${movie['reviews']}'),
-            onTap: () {
-              // Navigate to movie details screen
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MovieDetailsScreen(
-                    title: movie['title']!,
-                    genre: movie['genre']!,
-                    duration: movie['duration']!,
-                    rating: movie['rating']!,
-                    description: 'This is a detailed description of the movie ${movie['title']}.',
-                    imageUrl: movie['imageUrl']!,
-                    videoUrl: movie['videoUrl']!
-                    
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // 2 items per row
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.55, // Adjusted for larger posters
+          ),
+          itemCount: filteredMovies.length,
+          itemBuilder: (context, index) {
+            final movie = filteredMovies[index];
+
+            return GestureDetector(
+              onTap: () {
+                // Navigate to movie details screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MovieDetailsScreen(
+                      title: movie['title']!,
+                      genre: movie['genre']!,
+                      duration: movie['duration']!,
+                      rating: movie['rating']!,
+                      description: 'This is a detailed description of the movie ${movie['title']}.',
+                      imageUrl: movie['imageUrl']!,
+                      videoUrl: movie['videoUrl']!,
+                    ),
+                  ),
+                );
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                elevation: 4,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          movie['imageUrl']!,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                        child: Text(
+                          movie['title']!,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              );
-Navigator.pushReplacement(
-  context,
-  MaterialPageRoute(
-    builder: (context) => MovieDetailsScreen(
-      title: movie['title']!,
-      genre: movie['genre']!,
-      duration: movie['duration']!,
-      rating: movie['rating']!,
-      description: 'This is a detailed description of the movie ${movie['title']}.',
-      imageUrl: movie['imageUrl']!,
-      videoUrl: movie['videoUrl']!,
-    ),
-  ),
-);
-            },
-          );
-        },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
