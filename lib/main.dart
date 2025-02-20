@@ -141,12 +141,12 @@ class _SplashScreenState extends State<SplashScreen>
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: const Color(0xFF4d0066),
+                  color: const Color(0xFF1A4D2E),
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4d0066)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1A4D2E)),
               ),
             ],
           ),
@@ -166,7 +166,7 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 249, 224, 255), Color(0xFF290033)],
+            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -201,7 +201,7 @@ class MyHomePage extends StatelessWidget {
                       'DramaMania',
                       style: GoogleFonts.publicSans(
                         fontSize: 45,
-                
+                        
                         color: const Color(0xFF4d0066),
                       ),
                     ),
@@ -232,7 +232,7 @@ class MyHomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF5500ff),
+                          backgroundColor: const Color(0xFF4d0066),
                           foregroundColor: const Color(0xFFF5EFE6),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -254,7 +254,7 @@ class MyHomePage extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4c00e6),
+                          backgroundColor: const Color(0xFF4d0066),
                           foregroundColor: const Color(0xFFF5EFE6),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),

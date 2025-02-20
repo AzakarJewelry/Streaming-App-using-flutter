@@ -81,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         title: const Text('Sign Up'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF4d0066),
+        backgroundColor: const Color(0xFF1A4D2E),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
@@ -91,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 249, 224, 255), Color(0xFF290033)],
+            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)], // Gradient colors
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -107,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Image.network(
-                    'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+                    'https://media-hosting.imagekit.io//b79407aaf50f4ad5/Screenshot_2025-02-04_142335-removebg-preview.png?Expires=1833258285&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Cl~OJbyKFtcVu27ETGwEKLb0DxYaGYBXRxy9k9D7CLM61zLPD4Qy5ZfXMEWOk7Ktxc~ogKau3hllEYDzGJm7ca7B5mLJGggLB772vNSOCMj3ug2me5SzT3TaSzG3VxF9ehzxz3tFRkYQ6br5Guoy-2gfbjHB~3SXSL1YLtvZlFsyj0skPS841jdCt2l014z7hHEBTq0IStHyT-f~H3Sdqz5nUBPz6WWVdXm3dyqpAxZhhwME57QShkVxadcqm-cQf7EwsNAx88gsU5h5sGFBk0WfLDaePQGzD3mj8z-sWYfLs19fH95covT0MKmyOsPDtN5ElCGt3w9Mj0M1XcFBZw__',
                     height: 100,
                     width: 100,
                   ),
@@ -115,9 +115,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Center(
                     child: Text(
                       'DramaMania',
-                        style: GoogleFonts.publicSans(
+                        style: GoogleFonts.pacifico(
                         fontSize: 32,
-                        color: Color(0xFF4d0066),
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1A4D2E),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -125,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 20),
                   const Text(
                     'Create an account',
-                    style: TextStyle(fontSize: 16, color: Color(0xFF4d0066)),
+                    style: TextStyle(fontSize: 16, color: Color(0xFF1A4D2E)),
                   ),
                   const SizedBox(height: 40),
                   TextField(
@@ -133,12 +134,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       labelText: 'Email',
                       border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
+                      labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
                       ),
                     ),
-                    style: const TextStyle(color: Color(0xFF4d0066)),
+                    style: const TextStyle(color: Color(0xFF1A4D2E)),
                   ),
                   const SizedBox(height: 20),
                   TextField(
@@ -146,12 +147,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       labelText: 'Name',
                       border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
+                      labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
                       ),
                     ),
-                    style: const TextStyle(color: Color(0xFF4d0066)),
+                    style: const TextStyle(color: Color(0xFF1A4D2E)),
                   ),
                   const SizedBox(height: 20),
                   TextField(
@@ -160,14 +161,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
+                      labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
                           _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                          color: Color(0xFF4d0066),
+                          color: Color(0xFF1A4D2E),
                         ),
                         onPressed: () {
                           setState(() {
@@ -176,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                       ),
                     ),
-                    style: const TextStyle(color: Color(0xFF4d0066)),
+                    style: const TextStyle(color: Color(0xFF1A4D2E)),
                   ),
                   const SizedBox(height: 20),
                   TextField(
@@ -185,9 +186,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
                       border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
+                      labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
+                        borderSide: BorderSide(color: Color(0xFF1A4D2E)),
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -207,7 +208,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ElevatedButton(
                     onPressed: _isLoading ? null : _signUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF3b00b3),
+                      backgroundColor: const Color(0xFF1A4D2E),
                       foregroundColor: const Color(0xFFF5EFE6),
                       minimumSize: const Size(double.infinity, 50),
                     ),

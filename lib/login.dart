@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color.fromARGB(255, 249, 224, 255), Color(0xFF290033)],
+            colors: [Color(0xFFF5EFE6), Color(0xFFB9F2FF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -133,9 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Updated DramaMania text with artistic font
                 Text(
                   'DramaMania',
-                  style: GoogleFonts.publicSans(
+                  style: GoogleFonts.pacifico(
                     fontSize: 32,
-                   
+                    fontWeight: FontWeight.bold,
                     color: const Color(0xFF4d0066),
                   ),
                 ),
@@ -222,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: _isLoading ? null : _login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF3b00b3),
+                    backgroundColor: const Color(0xFF4d0066),
                     foregroundColor: const Color(0xFFF5EFE6),
                     minimumSize: const Size(double.infinity, 50),
                   ),
