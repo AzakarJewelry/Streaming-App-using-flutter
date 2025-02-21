@@ -209,77 +209,96 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   /// Updated _buildFeaturedMovie() using CarouselSlider with a manually defined list of 5 items.
   Widget _buildFeaturedMovie() {
-    // Replace the imageUrl and title values below with your own links and text.
-    final List<Map<String, String>> featuredMovies = [
-      {
-        'title': 'Dandadan',
-        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845371/4bf31391f0e3625ab6354559837ceaa3_toiu6i.jpg',
-      },
-      {
-        'title': 'Dr Strange Multiverse of Madness',
-        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845887/NJXQ8h3mUd9mhsh2m8xpba_q1xb3d.jpg',
-      },
-      {
-        'title': 'Deadpool and Wolverine',
-        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739844746/f1c7ce3e91b7b22bf3f1f5ec5b45afa8_uezt9b.jpg',
-      },
-      {
-        'title': 'Sakamoto Days',
-        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/e1bcaa8cce3b5b4ca11e4ed9580e4a17_um4bt0.jpg',
-      },
-      {
-        'title': 'Oppenheimer',
-        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1739844423/51599e316a0a4a3ad751721f505ca4e4_baxqnf.jpg',
-      },
-    ];
-    
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: MediaQuery.of(context).size.height * 0.4, // Adjust height dynamically
-        autoPlay: true,
-        autoPlayInterval: const Duration(seconds: 3),
-        aspectRatio: 16 / 7, // Adjust to display more of the image
-        viewportFraction: 1.0, // Ensures full width
-        enlargeCenterPage: false, // Disable to prevent resizing
-      ),
-      items: featuredMovies.map((movie) {
-        return Builder(
-          builder: (BuildContext context) {
-            return Container(
-              width: MediaQuery.of(context).size.width, // Ensure full width
-              margin: const EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  image: NetworkImage(movie['imageUrl']!),
-                  fit: BoxFit.cover, // Ensures full image display
+  final List<Map<String, String>> featuredMovies = [
+    {
+      'title': 'Dandadan',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845371/4bf31391f0e3625ab6354559837ceaa3_toiu6i.jpg',
+      'genre': 'Sci-Fi',
+      'duration': '2h 30m',
+      'rating': '★★★★☆',
+      'videoUrl': 'https://example.com/dandadan.mp4',
+      'description': 'Dandadan is an action-packed sci-fi adventure about a mysterious power.',
+    },
+    {
+      'title': 'Dr Strange Multiverse of Madness',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845887/NJXQ8h3mUd9mhsh2m8xpba_q1xb3d.jpg',
+      'genre': 'Action',
+      'duration': '2h 10m',
+      'rating': '★★★★★',
+      'videoUrl': 'https://example.com/dr_strange.mp4',
+      'description': 'Doctor Strange embarks on a journey through the multiverse.',
+    },
+    {
+      'title': 'Deadpool and Wolverine',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739844746/f1c7ce3e91b7b22bf3f1f5ec5b45afa8_uezt9b.jpg',
+      'genre': 'Comedy',
+      'duration': '2h 15m',
+      'rating': '★★★★★',
+      'videoUrl': 'https://example.com/deadpool_wolverine.mp4',
+      'description': 'Deadpool and Wolverine team up for an unexpected adventure.',
+    },
+  ];
+
+  return CarouselSlider(
+    options: CarouselOptions(
+      height: MediaQuery.of(context).size.height * 0.4,
+      autoPlay: true,
+      autoPlayInterval: const Duration(seconds: 3),
+      viewportFraction: 1.0,
+    ),
+    items: featuredMovies.map((movie) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MovieDetailsScreen(
+                title: movie['title']!,
+                genre: movie['genre']!,
+                duration: movie['duration']!,
+                rating: movie['rating']!,
+                description: movie['description']!,
+                imageUrl: movie['imageUrl']!,
+                videoUrl: movie['videoUrl']!,
+              ),
+            ),
+          );
+        },
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: NetworkImage(movie['imageUrl']!),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                movie['title']!,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      blurRadius: 10,
+                      color: Color(0xCC000000),
+                    )
+                  ],
                 ),
               ),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    movie['title'] ?? '',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 10,
-                          color: Color(0xCC000000),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      }).toList(),
-    );
+            ),
+          ),
+        ),
+      );
+    }).toList(),
+  );
+
   }
 
   Widget _buildTopBar() {
@@ -784,7 +803,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: isDarkMode
-                  ? [
+                   ? [
                       const Color(0xFF0d0d0d),
                       const Color(0xFF080808),
                       const Color(0xFF050505),
