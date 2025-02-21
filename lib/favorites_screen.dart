@@ -111,7 +111,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         const SizedBox(height: 4),
                         Text(
                           "Rating: ${movie['rating']}",
-                          style: const TextStyle(fontSize: 14),
+                          style: const TextStyle(fontSize: 14, color: Colors.amber), 
+
                         ),
                       ],
                     ),

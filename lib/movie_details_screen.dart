@@ -211,7 +211,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _showInterstitialAd, // Show ad before navigating to video screen
-        backgroundColor: const Color(0xFF1A4D2E),
+        backgroundColor: const Color(0xFF4d0066),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
         label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
       ),

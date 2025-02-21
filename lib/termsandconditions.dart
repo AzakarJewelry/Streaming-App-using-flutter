@@ -64,7 +64,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1A4D2E),
+                  backgroundColor: const Color(0xFF4d0066),
                   foregroundColor: const Color(0xFFF5EFE6),
                 ),
                 onPressed: _submitAgreement,
