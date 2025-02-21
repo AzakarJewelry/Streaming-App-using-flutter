@@ -822,7 +822,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: isDarkMode
-                  ?  [
+                  ? [
                       const Color(0xFF660066),
                       const Color(0xFF4d004d),
                       const Color(0xFF330033),
