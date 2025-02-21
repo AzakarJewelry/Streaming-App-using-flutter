@@ -304,7 +304,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Text(
                 'DramaMania',
                 style: TextStyle(
-                  color: isDark ? Colors.black : const Color(0xFF4d0066),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066),
                   fontSize: 20,
                 ),
               ),
@@ -316,7 +316,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             IconButton(
               icon: Icon(Icons.search,
-                  color: isDark ? Colors.black : const Color(0xFF4d0066)),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -330,7 +330,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             IconButton(
               icon: Icon(Icons.notifications,
-                  color: isDark ? Colors.black : const Color(0xFF4d0066)),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066)),
               onPressed: () {
                 // Implement notifications if needed.
               },
@@ -349,7 +349,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Text(
           'Genres',
           style: TextStyle(
-            color: isDark ? Colors.black : const Color(0xFF4d0066),
+            color: isDark ? Colors.white : const Color(0xFF4d0066),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -606,7 +606,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Text(
               'New Releases',
               style: TextStyle(
-                color: isDark ? Colors.black : const Color(0xFF4d0066),
+                color: isDark ? Colors.white : const Color(0xFF4d0066),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -623,7 +623,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Text(
                 'View All',
                 style: TextStyle(
-                  color: isDark ? Colors.black : const Color(0xFF4d0066),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066),
                 ),
               ),
             ),
@@ -664,7 +664,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Text(
               'Most Popular',
               style: TextStyle(
-                color: isDark ? Colors.black : const Color(0xFF4d0066),
+                color: isDark ? Colors.white : const Color(0xFF4d0066),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -681,7 +681,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Text(
                 'View All',
                 style: TextStyle(
-                  color: isDark ? Colors.black : const Color(0xFF4d0066),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066),
                 ),
               ),
             ),
@@ -752,67 +752,78 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-@override
-Widget build(BuildContext context) {
-  return WillPopScope(
-    onWillPop: () async {
-      if (Platform.isAndroid) {
-        SystemNavigator.pop(); // Exits the app on Android
-      } else if (Platform.isIOS) {
-        exit(0); // Exits the app on iOS
-      }
-      return Future.value(false); // Prevents navigation
-    },
-    child: Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Container(
-        decoration: const BoxDecoration(
+ @override
+  Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return WillPopScope(
+      onWillPop: () async {
+        if (Platform.isAndroid) {
+          SystemNavigator.pop(); // Exits the app on Android
+        } else if (Platform.isIOS) {
+          exit(0); // Exits the app on iOS
+        }
+        return Future.value(false);
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Container(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-            colors:[
-            Color(0xFFf9e6ff),
-            Color(0xFFf9e6ff),
-            Color(0xFFf2ccff),
-            Color(0xFFecb3ff),
-            Color(0xFFe699ff),
-            Color(0xFFdf80ff),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+              colors: isDarkMode
+                   ? [
+                      Color(0xFF0d0d0d),
+                      Color(0xFF080808),
+                      Color(0xFF050505),
+                      Color(0xFF020202),
+                      Color(0xFF000000),
+                      Color(0xFF000000),
+                    ]
+                  : [
+                      Color(0xFFf9e6ff),
+                      Color(0xFFf9e6ff),
+                      Color(0xFFf2ccff),
+                      Color(0xFFecb3ff),
+                      Color(0xFFe699ff),
+                      Color(0xFFdf80ff),
+                    ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildTopBar(),
-                const SizedBox(height: 20),
-                _buildFeaturedMovie(), // <-- Carousel Slider with 5 manually set items.
-                const SizedBox(height: 25),
-                _buildGenres(),
-                const SizedBox(height: 25),
-                _buildNewReleases(),
-                _buildMoreMovies(),
-              ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildTopBar(),
+                  const SizedBox(height: 20),
+                  _buildFeaturedMovie(),
+                  const SizedBox(height: 25),
+                  _buildGenres(),
+                  const SizedBox(height: 25),
+                  _buildNewReleases(),
+                  _buildMoreMovies(),
+                ],
+              ),
             ),
           ),
         ),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (bannerAd != null)
+              SizedBox(
+                height: 50,
+                child: AdWidget(ad: bannerAd!),
+              ),
+            _buildBottomNavigationBar(),
+          ],
+        ),
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (bannerAd != null)
-            SizedBox(
-              height: 50,
-              child: AdWidget(ad: bannerAd!),
-            ),
-          _buildBottomNavigationBar(),
-        ],
-      ),
-    ),
-  );
-}
+    );
+  }
 }
 class _GenreChip extends StatelessWidget {
   final String title;

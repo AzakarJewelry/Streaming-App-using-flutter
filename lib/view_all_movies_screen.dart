@@ -8,10 +8,10 @@ class ViewAllMoviesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.black // Dark mode background
-          : const Color(0xFFF5EFE6), // Light mode background
+      backgroundColor: isDarkMode ? Colors.black : const Color(0xFFF5EFE6),
       appBar: AppBar(
         backgroundColor: const Color(0xFF4d0066),
         foregroundColor: const Color(0xFFF5EFE6),
@@ -19,7 +19,6 @@ class ViewAllMoviesScreen extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Determine the number of columns dynamically based on screen width
           int crossAxisCount = constraints.maxWidth > 600 ? 4 : 2;
 
           return GridView.builder(
@@ -28,7 +27,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
               crossAxisCount: crossAxisCount,
               crossAxisSpacing: 16.0,
               mainAxisSpacing: 16.0,
-              childAspectRatio: 0.65, // Maintain poster aspect ratio
+              childAspectRatio: 0.65,
             ),
             itemCount: movies.length,
             itemBuilder: (context, index) {
@@ -52,7 +51,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
                   );
                 },
                 child: Card(
-                  color: Colors.white, // Ensure movie cards always remain white
+                  color: isDarkMode ? Colors.grey[900] : Colors.white, // Dark mode color
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -82,8 +81,8 @@ class ViewAllMoviesScreen extends StatelessWidget {
                               movie['title']!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Color(0xFF4d0066),
+                              style: TextStyle(
+                                color: isDarkMode ? Colors.white : const Color(0xFF4d0066),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -105,8 +104,9 @@ class ViewAllMoviesScreen extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                      color: const Color(0xFF4d0066)
-                                          .withOpacity(0.5),
+                                      color: isDarkMode
+                                          ? Colors.white70
+                                          : const Color(0xFF4d0066).withOpacity(0.5),
                                       fontSize: 12,
                                     ),
                                   ),

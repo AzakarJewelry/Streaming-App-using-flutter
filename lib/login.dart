@@ -151,11 +151,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
                     ),
-                    labelStyle: const TextStyle(color: Color(0xFF1A4D2E)),
+                    labelStyle: const TextStyle(color: Color(0xFF4d0066)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF1A4D2E)),
+                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
                     ),
                   ),
                   style: const TextStyle(color: Color(0xFF4d0066)),
