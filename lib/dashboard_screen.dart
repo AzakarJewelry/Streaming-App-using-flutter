@@ -8,7 +8,6 @@ import 'genre_screen.dart'; // Import the GenreScreen
 import 'favorites_screen.dart'; // Import the FavoriteScreen
 import 'profile_screen.dart'; // Import the ProfileScreen
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'dart:io' show Platform;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
@@ -32,6 +31,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   AdRequest? adRequest;
   BannerAd? bannerAd;
+
+  // Variable to track the last back button press time
+  DateTime? lastPressed;
 
   @override
   void initState() {
@@ -63,7 +65,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void dispose() {
-     SystemChrome.setPreferredOrientations([
+    SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
       DeviceOrientation.landscapeLeft,
@@ -209,7 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildFeaturedMovie() {
     // Replace the imageUrl and title values below with your own links and text.
     final List<Map<String, String>> featuredMovies = [
-{
+      {
         'title': 'Dandadan',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845371/4bf31391f0e3625ab6354559837ceaa3_toiu6i.jpg',
       },
@@ -232,53 +234,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ];
     
     return CarouselSlider(
-  options: CarouselOptions(
-    height: MediaQuery.of(context).size.height * 0.4, // Adjust height dynamically
-    autoPlay: true,
-    autoPlayInterval: const Duration(seconds: 3),
-    aspectRatio: 16 / 7, // Adjust to display more of the image
-    viewportFraction: 1.0, // Ensures full width
-    enlargeCenterPage: false, // Disable to prevent resizing
-  ),
-  items: featuredMovies.map((movie) {
-    return Builder(
-      builder: (BuildContext context) {
-        return Container(
-          width: MediaQuery.of(context).size.width, // Ensure full width
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: DecorationImage(
-              image: NetworkImage(movie['imageUrl']!),
-              fit: BoxFit.cover, // Ensures full image display
-            ),
-          ),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                movie['title'] ?? '',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 10,
-                      color: Color(0xCC000000),
-                    )
-                  ],
+      options: CarouselOptions(
+        height: MediaQuery.of(context).size.height * 0.4, // Adjust height dynamically
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 3),
+        aspectRatio: 16 / 7, // Adjust to display more of the image
+        viewportFraction: 1.0, // Ensures full width
+        enlargeCenterPage: false, // Disable to prevent resizing
+      ),
+      items: featuredMovies.map((movie) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: MediaQuery.of(context).size.width, // Ensure full width
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  image: NetworkImage(movie['imageUrl']!),
+                  fit: BoxFit.cover, // Ensures full image display
                 ),
               ),
-            ),
-          ),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    movie['title'] ?? '',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10,
+                          color: Color(0xCC000000),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
         );
-      },
+      }).toList(),
     );
-  }).toList(),
-);
-
   }
 
   Widget _buildTopBar() {
@@ -752,18 +753,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return WillPopScope(
       onWillPop: () async {
-        if (Platform.isAndroid) {
-          SystemNavigator.pop(); // Exits the app on Android
-        } else if (Platform.isIOS) {
-          exit(0); // Exits the app on iOS
+        DateTime now = DateTime.now();
+        if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
+          lastPressed = now;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Press back again to exit'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          return false;
         }
-        return Future.value(false);
+        // Exit the app on second back press
+        if (Platform.isAndroid) {
+          SystemNavigator.pop();
+        } else if (Platform.isIOS) {
+          exit(0);
+        }
+        return true;
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -772,20 +785,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
             gradient: LinearGradient(
               colors: isDarkMode
                    ? [
-                      Color(0xFF0d0d0d),
-                      Color(0xFF080808),
-                      Color(0xFF050505),
-                      Color(0xFF020202),
-                      Color(0xFF000000),
-                      Color(0xFF000000),
+                      const Color(0xFF0d0d0d),
+                      const Color(0xFF080808),
+                      const Color(0xFF050505),
+                      const Color(0xFF020202),
+                      const Color(0xFF000000),
+                      const Color(0xFF000000),
                     ]
                   : [
-                      Color(0xFFf9e6ff),
-                      Color(0xFFf9e6ff),
-                      Color(0xFFf2ccff),
-                      Color(0xFFecb3ff),
-                      Color(0xFFe699ff),
-                      Color(0xFFdf80ff),
+                      const Color(0xFFf9e6ff),
+                      const Color(0xFFf9e6ff),
+                      const Color(0xFFf2ccff),
+                      const Color(0xFFecb3ff),
+                      const Color(0xFFe699ff),
+                      const Color(0xFFdf80ff),
                     ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -825,6 +838,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 }
+
 class _GenreChip extends StatelessWidget {
   final String title;
   final String genre;
