@@ -140,11 +140,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return const Icon(
                     Icons.image_not_supported,
                     size: 100,
-<<<<<<< HEAD
-                    color: Colors.grey,
-=======
                     color: Color(0xFF4d0066),
->>>>>>> da5fc42827a004346bd5c3c88defebadca0e9c99
                   );
                 },
               ),

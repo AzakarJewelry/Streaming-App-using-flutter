@@ -1,6 +1,5 @@
 // dashboard_screen.dart
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
-
 import 'package:azakarstream/SearchScreen.dart';
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
@@ -10,7 +9,9 @@ import 'favorites_screen.dart'; // Import the FavoriteScreen
 import 'profile_screen.dart'; // Import the ProfileScreen
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io' show Platform;
-import 'package:carousel_slider/carousel_slider.dart'; // <-- Added import
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -297,7 +298,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Text(
                 'DramaMania',
                 style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF1A4D2E),
+                  color: isDark ? Colors.white : const Color(0xFF4d0066),
                   fontSize: 20,
                 ),
               ),
@@ -745,21 +746,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Remove the local dark mode theme setting.
-    return Scaffold(
+@override
+Widget build(BuildContext context) {
+  return WillPopScope(
+    onWillPop: () async {
+      if (Platform.isAndroid) {
+        SystemNavigator.pop(); // Exits the app on Android
+      } else if (Platform.isIOS) {
+        exit(0); // Exits the app on iOS
+      }
+      return Future.value(false); // Prevents navigation
+    },
+    child: Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFb300b3),
-              Color(0xFF990099),
-              Color(0xFF800080),
-              Color(0xFF660066),
-              Color(0xFF4d004d),
-              Color(0xFF330033),
+            gradient: LinearGradient(
+            colors:[
+            Color(0xFFf9e6ff),
+            Color(0xFFf9e6ff),
+            Color(0xFFf2ccff),
+            Color(0xFFecb3ff),
+            Color(0xFFe699ff),
+            Color(0xFFdf80ff),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -795,10 +804,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           _buildBottomNavigationBar(),
         ],
       ),
-    );
-  }
+    ),
+  );
 }
-
+}
 class _GenreChip extends StatelessWidget {
   final String title;
   final String genre;
