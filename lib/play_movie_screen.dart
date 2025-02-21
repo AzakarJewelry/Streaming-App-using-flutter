@@ -21,7 +21,7 @@ class _PlayMovieState extends State<PlayMovie> {
   @override
   void initState() {
     super.initState();
-    _initializeVideoPlayer(); // Initialize video directly
+    _initializeVideoPlayer();
   }
 
   void _initializeVideoPlayer() {
@@ -32,8 +32,9 @@ class _PlayMovieState extends State<PlayMovie> {
           setState(() {
             _chewieController = ChewieController(
               videoPlayerController: _videoPlayerController,
-              autoPlay: true, // Auto-play video after initialization
+              autoPlay: true,
               looping: false,
+              // We handle fullscreen ourselves, so set this to false:
               allowFullScreen: false,
             );
           });
@@ -105,17 +106,25 @@ class _PlayMovieState extends State<PlayMovie> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: SafeArea(
-        child: Center(
-          child: _buildVideoPlayer(), // Video starts playing immediately
-        ),
+    // Ensures status bar icons are white in fullscreen or dark backgrounds
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        // Hide the app bar in fullscreen mode
+        appBar: _isFullscreen
+            ? null
+            : AppBar(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+              ),
+        // Remove SafeArea in fullscreen mode so video truly fills the screen
+        body: _isFullscreen
+            ? Center(child: _buildVideoPlayer())
+            : SafeArea(
+                child: Center(child: _buildVideoPlayer()),
+              ),
       ),
     );
   }
