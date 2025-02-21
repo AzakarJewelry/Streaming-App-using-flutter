@@ -237,6 +237,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
       'videoUrl': 'https://example.com/deadpool_wolverine.mp4',
       'description': 'Deadpool and Wolverine team up for an unexpected adventure.',
     },
+    {
+      'title': 'Sakamoto Days',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/e1bcaa8cce3b5b4ca11e4ed9580e4a17_um4bt0.jpg',
+      'genre': 'Action',
+      'duration': '2h 4m',
+      'rating': '★★★★★',
+      'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
+      'description': 'Sakamoto, a former hitman, tries to live a peaceful life but trouble follows him.',
+    },
+    {
+      'title': 'Oppenheimer',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1739844423/51599e316a0a4a3ad751721f505ca4e4_baxqnf.jpg',
+      'genre': 'Drama',
+      'duration': '3h 0m',
+      'rating': '★★★★★',
+      'videoUrl': 'https://example.com/oppenheimer.mp4',
+      'description': 'A historical drama about the making of the atomic bomb and its consequences.',
+    },
   ];
 
   return CarouselSlider(
@@ -298,6 +316,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       );
     }).toList(),
   );
+
 
   }
 
