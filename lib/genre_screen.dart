@@ -12,13 +12,38 @@ class GenreScreen extends StatelessWidget {
     // Filter movies based on the selected genre
     final filteredMovies = allMovies.where((movie) => movie['genre'] == genre).toList();
 
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('$genre Movies'),
         backgroundColor: const Color(0xFF4d0066),
         foregroundColor: const Color(0xFFF5EFE6),
       ),
-      body: Padding(
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: isDarkMode
+                  ? [
+                      const Color(0xFF660066),
+                      const Color(0xFF4d004d),
+                      const Color(0xFF330033),
+                      const Color(0xFF1a001a),
+                      const Color(0xFF993366),
+                      const Color(0xFF000000),
+                    ]
+                  : [
+                      const Color(0xFFf9e6ff),
+                      const Color(0xFFf9e6ff),
+                      const Color(0xFFf2ccff),
+                      const Color(0xFFecb3ff),
+                      const Color(0xFFe699ff),
+                      const Color(0xFFdf80ff),
+                    ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

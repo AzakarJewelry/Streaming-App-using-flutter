@@ -91,123 +91,149 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   Widget build(BuildContext context) {
     // Check if the current movie is a favorite.
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 400,
-            floating: false,
-            pinned: true,
-            backgroundColor: Colors.grey[900],
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                widget.imageUrl,
-                fit: BoxFit.cover,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [
+                    const Color(0xFF660066),
+                    const Color(0xFF4d004d),
+                    const Color(0xFF330033),
+                    const Color(0xFF1a001a),
+                    const Color(0xFF993366),
+                    const Color(0xFF000000),
+                  ]
+                : [
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf2ccff),
+                    const Color(0xFFecb3ff),
+                    const Color(0xFFe699ff),
+                    const Color(0xFFdf80ff),
+                  ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              expandedHeight: 400,
+              floating: false,
+              pinned: true,
+              backgroundColor: Colors.grey[900],
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.pop(context),
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                background: Image.network(
+                  widget.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Title & Favorite Button
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          widget.title,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Title & Favorite Button
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorite ? Colors.red : Colors.white,
-                          size: 30,
+                        IconButton(
+                          icon: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            color: isFavorite ? Colors.red : Colors.white,
+                            size: 30,
+                          ),
+                          onPressed: () async {
+                            try {
+                              // Toggle favorite in Firestore and local list.
+                              await favoriteManager.toggleFavorite({
+                                'title': widget.title,
+                                'genre': widget.genre,
+                                'duration': widget.duration,
+                                'rating': widget.rating,
+                                'description': widget.description,
+                                'imageUrl': widget.imageUrl,
+                                'videoUrl': widget.videoUrl,
+                              });
+                            } catch (error) {
+                              debugPrint('Error toggling favorite: $error');
+                            }
+                            // Refresh UI after toggle.
+                            setState(() {});
+                          },
                         ),
-                        onPressed: () async {
-                          try {
-                            // Toggle favorite in Firestore and local list.
-                            await favoriteManager.toggleFavorite({
-                              'title': widget.title,
-                              'genre': widget.genre,
-                              'duration': widget.duration,
-                              'rating': widget.rating,
-                              'description': widget.description,
-                              'imageUrl': widget.imageUrl,
-                              'videoUrl': widget.videoUrl,
-                            });
-                          } catch (error) {
-                            debugPrint('Error toggling favorite: $error');
-                          }
-                          // Refresh UI after toggle.
-                          setState(() {});
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  // Genre
-                  Text(
-                    widget.genre,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
+                      ],
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  // Duration & Rating
-                  Column(
-                    children: [
-                      Text(
-                        widget.duration,
-                        style: const TextStyle(
-                          color: Colors.white70,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.rating,
-                        style: const TextStyle(
-                          color: Colors.amber,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  // Description
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      widget.description,
+                    const SizedBox(height: 8),
+                    // Genre
+                    Text(
+                      widget.genre,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Colors.white70,
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                  ),
-                  const SizedBox(height: 80),
-                ],
+                    const SizedBox(height: 8),
+                    // Duration & Rating
+                    Column(
+                      children: [
+                        Text(
+                          widget.duration,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          widget.rating,
+                          style: const TextStyle(
+                            color: Colors.amber,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    // Description
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        widget.description,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 80),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _showInterstitialAd, // Show ad before navigating to video screen

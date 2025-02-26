@@ -284,13 +284,32 @@ Widget build(BuildContext context) {
           // Menu Options
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
-                color: isDarkMode ? Colors.grey[900] : Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
+                decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: isDarkMode
+                    ? [
+                    const Color(0xFF660066),
+                    const Color(0xFF4d004d),
+                    const Color(0xFF330033),
+                    const Color(0xFF1a001a),
+                    const Color(0xFF000000),
+                    ]
+                    : [
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf2ccff),
+                    const Color(0xFFecb3ff),
+                    const Color(0xFFe699ff),
+                    const Color(0xFFdf80ff),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                  ),
               child: ListView(
                 padding: const EdgeInsets.all(20),
                 children: [
