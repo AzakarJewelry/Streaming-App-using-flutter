@@ -827,7 +827,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       const Color(0xFF4d004d),
                       const Color(0xFF330033),
                       const Color(0xFF1a001a),
-                      const Color(0xFF000000),
+                      const Color(0xFF993366),
                       const Color(0xFF000000),
                     ]
                   : [
