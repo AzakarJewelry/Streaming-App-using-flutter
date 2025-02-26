@@ -185,185 +185,179 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    // Determine whether the global theme is dark.
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+ @override
+Widget build(BuildContext context) {
+  // Determine whether the global theme is dark.
+  final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      // Set the overall background based on dark mode.
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: isDark
-                ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF993366),
-                    const Color(0xFF000000),
-                  ]
-                : [
-                    const Color(0xFF4d0066),
-                    const Color(0xFF4d0066),
-                    const Color(0xFF4d0066),
-                    const Color(0xFF4d0066),
-                    const Color(0xFF4d0066),
-                    const Color(0xFF4d0066),
-                  ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+  return Scaffold(
+    body: Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: isDarkMode
+              ? [
+                  const Color(0xFF660066),
+                  const Color(0xFF4d004d),
+                  const Color(0xFF330033),
+                  const Color(0xFF1a001a),
+                  const Color(0xFF993366),
+                  const Color(0xFF000000),
+                ]
+              : [
+                  const Color(0xFF4d0066),
+                  const Color(0xFF4d0066),
+                  const Color(0xFF4d0066),
+                  const Color(0xFF4d0066),
+                  const Color(0xFF4d0066),
+                  const Color(0xFF4d0066),
+                ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
-        child: Column(
-          children: [
-            // Profile Header
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 40),
-              color: Colors.transparent, // Make the header transparent
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage: profilePhotoUrl != null
-                            ? FileImage(File(profilePhotoUrl!))
-                            : null,
-                        child: profilePhotoUrl == null
-                            ? const Icon(
-                                Icons.person,
-                                size: 60,
-                                color: Colors.white,
-                              )
-                            : null,
-                      ),
-                      Positioned(
-                        bottom: -15,
-                        right: -15,
-                        child: IconButton(
-                          onPressed: _editProfilePhoto,
-                          icon: const Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                          ),
+      ),
+      child: Column(
+        children: [
+          // Profile Header
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 40),
+            color: Colors.transparent, // Ensuring the background gradient is visible
+            child: Column(
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundImage: profilePhotoUrl != null
+                          ? FileImage(File(profilePhotoUrl!))
+                          : null,
+                      child: profilePhotoUrl == null
+                          ? const Icon(
+                              Icons.person,
+                              size: 60,
+                              color: Colors.white,
+                            )
+                          : null,
+                    ),
+                    Positioned(
+                      bottom: -15,
+                      right: -15,
+                      child: IconButton(
+                        onPressed: _editProfilePhoto,
+                        icon: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    userName,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
                     ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  userName,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    userEmail,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white70,
-                    ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  userEmail,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white70,
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    userBio,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white60,
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  userBio,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.white60,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Menu Options
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: isDarkMode ? Colors.grey[900] : Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  _buildMenuItem(
+                    icon: Icons.edit,
+                    title: 'Edit Profile',
+                    onTap: _showEditProfileDialog,
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.settings,
+                    title: 'Settings',
+                    onTap: () {
+                      final myAppState = MyApp.of(context);
+                      if (myAppState != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SettingsScreen(
+                              isDarkMode: myAppState.isDarkMode,
+                              onToggleDarkMode: myAppState.toggleDarkMode,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.info_outline,
+                    title: 'Terms & Conditions',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const TermsAndConditionsScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.info_outline,
+                    title: 'Visit our Social Media Platforms',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const SocialMediaLinks(),
+                        ),
+                      );
+                    },
+                  ),
+                  _buildMenuItem(
+                    icon: Icons.logout,
+                    title: 'Logout',
+                    onTap: _logout,
                   ),
                 ],
               ),
             ),
-            // Menu Options
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.grey[850] : Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                child: ListView(
-                  padding: const EdgeInsets.all(20),
-                  children: [
-                    _buildMenuItem(
-                      icon: Icons.edit,
-                      title: 'Edit Profile',
-                      onTap: () {
-                        setState(() {
-                          isEditing = true;
-                        });
-                        _showEditProfileDialog();
-                      },
-                    ),
-                    _buildMenuItem(
-                      icon: Icons.settings,
-                      title: 'Settings',
-                      onTap: () {
-                        final myAppState = MyApp.of(context);
-                        if (myAppState != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SettingsScreen(
-                                isDarkMode: myAppState.isDarkMode,
-                                onToggleDarkMode: myAppState.toggleDarkMode,
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                    _buildMenuItem(
-                      icon: Icons.info_outline,
-                      title: 'Terms & Conditions',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const TermsAndConditionsScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildMenuItem(
-                      icon: Icons.info_outline,
-                      title: 'Visit our Social Media Platforms',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const SocialMediaLinks(),
-                          ),
-                        );
-                      },
-                    ),
-                    _buildMenuItem(
-                      icon: Icons.logout,
-                      title: 'Logout',
-                      onTap: _logout,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
-    );
-  }
+    ),
+    bottomNavigationBar: _buildBottomNavigationBar(),
+  );
+}
 
   Widget _buildMenuItem({
     required IconData icon,
@@ -388,7 +382,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget _buildBottomNavigationBar() {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFF4d0066),
+      backgroundColor:  const Color(0xFF4d0066),
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white.withOpacity(0.5),
       currentIndex: _selectedNavIndex,
