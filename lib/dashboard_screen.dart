@@ -367,13 +367,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 );
               },
             ),
-            IconButton(
-              icon: Icon(Icons.notifications,
-                  color: isDark ? Colors.white : const Color(0xFF4d0066)),
-              onPressed: () {
-                // Implement notifications if needed.
-              },
-            ),
           ],
         ),
       ],
