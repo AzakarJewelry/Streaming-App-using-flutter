@@ -92,6 +92,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     // Check if the current movie is a favorite.
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final Color textColor = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -149,8 +150,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                         Expanded(
                           child: Text(
                             widget.title,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: textColor,
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
@@ -159,7 +160,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                         IconButton(
                           icon: Icon(
                             isFavorite ? Icons.favorite : Icons.favorite_border,
-                            color: isFavorite ? Colors.red : Colors.white,
+                            color: isFavorite ? Colors.red : textColor,
                             size: 30,
                           ),
                           onPressed: () async {
@@ -187,8 +188,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     // Genre
                     Text(
                       widget.genre,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: textColor.withOpacity(0.7),
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
@@ -199,8 +200,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       children: [
                         Text(
                           widget.duration,
-                          style: const TextStyle(
-                            color: Colors.white70,
+                          style: TextStyle(
+                            color: textColor.withOpacity(0.7),
                             fontSize: 16,
                           ),
                         ),
@@ -220,8 +221,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         widget.description,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: textColor,
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,

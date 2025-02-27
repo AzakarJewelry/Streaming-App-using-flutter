@@ -1,6 +1,7 @@
 import 'package:azakarstream/settings_screen.dart';
 import 'package:azakarstream/socialmedia.dart';
 import 'package:azakarstream/termsandconditions.dart';
+import 'package:azakarstream/watch_video_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dashboard_screen.dart';
 import 'favorites_screen.dart';
+import 'watch_video_screen.dart';
 import 'main.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -420,6 +422,16 @@ Widget build(BuildContext context) {
             context,
             MaterialPageRoute(builder: (context) => const FavoriteScreen()),
           );
+        } else if (index == 2) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileScreen()),
+          );
+        } else if (index == 3) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+          );
         }
       },
       items: const [
@@ -435,7 +447,12 @@ Widget build(BuildContext context) {
           icon: Icon(Icons.person),
           label: 'Profile',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.play_circle_fill),
+          label: 'Watch Drama',
+        ),
       ],
+      type: BottomNavigationBarType.fixed,
     );
   }
 }

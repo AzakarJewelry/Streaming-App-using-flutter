@@ -1,6 +1,7 @@
 // dashboard_screen.dart
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
 import 'package:azakarstream/SearchScreen.dart';
+import 'package:azakarstream/watch_video_screen.dart';
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
 import 'view_all_movies_screen.dart'; // Import the new screen
@@ -766,6 +767,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             MaterialPageRoute(builder: (context) => const ProfileScreen()),
           );
         }
+        else if (index == 3) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+          );
+        }
       },
       items: const [
         BottomNavigationBarItem(
@@ -780,7 +787,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           icon: Icon(Icons.person),
           label: 'Profile',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.play_circle_fill),
+          label: 'Watch Drama',
+        ),
+        
       ],
+      type: BottomNavigationBarType.fixed,
     );
   }
 

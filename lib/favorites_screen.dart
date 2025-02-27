@@ -1,3 +1,4 @@
+import 'package:azakarstream/watch_video_screen.dart';
 import 'package:flutter/material.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
 import 'movie_details_screen.dart'; // Import the movie details screen
@@ -22,10 +23,23 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         context,
         MaterialPageRoute(builder: (context) => const DashboardScreen()),
       );
-    } else if (index == 2) {
+    }
+    else if (index == 1) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+          );
+        }
+    else if (index == 2) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
+    }
+    else if (index == 3) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
       );
     }
   }
@@ -193,7 +207,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               icon: Icon(Icons.person),
               label: 'Profile',
             ),
+            BottomNavigationBarItem(
+          icon: Icon(Icons.play_circle_fill),
+          label: 'Watch Drama',
+        ),
           ],
+          type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
           backgroundColor: const Color(0xFF4d0066),
           selectedItemColor: const Color(0xFFF5EFE6),
