@@ -36,42 +36,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // Variable to track the last back button press time
   DateTime? lastPressed;
 
-  @override
+@override
   void initState() {
     super.initState();
 
-    String bannerId = Platform.isAndroid
-        ? "ca-app-pub-3940256099942544/6300978111"
-        : "ca-app-pub-3940256099942544/2934735716";
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == AppLifecycleState.paused.toString()) {
+        _navigateToDashboard();
+      }
+      return null;
+    });
 
-    adRequest = const AdRequest(
-      nonPersonalizedAds: false,
-    );
-    BannerAdListener bannerAdListener = BannerAdListener(
-      onAdClosed: (ad) {
-        bannerAd?.load();
-      },
-      onAdFailedToLoad: (ad, error) {
-        bannerAd?.load();
-      },
-    );
     bannerAd = BannerAd(
       size: AdSize.fluid,
-      adUnitId: bannerId,
-      request: adRequest!,
-      listener: bannerAdListener,
+      adUnitId: "ca-app-pub-3940256099942544/6300978111", // Test AdMob ID
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) => setState(() {}),
+        onAdFailedToLoad: (ad, error) => ad.dispose(),
+      ),
+    )..load();
+  }
+
+  void _navigateToDashboard() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      (Route<dynamic> route) => false,
     );
-    bannerAd!.load();
   }
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
     bannerAd?.dispose();
     super.dispose();
   }
@@ -796,91 +792,135 @@ class _DashboardScreenState extends State<DashboardScreen> {
       type: BottomNavigationBarType.fixed,
     );
   }
+@override
+Widget build(BuildContext context) {
+  final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-  @override
-  Widget build(BuildContext context) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
-    return WillPopScope(
-      onWillPop: () async {
-        DateTime now = DateTime.now();
-        if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
-          lastPressed = now;
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Press back again to exit'),
-              duration: Duration(seconds: 2),
-            ),
-          );
-          return false;
-        }
-        // Exit the app on second back press
-        if (Platform.isAndroid) {
-          SystemNavigator.pop();
-        } else if (Platform.isIOS) {
-          exit(0);
-        }
-        return true;
-      },
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: isDarkMode
-                  ? [
-                      const Color(0xFF660066),
-                      const Color(0xFF4d004d),
-                      const Color(0xFF330033),
-                      const Color(0xFF1a001a),
-                      const Color(0xFF993366),
-                      const Color(0xFF000000),
-                    ]
-                  : [
-                      const Color(0xFFf9e6ff),
-                      const Color(0xFFf9e6ff),
-                      const Color(0xFFf2ccff),
-                      const Color(0xFFecb3ff),
-                      const Color(0xFFe699ff),
-                      const Color(0xFFdf80ff),
-                    ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+  return WillPopScope(
+    onWillPop: () async {
+      DateTime now = DateTime.now();
+      if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
+        lastPressed = now;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Press back again to exit'),
+            duration: Duration(seconds: 2),
           ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildTopBar(),
-                  const SizedBox(height: 20),
-                  _buildFeaturedMovie(),
-                  const SizedBox(height: 25),
-                  _buildGenres(),
-                  const SizedBox(height: 25),
-                  _buildNewReleases(),
-                  _buildMoreMovies(),
-                ],
-              ),
-            ),
+        );
+        return false;
+      }
+      if (Platform.isAndroid) {
+        SystemNavigator.pop();
+      } else if (Platform.isIOS) {
+        exit(0);
+      }
+      return true;
+    },
+    child: Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [
+                    const Color(0xFF660066),
+                    const Color(0xFF4d004d),
+                    const Color(0xFF330033),
+                    const Color(0xFF1a001a),
+                    const Color(0xFF993366),
+                    const Color(0xFF000000),
+                  ]
+                : [
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf2ccff),
+                    const Color(0xFFecb3ff),
+                    const Color(0xFFe699ff),
+                    const Color(0xFFdf80ff),
+                  ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
-        bottomNavigationBar: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (bannerAd != null)
-              SizedBox(
-                height: 50,
-                child: AdWidget(ad: bannerAd!),
-              ),
-            _buildBottomNavigationBar(),
-          ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildTopBar(),
+                const SizedBox(height: 20),
+                _buildFeaturedMovie(),
+                const SizedBox(height: 25),
+                _buildGenres(),
+                const SizedBox(height: 25),
+                _buildNewReleases(),
+                _buildMoreMovies(),
+              ],
+            ),
+          ),
         ),
       ),
-    );
-  }
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (bannerAd != null)
+            SizedBox(
+              height: 50,
+              child: AdWidget(ad: bannerAd!),
+            ),
+          BottomNavigationBar(
+            backgroundColor: const Color(0xFF4d0066),
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white70,
+            currentIndex: _selectedNavIndex,
+            onTap: (index) {
+              setState(() {
+                _selectedNavIndex = index;
+              });
+
+              if (index == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                );
+              } else if (index == 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+                );
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.play_circle_fill),
+                label: 'Watch Drama',
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
+          ),
+        ],
+      ),
+    ),
+  );
+}
 }
 
 class _GenreChip extends StatelessWidget {
