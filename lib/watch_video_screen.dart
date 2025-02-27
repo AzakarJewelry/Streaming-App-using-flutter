@@ -16,7 +16,7 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
   int _currentVideoIndex = 0;
 
   final List<String> _videoUrls = [
-    'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740630317/Get_a_pic_it_ll_last_you_long_ExtraLChallenge_nbenn3.mp4',
+    'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740649505/videoplayback_xulk99.mp4',
     'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4'
   ];
 
