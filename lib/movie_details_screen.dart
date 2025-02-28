@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'play_movie_screen.dart';
 import 'favorite_manager.dart'; // Ensure this is implemented and properly connected to Firestore
@@ -83,6 +84,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => PlayMovie(videoUrl: widget.videoUrl),
+      ),
+    );
+  }
+
+  // Show a countdown dialog before showing the ad
+  void _startCountdown() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => CountdownDialog(
+        initialCountdown: 3,
+        onCountdownComplete: _showInterstitialAd,
       ),
     );
   }
@@ -237,7 +250,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _showInterstitialAd, // Show ad before navigating to video screen
+        // Start countdown with loading dialog before showing the ad
+        onPressed: _startCountdown,
         backgroundColor: const Color(0xFF4d0066),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
         label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
@@ -249,5 +263,62 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   void dispose() {
     _interstitialAd?.dispose(); // Dispose of the ad when the screen is disposed
     super.dispose();
+  }
+}
+
+// A custom dialog that shows a countdown and a loading indicator
+class CountdownDialog extends StatefulWidget {
+  final int initialCountdown;
+  final VoidCallback onCountdownComplete;
+
+  const CountdownDialog({
+    Key? key,
+    required this.initialCountdown,
+    required this.onCountdownComplete,
+  }) : super(key: key);
+
+  @override
+  _CountdownDialogState createState() => _CountdownDialogState();
+}
+
+class _CountdownDialogState extends State<CountdownDialog> {
+  late int countdown;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    countdown = widget.initialCountdown;
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (countdown > 1) {
+        setState(() {
+          countdown--;
+        });
+      } else {
+        timer.cancel();
+        Navigator.of(context).pop(); // Dismiss the dialog
+        widget.onCountdownComplete();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(height: 20),
+          Text("Playing movie in $countdown seconds..."),
+        ],
+      ),
+    );
   }
 }
