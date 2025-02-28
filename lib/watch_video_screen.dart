@@ -11,9 +11,23 @@ class WatchVideoScreen extends StatefulWidget {
 
 class _WatchVideoScreenState extends State<WatchVideoScreen> {
   final PageController _pageController = PageController(initialPage: 0);
-  final List<String> _videoUrls = [
-    'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740649505/videoplayback_xulk99.mp4',
-    'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4'
+
+  // Each feed item is a list of video URLs.
+  // The first two feed items are single-part videos,
+  // and the third feed item is a multi-part video (4 parts).
+  final List<List<String>> _feedItems = [
+    [
+      'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740649505/videoplayback_xulk99.mp4'
+    ],
+    [
+      'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4'
+    ],
+    [
+      'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4', // Part 1
+      'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716531/kucz5aivzegthhjqftj7.mp4', // Part 2
+      'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/xga4eqjpocd5jp0x7fft.mp4', // Part 3
+      'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/fqd1cynmp6jymdokgosm.mp4', // Part 4
+    ],
   ];
 
   @override
@@ -21,7 +35,27 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
     _pageController.dispose();
     super.dispose();
   }
-  
+
+  // These functions navigate vertically between feed items.
+  void _goToNextFeedItem() {
+    if (_pageController.hasClients &&
+        _pageController.page!.toInt() < _feedItems.length - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    }
+  }
+
+  void _goToPreviousFeedItem() {
+    if (_pageController.hasClients && _pageController.page!.toInt() > 0) {
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,26 +63,12 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
       body: PageView.builder(
         controller: _pageController,
         scrollDirection: Axis.vertical,
-        itemCount: _videoUrls.length,
+        itemCount: _feedItems.length,
         itemBuilder: (context, index) {
-          return VideoPlayerPage(
-            videoUrl: _videoUrls[index],
-            onNext: () {
-              if (index < _videoUrls.length - 1) {
-                _pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn,
-                );
-              }
-            },
-            onPrevious: () {
-              if (index > 0) {
-                _pageController.previousPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn,
-                );
-              }
-            },
+          return MultiPartVideoPlayer(
+            videoParts: _feedItems[index],
+            onNextFeed: _goToNextFeedItem,
+            onPreviousFeed: _goToPreviousFeedItem,
           );
         },
       ),
@@ -56,31 +76,32 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
   }
 }
 
-class VideoPlayerPage extends StatefulWidget {
-  final String videoUrl;
-  final VoidCallback onNext;
-  final VoidCallback onPrevious;
+class MultiPartVideoPlayer extends StatefulWidget {
+  final List<String> videoParts;
+  final VoidCallback onNextFeed;
+  final VoidCallback onPreviousFeed;
 
-  const VideoPlayerPage({
+  const MultiPartVideoPlayer({
     Key? key,
-    required this.videoUrl,
-    required this.onNext,
-    required this.onPrevious,
+    required this.videoParts,
+    required this.onNextFeed,
+    required this.onPreviousFeed,
   }) : super(key: key);
 
   @override
-  _VideoPlayerPageState createState() => _VideoPlayerPageState();
+  _MultiPartVideoPlayerState createState() => _MultiPartVideoPlayerState();
 }
 
-class _VideoPlayerPageState extends State<VideoPlayerPage> {
+class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
   late VideoPlayerController _controller;
   bool _controlsVisible = true;
   Timer? _hideControlsTimer;
+  int _currentPartIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _initializeVideoPlayer(widget.videoUrl);
+    _initializeVideoPlayer(widget.videoParts[_currentPartIndex]);
   }
 
   void _initializeVideoPlayer(String url) {
@@ -132,6 +153,32 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     });
   }
 
+  // When "next" is tapped:
+  // • If more parts exist in this feed item, play the next part.
+  // • Otherwise, move vertically to the next feed item.
+  void _playNextPart() {
+    if (_currentPartIndex < widget.videoParts.length - 1) {
+      _currentPartIndex++;
+      _controller.dispose();
+      _initializeVideoPlayer(widget.videoParts[_currentPartIndex]);
+    } else {
+      widget.onNextFeed();
+    }
+  }
+
+  // When "previous" is tapped:
+  // • If not at the first part, go to the previous part.
+  // • Otherwise, move vertically to the previous feed item.
+  void _playPreviousPart() {
+    if (_currentPartIndex > 0) {
+      _currentPartIndex--;
+      _controller.dispose();
+      _initializeVideoPlayer(widget.videoParts[_currentPartIndex]);
+    } else {
+      widget.onPreviousFeed();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -147,7 +194,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                   ),
                 )
               : const Center(child: CircularProgressIndicator()),
-          // Overlay Text and Icons
+          // Overlay for username and description
           Positioned(
             bottom: 70,
             left: 20,
@@ -166,6 +213,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
               ],
             ),
           ),
+          // Overlay icons (like, comment, share)
           Positioned(
             bottom: 60,
             right: 20,
@@ -179,7 +227,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
               ],
             ),
           ),
-          // Video Controls (Next/Previous/Play-Pause)
+          // Video controls overlay (visible on tap)
           if (_controlsVisible)
             Positioned.fill(
               child: Container(
@@ -194,13 +242,11 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                           color: Colors.white,
                           size: 50,
                         ),
-                        onPressed: widget.onPrevious,
+                        onPressed: _playPreviousPart,
                       ),
                       IconButton(
                         icon: Icon(
-                          _controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
+                          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
                           color: Colors.white,
                           size: 60,
                         ),
@@ -212,7 +258,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                           color: Colors.white,
                           size: 50,
                         ),
-                        onPressed: widget.onNext,
+                        onPressed: _playNextPart,
                       ),
                     ],
                   ),
