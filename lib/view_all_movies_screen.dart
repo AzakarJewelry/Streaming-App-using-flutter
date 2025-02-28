@@ -41,7 +41,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
                         title: movie['title']!,
                         genre: movie['genre']!,
                         duration: movie['duration']!,
-                        rating: movie['rating']!,
+                        rating: movie['rating']!, // Still passing rating for details screen if needed.
                         description:
                             'This is a detailed description of the movie ${movie['title']}.',
                         imageUrl: movie['imageUrl']!,
@@ -51,7 +51,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
                   );
                 },
                 child: Card(
-                  color: isDarkMode ? Colors.grey[900] : Colors.white, // Dark mode color
+                  color: isDarkMode ? Colors.grey[900] : Colors.white,
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -74,46 +74,17 @@ class ViewAllMoviesScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              movie['title']!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: isDarkMode ? Colors.white : const Color(0xFF4d0066),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Text(
-                                  movie['rating']!,
-                                  style: const TextStyle(
-                                    color: Color(0xFFF3C63F),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                const SizedBox(width: 5),
-                                Flexible(
-                                  child: Text(
-                                    movie['reviews']!,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: isDarkMode
-                                          ? Colors.white70
-                                          : const Color(0xFF4d0066).withOpacity(0.5),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        child: Text(
+                          movie['title']!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: isDarkMode
+                                ? Colors.white
+                                : const Color(0xFF4d0066),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ],

@@ -632,120 +632,120 @@ Widget _buildTopBar() {
   }
 
   Widget _buildNewReleases() {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'New Releases',
+  final bool isDark = Theme.of(context).brightness == Brightness.dark;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'New Releases',
+            style: TextStyle(
+              color: isDark ? Colors.white : const Color(0xFF4d0066),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ViewAllMoviesScreen(movies: newReleases),
+                ),
+              );
+            },
+            child: Text(
+              'View All',
               style: TextStyle(
                 color: isDark ? Colors.white : const Color(0xFF4d0066),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ViewAllMoviesScreen(movies: newReleases)),
-                );
-              },
-              child: Text(
-                'View All',
-                style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF4d0066),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        SizedBox(
-          height: 281,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: newReleases
-                .map(
-                  (movie) => _MovieCard(
-                    title: movie['title']!,
-                    rating: movie['rating']!,
-                    reviews: movie['reviews']!,
-                    imageUrl: movie['imageUrl']!,
-                    genre: movie['genre']!,
-                    duration: movie['duration']!,
-                    videoUrl: movie['videoUrl']!,
-                  ),
-                )
-                .toList(),
           ),
+        ],
+      ),
+      const SizedBox(height: 15),
+      SizedBox(
+        height: 260, // Adjusted height for fixed picture size
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: newReleases
+              .map(
+                (movie) => _MovieCard(
+                  title: movie['title']!,
+                  imageUrl: movie['imageUrl']!,
+                  genre: movie['genre']!,
+                  duration: movie['duration']!,
+                  videoUrl: movie['videoUrl']!,
+                ),
+              )
+              .toList(),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
-  Widget _buildMoreMovies() {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Most Popular',
+Widget _buildMoreMovies() {
+  final bool isDark = Theme.of(context).brightness == Brightness.dark;
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Most Popular',
+            style: TextStyle(
+              color: isDark ? Colors.white : const Color(0xFF4d0066),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ViewAllMoviesScreen(movies: mostPopular),
+                ),
+              );
+            },
+            child: Text(
+              'View All',
               style: TextStyle(
                 color: isDark ? Colors.white : const Color(0xFF4d0066),
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          ViewAllMoviesScreen(movies: mostPopular)),
-                );
-              },
-              child: Text(
-                'View All',
-                style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF4d0066),
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 15),
-        SizedBox(
-          height: 281,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: mostPopular
-                .map(
-                  (movie) => _MovieCard(
-                    title: movie['title']!,
-                    rating: movie['rating']!,
-                    reviews: movie['reviews']!,
-                    imageUrl: movie['imageUrl']!,
-                    genre: movie['genre']!,
-                    duration: movie['duration']!,
-                    videoUrl: movie['videoUrl']!,
-                  ),
-                )
-                .toList(),
           ),
+        ],
+      ),
+      const SizedBox(height: 15),
+      SizedBox(
+        height: 260, // Adjusted height for fixed picture size
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: mostPopular
+              .map(
+                (movie) => _MovieCard(
+                  title: movie['title']!,
+                  imageUrl: movie['imageUrl']!,
+                  genre: movie['genre']!,
+                  duration: movie['duration']!,
+                  videoUrl: movie['videoUrl']!,
+                ),
+              )
+              .toList(),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
+
 
   Widget _buildBottomNavigationBar() {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
@@ -1004,22 +1004,19 @@ class _GenreChip extends StatelessWidget {
 
 class _MovieCard extends StatelessWidget {
   final String title;
-  final String rating;
-  final String reviews;
   final String imageUrl;
   final String genre;
   final String duration;
   final String videoUrl;
 
   const _MovieCard({
+    Key? key,
     required this.title,
-    required this.rating,
-    required this.reviews,
     required this.imageUrl,
     required this.genre,
     required this.duration,
     required this.videoUrl,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -1035,7 +1032,7 @@ class _MovieCard extends StatelessWidget {
               title: title,
               genre: genre,
               duration: duration,
-              rating: rating,
+              rating: "",
               description: 'This is a detailed description of the movie $title.',
               imageUrl: imageUrl,
               videoUrl: videoUrl,
@@ -1044,7 +1041,7 @@ class _MovieCard extends StatelessWidget {
         );
       },
       child: Container(
-        width: 160, // Set a fixed width for consistency
+        width: 160,
         margin: const EdgeInsets.only(right: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
@@ -1060,19 +1057,20 @@ class _MovieCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Image area
             Stack(
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
                   child: Image.network(
                     imageUrl,
-                    height: 200,
+                    height: 210,
                     width: double.infinity,
-                    fit: BoxFit.cover, // Ensures the image scales proportionally
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Container(
-                  height: 200,
+                  height: 210,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
                     gradient: LinearGradient(
@@ -1087,50 +1085,23 @@ class _MovieCard extends StatelessWidget {
                 ),
               ],
             ),
+            // Title area
             Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 2, // Prevents text overflow
-                    overflow: TextOverflow.ellipsis, // Adds "..." for overflowing text
-                    style: TextStyle(
-                      color: isDarkMode ? Colors.white : const Color(0xFF1A4D2E),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+              // Remove bottom padding
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Container(
+                width: double.infinity,
+                alignment: title.length < 15 ? Alignment.center : Alignment.centerLeft,
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: isDarkMode ? Colors.white : const Color(0xFF4d0066),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const SizedBox(width: 5),
-                      Text(
-                        rating,
-                        style: TextStyle(
-                          color: isDarkMode ? Colors.amber : const Color(0xFFF3C63F),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded( // Prevents the reviews text from exceeding the width
-                        child: Text(
-                          '($reviews reviews)',
-                          maxLines: 1, // Ensures the text stays on one line
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: isDarkMode
-                                ? Colors.white.withOpacity(0.7)
-                                : const Color(0xFF1A4D2E).withOpacity(0.5),
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
             ),
           ],
