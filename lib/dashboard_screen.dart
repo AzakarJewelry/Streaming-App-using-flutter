@@ -313,62 +313,69 @@ class _DashboardScreenState extends State<DashboardScreen> {
       );
     }).toList(),
   );
-
-
   }
 
-  Widget _buildTopBar() {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // Time and Location (if needed)
-        Row(
-          children: [
-            Text(
-              '', // Replace with actual time if needed.
-              style: TextStyle(
-                color: isDark
-                    ? Colors.white
-                    : const Color(0xFF1A4D2E).withOpacity(0.6),
-                fontSize: 16,
-              ),
+Widget _buildTopBar() {
+  final bool isDark = Theme.of(context).brightness == Brightness.dark;
+  return SafeArea(
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // App title
+          Text(
+            'DramaMania',
+            style: TextStyle(
+              color: isDark ? Colors.white : const Color(0xFF4d0066),
+              fontSize: 20,
             ),
-            const SizedBox(width: 10),
-            Padding(
-              padding: const EdgeInsets.only(top: 40.0),
-              child: Text(
-                'DramaMania',
-                style: TextStyle(
-                  color: isDark ? Colors.white : const Color(0xFF4d0066),
-                  fontSize: 20,
+          ),
+          // A small search hint container
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchScreen(
+                    allMovies: [...newReleases, ...mostPopular],
+                  ),
                 ),
+              );
+            },
+            child: Container(
+              width: 120,
+              height: 36,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              decoration: BoxDecoration(
+                color: isDark ? Colors.grey[800] : Colors.grey[300],
+                borderRadius: BorderRadius.circular(18.0),
               ),
-            ),
-          ],
-        ),
-        // Search and Notifications
-        Row(
-          children: [
-            IconButton(
-              icon: Icon(Icons.search,
-                  color: isDark ? Colors.white : const Color(0xFF4d0066)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SearchScreen(
-                      allMovies: [...newReleases, ...mostPopular],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.search,
+                    size: 18,
+                    color: isDark ? Colors.white : const Color(0xFF4d0066),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'Search',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: isDark ? Colors.white70 : Colors.black54,
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          ],
-        ),
-      ],
-    );
-  }
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
   Widget _buildGenres() {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;

@@ -36,7 +36,7 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
     super.dispose();
   }
 
-  // These functions navigate vertically between feed items.
+  // Navigate vertically between feed items.
   void _goToNextFeedItem() {
     if (_pageController.hasClients &&
         _pageController.page!.toInt() < _feedItems.length - 1) {
@@ -265,6 +265,17 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
                 ),
               ),
             ),
+          // Back Button placed last so it's always on top.
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 10,
+            left: 10,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white, size: 30),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
         ],
       ),
     );
