@@ -73,7 +73,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                   ),
                 ),
-                onSubmitted: (value) {
+                // This callback will trigger every time the text changes.
+                onChanged: (value) {
                   _searchMovies(value);
                 },
               ),
