@@ -74,135 +74,149 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Updated movie lists with videoUrl field.
   final List<Map<String, String>> newReleases = [
-    {
-      'title': 'One Piece',
-      'rating': '★★★★★',
-      'reviews': '(100k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_.jpg',
-      'genre': 'Action',
-      'duration': '2h 4m',
-      'videoUrl':
-          'https://res.cloudinary.com/dywykbqpw/video/upload/zrf1mbajhv8m24n9gxi7.mp4',
-    },
-    {
-      'title': 'One Punch Man',
-      'rating': '★★★★☆',
-      'reviews': '(55k)',
-      'imageUrl':
-          'https://upload.wikimedia.org/wikipedia/en/c/c3/OnePunchMan_manga_cover.png',
-      'genre': 'Adventure',
-      'duration': '2h 4m',
-      'videoUrl':
-          'https://res.cloudinary.com/dywykbqpw/video/upload/One_Punch_Man_Season_1_-_Episode_05_English_Sub_gvmv1g.mp4',
-    },
-    {
-      'title': 'Sakamoto Days',
-      'rating': '★★★★★',
-      'reviews': '(35k)',
-      'imageUrl':
-          'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739157398/Sakamoto_qmwwmw.jpg',
-      'genre': 'Action',
-      'duration': '2h 4m',
-      'videoUrl':
-          'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
-    },
-    {
-      'title': 'I Have a Crush at Work',
-      'rating': '★★★★★',
-      'reviews': '(105k)',
-      'imageUrl':
-          'https://res.cloudinary.com/dkhe2vgto/image/upload/9f76212f36053b1cb40bf7468b463e82_dyctyj.jpg',
-      'genre': 'Romance',
-      'duration': '2h 4m',
-      'videoUrl':
-          'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_I_Have_a_Crush_at_Work_-_01_1080p_v0.mkv_fslfz2.mp4',
-    },
-    {
-      'title': 'Spider-Man: No Way Home',
-      'rating': '★★★★★',
-      'reviews': '(200k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
-      'genre': 'Action',
-      'duration': '2h 4m',
-      'videoUrl':
-          'https://res.cloudinary.com/dkhe2vgto/video/upload/y2mate.com_-_Defeating_Doc_Ock_SpiderMan_2_Voyage_With_Captions_1080_eufgx6.mp4',
-    },
-    {
-      'title': 'Horimiya: The Missing Pieces',
-      'rating': '★★★★★',
-      'reviews': '(10k)',
-      'imageUrl':
-          'https://res.cloudinary.com/dkhe2vgto/image/upload/horimiya_mekupa.jpg',
-      'genre': 'Fantasy',
-      'duration': '2h 4m',
-      'videoUrl':
-          'https://res.cloudinary.com/dkhe2vgto/video/upload/SubsPlease_Horimiya_-_Piece_-_01_1080p_F8A2CB28_.mkv_wan7d0.mp4',
-    },
-  ];
+  {
+    'title': 'One Piece',
+    'rating': '★★★★★',
+    'reviews': '(100k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_.jpg',
+    'genre': 'Action',
+    'duration': '2h 4m',
+    'videoUrl':
+        'https://res.cloudinary.com/dywykbqpw/video/upload/zrf1mbajhv8m24n9gxi7.mp4',
+    'description': 'Join Monkey D. Luffy and his crew on an epic adventure in search of the ultimate treasure, One Piece.'
+  },
+  {
+    'title': 'One Punch Man',
+    'rating': '★★★★☆',
+    'reviews': '(55k)',
+    'imageUrl':
+        'https://upload.wikimedia.org/wikipedia/en/c/c3/OnePunchMan_manga_cover.png',
+    'genre': 'Adventure',
+    'duration': '2h 4m',
+    'videoUrl':
+        'https://res.cloudinary.com/dywykbqpw/video/upload/One_Punch_Man_Season_1_-_Episode_05_English_Sub_gvmv1g.mp4',
+    'description': 'Follow Saitama, a hero who can defeat any enemy with a single punch, as he searches for a true challenge.'
+  },
+  {
+    'title': 'Sakamoto Days',
+    'rating': '★★★★★',
+    'reviews': '(35k)',
+    'imageUrl':
+        'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739157398/Sakamoto_qmwwmw.jpg',
+    'genre': 'Action',
+    'duration': '2h 4m',
+    'videoUrl':
+        'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
+    'description': 'An ex-assassin turned family man is pulled back into action in this thrilling and humorous series.'
+  },
+  {
+    'title': 'I Have a Crush at Work',
+    'rating': '★★★★★',
+    'reviews': '(105k)',
+    'imageUrl':
+        'https://res.cloudinary.com/dkhe2vgto/image/upload/9f76212f36053b1cb40bf7468b463e82_dyctyj.jpg',
+    'genre': 'Romance',
+    'duration': '2h 4m',
+    'videoUrl':
+        'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_I_Have_a_Crush_at_Work_-_01_1080p_v0.mkv_fslfz2.mp4',
+    'description': 'A heartwarming tale of office romance where unexpected love blossoms amidst everyday work challenges.'
+  },
+  {
+    'title': 'Spider-Man: No Way Home',
+    'rating': '★★★★★',
+    'reviews': '(200k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
+    'genre': 'Action',
+    'duration': '2h 4m',
+    'videoUrl':
+        'https://res.cloudinary.com/dkhe2vgto/video/upload/y2mate.com_-_Defeating_Doc_Ock_SpiderMan_2_Voyage_With_Captions_1080_eufgx6.mp4',
+    'description': 'Experience the multiverse adventure as Spider-Man faces enemies from different dimensions in an epic battle.'
+  },
+  {
+    'title': 'Horimiya: The Missing Pieces',
+    'rating': '★★★★★',
+    'reviews': '(10k)',
+    'imageUrl':
+        'https://res.cloudinary.com/dkhe2vgto/image/upload/horimiya_mekupa.jpg',
+    'genre': 'Fantasy',
+    'duration': '2h 4m',
+    'videoUrl':
+        'https://res.cloudinary.com/dkhe2vgto/video/upload/SubsPlease_Horimiya_-_Piece_-_01_1080p_F8A2CB28_.mkv_wan7d0.mp4',
+    'description': 'A slice-of-life story that reveals hidden sides of its characters through charming and unexpected moments.'
+  },
+];
 
-  final List<Map<String, String>> mostPopular = [
-    {
-      'title': 'The Batman',
-      'rating': '★★★★☆',
-      'reviews': '(95k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
-      'genre': 'Action',
-      'duration': '2h 56m',
-      'videoUrl': 'https://example.com/the_batman.mp4',
-    },
-    {
-      'title': 'Black Panther',
-      'rating': '★★★★★',
-      'reviews': '(150k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
-      'genre': 'Action',
-      'duration': '2h 14m',
-      'videoUrl': 'https://example.com/black_panther.mp4',
-    },
-    {
-      'title': 'Avatar: The Way of Water',
-      'rating': '★★★★☆',
-      'reviews': '(120k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
-      'genre': 'Drama',
-      'duration': '2h 14m',
-      'videoUrl': 'https://example.com/avatar_the_way_of_water.mp4',
-    },
-    {
-      'title': 'Top Gun: Maverick',
-      'rating': '★★★★★',
-      'reviews': '(180k)',
-      'imageUrl':
-          'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
-      'genre': 'Action',
-      'duration': '2h 14m',
-      'videoUrl': 'https://example.com/top_gun_maverick.mp4',
-    },
-    {
-      'title': 'Titanic',
-      'rating': '★★★★★',
-      'reviews': '(180k)',
-      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/titanic_xowrkm.jpg',
-      'genre': 'Romance',
-      'duration': '2h 14m',
-      'videoUrl': 'https://example.com/titanic.mp4',
-    },
-    {
-      'title': 'The Little Man',
-      'rating': '★★★★☆',
-      'reviews': '(95k)',
-      'imageUrl':
-          'https://th.bing.com/th/id/OIP.VcW6HtnsQerz4KJBq6IxAwHaKb?w=588&h=828&rs=1&pid=ImgDetMain',
-      'genre': 'Comedy',
-      'duration': '2h 56m',
-      'videoUrl': 'https://example.com/the_little_man.mp4',
-    },
-  ];
+final List<Map<String, String>> mostPopular = [
+  {
+    'title': 'The Batman',
+    'rating': '★★★★☆',
+    'reviews': '(95k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
+    'genre': 'Action',
+    'duration': '2h 56m',
+    'videoUrl': 'https://example.com/the_batman.mp4',
+    'description': 'A dark, brooding detective battles corruption in Gotham City as he dons the cape to fight for justice.'
+  },
+  {
+    'title': 'Black Panther',
+    'rating': '★★★★★',
+    'reviews': '(150k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
+    'genre': 'Action',
+    'duration': '2h 14m',
+    'videoUrl': 'https://example.com/black_panther.mp4',
+    'description': 'Wakanda’s king rises to the challenge, defending his nation with cutting-edge technology and unmatched courage.'
+  },
+  {
+    'title': 'Avatar: The Way of Water',
+    'rating': '★★★★☆',
+    'reviews': '(120k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
+    'genre': 'Drama',
+    'duration': '2h 14m',
+    'videoUrl': 'https://example.com/avatar_the_way_of_water.mp4',
+    'description': 'Dive into a visually stunning journey exploring the deep connection between humanity and nature on Pandora.'
+  },
+  {
+    'title': 'Top Gun: Maverick',
+    'rating': '★★★★★',
+    'reviews': '(180k)',
+    'imageUrl':
+        'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
+    'genre': 'Action',
+    'duration': '2h 14m',
+    'videoUrl': 'https://example.com/top_gun_maverick.mp4',
+    'description': 'High-flying action and heart-pounding aerial battles define this sequel as Maverick soars once again.'
+  },
+  {
+    'title': 'Titanic',
+    'rating': '★★★★★',
+    'reviews': '(180k)',
+    'imageUrl':
+        'https://res.cloudinary.com/dkhe2vgto/image/upload/titanic_xowrkm.jpg',
+    'genre': 'Romance',
+    'duration': '2h 14m',
+    'videoUrl': 'https://example.com/titanic.mp4',
+    'description': 'A timeless romance unfolds amidst a tragic maritime disaster, capturing hearts across generations.'
+  },
+  {
+    'title': 'The Little Man',
+    'rating': '★★★★☆',
+    'reviews': '(95k)',
+    'imageUrl':
+        'https://th.bing.com/th/id/OIP.VcW6HtnsQerz4KJBq6IxAwHaKb?w=588&h=828&rs=1&pid=ImgDetMain',
+    'genre': 'Comedy',
+    'duration': '2h 56m',
+    'videoUrl': 'https://example.com/the_little_man.mp4',
+    'description': 'A jewel thief with dwarfism hides his loot by pretending to be a very large baby in a hilarious caper.'
+  },
+];
+
 
   /// Updated _buildFeaturedMovie() using CarouselSlider with a manually defined list of 5 items.
   Widget _buildFeaturedMovie() {
@@ -679,6 +693,7 @@ Widget _buildTopBar() {
                   genre: movie['genre']!,
                   duration: movie['duration']!,
                   videoUrl: movie['videoUrl']!,
+                  description: movie['description']!,
                 ),
               )
               .toList(),
@@ -736,6 +751,7 @@ Widget _buildMoreMovies() {
                   genre: movie['genre']!,
                   duration: movie['duration']!,
                   videoUrl: movie['videoUrl']!,
+                  description: movie['description']!,
                 ),
               )
               .toList(),
@@ -1008,6 +1024,7 @@ class _MovieCard extends StatelessWidget {
   final String genre;
   final String duration;
   final String videoUrl;
+  final String description; // New parameter
 
   const _MovieCard({
     Key? key,
@@ -1016,6 +1033,7 @@ class _MovieCard extends StatelessWidget {
     required this.genre,
     required this.duration,
     required this.videoUrl,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -1024,7 +1042,6 @@ class _MovieCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // Pass details including videoUrl to the MovieDetailsScreen.
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -1032,8 +1049,8 @@ class _MovieCard extends StatelessWidget {
               title: title,
               genre: genre,
               duration: duration,
-              rating: "",
-              description: 'This is a detailed description of the movie $title.',
+              rating: "", // Optionally update rating if needed
+              description: description, // Use the provided description
               imageUrl: imageUrl,
               videoUrl: videoUrl,
             ),
@@ -1087,7 +1104,6 @@ class _MovieCard extends StatelessWidget {
             ),
             // Title area
             Padding(
-              // Remove bottom padding
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Container(
                 width: double.infinity,
@@ -1110,3 +1126,4 @@ class _MovieCard extends StatelessWidget {
     );
   }
 }
+
