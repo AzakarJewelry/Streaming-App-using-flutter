@@ -248,7 +248,7 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
                 SizedBox(height: 10),
                 Icon(Icons.comment, color: Colors.white, size: 30),
                 SizedBox(height: 10),
-                Icon(Icons.share, color: Colors.white, size: 30),
+                Icon(Icons.movie, color: Colors.white, size: 30),
               ],
             ),
           ),

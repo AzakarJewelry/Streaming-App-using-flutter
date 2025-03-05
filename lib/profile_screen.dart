@@ -225,151 +225,166 @@ Widget build(BuildContext context) {
             color: Colors.transparent, // Ensuring the background gradient is visible
             child: Column(
               children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 60,
-                      backgroundImage: profilePhotoUrl != null
-                          ? FileImage(File(profilePhotoUrl!))
-                          : null,
-                      child: profilePhotoUrl == null
-                          ? const Icon(
-                              Icons.person,
-                              size: 60,
-                              color: Colors.white,
-                            )
-                          : null,
-                    ),
-                    Positioned(
-                      bottom: -15,
-                      right: -15,
-                      child: IconButton(
-                        onPressed: _editProfilePhoto,
-                        icon: const Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              CircleAvatar(
+                radius: 60,
+                backgroundImage: profilePhotoUrl != null
+              ? FileImage(File(profilePhotoUrl!))
+              : null,
+                child: profilePhotoUrl == null
+              ? const Icon(
+                  Icons.person,
+                  size: 60,
+                  color: Colors.white,
+                )
+              : null,
+              ),
+              Positioned(
+                bottom: -15,
+                right: -15,
+                child: IconButton(
+            onPressed: _editProfilePhoto,
+            icon: const Icon(
+              Icons.camera_alt,
+              color: Colors.white,
+            ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  userName,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  userEmail,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  userBio,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white60,
-                  ),
-                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            userName,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            userEmail,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.white70,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            userBio,
+            style: const TextStyle(
+              fontSize: 14,
+              fontStyle: FontStyle.italic,
+              color: Colors.white60,
+            ),
+          ),
               ],
             ),
           ),
           // Menu Options
           Expanded(
             child: Container(
-                decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: isDarkMode
-                    ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF000000),
-                    ]
-                    : [
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf2ccff),
-                    const Color(0xFFecb3ff),
-                    const Color(0xFFe699ff),
-                    const Color(0xFFdf80ff),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  ),
+              decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [
+              const Color(0xFF660066),
+              const Color(0xFF4d004d),
+              const Color(0xFF330033),
+              const Color(0xFF1a001a),
+              const Color(0xFF000000),
+            ]
+                : [
+              const Color(0xFFf9e6ff),
+              const Color(0xFFf9e6ff),
+              const Color(0xFFf2ccff),
+              const Color(0xFFecb3ff),
+              const Color(0xFFe699ff),
+              const Color(0xFFdf80ff),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+              ),
               child: ListView(
-                padding: const EdgeInsets.all(20),
-                children: [
-                  _buildMenuItem(
-                    icon: Icons.edit,
-                    title: 'Edit Profile',
-                    onTap: _showEditProfileDialog,
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.settings,
-                    title: 'Settings',
-                    onTap: () {
-                      final myAppState = MyApp.of(context);
-                      if (myAppState != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SettingsScreen(
-                              isDarkMode: myAppState.isDarkMode,
-                              onToggleDarkMode: myAppState.toggleDarkMode,
-                            ),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.info_outline,
-                    title: 'Terms & Conditions',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const TermsAndConditionsScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.info_outline,
-                    title: 'Visit our Social Media Platforms',
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const SocialMediaLinks(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildMenuItem(
-                    icon: Icons.logout,
-                    title: 'Logout',
-                    onTap: _logout,
-                  ),
+          padding: const EdgeInsets.all(20),
+          children: [
+            _buildMenuItem(
+              icon: Icons.edit,
+              title: 'Edit Profile',
+              onTap: _showEditProfileDialog,
+            ),
+            _buildMenuItem(
+              icon: Icons.settings,
+              title: 'Settings',
+              onTap: () {
+                final myAppState = MyApp.of(context);
+                if (myAppState != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SettingsScreen(
+                  isDarkMode: myAppState.isDarkMode,
+                  onToggleDarkMode: myAppState.toggleDarkMode,
+                ),
+              ),
+            );
+                }
+              },
+            ),
+            _buildMenuItem(
+              icon: Icons.info_outline,
+              title: 'Terms & Conditions',
+              onTap: () {
+                Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  const TermsAndConditionsScreen(),
+            ),
+                );
+              },
+            ),
+            _buildMenuItem(
+              icon: Icons.info_outline,
+              title: 'Visit our Social Media Platforms',
+              onTap: () {
+                Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SocialMediaLinks(),
+            ),
+                );
+              },
+            ),
+            _buildMenuItem(
+              icon: Icons.logout,
+              title: 'Logout',
+              onTap: _logout,
+            ),
+          ].map((widget) {
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                color: isDarkMode ? const Color(0xFF4d004d) : const Color(0xFFf9e6ff),
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
                 ],
+              ),
+              child: widget,
+            );
+          }).toList(),
               ),
             ),
           ),
