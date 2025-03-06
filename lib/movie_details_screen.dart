@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'play_movie_screen.dart';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
+import 'package:flutter/services.dart';
 import 'favorite_manager.dart'; // Ensure this is implemented and properly connected to Firestore
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -30,11 +32,29 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   InterstitialAd? _interstitialAd;
+  late VideoPlayerController _videoPlayerController;
+  ChewieController? _chewieController;
+  bool _isVideoPlaying = false;
 
   @override
   void initState() {
     super.initState();
     _loadInterstitialAd(); // Load ad when the screen is initialized
+    _initializeVideoPlayer();
+  }
+
+  void _initializeVideoPlayer() {
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl)
+      ..initialize().then((_) {
+        setState(() {
+          _chewieController = ChewieController(
+            videoPlayerController: _videoPlayerController,
+            autoPlay: true,
+            looping: false,
+            allowFullScreen: true,
+          );
+        });
+      });
   }
 
   // Load the Interstitial Ad
@@ -52,18 +72,18 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
               _interstitialAd = null;
-              _navigateToPlayMovie(); // Navigate after ad is dismissed
+              _playVideo(); // Play video after ad is dismissed
             },
             onAdFailedToShowFullScreenContent: (ad, error) {
               ad.dispose();
               _interstitialAd = null;
-              _navigateToPlayMovie(); // Navigate even if ad fails to show
+              _playVideo(); // Play video even if ad fails to show
             },
           );
         },
         onAdFailedToLoad: (error) {
           print('Ad failed to load: $error');
-          _navigateToPlayMovie(); // Navigate directly if ad fails to load
+          _playVideo(); // Play video directly if ad fails to load
         },
       ),
     );
@@ -74,18 +94,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     if (_interstitialAd != null) {
       _interstitialAd?.show();
     } else {
-      _navigateToPlayMovie(); // Fallback if ad isn't loaded
+      _playVideo(); // Fallback if ad isn't loaded
     }
   }
 
-  // Navigate to the PlayMovie screen
-  void _navigateToPlayMovie() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PlayMovie(videoUrl: widget.videoUrl),
-      ),
-    );
+  // Play the video
+  void _playVideo() {
+    setState(() {
+      _isVideoPlaying = true;
+    });
   }
 
   // Show a countdown dialog before showing the ad
@@ -145,10 +162,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 onPressed: () => Navigator.pop(context),
               ),
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  widget.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+                background: _isVideoPlaying
+                    ? Chewie(controller: _chewieController!)
+                    : Image.network(
+                        widget.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
             SliverToBoxAdapter(
@@ -262,6 +281,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   void dispose() {
     _interstitialAd?.dispose(); // Dispose of the ad when the screen is disposed
+    _videoPlayerController.dispose();
+    _chewieController?.dispose();
     super.dispose();
   }
 }
