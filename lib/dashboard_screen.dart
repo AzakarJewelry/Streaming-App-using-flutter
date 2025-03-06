@@ -222,8 +222,8 @@ final List<Map<String, String>> mostPopular = [
   Widget _buildFeaturedMovie() {
   final List<Map<String, String>> featuredMovies = [
     {
-      'title': 'Dandadan',
-      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845371/4bf31391f0e3625ab6354559837ceaa3_toiu6i.jpg',
+      'title': 'I am Nobody',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224873/48ea378a44de34027f8db1c4062a0f66_m1yzay.jpg',
       'genre': 'Sci-Fi',
       'duration': '2h 30m',
       'rating': '★★★★☆',
@@ -231,8 +231,8 @@ final List<Map<String, String>> mostPopular = [
       'description': 'Dandadan is an action-packed sci-fi adventure about a mysterious power.',
     },
     {
-      'title': 'Dr Strange Multiverse of Madness',
-      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739845887/NJXQ8h3mUd9mhsh2m8xpba_q1xb3d.jpg',
+      'title': 'Chinese 2',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224888/8f9058d880e7e14b11ff2cbf89a7a57a_c96oys.jpg',
       'genre': 'Action',
       'duration': '2h 10m',
       'rating': '★★★★★',
@@ -240,8 +240,8 @@ final List<Map<String, String>> mostPopular = [
       'description': 'Doctor Strange embarks on a journey through the multiverse.',
     },
     {
-      'title': 'Deadpool and Wolverine',
-      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739844746/f1c7ce3e91b7b22bf3f1f5ec5b45afa8_uezt9b.jpg',
+      'title': 'Chinese 3',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224904/7be13247ab96ed300d600184de481862_gwdqbs.jpg',
       'genre': 'Comedy',
       'duration': '2h 15m',
       'rating': '★★★★★',
@@ -249,8 +249,8 @@ final List<Map<String, String>> mostPopular = [
       'description': 'Deadpool and Wolverine team up for an unexpected adventure.',
     },
     {
-      'title': 'Sakamoto Days',
-      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/e1bcaa8cce3b5b4ca11e4ed9580e4a17_um4bt0.jpg',
+      'title': 'Chinese 4',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741225128/c416cb9f200ea3a34974f28de47c62e1_r2syn5.jpg',
       'genre': 'Action',
       'duration': '2h 4m',
       'rating': '★★★★★',
@@ -258,8 +258,8 @@ final List<Map<String, String>> mostPopular = [
       'description': 'Sakamoto, a former hitman, tries to live a peaceful life but trouble follows him.',
     },
     {
-      'title': 'Oppenheimer',
-      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/w_1000,ar_1:1,c_fill,g_auto,e_art:hokusai/v1739844423/51599e316a0a4a3ad751721f505ca4e4_baxqnf.jpg',
+      'title': 'Kill My Sins',
+      'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741225215/c2125f3b610c3903d9401f07ddadaae8_e6xpr0.jpg',
       'genre': 'Drama',
       'duration': '3h 0m',
       'rating': '★★★★★',
