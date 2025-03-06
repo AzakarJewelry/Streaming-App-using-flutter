@@ -241,7 +241,7 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
     children: [
       const Icon(Icons.favorite, color: Colors.white, size: 30),
       const SizedBox(height: 10),
-      const Icon(Icons.comment, color: Colors.white, size: 30),
+      const Icon(Icons.watch_later, color: Colors.white, size: 30),
       const SizedBox(height: 10),
       IconButton(
         icon: const Icon(Icons.movie, color: Colors.white, size: 30),

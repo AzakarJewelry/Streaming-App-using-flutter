@@ -89,6 +89,15 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Watch Drama"),
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       backgroundColor: Colors.grey[200],
       body: Column(
         children: [
@@ -100,20 +109,10 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
                       child: VideoPlayer(_controller),
                     )
                   : Container(
-                      height: 250,
+                      height: 200,
                       color: Colors.black,
                       child: const Center(child: CircularProgressIndicator()),
                     ),
-              Positioned(
-                top: MediaQuery.of(context).padding.top + 10,
-                left: 10,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white, size: 30),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
               Positioned(
                 bottom: 10,
                 right: 10,
