@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:azakarstream/play_drama_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -24,24 +25,18 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
     _feedItems = [
       [
         'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972448/drama1-ep1_pcaofa.mp4',
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972453/drama1-ep2_fudhaj.mp4',
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972450/drama1-ep3_yooyix.mp4',
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972450/drama1-ep4_h8f0zt.mp4',
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972453/drama1-ep5_bn2rfr.mp4',
+
       ],
       [
         'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4'
       ],
       [
-        'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4', // Part 1
-        'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716531/kucz5aivzegthhjqftj7.mp4', // Part 2
-        'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/xga4eqjpocd5jp0x7fft.mp4', // Part 3
-        'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/fqd1cynmp6jymdokgosm.mp4', // Part 4
+        'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4',
+        
       ],
       [
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974293/drama2-ep1_pssm2l.mp4', // Part 1
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974287/drama2-ep2_wcltm3.mp4', // Part 2
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974295/drama2-ep3_s2sgsu.mp4', // Part 3
+        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974293/drama2-ep1_pssm2l.mp4',
+      
       ],
     ];
     _shuffleFeedItems();
@@ -240,18 +235,38 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
           ),
           // Overlay icons (like, comment, share)
           Positioned(
-            bottom: 60,
-            right: 20,
-            child: Column(
-              children: const [
-                Icon(Icons.favorite, color: Colors.white, size: 30),
-                SizedBox(height: 10),
-                Icon(Icons.comment, color: Colors.white, size: 30),
-                SizedBox(height: 10),
-                Icon(Icons.movie, color: Colors.white, size: 30),
-              ],
+  bottom: 60,
+  right: 20,
+  child: Column(
+    children: [
+      const Icon(Icons.favorite, color: Colors.white, size: 30),
+      const SizedBox(height: 10),
+      const Icon(Icons.comment, color: Colors.white, size: 30),
+      const SizedBox(height: 10),
+      IconButton(
+        icon: const Icon(Icons.movie, color: Colors.white, size: 30),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PlayDramaScreen(
+                videoParts: [
+                  'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972448/drama1-ep1_pcaofa.mp4',
+                  'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4',
+                  'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4',
+                  'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974293/drama2-ep1_pssm2l.mp4',
+                ], // Pass the episode list
+                onNextFeed: () {},
+                onPreviousFeed: () {},
+              ),
             ),
-          ),
+          );
+        },
+      ),
+    ],
+  ),
+),
+
           // Video controls overlay (visible on tap)
           if (_controlsVisible)
             Positioned.fill(
