@@ -87,6 +87,7 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
       body: _hasVideos
           ? Column(
               children: [
+                // Video Player Section
                 Stack(
                   children: [
                     _controller.value.isInitialized
@@ -103,47 +104,70 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
                       bottom: 10,
                       right: 10,
                       child: IconButton(
-                        icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow,
-                            color: Colors.white, size: 50),
+                        icon: Icon(
+                          _isPlaying ? Icons.pause : Icons.play_arrow,
+                          color: Colors.white,
+                          size: 50,
+                        ),
                         onPressed: _togglePlayPause,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
+
+                // Title Section
                 const Text(
                   'Back in Time',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(widget.videoList.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: _currentPartIndex == index ? Colors.purple : Colors.white,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                        ),
-                        onPressed: () => _playEpisode(index),
-                        child: Text(
-                          '${index + 1}',
-                          style: TextStyle(
-                            color: _currentPartIndex == index ? Colors.white : Colors.black,
-                            fontSize: 16,
+
+                // Episode Buttons Section
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(widget.videoList.length, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: _currentPartIndex == index
+                                ? Colors.purple
+                                : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: () => _playEpisode(index),
+                          child: Text(
+                            '${index + 1}',
+                            style: TextStyle(
+                              color: _currentPartIndex == index
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+                  ),
                 ),
               ],
             )
           : const Center(
               child: Text(
                 "No videos available",
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
               ),
             ),
     );
