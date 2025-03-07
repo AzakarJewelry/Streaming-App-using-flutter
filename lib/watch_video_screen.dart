@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:azakarstream/play_drama_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'play_drama_screen.dart';
 
 class WatchVideoScreen extends StatefulWidget {
   const WatchVideoScreen({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class WatchVideoScreen extends StatefulWidget {
 
 class _WatchVideoScreenState extends State<WatchVideoScreen> {
   final PageController _pageController = PageController(initialPage: 0);
-  late List<List<String>> _feedItems;
+  late List<Map<String, dynamic>> _feedItems;
 
   @override
   void initState() {
@@ -23,30 +23,48 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
 
   void _initializeFeedItems() {
     _feedItems = [
-      [
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972448/drama1-ep1_pcaofa.mp4',
-
-      ],
-      [
-        'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4'
-      ],
-      [
-        'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4',
-        
-      ],
-      [
-        'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974293/drama2-ep1_pssm2l.mp4',
-      
-      ],
+      {
+        'videoUrl': 'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972448/drama1-ep1_pcaofa.mp4',
+        'episodes': [
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
+        ],
+      },
+      {
+        'videoUrl': 'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4',
+        'episodes': [
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
+        ],
+      },
+      {
+        'videoUrl': 'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4',
+        'episodes': [
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
+        ],
+      },
+      {
+        'videoUrl': 'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974293/drama2-ep1_pssm2l.mp4',
+        'episodes': [
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
+        ],
+      },
     ];
     _shuffleFeedItems();
   }
 
   void _shuffleFeedItems() {
     final random = Random();
-    for (var item in _feedItems) {
-      item.shuffle(random);
-    }
     _feedItems.shuffle(random);
   }
 
@@ -56,7 +74,6 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
     super.dispose();
   }
 
-  // Navigate vertically between feed items.
   void _goToNextFeedItem() {
     if (_pageController.hasClients &&
         _pageController.page!.toInt() < _feedItems.length - 1) {
@@ -86,7 +103,8 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
         itemCount: _feedItems.length,
         itemBuilder: (context, index) {
           return MultiPartVideoPlayer(
-            videoParts: _feedItems[index],
+            videoUrl: _feedItems[index]['videoUrl'],
+            episodes: _feedItems[index]['episodes'],
             onNextFeed: _goToNextFeedItem,
             onPreviousFeed: _goToPreviousFeedItem,
           );
@@ -97,13 +115,15 @@ class _WatchVideoScreenState extends State<WatchVideoScreen> {
 }
 
 class MultiPartVideoPlayer extends StatefulWidget {
-  final List<String> videoParts;
+  final String videoUrl;
+  final List<String> episodes;
   final VoidCallback onNextFeed;
   final VoidCallback onPreviousFeed;
 
   const MultiPartVideoPlayer({
     Key? key,
-    required this.videoParts,
+    required this.videoUrl,
+    required this.episodes,
     required this.onNextFeed,
     required this.onPreviousFeed,
   }) : super(key: key);
@@ -116,12 +136,11 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
   late VideoPlayerController _controller;
   bool _controlsVisible = true;
   Timer? _hideControlsTimer;
-  int _currentPartIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _initializeVideoPlayer(widget.videoParts[_currentPartIndex]);
+    _initializeVideoPlayer(widget.videoUrl);
   }
 
   void _initializeVideoPlayer(String url) {
@@ -173,39 +192,12 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
     });
   }
 
-  // When "next" is tapped:
-  // • If more parts exist in this feed item, play the next part.
-  // • Otherwise, move vertically to the next feed item.
-  void _playNextPart() {
-    if (_currentPartIndex < widget.videoParts.length - 1) {
-      _currentPartIndex++;
-      _controller.dispose();
-      _initializeVideoPlayer(widget.videoParts[_currentPartIndex]);
-    } else {
-      widget.onNextFeed();
-    }
-  }
-
-  // When "previous" is tapped:
-  // • If not at the first part, go to the previous part.
-  // • Otherwise, move vertically to the previous feed item.
-  void _playPreviousPart() {
-    if (_currentPartIndex > 0) {
-      _currentPartIndex--;
-      _controller.dispose();
-      _initializeVideoPlayer(widget.videoParts[_currentPartIndex]);
-    } else {
-      widget.onPreviousFeed();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _toggleControlsVisibility,
       child: Stack(
         children: [
-          // Video Player
           _controller.value.isInitialized
               ? Center(
                   child: AspectRatio(
@@ -214,7 +206,6 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
                   ),
                 )
               : const Center(child: CircularProgressIndicator()),
-          // Overlay for username and description
           Positioned(
             bottom: 70,
             left: 20,
@@ -233,41 +224,31 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
               ],
             ),
           ),
-          // Overlay icons (like, comment, share)
           Positioned(
-  bottom: 60,
-  right: 20,
-  child: Column(
-    children: [
-      const Icon(Icons.favorite, color: Colors.white, size: 30),
-      const SizedBox(height: 10),
-      const Icon(Icons.watch_later, color: Colors.white, size: 30),
-      const SizedBox(height: 10),
-      IconButton(
-        icon: const Icon(Icons.movie, color: Colors.white, size: 30),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PlayDramaScreen(
-                videoParts: [
-                  'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972448/drama1-ep1_pcaofa.mp4',
-                  'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4',
-                  'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4',
-                  'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974293/drama2-ep1_pssm2l.mp4',
-                ], // Pass the episode list
-                onNextFeed: () {},
-                onPreviousFeed: () {},
-              ),
+            bottom: 60,
+            right: 20,
+            child: Column(
+              children: [
+                const Icon(Icons.favorite, color: Colors.white, size: 30),
+                const SizedBox(height: 10),
+                const Icon(Icons.watch_later, color: Colors.white, size: 30),
+                const SizedBox(height: 10),
+                IconButton(
+                  icon: const Icon(Icons.movie, color: Colors.white, size: 30),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlayDramaScreen(
+                          videoList: widget.episodes,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-          );
-        },
-      ),
-    ],
-  ),
-),
-
-          // Video controls overlay (visible on tap)
+          ),
           if (_controlsVisible)
             Positioned.fill(
               child: Container(
@@ -282,7 +263,7 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
                           color: Colors.white,
                           size: 50,
                         ),
-                        onPressed: _playPreviousPart,
+                        onPressed: widget.onPreviousFeed,
                       ),
                       IconButton(
                         icon: Icon(
@@ -298,14 +279,13 @@ class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
                           color: Colors.white,
                           size: 50,
                         ),
-                        onPressed: _playNextPart,
+                        onPressed: widget.onNextFeed,
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-          // Back Button placed last so it's always on top.
           Positioned(
             top: MediaQuery.of(context).padding.top + 10,
             left: 10,

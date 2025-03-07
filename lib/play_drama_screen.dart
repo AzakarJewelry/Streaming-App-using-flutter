@@ -1,17 +1,12 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayDramaScreen extends StatefulWidget {
-  final List<String> videoParts;
-  final VoidCallback onNextFeed;
-  final VoidCallback onPreviousFeed;
+  final List<String> videoList;
 
   const PlayDramaScreen({
     Key? key,
-    required this.videoParts,
-    required this.onNextFeed,
-    required this.onPreviousFeed,
+    required this.videoList,
   }) : super(key: key);
 
   @override
@@ -20,68 +15,58 @@ class PlayDramaScreen extends StatefulWidget {
 
 class _PlayDramaScreenState extends State<PlayDramaScreen> {
   late VideoPlayerController _controller;
-  bool _controlsVisible = true;
-  Timer? _hideControlsTimer;
   int _currentPartIndex = 0;
   bool _isPlaying = false;
-
-  final List<String> _episodeUrls = [
-    'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
-    'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
-    'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
-    'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
-  ];
+  bool _hasVideos = true;
 
   @override
   void initState() {
     super.initState();
-    _initializeVideoPlayer(_episodeUrls[_currentPartIndex]);
+    if (widget.videoList.isNotEmpty) {
+      _initializeVideoPlayer(widget.videoList[_currentPartIndex]);
+    } else {
+      _hasVideos = false;
+      print("Error: videoList is empty");
+    }
   }
 
   void _initializeVideoPlayer(String url) {
     _controller = VideoPlayerController.network(url)
       ..initialize().then((_) {
         setState(() {});
+        _controller.play();
+        _isPlaying = true;
       });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _hideControlsTimer?.cancel();
+    if (_hasVideos) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 
   void _togglePlayPause() {
-    setState(() {
-      if (_controller.value.isPlaying) {
-        _controller.pause();
-        _isPlaying = false;
-      } else {
-        _controller.play();
-        _isPlaying = true;
-        _startHideControlsTimer();
-      }
-    });
-  }
-
-  void _startHideControlsTimer() {
-    _hideControlsTimer?.cancel();
-    _hideControlsTimer = Timer(const Duration(seconds: 3), () {
-      if (_controller.value.isPlaying) {
-        setState(() {
-          _controlsVisible = false;
-        });
-      }
-    });
+    if (_hasVideos) {
+      setState(() {
+        if (_controller.value.isPlaying) {
+          _controller.pause();
+          _isPlaying = false;
+        } else {
+          _controller.play();
+          _isPlaying = true;
+        }
+      });
+    }
   }
 
   void _playEpisode(int episodeIndex) {
-    if (episodeIndex < _episodeUrls.length) {
+    if (_hasVideos) {
       setState(() {
         _currentPartIndex = episodeIndex;
         _controller.dispose();
-        _initializeVideoPlayer(_episodeUrls[_currentPartIndex]);
+        _initializeVideoPlayer(widget.videoList[_currentPartIndex]);
       });
     }
   }
@@ -98,68 +83,69 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: Colors.grey[200],
-      body: Column(
-        children: [
-          Stack(
-            children: [
-              _controller.value.isInitialized
-                  ? AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    )
-                  : Container(
-                      height: 200,
-                      color: Colors.black,
-                      child: const Center(child: CircularProgressIndicator()),
+      backgroundColor: Colors.black,
+      body: _hasVideos
+          ? Column(
+              children: [
+                Stack(
+                  children: [
+                    _controller.value.isInitialized
+                        ? AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            child: VideoPlayer(_controller),
+                          )
+                        : Container(
+                            height: 200,
+                            color: Colors.black,
+                            child: const Center(child: CircularProgressIndicator()),
+                          ),
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: IconButton(
+                        icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow,
+                            color: Colors.white, size: 50),
+                        onPressed: _togglePlayPause,
+                      ),
                     ),
-              Positioned(
-                bottom: 10,
-                right: 10,
-                child: IconButton(
-                  icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow, color: Colors.white, size: 50),
-                  onPressed: _togglePlayPause,
+                  ],
                 ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Back in Time',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(widget.videoList.length, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _currentPartIndex == index ? Colors.purple : Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        ),
+                        onPressed: () => _playEpisode(index),
+                        child: Text(
+                          '${index + 1}',
+                          style: TextStyle(
+                            color: _currentPartIndex == index ? Colors.white : Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            )
+          : const Center(
+              child: Text(
+                "No videos available",
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            'Back in Time',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const Text(
-              'With Spider-Man’s identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.',
-              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(_episodeUrls.length, (index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _currentPartIndex == index ? Colors.purple : Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  ),
-                  onPressed: () => _playEpisode(index),
-                  child: Text(
-                    '${index + 1}',
-                    style: TextStyle(
-                      color: _currentPartIndex == index ? Colors.white : Colors.black,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ),
-        ],
-      ),
     );
   }
 }
