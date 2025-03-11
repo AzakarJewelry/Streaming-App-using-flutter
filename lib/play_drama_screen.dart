@@ -3,10 +3,12 @@ import 'package:video_player/video_player.dart';
 
 class PlayDramaScreen extends StatefulWidget {
   final List<String> videoList;
+  final String title;
 
   const PlayDramaScreen({
     Key? key,
     required this.videoList,
+    required this.title
   }) : super(key: key);
 
   @override
@@ -75,7 +77,7 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Watch Drama"),
+        title: Text(widget.title),
         backgroundColor: Colors.white,
         elevation: 1,
         leading: IconButton(
@@ -117,14 +119,14 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
                 const SizedBox(height: 10),
 
                 // Title Section
-                const Text(
-                  'Back in Time',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                Text(
+  widget.title, // Show dynamic movie title
+  style: const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  ),
+),
                 const SizedBox(height: 10),
 
                 // Episode Buttons Section

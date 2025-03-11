@@ -220,14 +220,12 @@ final List<Map<String, String>> mostPopular = [
 ];
 
 
- Widget _buildFeaturedMovie(BuildContext context) {
+Widget _buildFeaturedMovie(BuildContext context) {
     final List<Map<String, dynamic>> featuredMovies = [
       {
-        'title': 'I am Nobody',
+        'title': 'Back In Time',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224873/48ea378a44de34027f8db1c4062a0f66_m1yzay.jpg',
         'genre': 'Sci-Fi',
-        'duration': '2h 30m',
-        'rating': '★★★★☆',
         'videoUrl': 'https://example.com/dandadan.mp4',
         'description': 'Dandadan is an action-packed sci-fi adventure about a mysterious power.',
         'episodes': [
@@ -238,59 +236,55 @@ final List<Map<String, String>> mostPopular = [
         ],
       },
       {
-        'title': 'Chinese 2',
+        'title': 'I Am Not a Robot',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224888/8f9058d880e7e14b11ff2cbf89a7a57a_c96oys.jpg',
         'genre': 'Action',
-        'duration': '2h 10m',
-        'rating': '★★★★★',
         'videoUrl': 'https://example.com/dr_strange.mp4',
         'description': 'Doctor Strange embarks on a journey through the multiverse.',
         'episodes': [
-          'https://example.com/dr_strange_ep1.mp4',
-          'https://example.com/dr_strange_ep2.mp4',
-          'https://example.com/dr_strange_ep3.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
         ],
       },
       {
-        'title': 'Chinese 3',
+        'title': 'Another Day',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224904/7be13247ab96ed300d600184de481862_gwdqbs.jpg',
         'genre': 'Comedy',
-        'duration': '2h 15m',
-        'rating': '★★★★★',
         'videoUrl': 'https://example.com/deadpool_wolverine.mp4',
         'description': 'Deadpool and Wolverine team up for an unexpected adventure.',
         'episodes': [
-          'https://example.com/deadpool_wolverine_ep1.mp4',
-          'https://example.com/deadpool_wolverine_ep2.mp4',
-          'https://example.com/deadpool_wolverine_ep3.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
         ],
       },
       {
-        'title': 'Chinese 4',
+        'title': 'Nevermind',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741225128/c416cb9f200ea3a34974f28de47c62e1_r2syn5.jpg',
         'genre': 'Action',
-        'duration': '2h 4m',
-        'rating': '★★★★★',
         'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
         'description': 'Sakamoto, a former hitman, tries to live a peaceful life but trouble follows him.',
         'episodes': [
-          'https://example.com/sakamoto_ep1.mp4',
-          'https://example.com/sakamoto_ep2.mp4',
-          'https://example.com/sakamoto_ep3.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
         ],
       },
       {
         'title': 'Kill My Sins',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741225215/c2125f3b610c3903d9401f07ddadaae8_e6xpr0.jpg',
         'genre': 'Drama',
-        'duration': '3h 0m',
-        'rating': '★★★★★',
         'videoUrl': 'https://example.com/oppenheimer.mp4',
         'description': 'A historical drama about the making of the atomic bomb and its consequences.',
         'episodes': [
-          'https://example.com/oppenheimer_ep1.mp4',
-          'https://example.com/oppenheimer_ep2.mp4',
-          'https://example.com/oppenheimer_ep3.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
+          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
         ],
       },
     ];
@@ -309,7 +303,10 @@ final List<Map<String, String>> mostPopular = [
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PlayDramaScreen(videoList: movie['episodes']!),
+              builder: (context) => PlayDramaScreen(
+            videoList: movie['episodes']!,
+        title: movie['title']!,
+            ),
             ),
           );
         },
