@@ -1,4 +1,4 @@
-import 'package:azakarstream/movie_details_screen.dart';
+import 'package:azakarstream/dashboard/movie_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {

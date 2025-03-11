@@ -2,7 +2,7 @@
   import 'dart:math';
   import 'package:flutter/material.dart';
   import 'package:video_player/video_player.dart';
-  import 'play_drama_screen.dart';
+  import '../dashboard/play_drama_screen.dart';
 
   class WatchVideoScreen extends StatefulWidget {
     const WatchVideoScreen({Key? key}) : super(key: key);

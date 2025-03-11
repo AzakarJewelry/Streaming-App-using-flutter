@@ -1,16 +1,16 @@
-import 'package:azakarstream/settings_screen.dart';
-import 'package:azakarstream/socialmedia.dart';
-import 'package:azakarstream/termsandconditions.dart';
-import 'package:azakarstream/watch_video_screen.dart';
+import 'package:azakarstream/profile/settings_screen.dart';
+import 'package:azakarstream/profile/socialmedia.dart';
+import 'package:azakarstream/profile/termsandconditions.dart';
+import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'dashboard_screen.dart';
-import 'favorites_screen.dart';
-import 'watch_video_screen.dart';
-import 'main.dart';
+import '../dashboard/dashboard_screen.dart';
+import '../favorites/favorites_screen.dart';
+import '../drama/watch_video_screen.dart';
+import '../main.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

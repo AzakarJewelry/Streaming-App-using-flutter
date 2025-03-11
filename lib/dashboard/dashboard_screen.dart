@@ -3,13 +3,13 @@
 import 'package:azakarstream/dashboard/SearchScreen.dart';
 import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';
-import 'dashboard/movie_details_screen.dart';
-import 'dashboard/view_all_movies_screen.dart'; // Import the new screen
-import 'dashboard/genre_screen.dart'; // Import the GenreScreen
+import 'movie_details_screen.dart';
+import 'view_all_movies_screen.dart'; // Import the new screen
+import 'genre_screen.dart'; // Import the GenreScreen
 import '../favorites/favorites_screen.dart'; // Import the FavoriteScreen
 import '../profile/profile_screen.dart'; // Import the ProfileScreen
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'dashboard/play_drama_screen.dart'; // Import the PlayDramaScreen
+import 'play_drama_screen.dart'; // Import the PlayDramaScreen
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 

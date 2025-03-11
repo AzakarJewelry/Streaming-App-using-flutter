@@ -1,9 +1,9 @@
-import 'package:azakarstream/watch_video_screen.dart';
+import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
-import 'movie_details_screen.dart'; // Import the movie details screen
-import 'dashboard_screen.dart'; // Import your dashboard screen
-import 'profile_screen.dart'; // Import your profile screen
+import '../dashboard/movie_details_screen.dart'; // Import the movie details screen
+import '../dashboard/dashboard_screen.dart'; // Import your dashboard screen
+import '../profile/profile_screen.dart'; // Import your profile screen
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
