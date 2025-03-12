@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
+import 'package:screen_protector/screen_protector.dart';
 
 class PlayMovie extends StatefulWidget {
   final String videoUrl;
@@ -21,8 +22,12 @@ class _PlayMovieState extends State<PlayMovie> {
   @override
   void initState() {
     super.initState();
+    avoidScreenShot(); // Call the function after initState
     _initializeVideoPlayer();
   }
+  Future<void> avoidScreenShot() async {
+  await ScreenProtector.protectDataLeakageOn();
+}
 
   void _initializeVideoPlayer() {
     _videoPlayerController = VideoPlayerController.network(widget.videoUrl)

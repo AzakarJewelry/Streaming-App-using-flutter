@@ -3,6 +3,7 @@
   import 'package:flutter/material.dart';
   import 'package:video_player/video_player.dart';
   import '../dashboard/play_drama_screen.dart';
+  import 'package:screen_protector/screen_protector.dart';
 
   class WatchVideoScreen extends StatefulWidget {
     const WatchVideoScreen({Key? key}) : super(key: key);
@@ -18,8 +19,12 @@
     @override
     void initState() {
       super.initState();
+      avoidScreenShot();
       _initializeFeedItems();
     }
+    Future<void> avoidScreenShot() async {
+  await ScreenProtector.protectDataLeakageOn();
+}
 
     void _initializeFeedItems() {
       _feedItems = [

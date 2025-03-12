@@ -205,7 +205,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             ),
             BottomNavigationBarItem(
           icon: Icon(Icons.play_circle_fill),
-          label: 'Watch Drama',
+          label: 'Segments',
         ),
           ],
           type: BottomNavigationBarType.fixed,

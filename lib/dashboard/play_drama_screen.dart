@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:screen_protector/screen_protector.dart';
+
 
 class PlayDramaScreen extends StatefulWidget {
   final List<String> videoList;
@@ -24,6 +26,7 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
   @override
   void initState() {
     super.initState();
+    avoidScreenShot();
     if (widget.videoList.isNotEmpty) {
       _initializeVideoPlayer(widget.videoList[_currentPartIndex]);
     } else {
@@ -31,6 +34,9 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
       print("Error: videoList is empty");
     }
   }
+  Future<void> avoidScreenShot() async {
+  await ScreenProtector.protectDataLeakageOn();
+}
 
   void _initializeVideoPlayer(String url) {
     _controller = VideoPlayerController.network(url)

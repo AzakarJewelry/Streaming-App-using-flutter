@@ -6,14 +6,15 @@ import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
 import 'view_all_movies_screen.dart'; // Import the new screen
 import 'genre_screen.dart'; // Import the GenreScreen
-import '../favorites/favorites_screen.dart'; // Import the FavoriteScreen
-import '../profile/profile_screen.dart'; // Import the ProfileScreen
+import '../../favorites/favorites_screen.dart'; // Import the FavoriteScreen
+import '../../profile/profile_screen.dart'; // Import the ProfileScreen
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'play_drama_screen.dart'; // Import the PlayDramaScreen
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
-
 import 'dart:io';
+import 'package:screen_protector/screen_protector.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,42 +38,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Variable to track the last back button press time
   DateTime? lastPressed;
+@override
+void initState() {
+  super.initState();
+  avoidScreenShot(); // Call the function after initState
+
+  SystemChannels.lifecycle.setMessageHandler((msg) async {
+    if (msg == AppLifecycleState.paused.toString()) {
+      _navigateToDashboard();
+    }
+    return null;
+  });
+
+  bannerAd = BannerAd(
+    size: AdSize.fluid,
+    adUnitId: "ca-app-pub-3940256099942544/6300978111", // Test AdMob ID
+    request: const AdRequest(),
+    listener: BannerAdListener(
+      onAdLoaded: (ad) => setState(() {}),
+      onAdFailedToLoad: (ad, error) => ad.dispose(),
+    ),
+  )..load();
+}
+
+Future<void> avoidScreenShot() async {
+  await ScreenProtector.protectDataLeakageOn();
+}
+
+void _navigateToDashboard() {
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => const DashboardScreen()),
+    (Route<dynamic> route) => false,
+  );
+}
 
 @override
-  void initState() {
-    super.initState();
-
-    SystemChannels.lifecycle.setMessageHandler((msg) async {
-      if (msg == AppLifecycleState.paused.toString()) {
-        _navigateToDashboard();
-      }
-      return null;
-    });
-
-    bannerAd = BannerAd(
-      size: AdSize.fluid,
-      adUnitId: "ca-app-pub-3940256099942544/6300978111", // Test AdMob ID
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) => setState(() {}),
-        onAdFailedToLoad: (ad, error) => ad.dispose(),
-      ),
-    )..load();
-  }
-
-  void _navigateToDashboard() {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const DashboardScreen()),
-      (Route<dynamic> route) => false,
-    );
-  }
-
-  @override
-  void dispose() {
-    bannerAd?.dispose();
-    super.dispose();
-  }
+void dispose() {
+  bannerAd?.dispose();
+  super.dispose();
+}
 
   // Updated movie lists with videoUrl field.
   final List<Map<String, String>> newReleases = [
@@ -825,7 +830,7 @@ Widget _buildMoreMovies() {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.play_circle_fill),
-          label: 'Watch Drama',
+          label: 'Segments',
         ),
         
       ],

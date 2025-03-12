@@ -50,6 +50,7 @@
     flutter_rating_bar: ^4.0.1
     carousel_slider: ^5.0.0
     google_fonts: ^6.2.1
+    screen_protector: ^1.4.2+1
     
 
   # The following section is specific to Flutter.
