@@ -272,10 +272,10 @@ class CountdownDialog extends StatefulWidget {
   final VoidCallback onCountdownComplete;
 
   const CountdownDialog({
-    Key? key,
+    super.key,
     required this.initialCountdown,
     required this.onCountdownComplete,
-  }) : super(key: key);
+  });
 
   @override
   _CountdownDialogState createState() => _CountdownDialogState();

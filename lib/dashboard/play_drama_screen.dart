@@ -8,10 +8,10 @@ class PlayDramaScreen extends StatefulWidget {
   final String title;
 
   const PlayDramaScreen({
-    Key? key,
+    super.key,
     required this.videoList,
     required this.title
-  }) : super(key: key);
+  });
 
   @override
   _PlayDramaScreenState createState() => _PlayDramaScreenState();

@@ -1049,14 +1049,14 @@ class _MovieCard extends StatelessWidget {
   final String description; // New parameter
 
   const _MovieCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.imageUrl,
     required this.genre,
     required this.duration,
     required this.videoUrl,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

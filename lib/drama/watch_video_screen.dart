@@ -6,7 +6,7 @@
   import 'package:screen_protector/screen_protector.dart';
 
   class WatchVideoScreen extends StatefulWidget {
-    const WatchVideoScreen({Key? key}) : super(key: key);
+    const WatchVideoScreen({super.key});
 
     @override
     _WatchVideoScreenState createState() => _WatchVideoScreenState();
@@ -142,13 +142,13 @@
     final VoidCallback onPreviousFeed;
 
     const MultiPartVideoPlayer({
-      Key? key,
+      super.key,
       required this.videoUrl,
       required this.episodes,
       required this.title,
       required this.onNextFeed,
       required this.onPreviousFeed,
-    }) : super(key: key);
+    });
 
     @override
     _MultiPartVideoPlayerState createState() => _MultiPartVideoPlayerState();

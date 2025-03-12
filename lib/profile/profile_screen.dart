@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../dashboard/dashboard_screen.dart';
 import '../favorites/favorites_screen.dart';
-import '../drama/watch_video_screen.dart';
 import '../main.dart';
 
 class ProfileScreen extends StatefulWidget {
