@@ -361,7 +361,7 @@ Widget _buildTopBar() {
         children: [
           // App title
           Text(
-            'DramaMania',
+            'DramaManias',
             style: TextStyle(
               color: isDark ? Colors.white : const Color(0xFF4d0066),
               fontSize: 20,
