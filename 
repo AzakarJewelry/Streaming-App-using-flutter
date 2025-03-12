@@ -1,0 +1,213 @@
+pick e6f3bd5 set up
+pick 8e9521e setup
+pick f5c07b4 login
+pick f1f7cf7 login1
+pick fad20a9 MainUI
+pick 8d7bb3e splash
+pick 77ba010 dashboard
+pick f2f8822 dashboard2
+pick b596416 update login
+pick 68c6ab3 update
+pick 7f07030 update
+pick 95b3718 genres
+pick 1d81a93 Dashboard Images
+pick f6f7f60 Dashboard Images2
+pick 53e2ded Popular Movies
+pick 8b6589b change style dashboard
+pick 117cca8 update
+pick 4d37ac5 dashboard changes
+pick 17a926f Popular Movies
+pick b9315ab dashboard changes 2
+pick 288baff Movie Details
+pick 7749323 View All Feature
+pick ec0f7fb update
+pick ca97b4b fixed width image in view details
+pick 9bce0d0 update
+pick 57025ff movie screen description
+pick 545bc1f update DASHBOARD
+pick 374fc73 update DASHBOARD
+pick 15c7e05 movie details info
+pick 85730f0 update movie details
+pick a1b7df8 update genre screen
+pick 8b0e88a Favorites
+pick e54b102 Favorites Navigation to Details
+pick 7b32b69 update
+pick 7ac77ad update
+pick bb0bb18 update
+pick 4049d56 forgotpassword
+pick 6637a90 searchbutton
+pick 127febf gfk
+pick 17550c6 play button issue
+pick cd387e9 play movie
+pick c64da87 Logo
+pick 1f00c57 image
+pick d4f7441 Logo tanan
+pick d9c84de Logo tanan 2
+pick 1bd4298 Working Video
+pick 41a6880 update
+pick 5e04b11 update play movie
+pick eed6422 Emulator is Back
+pick 8756aa8 update LOGO
+pick 7ac6940 y
+pick 55cccea profile
+pick 7f4722b profile nav
+pick 487fe48 logout
+pick 2607e2f subtitle demo
+pick e5563f5 fixed subtitles in emulator or mobile
+pick c3d361c subtitle synch
+pick 7bc0f27 navigation
+pick cbb5b38 subtitle fullscreen
+pick 10de0ea improvements pt.1
+pick 30c9e71 improvements pt.2
+pick cdf0c9e play update dashboard
+pick 71f9504 one piece
+pick 43db018 movie navigations
+pick cf1e4fa full screen
+pick 7ff5955 new movies
+pick b9c4f41 changes
+pick 047842e changes
+pick bc91e7c changes
+pick b3a889d firebase
+pick 3664a20 changes
+pick 7f13613 changes
+pick ebc90a2 login rememberme
+pick 73708a1 update UI
+pick b74315d SADASD
+pick e15a5d9 CARD
+pick d40a724 CARD
+pick cc3a7ac firebaseprofile
+pick 1f0b591 profile
+pick 507ad9b profile updates
+pick 16644c9 banner Ads dashboard
+pick 90fa84e profile additions
+pick c305a57 improvements pt.3
+pick 939daa4 improvements pt.4
+pick b8edd26 profile updates
+pick eea44bf darkmode
+pick 609ef79 profile updates
+pick a5e3075 improvements pt.5
+pick 74831d4 improvements pt.6
+pick d56d03a colors
+pick d00a1f7 improvements pt.7
+pick 8a2e43e terms and conditions
+pick be6ce90 terms and conditions
+pick bb942a0 fixed movie state error
+pick cd4e75d fixed movie state error2
+pick 03f2706 dark mode not yet final
+pick 0b3f2cd removed nav bar on movie details
+pick 5e3622b dashboard pa din
+pick b4958ee dashboard
+pick 659365b new card holder
+pick 7898344 Dark Mode
+pick bea8119 Dark Mode
+pick f43d60c social media links
+pick 53f0594 remove large star icon
+pick e21d80a Dark Mode All
+pick 9561f76 remove large star icon
+pick 01c879e Genre Color
+pick 17ab382 comet
+pick 0eb0438 dasdj
+pick 51af375 profile
+pick 70b5f1f Settings Add Details
+pick 9466262 Settings Add Details
+pick c46812b Carousel Slider
+pick 316e131 FIXED FORGOT PASSWORD
+pick 613cb99 Favorites Movies with Firebase
+pick 82af0f5 dashboard
+pick 8ce07fd Social Media Platforms Links
+pick 433be34 Favorites Delete Firebase
+pick 11cd245 ads
+pick 0891089 ads2
+pick e63a9ba Fix Ads
+pick c1ee002 new app name and font
+pick e04a826 social media platforms
+pick 1811a46 new color not yet final
+pick 08dc838 new logo and design
+pick e3d1322 background gradient colors
+pick 269b42d colorssss
+pick 2b4ca33 change all colors
+pick 87cb99d genres card widget
+pick 38e0462 main dart fixed overflowed
+pick da5fc42 added gradient background
+pick ed9a81f improvements pt.7
+pick d42d8f5 mfixed landscape portrait
+pick 6d48ede Full Screen
+pick 2d82e53 dak modeee
+pick 615e346 Double Back Press Feature
+pick 0e2607b improvements pt.8
+pick 1f935ac Featured Movies has Movie Details
+pick f3aca59 Featured Movies has Movie Details2
+pick 02f991b improvements pt.9
+pick b75f071 improvements pt.9
+pick eeec334 improvements pt.10
+pick 13345f3 improvements pt.12
+pick 59b7c3b remove notification
+pick 8dc38e1 .
+pick 7d763ce .
+pick 3c82678 added background color and dark theme mode
+pick 1ef3ac1 tiktok reels features
+pick ac29468 Prevents app from going back to login when pressing home or recent apps
+pick 6491b2e change the video xD
+pick df734b5 play movie countdown
+pick 6c70f24 vertical
+pick 0afe360 parts of movies
+pick 8fb5481 search button and back button for watch drama
+pick b735fc0 search recommendation
+pick c17a017 remove ratings and reviews
+pick 531e1c7 movie description
+pick 06508bf add shuffle video  feature when back, close, or and exit
+pick e100cec remove ratings in favorites
+pick 2244469 change profile layout
+pick d976dac play movie icon
+pick 6504d5e Update README.md
+pick 5157fde chinese movie poster
+pick 84effe4 transfer the video player
+pick 8b1098a basta
+pick 510486b basta
+pick 4ac928e replace video
+pick bc732c4 play each episodes with different videos in tiktok reels gravity
+pick 9970e3c Featured Poster navigate to PlayDramaScreen
+pick b52f0d2 butch: navigation through PlayDramaScreen in  dashboard poster and reels screen
+pick 825b530 butch: put in folder
+pick 23718a2 avoid screenshot and screen recording
+pick 935e2a5 transfer file
+pick de4fd38 try
+edit a89929c remove collaborator
+pick 26269b6 some other commit
+# Rebase a89929c onto 2a629ff (175 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
+#                    commit's log message, unless -C is used, in which case
+#                    keep only this commit's message; -c is same as -C but
+#                    opens the editor
+# x, exec <command> = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with 'git rebase --continue')
+# d, drop <commit> = remove commit
+# l, label <label> = label current HEAD with a name
+# t, reset <label> = reset HEAD to a label
+# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+#         create a merge commit using the original merge commit's
+#         message (or the oneline, if no original merge commit was
+#         specified); use -c <commit> to reword the commit message
+# u, update-ref <ref> = track a placeholder for the <ref> to be updated
+
+#                       to this position in the new commits. The <ref> is
+#                       updated at the end of the rebase
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+
+
+
+
+
+
+
