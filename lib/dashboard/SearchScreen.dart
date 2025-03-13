@@ -2,7 +2,7 @@ import 'package:azakarstream/dashboard/movie_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
-  final List<Map<String, String>> allMovies;
+  final List<Map<String, dynamic>> allMovies;
 
   const SearchScreen({super.key, required this.allMovies});
 
@@ -12,7 +12,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
-  List<Map<String, String>> _searchResults = [];
+  List<Map<String, dynamic>> _searchResults = [];
 
   void _searchMovies(String query) {
     setState(() {

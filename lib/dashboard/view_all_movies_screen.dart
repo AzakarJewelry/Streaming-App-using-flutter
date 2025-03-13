@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
 
 class ViewAllMoviesScreen extends StatelessWidget {
-  final List<Map<String, String>> movies;
+  final List<Map<String, dynamic>> movies;
 
   const ViewAllMoviesScreen({super.key, required this.movies});
 

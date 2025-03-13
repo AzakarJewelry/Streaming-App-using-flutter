@@ -31,6 +31,7 @@
         {
           'title': 'Back In Time',
           'videoUrl': 'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740972448/drama1-ep1_pcaofa.mp4',
+          'genre': 'Sci-Fi, Drama',
           'episodes': [
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
@@ -41,6 +42,7 @@
         {
           'title': 'I Am Not a Robot',
           'videoUrl': 'https://res.cloudinary.com/dlmeqb9qn/video/upload/v1740639042/When_Your_Wife_Watches_a_Horror_Movie_yulong_Yangmiemie_yuyang___Short_Drama_Zone_ezo9fv.mp4',
+          'genre': 'Action, Drama',
           'episodes': [
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
@@ -51,6 +53,7 @@
         {
           'title': 'Another Day',
           'videoUrl': 'https://res.cloudinary.com/dywykbqpw/video/upload/v1740716529/sqvtdgtsintpgp1xldvo.mp4',
+          'genre': 'Comedy, Drama',
           'episodes': [
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
@@ -61,6 +64,7 @@
         {
           'title': 'Nevermind',
           'videoUrl': 'https://res.cloudinary.com/dcwjifq5f/video/upload/v1740974293/drama2-ep1_pssm2l.mp4',
+          'genre': 'Action, Drama',
           'episodes': [
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
             'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
