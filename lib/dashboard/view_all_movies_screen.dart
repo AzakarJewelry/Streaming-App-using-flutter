@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
+import 'play_drama_screen.dart';
 
 class ViewAllMoviesScreen extends StatelessWidget {
   final List<Map<String, dynamic>> movies;
@@ -33,12 +34,23 @@ class ViewAllMoviesScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final movie = movies[index];
               return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MovieDetailsScreen(
-                        title: movie['title']!,
+                  onTap:() {
+  if (movie['type'] == 'featured') {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PlayDramaScreen(
+          videoList: (movie['videoList'] as List<dynamic>).cast<String>(),
+          title: movie['title']!,
+        ),
+      ),
+    );
+  } else {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailsScreen(
+          title: movie['title']!,
                         genre: movie['genre']!,
                         duration: movie['duration']!,
                         rating: movie['rating']!, // Still passing rating for details screen if needed.
@@ -46,10 +58,11 @@ class ViewAllMoviesScreen extends StatelessWidget {
                             'This is a detailed description of the movie ${movie['title']}.',
                         imageUrl: movie['imageUrl']!,
                         videoUrl: movie['videoUrl']!,
-                      ),
-                    ),
-                  );
-                },
+        ),
+      ),
+    );
+  }
+},
                 child: Card(
                   color: isDarkMode ? Colors.grey[900] : Colors.white,
                   elevation: 4,

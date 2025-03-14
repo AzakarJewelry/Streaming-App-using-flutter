@@ -1,5 +1,6 @@
 import 'package:azakarstream/dashboard/movie_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'play_drama_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   final List<Map<String, dynamic>> allMovies;
@@ -29,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Movies'),
+        title: const Text('Search Movies or Dramas'),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -62,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                  hintText: 'Search for movies...',
+                  hintText: 'Search for movies or dramas...',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -150,21 +151,33 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             trailing: const Icon(Icons.arrow_forward_ios),
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MovieDetailsScreen(
-                                    title: movie['title']!,
-                                    genre: movie['genre']!,
-                                    duration: movie['duration']!,
-                                    rating: movie['rating']!,
-                                    description:
-                                        'This is a detailed description of the movie ${movie['title']!}.',
-                                    imageUrl: movie['imageUrl']!,
-                                    videoUrl: movie['videoUrl']!,
+                              if (movie['type'] == 'featured') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PlayDramaScreen(
+                                      videoList: movie['episodes']!,
+                                      title: movie['title']!,
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MovieDetailsScreen(
+                                      title: movie['title']!,
+                                      genre: movie['genre']!,
+                                      duration: movie['duration']!,
+                                      rating: movie['rating']!,
+                                      description:
+                                          'This is a detailed description of the movie ${movie['title']!}.',
+                                      imageUrl: movie['imageUrl']!,
+                                      videoUrl: movie['videoUrl']!,
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                           ),
                         );

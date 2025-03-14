@@ -82,6 +82,7 @@ void dispose() {
 final List<Map<String, dynamic>> featuredMovies = [
       {
         'title': 'Back In Time',
+        'type': 'featured',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224873/48ea378a44de34027f8db1c4062a0f66_m1yzay.jpg',
         'genre': 'Sci-Fi, Drama',
         'videoUrl': 'https://example.com/dandadan.mp4',
@@ -95,6 +96,7 @@ final List<Map<String, dynamic>> featuredMovies = [
       },
       {
         'title': 'I Am Not a Robot',
+        'type': 'featured',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224888/8f9058d880e7e14b11ff2cbf89a7a57a_c96oys.jpg',
         'genre': 'Action, Drama',
         'videoUrl': 'https://example.com/dr_strange.mp4',
@@ -108,6 +110,7 @@ final List<Map<String, dynamic>> featuredMovies = [
       },
       {
         'title': 'Another Day',
+        'type': 'featured',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224904/7be13247ab96ed300d600184de481862_gwdqbs.jpg',
         'genre': 'Comedy, Drama',
         'videoUrl': 'https://example.com/deadpool_wolverine.mp4',
@@ -121,6 +124,7 @@ final List<Map<String, dynamic>> featuredMovies = [
       },
       {
         'title': 'Nevermind',
+        'type': 'featured',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741225128/c416cb9f200ea3a34974f28de47c62e1_r2syn5.jpg',
         'genre': 'Action, Drama',
         'videoUrl': 'https://res.cloudinary.com/dkhe2vgto/video/upload/AH2_SAKAMOTO_DAYS_-_01_1080p_v0.mkv_1_qccg8z.mp4',
@@ -134,6 +138,7 @@ final List<Map<String, dynamic>> featuredMovies = [
       },
       {
         'title': 'Kill My Sins',
+        'type': 'featured',
         'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741225215/c2125f3b610c3903d9401f07ddadaae8_e6xpr0.jpg',
         'genre': 'Drama, Horror',
         'videoUrl': 'https://example.com/oppenheimer.mp4',
@@ -153,6 +158,7 @@ final List<Map<String, dynamic>> featuredMovies = [
     'title': 'One Piece',
     'rating': '★★★★★',
     'reviews': '(100k)',
+    'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_.jpg',
     'genre': 'Action, Fantasy, Anime, Adventure',
@@ -165,6 +171,7 @@ final List<Map<String, dynamic>> featuredMovies = [
     'title': 'One Punch Man',
     'rating': '★★★★☆',
     'reviews': '(55k)',
+    'type': 'movie',
     'imageUrl':
         'https://upload.wikimedia.org/wikipedia/en/c/c3/OnePunchMan_manga_cover.png',
     'genre': 'Adventure, Action, Sci-Fi',
@@ -177,6 +184,7 @@ final List<Map<String, dynamic>> featuredMovies = [
     'title': 'Sakamoto Days',
     'rating': '★★★★★',
     'reviews': '(35k)',
+    'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739157398/Sakamoto_qmwwmw.jpg',
     'genre': 'Action, Thriller',
@@ -189,6 +197,7 @@ final List<Map<String, dynamic>> featuredMovies = [
     'title': 'I Have a Crush at Work',
     'rating': '★★★★★',
     'reviews': '(105k)',
+    'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/9f76212f36053b1cb40bf7468b463e82_dyctyj.jpg',
     'genre': 'Romance, Mystery',
@@ -201,6 +210,7 @@ final List<Map<String, dynamic>> featuredMovies = [
     'title': 'Spider-Man: No Way Home',
     'rating': '★★★★★',
     'reviews': '(200k)',
+    'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
     'genre': 'Action, Sci-Fi, Horror',
@@ -213,6 +223,7 @@ final List<Map<String, dynamic>> featuredMovies = [
     'title': 'Horimiya: The Missing Pieces',
     'rating': '★★★★★',
     'reviews': '(10k)',
+    'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/horimiya_mekupa.jpg',
     'genre': 'Fantasy, Drama',
@@ -228,9 +239,11 @@ final List<Map<String, dynamic>> mostPopular = [
     'title': 'The Batman',
     'rating': '★★★★☆',
     'reviews': '(95k)',
+    'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
     'genre': 'Action, Mystery',
+    'type': 'movie',
     'duration': '2h 56m',
     'videoUrl': 'https://example.com/the_batman.mp4',
     'description': 'A dark, brooding detective battles corruption in Gotham City as he dons the cape to fight for justice.'
@@ -239,6 +252,7 @@ final List<Map<String, dynamic>> mostPopular = [
     'title': 'Black Panther',
     'rating': '★★★★★',
     'reviews': '(150k)',
+    'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
     'genre': 'Action, Fantasy',
@@ -249,6 +263,7 @@ final List<Map<String, dynamic>> mostPopular = [
   {
     'title': 'Avatar: The Way of Water',
     'rating': '★★★★☆',
+    'type': 'movie',
     'reviews': '(120k)',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
@@ -261,6 +276,7 @@ final List<Map<String, dynamic>> mostPopular = [
     'title': 'Top Gun: Maverick',
     'rating': '★★★★★',
     'reviews': '(180k)',
+    'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
     'genre': 'Action, Documentary',
@@ -272,6 +288,7 @@ final List<Map<String, dynamic>> mostPopular = [
     'title': 'Titanic',
     'rating': '★★★★★',
     'reviews': '(180k)',
+    'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/titanic_xowrkm.jpg',
     'genre': 'Romance, Mystery',
@@ -283,6 +300,7 @@ final List<Map<String, dynamic>> mostPopular = [
     'title': 'The Little Man',
     'rating': '★★★★☆',
     'reviews': '(95k)',
+    'type': 'movie',
     'imageUrl':
         'https://th.bing.com/th/id/OIP.VcW6HtnsQerz4KJBq6IxAwHaKb?w=588&h=828&rs=1&pid=ImgDetMain',
     'genre': 'Comedy, Action',
@@ -1047,7 +1065,6 @@ class _MovieCard extends StatelessWidget {
   final String description; // New parameter
 
   const _MovieCard({
-    super.key,
     required this.title,
     required this.imageUrl,
     required this.genre,

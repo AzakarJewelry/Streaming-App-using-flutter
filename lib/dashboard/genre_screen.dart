@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
+import 'play_drama_screen.dart'; // Add this import statement
 
 class GenreScreen extends StatelessWidget {
   final String genre;
@@ -19,7 +20,7 @@ class GenreScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('$genre Movies'),
+        title: Text('$genre Movies or Dramas'),
         backgroundColor: const Color(0xFF4d0066),
         foregroundColor: const Color(0xFFF5EFE6),
       ),
@@ -70,21 +71,34 @@ class GenreScreen extends StatelessWidget {
                   final movie = filteredMovies[index];
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MovieDetailsScreen(
-                            title: movie['title']!,
-                            genre: movie['genre']!,
-                            duration: movie['duration']!,
-                            rating: movie['rating'] ?? '',
-                            description: movie['description']!,
-                            imageUrl: movie['imageUrl']!,
-                            videoUrl: movie['videoUrl']!,
-                          ),
-                        ),
-                      );
-                    },
+                              if (movie['type'] == 'featured') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PlayDramaScreen(
+                                      videoList: movie['episodes']!,
+                                      title: movie['title']!,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MovieDetailsScreen(
+                                      title: movie['title']!,
+                                      genre: movie['genre']!,
+                                      duration: movie['duration']!,
+                                      rating: movie['rating']!,
+                                      description:
+                                          'This is a detailed description of the movie ${movie['title']!}.',
+                                      imageUrl: movie['imageUrl']!,
+                                      videoUrl: movie['videoUrl']!,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
