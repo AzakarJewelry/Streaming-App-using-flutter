@@ -1,6 +1,7 @@
 import 'package:azakarstream/dashboard/movie_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'play_drama_screen.dart';
+import 'dart:async';
 
 class SearchScreen extends StatefulWidget {
   final List<Map<String, dynamic>> allMovies;
@@ -14,14 +15,24 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<Map<String, dynamic>> _searchResults = [];
+  Timer? _debounce;
 
   void _searchMovies(String query) {
-    setState(() {
-      _searchResults = widget.allMovies
-          .where((movie) =>
-              movie['title']!.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 300), () {
+      setState(() {
+        _searchResults = widget.allMovies
+            .where((movie) =>
+                movie['title']!.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
   }
 
   @override
@@ -67,14 +78,23 @@ class _SearchScreenState extends State<SearchScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      _searchMovies(_searchController.text);
-                    },
-                  ),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() {
+                              _searchResults = [];
+                            });
+                          },
+                        )
+                      : IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            _searchMovies(_searchController.text);
+                          },
+                        ),
                 ),
-                // This callback will trigger every time the text changes.
                 onChanged: (value) {
                   _searchMovies(value);
                 },
@@ -82,11 +102,16 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             Expanded(
               child: _searchResults.isEmpty && _searchController.text.isNotEmpty
-                  ? const Center(
-                      child: Text(
-                        'No movies found!',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.movie_filter, size: 80, color: Colors.grey),
+                        const SizedBox(height: 10),
+                        const Text(
+                          'No movies found!',
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                        ),
+                      ],
                     )
                   : ListView.builder(
                       itemCount: _searchResults.length,
@@ -123,7 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ),
                                   ),
                             title: Text(
-                              movie['title']!,
+                              movie['title'] ?? 'Unknown',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
@@ -134,17 +159,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               children: [
                                 const SizedBox(height: 4),
                                 Text(
-                                  "Genre: ${movie['genre']}",
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "Rating: ${movie['rating']}",
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "Duration: ${movie['duration']}",
+                                  "Genre: ${movie['genre'] ?? 'N/A'}",
                                   style: const TextStyle(fontSize: 14),
                                 ),
                               ],
@@ -168,12 +183,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                     builder: (context) => MovieDetailsScreen(
                                       title: movie['title']!,
                                       genre: movie['genre']!,
-                                      duration: movie['duration']!,
-                                      rating: movie['rating']!,
                                       description:
                                           'This is a detailed description of the movie ${movie['title']!}.',
                                       imageUrl: movie['imageUrl']!,
                                       videoUrl: movie['videoUrl']!,
+                                      duration: movie['duration']!,
+                                      rating: movie['rating']!,
                                     ),
                                   ),
                                 );

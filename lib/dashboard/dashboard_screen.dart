@@ -156,8 +156,8 @@ final List<Map<String, dynamic>> featuredMovies = [
   final List<Map<String, dynamic>> newReleases = [
   {
     'title': 'One Piece',
-    'rating': '★★★★★',
-    'reviews': '(100k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtYmVjMy00YjRiLTkxMWUtNzZkMDNiYjZhNmViXkEyXkFqcGc@._V1_.jpg',
@@ -169,8 +169,8 @@ final List<Map<String, dynamic>> featuredMovies = [
   },
   {
     'title': 'One Punch Man',
-    'rating': '★★★★☆',
-    'reviews': '(55k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://upload.wikimedia.org/wikipedia/en/c/c3/OnePunchMan_manga_cover.png',
@@ -182,8 +182,8 @@ final List<Map<String, dynamic>> featuredMovies = [
   },
   {
     'title': 'Sakamoto Days',
-    'rating': '★★★★★',
-    'reviews': '(35k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739157398/Sakamoto_qmwwmw.jpg',
@@ -195,8 +195,8 @@ final List<Map<String, dynamic>> featuredMovies = [
   },
   {
     'title': 'I Have a Crush at Work',
-    'rating': '★★★★★',
-    'reviews': '(105k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/9f76212f36053b1cb40bf7468b463e82_dyctyj.jpg',
@@ -208,8 +208,8 @@ final List<Map<String, dynamic>> featuredMovies = [
   },
   {
     'title': 'Spider-Man: No Way Home',
-    'rating': '★★★★★',
-    'reviews': '(200k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_FMjpg_UX1000_.jpg',
@@ -221,8 +221,8 @@ final List<Map<String, dynamic>> featuredMovies = [
   },
   {
     'title': 'Horimiya: The Missing Pieces',
-    'rating': '★★★★★',
-    'reviews': '(10k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/horimiya_mekupa.jpg',
@@ -237,8 +237,8 @@ final List<Map<String, dynamic>> featuredMovies = [
 final List<Map<String, dynamic>> mostPopular = [
   {
     'title': 'The Batman',
-    'rating': '★★★★☆',
-    'reviews': '(95k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
@@ -250,8 +250,8 @@ final List<Map<String, dynamic>> mostPopular = [
   },
   {
     'title': 'Black Panther',
-    'rating': '★★★★★',
-    'reviews': '(150k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BNTM4NjIxNmEtYWE5NS00NDczLTkyNWQtYThhNmQyZGQzMjM0XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg',
@@ -262,9 +262,9 @@ final List<Map<String, dynamic>> mostPopular = [
   },
   {
     'title': 'Avatar: The Way of Water',
-    'rating': '★★★★☆',
+    'rating': '',
     'type': 'movie',
-    'reviews': '(120k)',
+    'reviews': '',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg',
     'genre': 'Drama, Comedy',
@@ -274,8 +274,8 @@ final List<Map<String, dynamic>> mostPopular = [
   },
   {
     'title': 'Top Gun: Maverick',
-    'rating': '★★★★★',
-    'reviews': '(180k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_FMjpg_UX1000_.jpg',
@@ -286,8 +286,8 @@ final List<Map<String, dynamic>> mostPopular = [
   },
   {
     'title': 'Titanic',
-    'rating': '★★★★★',
-    'reviews': '(180k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://res.cloudinary.com/dkhe2vgto/image/upload/titanic_xowrkm.jpg',
@@ -298,8 +298,8 @@ final List<Map<String, dynamic>> mostPopular = [
   },
   {
     'title': 'The Little Man',
-    'rating': '★★★★☆',
-    'reviews': '(95k)',
+    'rating': '',
+    'reviews': '',
     'type': 'movie',
     'imageUrl':
         'https://th.bing.com/th/id/OIP.VcW6HtnsQerz4KJBq6IxAwHaKb?w=588&h=828&rs=1&pid=ImgDetMain',
