@@ -33,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void dispose() {
     _debounce?.cancel();
     super.dispose();
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
