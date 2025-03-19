@@ -39,18 +39,9 @@ class _MyAppState extends State<MyApp> {
       title: 'DramaMania',
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d0066)),
+        scaffoldBackgroundColor: const Color(0xFF06041F), // Background color
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6152FF)),
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.black,
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.grey[900],
-        ),
-      ),
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       home: SplashScreen(
         splashName: 'DramaMania',
         splashDuration: 3,
@@ -105,23 +96,8 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        colors: [
-          Color(0xFFf9e6ff),
-          Color(0xFFf9e6ff),
-          Color(0xFFf2ccff),
-          Color(0xFFecb3ff),
-          Color(0xFFe699ff),
-          Color(0xFFdf80ff),
-        ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-          ),
-        ),
-      child: Center(
+      backgroundColor: const Color(0xFF06041F),
+      body: Center(
         child: ScaleTransition(
           scale: _scale,
           child: Column(
@@ -132,35 +108,23 @@ class _SplashScreenState extends State<SplashScreen>
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const CircularProgressIndicator();
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(
-                    Icons.image_not_supported,
-                    size: 100,
-                    color: Color(0xFF4d0066),
-                  );
-                },
               ),
               const SizedBox(height: 16),
               Text(
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: const Color(0xFF4d0066),
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4d0066)),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             ],
           ),
         ),
       ),
-      )
     );
   }
 }
@@ -174,24 +138,9 @@ class MyHomePage extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFf9e6ff),
-            Color(0xFFf9e6ff),
-            Color(0xFFf2ccff),
-            Color(0xFFecb3ff),
-            Color(0xFFe699ff),
-            Color(0xFFdf80ff),
-            ],
-            
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Center(
-          child: isLandscape ? _buildLandscapeLayout(context) : _buildPortraitLayout(context),
-        ),
+      backgroundColor: const Color(0xFF06041F),
+      body: Center(
+        child: isLandscape ? _buildLandscapeLayout(context) : _buildPortraitLayout(context),
       ),
     );
   }
@@ -235,7 +184,7 @@ class MyHomePage extends StatelessWidget {
           'DramaMania',
           style: GoogleFonts.publicSans(
             fontSize: 45,
-            color: const Color(0xFF4d0066),
+            color: Colors.white,
           ),
         ),
         const SizedBox(height: 8),
@@ -243,7 +192,7 @@ class MyHomePage extends StatelessWidget {
           'Streaming platform and downloads',
           style: TextStyle(
             fontSize: 14,
-            color: Color(0xFF4d0066),
+            color: Colors.white,
           ),
         ),
       ],
@@ -273,8 +222,8 @@ class MyHomePage extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4d0066),
-          foregroundColor: const Color(0xFFF5EFE6),
+          backgroundColor: const Color(0xFF6152FF), // Button color
+          foregroundColor: Colors.white, // Text color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),

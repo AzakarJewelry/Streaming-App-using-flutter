@@ -80,155 +80,109 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign Up'),
-        foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF4d0066),
+        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xFF6152ff),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: const Color(0xFFF5EFE6),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFf9e6ff),
-            Color(0xFFf9e6ff),
-            Color(0xFFf2ccff),
-            Color(0xFFecb3ff),
-            Color(0xFFe699ff),
-            Color(0xFFdf80ff),
-            ],
-            
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child:Center(
+      backgroundColor: const Color(0xFF0A001F), // Deep purple background
+      body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 400),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Image.network(
-                    'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
-                    height: 100,
-                    width: 100,
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: Text(
-                      'DramaMania',
-                        style: GoogleFonts.publicSans(
-                        fontSize: 32,
-                        color: Color(0xFF4d0066),
-                      ),
-                      textAlign: TextAlign.center,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.network(
+                  'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+                  height: 100,
+                  width: 100,
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: Text(
+                    'DramaMania',
+                    style: GoogleFonts.publicSans(
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Create an account',
-                    style: TextStyle(fontSize: 16, color: Color(0xFF4d0066)),
+                ),
+                const SizedBox(height: 30),
+                buildTextField(_emailController, 'Email Address', Icons.email, false),
+                const SizedBox(height: 20),
+                buildTextField(_nameController, 'Name', Icons.person, false),
+                const SizedBox(height: 20),
+                buildTextField(_passwordController, 'Password', Icons.lock, true, isPassword: true),
+                const SizedBox(height: 20),
+                buildTextField(_confirmPasswordController, 'Confirm Password', Icons.lock, true, isConfirmPassword: true),
+                const SizedBox(height: 30),
+                ElevatedButton(
+                  onPressed: _isLoading ? null : _signUp,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF6152ff),
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
-                  const SizedBox(height: 40),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFF4d0066)),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFF4d0066)),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: !_passwordVisible, // Toggle visibility
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                          color: Color(0xFF4d0066),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        },
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFF4d0066)),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _confirmPasswordController,
-                    obscureText: !_confirmPasswordVisible, // Toggle visibility
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF4d0066)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF4d0066)),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                          color: const Color(0xFF4d0066),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _confirmPasswordVisible = !_confirmPasswordVisible;
-                          });
-                        },
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFF4d0066)),
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : _signUp,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF4d0066),
-                      foregroundColor: const Color(0xFFF5EFE6),
-                      minimumSize: const Size(double.infinity, 50),
-                    ),
-                    child: _isLoading
-                        ? const CircularProgressIndicator(color: Color(0xFFF5EFE6))
-                        : const Text('Sign Up'),
-                  ),
-                ],
-              ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text('Sign Up', style: TextStyle(fontSize: 16)),
+                ),
+              ],
             ),
           ),
         ),
       ),
-      )
+    );
+  }
+
+  Widget buildTextField(
+    TextEditingController controller,
+    String label,
+    IconData icon,
+    bool obscureText, {
+    bool isPassword = false,
+    bool isConfirmPassword = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: isPassword ? !_passwordVisible : isConfirmPassword ? !_confirmPasswordVisible : false,
+      style: const TextStyle(color: Colors.white), // Set text color to white
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(color: Colors.white), // Label text color
+        prefixIcon: Icon(icon, color: Color(0xFF6152ff)), // Icon color
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color:  Color(0xFF6152ff)), // Underline color
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color:  Color(0xFF6152ff)), // Focus underline color
+        ),
+        suffixIcon: isPassword || isConfirmPassword
+            ? IconButton(
+                icon: Icon(
+                  (isPassword ? _passwordVisible : _confirmPasswordVisible) ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    if (isPassword) {
+                      _passwordVisible = !_passwordVisible;
+                    } else {
+                      _confirmPasswordVisible = !_confirmPasswordVisible;
+                    }
+                  });
+                },
+              )
+            : null,
+      ),
     );
   }
 }

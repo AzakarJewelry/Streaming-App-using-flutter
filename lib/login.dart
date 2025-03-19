@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_fonts/google_fonts.dart'; // Added import for Google Fonts
+import 'package:google_fonts/google_fonts.dart';
 import 'forgotpassword.dart';
 import 'dashboard/dashboard_screen.dart';
 
@@ -76,7 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _passwordController.text.trim(),
       );
 
-      // Save credentials if "Remember Me" is checked
       await _saveCredentials();
 
       if (!mounted) return;
@@ -100,145 +99,140 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF4d0066),
+        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xFF6152FF),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: const Color(0xFFF5EFE6),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFFf9e6ff),
-            Color(0xFFf9e6ff),
-            Color(0xFFf2ccff),
-            Color(0xFFecb3ff),
-            Color(0xFFe699ff),
-            Color(0xFFdf80ff),
-            ],
-            
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 20),
-                Image.network(
-                  'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
+      backgroundColor: const Color(0xFF0F0F1D),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              Image.network(
+                'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+                width: 100,
+                height: 100,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'DramaMania',
+                style: GoogleFonts.publicSans(
+                  fontSize: 32,
+                  color: Colors.white,
                 ),
-                const SizedBox(height: 20),
-                // Updated DramaMania text with artistic font
-                Text(
-                  'DramaMania',
-                  style: GoogleFonts.publicSans(
-                    fontSize: 32,
-                    color: const Color(0xFF4d0066),
+              ),
+              const SizedBox(height: 30),
+              
+              // Email Input with Underline Style
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email Address',
+                  labelStyle: const TextStyle(color: Colors.white),
+                    prefixIcon: const Icon(Icons.email, color: Color(0xFF6152FF)),
+                    enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF6152FF)),
+                  ),
+                    focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF6152FF)),
                   ),
                 ),
-                const SizedBox(height: 30),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
+                style: const TextStyle(color: Colors.white),
+              ),
+              const SizedBox(height: 20),
+
+              // Password Input with Underline Style
+              TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  labelStyle: const TextStyle(color: Colors.white),
+                    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152FF)),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                      color: Color(0xFF6152FF),
                     ),
-                    labelStyle: const TextStyle(color: Color(0xFF4d0066)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
-                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });
+                    },
                   ),
-                  style: const TextStyle(color: Color(0xFF4d0066)),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
-                    ),
-                    labelStyle: const TextStyle(color: Color(0xFF4d0066)),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                        color: const Color(0xFF4d0066),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isPasswordVisible = !_isPasswordVisible;
-                        });
-                      },
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
-                    ),
+                    enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF6152FF)),
                   ),
-                  obscureText: !_isPasswordVisible,
-                  style: const TextStyle(color: Color(0xFF4d0066)),
+                    focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFF6152FF)),
+                  ),
                 ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
+                obscureText: !_isPasswordVisible,
+                style: const TextStyle(color: Colors.white),
+              ),
+
+              const SizedBox(height: 10),
+
+              // Remember Me & Forgot Password
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
                         Checkbox(
-                          value: _rememberMe,
-                          onChanged: (value) {
-                            setState(() {
-                              _rememberMe = value ?? false;
-                            });
-                          },
-                          activeColor: const Color(0xFF4d0066),
-                        ),
-                        const Text(
-                          'Remember Me',
-                          style: TextStyle(color: Color(0xFF4d0066)),
-                        ),
-                      ],
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Color(0xFF4d0066)),
+                        value: _rememberMe,
+                        onChanged: (value) {
+                          setState(() {
+                          _rememberMe = value ?? false;
+                          });
+                        },
+                        activeColor: Color(0xFF6152FF),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: _isLoading ? null : _login,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4d0066),
-                    foregroundColor: const Color(0xFFF5EFE6),
-                    minimumSize: const Size(double.infinity, 50),
+                      const Text(
+                        'Remember Me',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
                   ),
-                  child: _isLoading
-                      ? const CircularProgressIndicator(color: Color(0xFFF5EFE6))
-                      : const Text('Log In'),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Forgot Password?',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 30),
+
+              // Login Button
+              ElevatedButton(
+                onPressed: _isLoading ? null : _login,
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF6152FF),
+                  foregroundColor: Colors.black,
+                  minimumSize: const Size(double.infinity, 50),
                 ),
-                const SizedBox(height: 20),
-              ],
-            ),
+                child: _isLoading
+                    ? const CircularProgressIndicator(color: Colors.black)
+                    : const Text('Log In'),
+              ),
+              const SizedBox(height: 20),
+            ],
           ),
         ),
       ),
