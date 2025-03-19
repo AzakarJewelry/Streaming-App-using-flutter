@@ -104,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
@@ -174,7 +174,7 @@ class MyHomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
           width: 150,
           height: 150,
           fit: BoxFit.contain,

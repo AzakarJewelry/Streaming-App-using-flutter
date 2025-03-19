@@ -107,133 +107,137 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               const SizedBox(height: 20),
               Image.network(
-                'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
-                width: 100,
-                height: 100,
-                fit: BoxFit.contain,
+              'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
+              width: 100,
+              height: 100,
+              fit: BoxFit.contain,
               ),
               const SizedBox(height: 20),
               Text(
-                'DramaMania',
-                style: GoogleFonts.publicSans(fontSize: 32, color: Colors.white),
+              'DramaMania',
+              style: GoogleFonts.publicSans(fontSize: 32, color: Colors.white),
               ),
               const SizedBox(height: 30),
 
               // Email Input
               TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'Email Address',
-                  labelStyle: const TextStyle(color: Colors.white),
-                  prefixIcon: const Icon(Icons.email, color: Color(0xFF6152FF)),
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF6152FF)),
-                  ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF6152FF)),
-                  ),
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Email Address',
+                labelStyle: const TextStyle(color: Colors.white),
+                prefixIcon: const Icon(Icons.email, color: Color(0xFF6152FF)),
+                enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF6152FF)),
                 ),
-                style: const TextStyle(color: Colors.white),
+                focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF6152FF)),
+                ),
+              ),
+              style: const TextStyle(color: Colors.white),
               ),
               const SizedBox(height: 20),
 
               // Password Input
               TextField(
-                controller: _passwordController,
-                obscureText: !_isPasswordVisible,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  labelStyle: const TextStyle(color: Colors.white),
-                  prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152FF)),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                      color: const Color(0xFF6152FF),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                  ),
-                  enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF6152FF)),
-                  ),
-                  focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF6152FF)),
-                  ),
+              controller: _passwordController,
+              obscureText: !_isPasswordVisible,
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Password',
+                labelStyle: const TextStyle(color: Colors.white),
+                prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152FF)),
+                suffixIcon: IconButton(
+                icon: Icon(
+                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: const Color(0xFF6152FF),
                 ),
+                onPressed: () {
+                  setState(() {
+                  _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+                ),
+                enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF6152FF)),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF6152FF)),
+                ),
+              ),
               ),
 
               const SizedBox(height: 20),
 
               // Remember Me & Forgot Password Row
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                 children: [
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            _rememberMe = value ?? false;
-                          });
-                        },
-                        activeColor: const Color(0xFF6152FF),
-                      ),
-                      const Text(
-                        "Remember Me",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                  Checkbox(
+                  value: _rememberMe,
+                  onChanged: (value) {
+                    setState(() {
+                    _rememberMe = value ?? false;
+                    });
+                  },
+                  activeColor: const Color(0xFF6152FF),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
-                      );
-                    },
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(color: Color(0xFFFFFFFF)),
-                    ),
+                  const Text(
+                  "Remember Me",
+                  style: TextStyle(color: Colors.white),
                   ),
                 ],
+                ),
+                TextButton(
+                onPressed: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
+                  );
+                },
+                child: const Text(
+                  "Forgot Password?",
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
+                ),
+              ],
               ),
 
               const SizedBox(height: 20),
 
               // Wide Log In Button
               SizedBox(
-                width: 300,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: _isLoading ? null : _login,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6152FF),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: _isLoading 
-                      ? const CircularProgressIndicator(color: Colors.white) 
-                      : const Text('Log In', style: TextStyle(fontSize: 18)),
+              width: 300,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: _isLoading ? null : _login,
+                style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF6152FF),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
                 ),
+                ),
+                child: _isLoading 
+                  ? const CircularProgressIndicator(color: Colors.white) 
+                  : const Text('Log In', style: TextStyle(fontSize: 18)),
+              ),
               ),
 
               const SizedBox(height: 20),
 
-              // Sign Up Link
+             // Sign Up Link
+              Text(
+              "Don't have an account?",
+              style: TextStyle(color: Colors.white),
+              ),
               TextButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen())),
-                child: const Text(
-                  "Don't have an account? Sign up",
-                  style: TextStyle(color: Color(0xFFFFFFFF)),
-                ),
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen())),
+              child: const Text(
+              "Sign up",
+              style: TextStyle(color: Color(0xFF6152FF)),
+              ),
               ),
             ],
           ),

@@ -379,7 +379,7 @@ Widget _buildTopBar() {
           Text(
             'DramaMania',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF4d0066),
+              color: isDark ? Colors.white : const Color(0xFF6152FF),
               fontSize: 20,
             ),
           ),
@@ -409,7 +409,7 @@ Widget _buildTopBar() {
                   Icon(
                     Icons.search,
                     size: 18,
-                    color: isDark ? Colors.white : const Color(0xFF4d0066),
+                    color: isDark ? Colors.white : const Color(0xFF6152FF),
                   ),
                   const SizedBox(width: 4),
                   Text(
@@ -437,7 +437,7 @@ Widget _buildTopBar() {
         Text(
           'Genres',
           style: TextStyle(
-            color: isDark ? Colors.white : const Color(0xFF4d0066),
+            color: isDark ? Colors.white : const Color(0xFF6152FF),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -694,7 +694,7 @@ Widget _buildTopBar() {
           Text(
             'New Releases',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF4d0066),
+              color: isDark ? Colors.white : const Color(0xFF6152FF),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -712,7 +712,7 @@ Widget _buildTopBar() {
             child: Text(
               'View All',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF4d0066),
+                color: isDark ? Colors.white : const Color(0xFF6152FF),
               ),
             ),
           ),
@@ -752,7 +752,7 @@ Widget _buildMoreMovies() {
           Text(
             'Most Popular',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF4d0066),
+              color: isDark ? Colors.white : const Color(0xFF6152FF),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -770,7 +770,7 @@ Widget _buildMoreMovies() {
             child: Text(
               'View All',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF4d0066),
+                color: isDark ? Colors.white : const Color(0xFF6152FF),
               ),
             ),
           ),
@@ -804,7 +804,7 @@ Widget _buildMoreMovies() {
   Widget _buildBottomNavigationBar() {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return BottomNavigationBar(
-      backgroundColor: const Color(0xFF4d0066),
+      backgroundColor: const Color(0xFF06041F),
       selectedItemColor: const Color(0xFFF5EFE6),
       unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
       currentIndex: _selectedNavIndex,
@@ -878,31 +878,24 @@ Widget build(BuildContext context) {
       return true;
     },
     child: Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: isDarkMode
-                ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF993366),
-                    const Color(0xFF000000),
-                  ]
-                : [
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf2ccff),
-                    const Color(0xFFecb3ff),
-                    const Color(0xFFe699ff),
-                    const Color(0xFFdf80ff),
-                  ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+  body: Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: isDarkMode
+            ? [
+                const Color(0xFF06041F), // Dark Blue
+                const Color(0xFF06041F),
+              ]
+            : [
+                const Color(0xFF06041F), // Same for light mode
+                const Color(0xFF06041F),
+              ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+    ),
+
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -931,7 +924,7 @@ Widget build(BuildContext context) {
               child: AdWidget(ad: bannerAd!),
             ),
           BottomNavigationBar(
-            backgroundColor: const Color(0xFF4d0066),
+            backgroundColor: const Color(0xFF06041F),
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white70,
             currentIndex: _selectedNavIndex,
@@ -997,57 +990,32 @@ class _GenreChip extends StatelessWidget {
     required this.onSelected,
   });
 
-  // Function to determine the background color based on the genre
-  Color getGenreColor(String genre) {
-    switch (genre) {
-      case 'Romance':
-        return Colors.pink;
-      case 'Action':
-        return Colors.red;
-      case 'Fantasy':
-        return Colors.purple;
-      case 'Drama':
-        return Colors.blue;
-      case 'Comedy':
-        return Colors.orange;
-      case 'Adventure':
-        return Colors.green;
-      case 'Horror':
-        return Colors.brown;
-      case 'Thriller':
-        return Colors.deepPurple;
-      case 'Sci-Fi':
-        return Colors.cyan;
-      case 'Mystery':
-        return Colors.indigo;
-      case 'Documentary':
-        return Colors.teal;
-      default:
-        return Colors.grey;
-    }
+  // Fixed color for all genres
+  Color getGenreColor() {
+    return const Color(0xFF6152FF); // New color
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onSelected(genre),
-      hoverColor: getGenreColor(genre).withOpacity(0.5), // Highlight color on hover
-      borderRadius: BorderRadius.circular(20), // Match the chip's border radius
+      hoverColor: getGenreColor().withOpacity(0.5),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? getGenreColor(genre) : Colors.white, // Background color
+          color: isSelected ? getGenreColor() : Colors.white,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: getGenreColor(genre), // Border color matches the background
+            color: getGenreColor(),
             width: 1,
           ),
         ),
         child: Text(
           title,
           style: TextStyle(
-            color: isSelected ? Colors.white : getGenreColor(genre), // Text color
+            color: isSelected ? Colors.white : getGenreColor(), // White text when selected
             fontSize: 16,
           ),
         ),
@@ -1055,6 +1023,7 @@ class _GenreChip extends StatelessWidget {
     );
   }
 }
+
 
 class _MovieCard extends StatelessWidget {
   final String title;
