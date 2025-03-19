@@ -57,26 +57,18 @@ class SocialMediaLinks extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
-                ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF993366),
-                    const Color(0xFF000000),
-                  ]
-                : [
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf2ccff),
-                    const Color(0xFFecb3ff),
-                    const Color(0xFFe699ff),
-                    const Color(0xFFdf80ff),
-                  ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+                  ? [
+                const Color(0xFF06041F), // Dark Blue
+                const Color(0xFF06041F),
+              ]
+            : [
+                const Color(0xFF06041F), // Same for light mode
+                const Color(0xFF06041F),
+              ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+    ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(

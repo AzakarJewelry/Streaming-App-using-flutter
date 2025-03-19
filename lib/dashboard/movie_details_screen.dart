@@ -47,7 +47,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           setState(() {
             _interstitialAd = ad;
           });
-          // Set up dismissal callback when ad is loaded
           ad.fullScreenContentCallback = FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
@@ -69,7 +68,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  // Show the interstitial ad
   void _showInterstitialAd() {
     if (_interstitialAd != null) {
       _interstitialAd?.show();
@@ -78,7 +76,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     }
   }
 
-  // Navigate to the PlayMovie screen
   void _navigateToPlayMovie() {
     Navigator.push(
       context,
@@ -88,7 +85,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  // Show a countdown dialog before showing the ad
   void _startCountdown() {
     showDialog(
       context: context,
@@ -102,33 +98,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Check if the current movie is a favorite.
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final Color textColor = isDarkMode ? Colors.white : Colors.black;
+    const Color textColor = Colors.white;
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: isDarkMode
-                ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF993366),
-                    const Color(0xFF000000),
-                  ]
-                : [
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf2ccff),
-                    const Color(0xFFecb3ff),
-                    const Color(0xFFe699ff),
-                    const Color(0xFFdf80ff),
-                  ],
+            colors: [Color(0xFF06041F), Color(0xFF06041F)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -157,14 +135,13 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Title & Favorite Button
                     Row(
                       children: [
                         Expanded(
                           child: Text(
                             widget.title,
-                            style: TextStyle(
-                              color: textColor,
+                            style: const TextStyle(
+                              color: Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             ),
@@ -173,12 +150,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                         IconButton(
                           icon: Icon(
                             isFavorite ? Icons.favorite : Icons.favorite_border,
-                            color: isFavorite ? Colors.red : textColor,
+                            color: isFavorite ? Colors.red : Colors.white,
                             size: 30,
                           ),
                           onPressed: () async {
                             try {
-                              // Toggle favorite in Firestore and local list.
                               await favoriteManager.toggleFavorite({
                                 'title': widget.title,
                                 'genre': widget.genre,
@@ -191,30 +167,27 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             } catch (error) {
                               debugPrint('Error toggling favorite: $error');
                             }
-                            // Refresh UI after toggle.
                             setState(() {});
                           },
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
-                    // Genre
                     Text(
                       widget.genre,
-                      style: TextStyle(
-                        color: textColor.withOpacity(0.7),
+                      style: const TextStyle(
+                        color: Colors.white70,
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
-                    // Duration & Rating
                     Column(
                       children: [
                         Text(
                           widget.duration,
-                          style: TextStyle(
-                            color: textColor.withOpacity(0.7),
+                          style: const TextStyle(
+                            color: Colors.white70,
                             fontSize: 16,
                           ),
                         ),
@@ -229,13 +202,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    // Description
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         widget.description,
-                        style: TextStyle(
-                          color: textColor,
+                        style: const TextStyle(
+                          color: Colors.white,
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
@@ -250,9 +222,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        // Start countdown with loading dialog before showing the ad
         onPressed: _startCountdown,
-        backgroundColor: const Color(0xFF4d0066),
+        backgroundColor: const Color(0xFF6152ff),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
         label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
       ),
@@ -261,12 +232,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   void dispose() {
-    _interstitialAd?.dispose(); // Dispose of the ad when the screen is disposed
+    _interstitialAd?.dispose();
     super.dispose();
   }
 }
 
-// A custom dialog that shows a countdown and a loading indicator
 class CountdownDialog extends StatefulWidget {
   final int initialCountdown;
   final VoidCallback onCountdownComplete;
@@ -289,14 +259,14 @@ class _CountdownDialogState extends State<CountdownDialog> {
   void initState() {
     super.initState();
     countdown = widget.initialCountdown;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (countdown > 1) {
         setState(() {
           countdown--;
         });
       } else {
         timer.cancel();
-        Navigator.of(context).pop(); // Dismiss the dialog
+        Navigator.of(context).pop();
         widget.onCountdownComplete();
       }
     });
@@ -316,9 +286,13 @@ class _CountdownDialogState extends State<CountdownDialog> {
         children: [
           const CircularProgressIndicator(),
           const SizedBox(height: 20),
-          Text("Playing movie in $countdown seconds..."),
+          Text(
+            "Playing movie in $countdown seconds...",
+            style: const TextStyle(color: Colors.white),
+          ),
         ],
       ),
+      backgroundColor: Colors.black,
     );
   }
 }

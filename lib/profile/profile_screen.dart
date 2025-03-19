@@ -196,26 +196,18 @@ Widget build(BuildContext context) {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isDarkMode
-              ? [
-                  const Color(0xFF660066),
-                  const Color(0xFF4d004d),
-                  const Color(0xFF330033),
-                  const Color(0xFF1a001a),
-                  const Color(0xFF993366),
-                  const Color(0xFF000000),
-                ]
-              : [
-                  const Color(0xFF4d0066),
-                  const Color(0xFF4d0066),
-                  const Color(0xFF4d0066),
-                  const Color(0xFF4d0066),
-                  const Color(0xFF4d0066),
-                  const Color(0xFF4d0066),
-                ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+                ? [
+                const Color(0xFF06041F), // Dark Blue
+                const Color(0xFF06041F),
+              ]
+            : [
+                const Color(0xFF06041F), // Same for light mode
+                const Color(0xFF06041F),
+              ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
+    ),
       child: Column(
         children: [
           // Profile Header

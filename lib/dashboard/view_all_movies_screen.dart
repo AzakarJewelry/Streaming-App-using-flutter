@@ -12,11 +12,11 @@ class ViewAllMoviesScreen extends StatelessWidget {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? Colors.black : const Color(0xFFF5EFE6),
+      backgroundColor: const Color(0xFF06041F), // Dark theme background
       appBar: AppBar(
-        backgroundColor: const Color(0xFF4d0066),
-        foregroundColor: const Color(0xFFF5EFE6),
-        title: const Text('All Movies'),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white, // White icons and text
+        title: const Text('All Movies', style: TextStyle(color: Colors.white)),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -34,37 +34,37 @@ class ViewAllMoviesScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final movie = movies[index];
               return GestureDetector(
-                  onTap:() {
-  if (movie['type'] == 'featured') {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PlayDramaScreen(
-          videoList: (movie['videoList'] as List<dynamic>).cast<String>(),
-          title: movie['title']!,
-        ),
-      ),
-    );
-  } else {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MovieDetailsScreen(
-          title: movie['title']!,
-                        genre: movie['genre']!,
-                        duration: movie['duration']!,
-                        rating: movie['rating']!, // Still passing rating for details screen if needed.
-                        description:
-                            'This is a detailed description of the movie ${movie['title']}.',
-                        imageUrl: movie['imageUrl']!,
-                        videoUrl: movie['videoUrl']!,
-        ),
-      ),
-    );
-  }
-},
+                onTap: () {
+                  if (movie['type'] == 'featured') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlayDramaScreen(
+                          videoList: (movie['videoList'] as List<dynamic>).cast<String>(),
+                          title: movie['title']!,
+                        ),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetailsScreen(
+                          title: movie['title']!,
+                          genre: movie['genre']!,
+                          duration: movie['duration']!,
+                          rating: movie['rating']!,
+                          description:
+                              'This is a detailed description of the movie ${movie['title']}.',
+                          imageUrl: movie['imageUrl']!,
+                          videoUrl: movie['videoUrl']!,
+                        ),
+                      ),
+                    );
+                  }
+                },
                 child: Card(
-                  color: isDarkMode ? Colors.grey[900] : Colors.white,
+                  color: const Color(0xFF6152FF), // Changed to 6152FF
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -91,10 +91,8 @@ class ViewAllMoviesScreen extends StatelessWidget {
                           movie['title']!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: isDarkMode
-                                ? Colors.white
-                                : const Color(0xFF4d0066),
+                          style: const TextStyle(
+                            color: Colors.white, // White text for dark mode
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),

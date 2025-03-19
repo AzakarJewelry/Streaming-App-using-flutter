@@ -23,20 +23,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         context,
         MaterialPageRoute(builder: (context) => const DashboardScreen()),
       );
-    }
-    else if (index == 1) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-          );
-        }
-    else if (index == 2) {
+    } else if (index == 1) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+      );
+    } else if (index == 2) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const ProfileScreen()),
       );
-    }
-    else if (index == 3) {
+    } else if (index == 3) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
@@ -46,38 +43,17 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: isDarkMode
-              ? [
-                  const Color(0xFF660066),
-                  const Color(0xFF4d004d),
-                  const Color(0xFF330033),
-                  const Color(0xFF1a001a),
-                  const Color(0xFF993366),
-                  const Color(0xFF000000),
-                ]
-              : [
-                  const Color(0xFFf9e6ff),
-                  const Color(0xFFf9e6ff),
-                  const Color(0xFFf2ccff),
-                  const Color(0xFFecb3ff),
-                  const Color(0xFFe699ff),
-                  const Color(0xFFdf80ff),
-                ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+      decoration: const BoxDecoration(
+        color: Color(0xFF06041F), // Changed background color
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.transparent, // Transparent to show the container color
         appBar: AppBar(
           title: const Text('Favorites'),
-          backgroundColor: const Color(0xFF4d0066),
-          foregroundColor: const Color(0xFFF5EFE6),
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          elevation: 0,
         ),
         body: favoriteManager.favoriteMovies.isEmpty
             ? Center(
@@ -104,8 +80,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4d0066),
-                        foregroundColor: const Color(0xFFF5EFE6),
+                        backgroundColor:const Color(0xFF6152FF),
+                        foregroundColor: Colors.white,
                       ),
                       child: const Text('Explore Movies'),
                     ),
@@ -120,6 +96,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     elevation: 4,
+                    color: Colors.black, // Dark card background
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -139,6 +116,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                       subtitle: Column(
@@ -147,7 +125,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           const SizedBox(height: 4),
                           Text(
                             "Genre: ${movie['genre']}",
-                            style: const TextStyle(fontSize: 14),
+                            style: const TextStyle(fontSize: 14, color: Colors.white70),
                           ),
                           const SizedBox(height: 4),
                         ],
@@ -204,15 +182,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               label: 'Profile',
             ),
             BottomNavigationBarItem(
-          icon: Icon(Icons.play_circle_fill),
-          label: 'Segments',
-        ),
+              icon: Icon(Icons.play_circle_fill),
+              label: 'Segments',
+            ),
           ],
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
-          backgroundColor: const Color(0xFF4d0066),
-          selectedItemColor: const Color(0xFFF5EFE6),
-          unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white54,
           onTap: _onItemTapped,
         ),
       ),

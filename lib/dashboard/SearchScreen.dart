@@ -33,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void dispose() {
     _debounce?.cancel();
     super.dispose();
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,27 +41,21 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Movies or Dramas'),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
+        title: const Text('Search Movies or Dramas', style: TextStyle(color: Colors.white)),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
                 ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF993366),
-                    const Color(0xFF000000),
+                    const Color(0xFF06041F), // Dark Blue
+                    const Color(0xFF06041F),
                   ]
                 : [
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf2ccff),
-                    const Color(0xFFecb3ff),
-                    const Color(0xFFe699ff),
-                    const Color(0xFFdf80ff),
+                    const Color(0xFF06041F), // Same for light mode
+                    const Color(0xFF06041F),
                   ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -73,14 +67,21 @@ class _SearchScreenState extends State<SearchScreen> {
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 controller: _searchController,
+                style: const TextStyle(color: Colors.white), // Typed text is white
                 decoration: InputDecoration(
                   hintText: 'Search for movies or dramas...',
-                  border: OutlineInputBorder(
+                  hintStyle: const TextStyle(color: Colors.white), // Hint text is white
+                  enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
+                    borderSide: const BorderSide(color: Colors.white), // White border
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: const BorderSide(color: Colors.white), // White border when focused
                   ),
                   suffixIcon: _searchController.text.isNotEmpty
                       ? IconButton(
-                          icon: const Icon(Icons.clear),
+                          icon: const Icon(Icons.clear, color: Colors.white), // White icon
                           onPressed: () {
                             _searchController.clear();
                             setState(() {
@@ -89,7 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           },
                         )
                       : IconButton(
-                          icon: const Icon(Icons.search),
+                          icon: const Icon(Icons.search, color: Colors.white), // White icon
                           onPressed: () {
                             _searchMovies(_searchController.text);
                           },
@@ -105,7 +106,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.movie_filter, size: 80, color: Colors.grey),
+                        const Icon(Icons.movie_filter, size: 80, color: Colors.grey),
                         const SizedBox(height: 10),
                         const Text(
                           'No movies found!',
@@ -118,6 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       itemBuilder: (context, index) {
                         final movie = _searchResults[index];
                         return Card(
+                          color: Colors.black, // Dark background for movie item
                           margin: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
                           elevation: 4,
@@ -152,6 +154,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
+                                color: Colors.white, // White text
                               ),
                             ),
                             subtitle: Column(
@@ -160,11 +163,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                 const SizedBox(height: 4),
                                 Text(
                                   "Genre: ${movie['genre'] ?? 'N/A'}",
-                                  style: const TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14, color: Colors.white70),
                                 ),
                               ],
                             ),
-                            trailing: const Icon(Icons.arrow_forward_ios),
+                            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white), // White icon
                             onTap: () {
                               if (movie['type'] == 'featured') {
                                 Navigator.push(

@@ -21,33 +21,25 @@ class GenreScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('$genre Movies or Dramas'),
-        backgroundColor: const Color(0xFF4d0066),
+        backgroundColor: const Color(0xFF6152FF),
         foregroundColor: const Color(0xFFF5EFE6),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
-                ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF993366),
-                    const Color(0xFF000000),
-                  ]
-                : [
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf2ccff),
-                    const Color(0xFFecb3ff),
-                    const Color(0xFFe699ff),
-                    const Color(0xFFdf80ff),
-                  ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+               ? [
+                const Color(0xFF06041F), // Dark Blue
+                const Color(0xFF06041F),
+              ]
+            : [
+                const Color(0xFF06041F), // Same for light mode
+                const Color(0xFF06041F),
+              ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+    ),
         child: filteredMovies.isEmpty
             ? Center(
                 child: Text(

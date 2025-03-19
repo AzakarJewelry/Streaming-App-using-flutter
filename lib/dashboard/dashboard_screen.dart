@@ -1119,7 +1119,7 @@ class _MovieCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: isDarkMode ? Colors.white : const Color(0xFF4d0066),
+                    color: isDarkMode ? Colors.white : const Color.fromARGB(255, 0, 0, 0),
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
