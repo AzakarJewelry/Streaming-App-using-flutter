@@ -7,7 +7,6 @@ import '../dashboard/dashboard_screen.dart'; // Import your dashboard screen
 import '../profile/profile_screen.dart'; // Import your profile screen
 import 'dart:ui'; // Required for BackdropFilter and ImageFilter
 
-
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
 
@@ -17,7 +16,6 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   final int _selectedIndex = 1; // Index for Favorites tab (0-indexed)
-  bool isDarkMode = false;
 
   void _onItemTapped(int index) {
     if (index == _selectedIndex) return;
@@ -48,206 +46,210 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     super.initState();
-    isDarkMode = WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xFFFFFFFF), // Background color
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return Scaffold(
+      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+      appBar: AppBar(
+        title: const Text('Favorites'),
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        foregroundColor: isDarkMode ? Colors.white : Colors.black,
+        elevation: 0,
       ),
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(0, 253, 253, 253),
-        appBar: AppBar(
-          title: const Text('Favorites'),
-          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
-          foregroundColor: Colors.black,
-          elevation: 0,
-        ),
-        body: favoriteManager.favoriteMovies.isEmpty
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.favorite_border,
-                      size: 80,
-                      color: Colors.grey[400],
+      body: favoriteManager.favoriteMovies.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.favorite_border,
+                    size: 80,
+                    color: isDarkMode ? Colors.grey[600] : Colors.grey[400],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Your favorite movies will appear here.',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: isDarkMode ? Colors.grey[400] : Colors.grey,
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Your favorite movies will appear here.',
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DashboardScreen()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF6152FF),
+                      foregroundColor: Colors.white,
                     ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DashboardScreen()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF6152FF),
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text('Explore Movies'),
-                    ),
-                  ],
-                ),
-              )
-            : ListView.builder(
-                padding: const EdgeInsets.all(8.0),
-                itemCount: favoriteManager.favoriteMovies.length,
-                itemBuilder: (context, index) {
-                  final movie = favoriteManager.favoriteMovies[index];
-                  return Card(
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    elevation: 4,
-                    color: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(12.0),
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.network(
-                          movie['imageUrl']!,
-                          width: 70,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      title: Text(
-                        movie['title']!,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 4),
-                          Text(
-                            "Genre: ${movie['genre']}",
-                            style: const TextStyle(fontSize: 14, color: Colors.white70),
-                          ),
-                          const SizedBox(height: 4),
-                        ],
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          setState(() {
-                            favoriteManager.toggleFavorite(movie);
-                          });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                "${movie['title']} removed from favorites.",
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                              duration: const Duration(seconds: 2),
-                            ),
-                          );
-                        },
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MovieDetailsScreen(
-                              title: movie['title']!,
-                              genre: movie['genre']!,
-                              duration: movie['duration']!,
-                              rating: movie['rating']!,
-                              description: movie['description']!,
-                              imageUrl: movie['imageUrl']!,
-                              videoUrl: movie['videoUrl']!,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
+                    child: const Text('Explore Movies'),
+                  ),
+                ],
               ),
-    bottomNavigationBar: Padding(
-  padding: const EdgeInsets.only(bottom: 12.0), // Padding below
-  child: ClipRRect(
-    borderRadius: BorderRadius.circular(30), // Rounded corners for nav bar
-    child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Apply blur effect
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.2), // Semi-transparent with blur
-          borderRadius: BorderRadius.circular(30),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 10,
-              spreadRadius: 2,
+            )
+          : ListView.builder(
+              padding: const EdgeInsets.all(8.0),
+              itemCount: favoriteManager.favoriteMovies.length,
+              itemBuilder: (context, index) {
+                final movie = favoriteManager.favoriteMovies[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  elevation: 4,
+                  color: isDarkMode ? Colors.grey[900] : Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(12.0),
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        movie['imageUrl']!,
+                        width: 70,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    title: Text(
+                      movie['title']!,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: isDarkMode ? Colors.white : Colors.black,
+                      ),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 4),
+                        Text(
+                          "Genre: ${movie['genre']}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: isDarkMode ? Colors.white70 : Colors.black54,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                      ],
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        setState(() {
+                          favoriteManager.toggleFavorite(movie);
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              "${movie['title']} removed from favorites.",
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MovieDetailsScreen(
+                            title: movie['title']!,
+                            genre: movie['genre']!,
+                            duration: movie['duration']!,
+                            rating: movie['rating']!,
+                            description: movie['description']!,
+                            imageUrl: movie['imageUrl']!,
+                            videoUrl: movie['videoUrl']!,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
             ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem('assets/icons/home.svg', 'Home', 0),
-            _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
-            _buildNavItem('assets/icons/user.svg', 'Profile', 2),
-            _buildNavItem('assets/icons/play-circle.svg', 'Segments', 3),
-          ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 12.0), // Padding below
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30), // Rounded corners for nav bar
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Apply blur effect
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: isDarkMode
+                    ? Colors.black.withOpacity(0.5)
+                    : Colors.white.withOpacity(0.5), // Semi-transparent with blur
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem('assets/icons/home.svg', 'Home', 0),
+                  _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
+                  _buildNavItem('assets/icons/user.svg', 'Profile', 2),
+                  _buildNavItem('assets/icons/play-circle.svg', 'Segments', 3),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
-    ),
-  ),
-),
-    ),
     );
   }
 
   /// Build bottom nav item
-Widget _buildNavItem(String iconPath, String label, int index) {
-  bool isSelected = _selectedIndex == index;
-  bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+  Widget _buildNavItem(String iconPath, String label, int index) {
+    final isSelected = _selectedIndex == index;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-  return GestureDetector(
-    onTap: () => _onItemTapped(index),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SvgPicture.asset(
-          iconPath,
-          height: 24,
-          width: 24,
-          colorFilter: ColorFilter.mode(
-            isSelected
-                ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
-                : Colors.black, // Default black for unselected icons
-            BlendMode.srcIn,
+    return GestureDetector(
+      onTap: () => _onItemTapped(index),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            iconPath,
+            height: 24,
+            width: 24,
+            colorFilter: ColorFilter.mode(
+              isSelected
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  : (isDarkMode ? Colors.grey[400]! : Colors.black),
+              BlendMode.srcIn,
+            ),
           ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: isSelected
-                ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
-                : Colors.black, // Default black for unselected text
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: isSelected
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  : (isDarkMode ? Colors.grey[400] : Colors.black),
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }
