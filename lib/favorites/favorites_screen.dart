@@ -1,9 +1,12 @@
-import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
 import '../dashboard/movie_details_screen.dart'; // Import the movie details screen
 import '../dashboard/dashboard_screen.dart'; // Import your dashboard screen
 import '../profile/profile_screen.dart'; // Import your profile screen
+import 'dart:ui'; // Required for BackdropFilter and ImageFilter
+
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -14,6 +17,7 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   final int _selectedIndex = 1; // Index for Favorites tab (0-indexed)
+  bool isDarkMode = false;
 
   void _onItemTapped(int index) {
     if (index == _selectedIndex) return;
@@ -42,17 +46,23 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    isDarkMode = WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color(0xFF06041F), // Changed background color
+        color: Color(0xFFFFFFFF), // Background color
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent, // Transparent to show the container color
+        backgroundColor: const Color.fromARGB(0, 253, 253, 253),
         appBar: AppBar(
           title: const Text('Favorites'),
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+          foregroundColor: Colors.black,
           elevation: 0,
         ),
         body: favoriteManager.favoriteMovies.isEmpty
@@ -80,7 +90,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:const Color(0xFF6152FF),
+                        backgroundColor: const Color(0xFF6152FF),
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Explore Movies'),
@@ -96,7 +106,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: 8.0),
                     elevation: 4,
-                    color: Colors.black, // Dark card background
+                    color: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -167,33 +177,77 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   );
                 },
               ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorites',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_fill),
-              label: 'Segments',
+    bottomNavigationBar: Padding(
+  padding: const EdgeInsets.only(bottom: 12.0), // Padding below
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(30), // Rounded corners for nav bar
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Apply blur effect
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.2), // Semi-transparent with blur
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 10,
+              spreadRadius: 2,
             ),
           ],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          backgroundColor: Colors.black,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.white54,
-          onTap: _onItemTapped,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem('assets/icons/home.svg', 'Home', 0),
+            _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
+            _buildNavItem('assets/icons/user.svg', 'Profile', 2),
+            _buildNavItem('assets/icons/play-circle.svg', 'Segments', 3),
+          ],
         ),
       ),
+    ),
+  ),
+),
+    ),
     );
   }
+
+  /// Build bottom nav item
+Widget _buildNavItem(String iconPath, String label, int index) {
+  bool isSelected = _selectedIndex == index;
+  bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+  return GestureDetector(
+    onTap: () => _onItemTapped(index),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SvgPicture.asset(
+          iconPath,
+          height: 24,
+          width: 24,
+          colorFilter: ColorFilter.mode(
+            isSelected
+                ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                : Colors.black, // Default black for unselected icons
+            BlendMode.srcIn,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: isSelected
+                ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                : Colors.black, // Default black for unselected text
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ],
+    ),
+  );
+}
 }

@@ -51,6 +51,7 @@
     carousel_slider: ^5.0.0
     google_fonts: ^6.2.1
     screen_protector: ^1.4.2+1
+    flutter_svg: ^2.0.9
     
 
   # The following section is specific to Flutter.
@@ -80,6 +81,10 @@
     assets:
       - assets/movie.srt
       - assets/tears.srt
+      - assets/icons/home.svg
+      - assets/icons/heart.svg
+      - assets/icons/user.svg
+      - assets/icons/play-circle.svg
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/to/resolution-aware-images

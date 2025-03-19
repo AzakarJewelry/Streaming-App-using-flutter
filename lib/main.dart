@@ -39,9 +39,18 @@ class _MyAppState extends State<MyApp> {
       title: 'DramaMania',
       theme: ThemeData(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFF06041F), // Background color
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6152FF)),
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d0066)),
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey[900],
+        ),
+      ),
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       home: SplashScreen(
         splashName: 'DramaMania',
         splashDuration: 3,
@@ -96,35 +105,62 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF06041F),
-      body: Center(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        colors: [
+          Color(0xFFf9e6ff),
+          Color(0xFFf9e6ff),
+          Color(0xFFf2ccff),
+          Color(0xFFecb3ff),
+          Color(0xFFe699ff),
+          Color(0xFFdf80ff),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+          ),
+        ),
+      child: Center(
         child: ScaleTransition(
           scale: _scale,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
+                'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const CircularProgressIndicator();
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.image_not_supported,
+                    size: 100,
+                    color: Color(0xFF4d0066),
+                  );
+                },
               ),
               const SizedBox(height: 16),
               Text(
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: Colors.white,
+                  color: const Color(0xFF4d0066),
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4d0066)),
               ),
             ],
           ),
         ),
       ),
+      )
     );
   }
 }
@@ -138,9 +174,24 @@ class MyHomePage extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF06041F),
-      body: Center(
-        child: isLandscape ? _buildLandscapeLayout(context) : _buildPortraitLayout(context),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFf9e6ff),
+            Color(0xFFf9e6ff),
+            Color(0xFFf2ccff),
+            Color(0xFFecb3ff),
+            Color(0xFFe699ff),
+            Color(0xFFdf80ff),
+            ],
+            
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: isLandscape ? _buildLandscapeLayout(context) : _buildPortraitLayout(context),
+        ),
       ),
     );
   }
@@ -152,7 +203,7 @@ class MyHomePage extends StatelessWidget {
         const SizedBox(height: 150),
         _logoAndText(),
         const SizedBox(height: 30),
-        _getStartedButton(context), // "Let's Get Started" button
+        _buttons(context),
         const SizedBox(height: 80),
       ],
     );
@@ -162,9 +213,9 @@ class MyHomePage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(child: _logoAndText()), 
+        Expanded(child: _logoAndText()), // Logo & text on the left
         const SizedBox(width: 40),
-        Expanded(child: _getStartedButton(context)), 
+        Expanded(child: _buttons(context)), // Buttons on the right
       ],
     );
   }
@@ -174,7 +225,7 @@ class MyHomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
+          'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
           width: 150,
           height: 150,
           fit: BoxFit.contain,
@@ -184,7 +235,7 @@ class MyHomePage extends StatelessWidget {
           'DramaMania',
           style: GoogleFonts.publicSans(
             fontSize: 45,
-            color: Colors.white,
+            color: const Color(0xFF4d0066),
           ),
         ),
         const SizedBox(height: 8),
@@ -192,14 +243,25 @@ class MyHomePage extends StatelessWidget {
           'Streaming platform and downloads',
           style: TextStyle(
             fontSize: 14,
-            color: Colors.white,
+            color: Color(0xFF4d0066),
           ),
         ),
       ],
     );
   }
 
-  Widget _getStartedButton(BuildContext context) {
+  Widget _buttons(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildButton(context, 'Login', const LoginScreen()),
+        const SizedBox(height: 20),
+        _buildButton(context, 'Sign Up', const SignUpScreen()),
+      ],
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String text, Widget screen) {
     return SizedBox(
       width: 300,
       height: 50,
@@ -207,17 +269,17 @@ class MyHomePage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            MaterialPageRoute(builder: (context) => screen),
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF6152FF), // Button color
-          foregroundColor: Colors.white, // Text color
+          backgroundColor: const Color(0xFF4d0066),
+          foregroundColor: const Color(0xFFF5EFE6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
         ),
-        child: const Text("Let's Get Started", style: TextStyle(fontSize: 18)),
+        child: Text(text, style: const TextStyle(fontSize: 18)),
       ),
     );
   }

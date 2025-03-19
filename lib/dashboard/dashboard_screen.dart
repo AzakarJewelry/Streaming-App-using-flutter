@@ -1,5 +1,5 @@
-// dashboard_screen.dart
-// ignore_for_file: library_private_types_in_public_api, deprecated_member_use
+import 'dart:io';
+import 'dart:ui'; // Needed for ImageFilter.blur
 import 'package:azakarstream/dashboard/SearchScreen.dart';
 import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +8,17 @@ import 'view_all_movies_screen.dart'; // Import the new screen
 import 'genre_screen.dart'; // Import the GenreScreen
 import '../../favorites/favorites_screen.dart'; // Import the FavoriteScreen
 import '../../profile/profile_screen.dart'; // Import the ProfileScreen
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'play_drama_screen.dart'; // Import the PlayDramaScreen
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
 import 'package:screen_protector/screen_protector.dart';
 
-
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
+  runApp(const DashboardScreen());
+}
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -28,41 +31,52 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
 
-
+  AdRequest? adRequest;
+  BannerAd? bannerAd;
 
   // Variable to track the last back button press time
   DateTime? lastPressed;
 
-@override
-void initState() {
-  super.initState();
-  avoidScreenShot(); // Call the function after initState
+  @override
+  void initState() {
+    super.initState();
+    avoidScreenShot(); // Call the function after initState
 
-  SystemChannels.lifecycle.setMessageHandler((msg) async {
-    if (msg == AppLifecycleState.paused.toString()) {
-      _navigateToDashboard();
-    }
-    return null;
-  });
-}
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
+      if (msg == AppLifecycleState.paused.toString()) {
+        _navigateToDashboard();
+      }
+      return null;
+    });
 
-Future<void> avoidScreenShot() async {
-  await ScreenProtector.protectDataLeakageOn();
-}
+    bannerAd = BannerAd(
+      size: AdSize.fluid,
+      adUnitId: "ca-app-pub-3940256099942544/6300978111", // Test AdMob ID
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) => setState(() {}),
+        onAdFailedToLoad: (ad, error) => ad.dispose(),
+      ),
+    )..load();
+  }
 
-void _navigateToDashboard() {
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (context) => const DashboardScreen()),
-    (Route<dynamic> route) => false,
-  );
-}
+  Future<void> avoidScreenShot() async {
+    await ScreenProtector.protectDataLeakageOn();
+  }
 
-@override
-void dispose() {
-  
-  super.dispose();
-}
+  void _navigateToDashboard() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  @override
+  void dispose() {
+    bannerAd?.dispose();
+    super.dispose();
+  }
 final List<Map<String, dynamic>> featuredMovies = [
       {
         'title': 'Back In Time',
@@ -363,7 +377,7 @@ Widget _buildTopBar() {
           Text(
             'DramaMania',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF6152FF),
+              color: isDark ? Colors.white : const Color(0xFF4d0066),
               fontSize: 20,
             ),
           ),
@@ -785,62 +799,75 @@ Widget _buildMoreMovies() {
 
 
 
-  Widget _buildBottomNavigationBar() {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return BottomNavigationBar(
-      backgroundColor: const Color(0xFF06041F),
-      selectedItemColor: const Color(0xFFF5EFE6),
-      unselectedItemColor: const Color(0xFFF5EFE6).withOpacity(0.5),
-      currentIndex: _selectedNavIndex,
-      onTap: (index) {
-        setState(() {
-          _selectedNavIndex = index;
-        });
-
-        if (index == 1) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-          );
-        } else if (index == 2) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfileScreen()),
-          );
-        }
-        else if (index == 3) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
-          );
-        }
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+   Widget _buildFloatingBottomNavigationBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Blur effect for glassmorphism
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2), // Semi-transparent background
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(color: Colors.white.withOpacity(0.2)), // Subtle border
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.transparent, // Let container's color show
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.white70,
+              currentIndex: _selectedNavIndex,
+              onTap: (index) {
+                setState(() {
+                  _selectedNavIndex = index;
+                });
+                if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+                  );
+                } else if (index == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  );
+                } else if (index == 3) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+                  );
+                }
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite),
+                  label: 'Favorites',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Profile',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.play_circle_fill),
+                  label: 'Reels',
+                ),
+              ],
+              type: BottomNavigationBarType.fixed,
+            ),
+          ),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorites',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.play_circle_fill),
-          label: 'Segments',
-        ),
-        
-      ],
-      type: BottomNavigationBarType.fixed,
+      ),
     );
   }
 @override
 Widget build(BuildContext context) {
   final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
+  // BACK BUTTON
   return WillPopScope(
     onWillPop: () async {
       DateTime now = DateTime.now();
@@ -862,17 +889,32 @@ Widget build(BuildContext context) {
       return true;
     },
     child: Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: isDarkMode
-                ? [const Color(0xFF06041F), const Color(0xFF06041F)]
-                : [const Color(0xFF06041F), const Color(0xFF06041F)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+  body: Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        colors: isDarkMode
+                ? [
+                    const Color(0xFF660066),
+                    const Color(0xFF4d004d),
+                    const Color(0xFF330033),
+                    const Color(0xFF1a001a),
+                    const Color(0xFF993366),
+                    const Color(0xFF000000),
+                  ]
+                : [
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf9e6ff),
+                    const Color(0xFFf2ccff),
+                    const Color(0xFFecb3ff),
+                    const Color(0xFFe699ff),
+                    const Color(0xFFdf80ff),
+                  ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+    ),
+
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -881,7 +923,7 @@ Widget build(BuildContext context) {
               children: [
                 _buildTopBar(),
                 const SizedBox(height: 20),
-                _buildFeaturedMovie(context), // Featured Movies
+                _buildFeaturedMovie(context),
                 const SizedBox(height: 25),
                 _buildGenres(),
                 const SizedBox(height: 25),
@@ -892,57 +934,66 @@ Widget build(BuildContext context) {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFF06041F),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
-        currentIndex: _selectedNavIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedNavIndex = index;
-          });
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (bannerAd != null)
+            SizedBox(
+              height: 50,
+              child: AdWidget(ad: bannerAd!),
+            ),
+          BottomNavigationBar(
+            backgroundColor: const Color(0xFF06041F),
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white70,
+            currentIndex: _selectedNavIndex,
+            onTap: (index) {
+              setState(() {
+                _selectedNavIndex = index;
+              });
 
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-            );
-          } else if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfileScreen()),
-            );
-          } else if (index == 3) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
-            );
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.play_circle_fill),
-            label: 'Segments',
+              if (index == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                );
+              } else if (index == 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+                );
+              }
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favorites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.play_circle_fill),
+                label: 'Reels',
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
           ),
         ],
-        type: BottomNavigationBarType.fixed,
       ),
     ),
   );
 }
-
 }
 
 class _GenreChip extends StatelessWidget {
@@ -1002,13 +1053,14 @@ class _MovieCard extends StatelessWidget {
   final String description; // New parameter
 
   const _MovieCard({
+    Key? key,
     required this.title,
     required this.imageUrl,
     required this.genre,
     required this.duration,
     required this.videoUrl,
     required this.description,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -1087,7 +1139,7 @@ class _MovieCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: isDarkMode ? Colors.white : const Color.fromARGB(255, 0, 0, 0),
+                    color: isDarkMode ? Colors.white : const Color(0xFF4d0066),
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
