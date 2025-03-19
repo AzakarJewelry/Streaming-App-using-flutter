@@ -31,31 +31,26 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Terms and Conditions'),
-        foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF4d0066),
+        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xFF6152FF),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: isDarkMode
-               ? [
-                const Color(0xFF06041F), // Dark Blue
-                const Color(0xFF06041F),
-              ]
-            : [
-                const Color(0xFF06041F), // Same for light mode
-                const Color(0xFF06041F),
-              ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
+            colors: [
+              const Color(0xFF06041F), // Dark Blue
+              const Color(0xFF06041F),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+              Expanded(
                 child: SingleChildScrollView(
                   child: Text(
                     'Terms and Conditions\n\n'
@@ -66,7 +61,10 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                     '3. Privacy Policy\nOur Privacy Policy is available at Azakar. By using the App, you agree to the terms of our Privacy Policy.\n\n'
                     '4. Contact Us\nIf you have any questions about these Terms and Conditions, please contact us at azakar@gmail.com.\n\n'
                     'Last updated: 1 January 2025',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white, // Ensuring text is white
+                    ),
                   ),
                 ),
               ),
@@ -77,14 +75,19 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                     hasAgreed = value ?? false;
                   });
                 },
-                title: const Text('I agree to the Terms and Conditions'),
+                title: const Text(
+                  'I agree to the Terms and Conditions',
+                  style: TextStyle(color: Colors.white), // Making text white
+                ),
+                checkColor: Colors.black,
+                activeColor: Colors.white,
               ),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4d0066),
-                    foregroundColor: const Color(0xFFF5EFE6),
+                    backgroundColor: const Color(0xFF6152FF),
+                    foregroundColor: Colors.white,
                   ),
                   onPressed: _submitAgreement,
                   child: const Text('Submit'),

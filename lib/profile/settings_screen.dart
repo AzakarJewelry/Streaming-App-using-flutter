@@ -50,27 +50,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = widget.isDarkMode;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: widget.isDarkMode ? Colors.black : Colors.white,
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        iconTheme: IconThemeData(color: isDarkMode ? Colors.white : Colors.black),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: widget.isDarkMode
-                 ? [
-                const Color(0xFF06041F), // Dark Blue
-                const Color(0xFF06041F),
-              ]
-            : [
-                const Color(0xFF06041F), // Same for light mode
-                const Color(0xFF06041F),
-              ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
+            colors: isDarkMode
+                ? [const Color(0xFF06041F), const Color(0xFF06041F)]
+                : [const Color(0xFF06041F), const Color(0xFF06041F)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
@@ -79,49 +76,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: widget.isDarkMode ? Colors.white : Colors.black,
+                color: Colors.white,
               ),
             ),
             SwitchListTile(
               title: Text(
                 'Dark Mode',
-                style: TextStyle(
-                  color: widget.isDarkMode ? Colors.white : Colors.black,
-                ),
+                style: TextStyle(color: Colors.white),
               ),
-              value: widget.isDarkMode,
+              value: isDarkMode,
               onChanged: widget.onToggleDarkMode,
             ),
             ListTile(
               title: Text(
                 'Change Language',
-                style: TextStyle(
-                  color: widget.isDarkMode ? Colors.white : Colors.black,
-                ),
+                style: TextStyle(color: Colors.white),
               ),
               subtitle: Text(
                 selectedLanguage,
-                style: TextStyle(
-                  color: widget.isDarkMode ? Colors.white70 : Colors.black54,
-                ),
+                style: TextStyle(color: Colors.white70),
               ),
-              trailing: DropdownButton<String>(
-                value: selectedLanguage,
-                onChanged: _changeLanguage,
-                items: const [
-                  DropdownMenuItem(
-                    value: 'English',
-                    child: Text('English'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Spanish',
-                    child: Text('Spanish'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'French',
-                    child: Text('French'),
-                  ),
-                ],
+              trailing: Theme(
+                data: Theme.of(context).copyWith(
+                  canvasColor: Colors.black,
+                ),
+                child: DropdownButton<String>(
+                  value: selectedLanguage,
+                  dropdownColor: Colors.black,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: _changeLanguage,
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'English',
+                      child: Text('English', style: TextStyle(color: Colors.white)),
+                    ),
+                    DropdownMenuItem(
+                      value: 'Spanish',
+                      child: Text('Spanish', style: TextStyle(color: Colors.white)),
+                    ),
+                    DropdownMenuItem(
+                      value: 'French',
+                      child: Text('French', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -130,32 +128,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: widget.isDarkMode ? Colors.white : Colors.black,
+                color: Colors.white,
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.person_outline,
-                color: widget.isDarkMode ? Colors.white : Colors.black,
-              ),
+              leading: const Icon(Icons.person_outline, color: Colors.white),
               title: Text(
                 'Manage Account',
-                style: TextStyle(
-                  color: widget.isDarkMode ? Colors.white : Colors.black,
-                ),
+                style: TextStyle(color: Colors.white),
               ),
               onTap: _manageAccount,
             ),
             ListTile(
-              leading: Icon(
-                Icons.feedback_outlined,
-                color: widget.isDarkMode ? Colors.white : Colors.black,
-              ),
+              leading: const Icon(Icons.feedback_outlined, color: Colors.white),
               title: Text(
                 'Send Feedback / Help',
-                style: TextStyle(
-                  color: widget.isDarkMode ? Colors.white : Colors.black,
-                ),
+                style: TextStyle(color: Colors.white),
               ),
               onTap: _sendFeedback,
             ),
@@ -165,7 +153,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: widget.isDarkMode ? Colors.white : Colors.black,
+                color: Colors.white,
               ),
             ),
             Padding(
@@ -180,7 +168,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 'Azakar Jewelry isn’t just a name; it represents a passion for perfection and innovation. Our company prides itself on creating products and services that are not only functional but also beautifully crafted to enhance your everyday life.\n\n'
                 'Thank you for choosing Azakar Jewelry – we look forward to being part of your entertainment journey lets go.',
                 style: TextStyle(
-                  color: widget.isDarkMode ? Colors.white : Colors.black,
+                  color: Colors.white,
                   fontSize: 14,
                   height: 1.6,
                 ),
@@ -192,7 +180,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: widget.isDarkMode ? Colors.white : Colors.black,
+                color: Colors.white,
               ),
             ),
             RatingBar.builder(
@@ -200,9 +188,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               minRating: 1,
               itemSize: 40,
               itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => Icon(
+              itemBuilder: (context, _) => const Icon(
                 Icons.star,
-                color: widget.isDarkMode ? Colors.yellow : Colors.orange,
+                color: Colors.yellow,
               ),
               onRatingUpdate: _rateUs,
             ),

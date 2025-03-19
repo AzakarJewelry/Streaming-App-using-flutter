@@ -20,22 +20,21 @@ class SocialMediaLinks extends StatelessWidget {
     required String text,
     required String url,
   }) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0), // Increased spacing
       child: GestureDetector(
         onTap: () => _launchURL(url),
         child: Row(
           children: [
-            Icon(icon, color: isDarkMode ? Colors.white : Colors.black, size: 28),
+            const Icon(FontAwesomeIcons.link, color: Colors.white, size: 28), // Icon color set to white
             const SizedBox(width: 20),
             Expanded(
               child: Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: isDarkMode ? Colors.white : Colors.black,
+                  color: Colors.white, // Text color set to white
                 ),
               ),
             ),
@@ -47,28 +46,23 @@ class SocialMediaLinks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Social Media Links'),
         centerTitle: true,
+        foregroundColor: Colors.black, // AppBar text color set to white
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: isDarkMode
-                  ? [
-                const Color(0xFF06041F), // Dark Blue
-                const Color(0xFF06041F),
-              ]
-            : [
-                const Color(0xFF06041F), // Same for light mode
-                const Color(0xFF06041F),
-              ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
+            colors: [
+              Color(0xFF06041F), // Dark Blue
+              Color(0xFF06041F),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(

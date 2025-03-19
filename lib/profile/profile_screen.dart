@@ -280,24 +280,17 @@ Widget build(BuildContext context) {
               decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
-                ? [
-              const Color(0xFF660066),
-              const Color(0xFF4d004d),
-              const Color(0xFF330033),
-              const Color(0xFF1a001a),
-              const Color(0xFF000000),
-            ]
-                : [
-              const Color(0xFFf9e6ff),
-              const Color(0xFFf9e6ff),
-              const Color(0xFFf2ccff),
-              const Color(0xFFecb3ff),
-              const Color(0xFFe699ff),
-              const Color(0xFFdf80ff),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+                 ? [
+                const Color(0xFF06041F), // Dark Blue
+                const Color(0xFF06041F),
+              ]
+            : [
+                const Color(0xFF06041F), // Same for light mode
+                const Color(0xFF06041F),
+              ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
@@ -409,7 +402,7 @@ Widget build(BuildContext context) {
   Widget _buildBottomNavigationBar() {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
     return BottomNavigationBar(
-      backgroundColor:  const Color(0xFF4d0066),
+      backgroundColor:  const Color(0xFF06041f),
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white.withOpacity(0.5),
       currentIndex: _selectedNavIndex,
