@@ -8,7 +8,7 @@ import 'view_all_movies_screen.dart'; // Import the new screen
 import 'genre_screen.dart'; // Import the GenreScreen
 import '../../favorites/favorites_screen.dart'; // Import the FavoriteScreen
 import '../../profile/profile_screen.dart'; // Import the ProfileScreen
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'play_drama_screen.dart'; // Import the PlayDramaScreen
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
@@ -16,11 +16,6 @@ import 'dart:io';
 import 'package:screen_protector/screen_protector.dart';
 
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
-  runApp(const DashboardScreen());
-}
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -33,8 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
 
-  AdRequest? adRequest;
-  BannerAd? bannerAd;
+
 
   // Variable to track the last back button press time
   DateTime? lastPressed;
@@ -50,16 +44,6 @@ void initState() {
     }
     return null;
   });
-
-  bannerAd = BannerAd(
-    size: AdSize.fluid,
-    adUnitId: "ca-app-pub-3940256099942544/6300978111", // Test AdMob ID
-    request: const AdRequest(),
-    listener: BannerAdListener(
-      onAdLoaded: (ad) => setState(() {}),
-      onAdFailedToLoad: (ad, error) => ad.dispose(),
-    ),
-  )..load();
 }
 
 Future<void> avoidScreenShot() async {
@@ -76,7 +60,7 @@ void _navigateToDashboard() {
 
 @override
 void dispose() {
-  bannerAd?.dispose();
+  
   super.dispose();
 }
 final List<Map<String, dynamic>> featuredMovies = [
@@ -856,7 +840,7 @@ Widget _buildMoreMovies() {
 @override
 Widget build(BuildContext context) {
   final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-  // BACK BUTTON
+
   return WillPopScope(
     onWillPop: () async {
       DateTime now = DateTime.now();
@@ -878,24 +862,17 @@ Widget build(BuildContext context) {
       return true;
     },
     child: Scaffold(
-  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-  body: Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: isDarkMode
-            ? [
-                const Color(0xFF06041F), // Dark Blue
-                const Color(0xFF06041F),
-              ]
-            : [
-                const Color(0xFF06041F), // Same for light mode
-                const Color(0xFF06041F),
-              ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
-
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: isDarkMode
+                ? [const Color(0xFF06041F), const Color(0xFF06041F)]
+                : [const Color(0xFF06041F), const Color(0xFF06041F)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -904,7 +881,7 @@ Widget build(BuildContext context) {
               children: [
                 _buildTopBar(),
                 const SizedBox(height: 20),
-                _buildFeaturedMovie(context),
+                _buildFeaturedMovie(context), // Featured Movies
                 const SizedBox(height: 25),
                 _buildGenres(),
                 const SizedBox(height: 25),
@@ -915,66 +892,57 @@ Widget build(BuildContext context) {
           ),
         ),
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (bannerAd != null)
-            SizedBox(
-              height: 50,
-              child: AdWidget(ad: bannerAd!),
-            ),
-          BottomNavigationBar(
-            backgroundColor: const Color(0xFF06041F),
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white70,
-            currentIndex: _selectedNavIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedNavIndex = index;
-              });
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF06041F),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        currentIndex: _selectedNavIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedNavIndex = index;
+          });
 
-              if (index == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-                );
-              } else if (index == 2) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                );
-              } else if (index == 3) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
-                );
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Favorites',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.play_circle_fill),
-                label: 'Segments',
-              ),
-            ],
-            type: BottomNavigationBarType.fixed,
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfileScreen()),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.play_circle_fill),
+            label: 'Segments',
           ),
         ],
+        type: BottomNavigationBarType.fixed,
       ),
     ),
   );
 }
+
 }
 
 class _GenreChip extends StatelessWidget {
