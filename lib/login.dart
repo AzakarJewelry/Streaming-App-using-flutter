@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'forgotpassword.dart';
+import 'signup.dart';
 import 'dashboard/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -97,16 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-        foregroundColor: Colors.white,
-        backgroundColor: const Color(0xFF6152FF),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      backgroundColor: const Color(0xFF0F0F1D),
+      backgroundColor: const Color(0xFF06041F),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
@@ -123,24 +115,21 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20),
               Text(
                 'DramaMania',
-                style: GoogleFonts.publicSans(
-                  fontSize: 32,
-                  color: Colors.white,
-                ),
+                style: GoogleFonts.publicSans(fontSize: 32, color: Colors.white),
               ),
               const SizedBox(height: 30),
-              
-              // Email Input with Underline Style
+
+              // Email Input
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email Address',
                   labelStyle: const TextStyle(color: Colors.white),
-                    prefixIcon: const Icon(Icons.email, color: Color(0xFF6152FF)),
-                    enabledBorder: const UnderlineInputBorder(
+                  prefixIcon: const Icon(Icons.email, color: Color(0xFF6152FF)),
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF6152FF)),
                   ),
-                    focusedBorder: const UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF6152FF)),
                   ),
                 ),
@@ -148,17 +137,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Password Input with Underline Style
+              // Password Input
               TextField(
                 controller: _passwordController,
+                obscureText: !_isPasswordVisible,
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelText: 'Password',
                   labelStyle: const TextStyle(color: Colors.white),
-                    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152FF)),
+                  prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152FF)),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                      color: Color(0xFF6152FF),
+                      color: const Color(0xFF6152FF),
                     ),
                     onPressed: () {
                       setState(() {
@@ -166,36 +157,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                     },
                   ),
-                    enabledBorder: const UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF6152FF)),
                   ),
-                    focusedBorder: const UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFF6152FF)),
                   ),
                 ),
-                obscureText: !_isPasswordVisible,
-                style: const TextStyle(color: Colors.white),
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
 
-              // Remember Me & Forgot Password
+              // Remember Me & Forgot Password Row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                        Checkbox(
+                      Checkbox(
                         value: _rememberMe,
                         onChanged: (value) {
                           setState(() {
-                          _rememberMe = value ?? false;
+                            _rememberMe = value ?? false;
                           });
                         },
-                        activeColor: Color(0xFF6152FF),
+                        activeColor: const Color(0xFF6152FF),
                       ),
                       const Text(
-                        'Remember Me',
+                        "Remember Me",
                         style: TextStyle(color: Colors.white),
                       ),
                     ],
@@ -204,34 +193,48 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const ForgotPasswordScreen(),
-                        ),
+                        MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()),
                       );
                     },
                     child: const Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.white),
+                      "Forgot Password?",
+                      style: TextStyle(color: Color(0xFFFFFFFF)),
                     ),
                   ),
                 ],
               ),
 
-              const SizedBox(height: 30),
-
-              // Login Button
-              ElevatedButton(
-                onPressed: _isLoading ? null : _login,
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6152FF),
-                  foregroundColor: Colors.black,
-                  minimumSize: const Size(double.infinity, 50),
-                ),
-                child: _isLoading
-                    ? const CircularProgressIndicator(color: Colors.black)
-                    : const Text('Log In'),
-              ),
               const SizedBox(height: 20),
+
+              // Wide Log In Button
+              SizedBox(
+                width: 300,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _isLoading ? null : _login,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF6152FF),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: _isLoading 
+                      ? const CircularProgressIndicator(color: Colors.white) 
+                      : const Text('Log In', style: TextStyle(fontSize: 18)),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Sign Up Link
+              TextButton(
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen())),
+                child: const Text(
+                  "Don't have an account? Sign up",
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
+              ),
             ],
           ),
         ),

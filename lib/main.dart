@@ -152,7 +152,7 @@ class MyHomePage extends StatelessWidget {
         const SizedBox(height: 150),
         _logoAndText(),
         const SizedBox(height: 30),
-        _buttons(context),
+        _getStartedButton(context), // "Let's Get Started" button
         const SizedBox(height: 80),
       ],
     );
@@ -162,9 +162,9 @@ class MyHomePage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(child: _logoAndText()), // Logo & text on the left
+        Expanded(child: _logoAndText()), 
         const SizedBox(width: 40),
-        Expanded(child: _buttons(context)), // Buttons on the right
+        Expanded(child: _getStartedButton(context)), 
       ],
     );
   }
@@ -199,18 +199,7 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  Widget _buttons(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildButton(context, 'Login', const LoginScreen()),
-        const SizedBox(height: 20),
-        _buildButton(context, 'Sign Up', const SignUpScreen()),
-      ],
-    );
-  }
-
-  Widget _buildButton(BuildContext context, String text, Widget screen) {
+  Widget _getStartedButton(BuildContext context) {
     return SizedBox(
       width: 300,
       height: 50,
@@ -218,7 +207,7 @@ class MyHomePage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => screen),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
           );
         },
         style: ElevatedButton.styleFrom(
@@ -228,7 +217,7 @@ class MyHomePage extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
           ),
         ),
-        child: Text(text, style: const TextStyle(fontSize: 18)),
+        child: const Text("Let's Get Started", style: TextStyle(fontSize: 18)),
       ),
     );
   }
