@@ -398,7 +398,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2), // Adjust blur strength
+                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Adjust blur strength
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 24), // Adds space on left and right
                     padding: const EdgeInsets.symmetric(vertical: 12),

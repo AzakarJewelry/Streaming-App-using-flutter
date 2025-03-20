@@ -4,6 +4,8 @@ import 'play_movie_screen.dart';
 import '../favorites/favorite_manager.dart'; // Ensure this is implemented and properly connected to Firestore
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+
+
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
   final String genre;

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui'; // Needed for ImageFilter.blur
 import 'package:azakarstream/dashboard/SearchScreen.dart';
+
 import '../../favorites/favorites_screen.dart'; // Import the FavoriteScreen
 import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,6 @@ import 'package:screen_protector/screen_protector.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(const DashboardScreen());
-}
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -869,7 +865,7 @@ Widget build(BuildContext context) {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2), // Stronger blur
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Stronger blur
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     padding: const EdgeInsets.symmetric(vertical: 5),

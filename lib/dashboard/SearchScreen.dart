@@ -41,9 +41,12 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.white,
+        foregroundColor: isDarkMode ? Colors.white : Colors.black,
         backgroundColor: Colors.transparent,
-        title: const Text('Search Movies or Dramas', style: TextStyle(color: Colors.white)),
+        title: Text(
+          'Search Movies or Dramas',
+          style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -54,8 +57,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     const Color(0xFF06041F),
                   ]
                 : [
-                    const Color(0xFF06041F), // Same for light mode
-                    const Color(0xFF06041F),
+                    const Color(0xFFFFFFFF), // Same for light mode
+                    const Color(0xFFFFFFFF),
                   ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

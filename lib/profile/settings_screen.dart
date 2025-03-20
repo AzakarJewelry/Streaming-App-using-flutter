@@ -62,8 +62,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
-                ? [const Color(0xFF06041F), const Color(0xFF06041F)]
-                : [const Color(0xFF06041F), const Color(0xFF06041F)],
+                ? [
+                    const Color(0xFF06041F),
+                    const Color(0xFF06041F)
+                  ]
+                : [
+                    const Color(0xFFFFFFFF),
+                    const Color(0xFFFFFFFF)
+                  ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -76,13 +82,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: isDarkMode ? Colors.white : Colors.black,
               ),
             ),
             SwitchListTile(
               title: Text(
                 'Dark Mode',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               ),
               value: isDarkMode,
               onChanged: widget.onToggleDarkMode,
@@ -90,33 +96,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               title: Text(
                 'Change Language',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               ),
               subtitle: Text(
                 selectedLanguage,
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: isDarkMode ? Colors.white70 : Colors.black54),
               ),
               trailing: Theme(
                 data: Theme.of(context).copyWith(
-                  canvasColor: Colors.black,
+                  canvasColor: isDarkMode ? Colors.black : Colors.white,
                 ),
                 child: DropdownButton<String>(
                   value: selectedLanguage,
-                  dropdownColor: Colors.black,
-                  style: TextStyle(color: Colors.white),
+                  dropdownColor: isDarkMode ? Colors.black : Colors.white,
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   onChanged: _changeLanguage,
                   items: const [
                     DropdownMenuItem(
                       value: 'English',
-                      child: Text('English', style: TextStyle(color: Colors.white)),
+                      child: Text('English', style: TextStyle(color: Colors.black)),
                     ),
                     DropdownMenuItem(
                       value: 'Spanish',
-                      child: Text('Spanish', style: TextStyle(color: Colors.white)),
+                      child: Text('Spanish', style: TextStyle(color: Colors.black)),
                     ),
                     DropdownMenuItem(
                       value: 'French',
-                      child: Text('French', style: TextStyle(color: Colors.white)),
+                      child: Text('French', style: TextStyle(color: Colors.black)),
                     ),
                   ],
                 ),
@@ -128,22 +134,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: isDarkMode ? Colors.white : Colors.black,
               ),
             ),
             ListTile(
-              leading: const Icon(Icons.person_outline, color: Colors.white),
+              leading: Icon(Icons.person_outline, color: isDarkMode ? Colors.white : Colors.black),
               title: Text(
                 'Manage Account',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               ),
               onTap: _manageAccount,
             ),
             ListTile(
-              leading: const Icon(Icons.feedback_outlined, color: Colors.white),
+              leading: Icon(Icons.feedback_outlined, color: isDarkMode ? Colors.white : Colors.black),
               title: Text(
                 'Send Feedback / Help',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               ),
               onTap: _sendFeedback,
             ),
@@ -153,7 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: isDarkMode ? Colors.white : Colors.black,
               ),
             ),
             Padding(
@@ -168,7 +174,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 'Azakar Jewelry isn’t just a name; it represents a passion for perfection and innovation. Our company prides itself on creating products and services that are not only functional but also beautifully crafted to enhance your everyday life.\n\n'
                 'Thank you for choosing Azakar Jewelry – we look forward to being part of your entertainment journey lets go.',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: isDarkMode ? Colors.white : Colors.black,
                   fontSize: 14,
                   height: 1.6,
                 ),
@@ -180,7 +186,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: isDarkMode ? Colors.white : Colors.black,
               ),
             ),
             RatingBar.builder(
@@ -188,9 +194,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               minRating: 1,
               itemSize: 40,
               itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => const Icon(
+              itemBuilder: (context, _) => Icon(
                 Icons.star,
-                color: Colors.yellow,
+                color: isDarkMode ? Colors.yellow : Colors.yellow,
               ),
               onRatingUpdate: _rateUs,
             ),

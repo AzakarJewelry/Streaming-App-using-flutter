@@ -189,7 +189,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2), // Stronger blur
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Stronger blur
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     padding: const EdgeInsets.symmetric(vertical: 5),
