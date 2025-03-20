@@ -136,81 +136,96 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     style: TextStyle(fontSize: 16, color: Color(0xFF6152ff)),
                   ),
                   const SizedBox(height: 40),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF6152ff)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF6152ff)),
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFFFFFFFF)),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF6152ff)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF6152ff)),
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFFFFFFFF)),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: !_passwordVisible, // Toggle visibility
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF6152ff)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF6152ff)),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                          color: Color(0xFF6152ff),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        },
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFFFFFFFF)),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _confirmPasswordController,
-                    obscureText: !_confirmPasswordVisible, // Toggle visibility
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      border: const OutlineInputBorder(),
-                      labelStyle: const TextStyle(color: Color(0xFF6152ff)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFF6152ff)),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                          color: const Color(0xFF6152ff),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _confirmPasswordVisible = !_confirmPasswordVisible;
-                          });
-                        },
-                      ),
-                    ),
-                    style: const TextStyle(color: Color(0xFFFFFFFF)),
-                  ),
+                 TextField(
+  controller: _emailController,
+  decoration: InputDecoration(
+    labelText: 'Email',
+    prefixIcon: const Icon(Icons.email, color: Color(0xFF6152ff)),
+    labelStyle: const TextStyle(color: Colors.white),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff)),
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+    ),
+  ),
+  style: const TextStyle(color: Colors.white),
+),
+const SizedBox(height: 20),
+
+TextField(
+  controller: _nameController,
+  decoration: InputDecoration(
+    labelText: 'Name',
+    prefixIcon: const Icon(Icons.person, color: Color(0xFF6152ff)),
+    labelStyle: const TextStyle(color: Colors.white),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff)),
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+    ),
+  ),
+  style: const TextStyle(color: Colors.white),
+),
+const SizedBox(height: 20),
+
+TextField(
+  controller: _passwordController,
+  obscureText: !_passwordVisible,
+  decoration: InputDecoration(
+    labelText: 'Password',
+    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152ff)),
+    suffixIcon: IconButton(
+      icon: Icon(
+        _passwordVisible ? Icons.visibility : Icons.visibility_off,
+        color: const Color(0xFF6152ff),
+      ),
+      onPressed: () {
+        setState(() {
+          _passwordVisible = !_passwordVisible;
+        });
+      },
+    ),
+    labelStyle: const TextStyle(color: Colors.white),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff)),
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+    ),
+  ),
+  style: const TextStyle(color: Colors.white),
+),
+const SizedBox(height: 20),
+
+TextField(
+  controller: _confirmPasswordController,
+  obscureText: !_confirmPasswordVisible,
+  decoration: InputDecoration(
+    labelText: 'Confirm Password',
+    prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF6152ff)),
+    suffixIcon: IconButton(
+      icon: Icon(
+        _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+        color: const Color(0xFF6152ff),
+      ),
+      onPressed: () {
+        setState(() {
+          _confirmPasswordVisible = !_confirmPasswordVisible;
+        });
+      },
+    ),
+    labelStyle: const TextStyle(color: Colors.white),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff)),
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+    ),
+  ),
+  style: const TextStyle(color: Colors.white),
+),
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: _isLoading ? null : _signUp,

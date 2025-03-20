@@ -147,47 +147,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
-                    ),
-                    labelStyle: const TextStyle(color: Color(0xFF6152ff)),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
-                    ),
-                  ),
-                  style: const TextStyle(color: Color(0xFFFFFFFF)),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
-                    ),
-                    labelStyle: const TextStyle(color: Color(0xFF6152ff)),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                        color: const Color(0xFF6152ff),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isPasswordVisible = !_isPasswordVisible;
-                        });
-                      },
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
-                    ),
-                  ),
-                  obscureText: !_isPasswordVisible,
-                  style: const TextStyle(color: Color(0xFFFFFFFF)),
-                ),
+               TextField(
+  controller: _emailController,
+  decoration: InputDecoration(
+    labelText: 'Email Address',
+    prefixIcon: const Icon(Icons.email, color: Color(0xFF6152ff)),
+    labelStyle: const TextStyle(color: Colors.white),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff)),
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+    ),
+  ),
+  style: const TextStyle(color: Colors.white),
+),
+
+const SizedBox(height: 20),
+
+TextField(
+  controller: _passwordController,
+  decoration: InputDecoration(
+    labelText: 'Password',
+    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152ff)),
+    suffixIcon: IconButton(
+      icon: Icon(
+        _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+        color: const Color(0xFF6152ff),
+      ),
+      onPressed: () {
+        setState(() {
+          _isPasswordVisible = !_isPasswordVisible;
+        });
+      },
+    ),
+    labelStyle: const TextStyle(color: Colors.white),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff)),
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+    ),
+  ),
+  obscureText: !_isPasswordVisible,
+  style: const TextStyle(color: Colors.white),
+),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

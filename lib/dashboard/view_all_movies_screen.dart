@@ -12,7 +12,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      backgroundColor: Colors.white, // Dark theme background
+      backgroundColor: Color(0xFF06041f), // Dark theme background
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.white, // White icons and text
