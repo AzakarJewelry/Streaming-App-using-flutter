@@ -60,158 +60,157 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         foregroundColor: isDarkMode ? Colors.white : Colors.black,
         elevation: 0,
       ),
-      body: favoriteManager.favoriteMovies.isEmpty
-          ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.favorite_border,
-                    size: 80,
-                    color: isDarkMode ? Colors.grey[600] : Colors.grey[400],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Your favorite movies will appear here.',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: isDarkMode ? Colors.grey[400] : Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DashboardScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF6152FF),
-                      foregroundColor: Colors.white,
-                    ),
-                    child: const Text('Explore Movies'),
-                  ),
-                ],
-              ),
-            )
-          : ListView.builder(
-              padding: const EdgeInsets.all(8.0),
-              itemCount: favoriteManager.favoriteMovies.length,
-              itemBuilder: (context, index) {
-                final movie = favoriteManager.favoriteMovies[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  elevation: 4,
-                  color: isDarkMode ? Colors.grey[900] : Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(12.0),
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        movie['imageUrl']!,
-                        width: 70,
-                        height: 100,
-                        fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          favoriteManager.favoriteMovies.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.favorite_border,
+                        size: 80,
+                        color: isDarkMode ? Colors.grey[600] : Colors.grey[400],
                       ),
-                    ),
-                    title: Text(
-                      movie['title']!,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: isDarkMode ? Colors.white : Colors.black,
+                      const SizedBox(height: 16),
+                      Text(
+                        'Your favorite movies will appear here.',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: isDarkMode ? Colors.grey[400] : Colors.grey,
+                        ),
                       ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 4),
-                        Text(
-                          "Genre: ${movie['genre']}",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: isDarkMode ? Colors.white70 : Colors.black54,
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const DashboardScreen()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF6152FF),
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const Text('Explore Movies'),
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.all(8.0),
+                  itemCount: favoriteManager.favoriteMovies.length,
+                  itemBuilder: (context, index) {
+                    final movie = favoriteManager.favoriteMovies[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      elevation: 4,
+                      color: isDarkMode ? Colors.grey[900] : Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(12.0),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            movie['imageUrl']!,
+                            width: 70,
+                            height: 100,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        title: Text(
+                          movie['title']!,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: isDarkMode ? Colors.white : Colors.black,
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 4),
+                            Text(
+                              "Genre: ${movie['genre']}",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: isDarkMode ? Colors.white70 : Colors.black54,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              favoriteManager.toggleFavorite(movie);
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  "${movie['title']} removed from favorites.",
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                duration: const Duration(seconds: 2),
+                              ),
+                            );
+                          },
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MovieDetailsScreen(
+                                title: movie['title']!,
+                                genre: movie['genre']!,
+                                duration: movie['duration']!,
+                                rating: movie['rating']!,
+                                description: movie['description']!,
+                                imageUrl: movie['imageUrl']!,
+                                videoUrl: movie['videoUrl']!,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2), // Stronger blur
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildNavItem('assets/icons/home.svg', 'Home', 0),
+                        _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
+                        _buildNavItem('assets/icons/user.svg', 'Profile', 2),
+                        _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
                       ],
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        setState(() {
-                          favoriteManager.toggleFavorite(movie);
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              "${movie['title']} removed from favorites.",
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                            duration: const Duration(seconds: 2),
-                          ),
-                        );
-                      },
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MovieDetailsScreen(
-                            title: movie['title']!,
-                            genre: movie['genre']!,
-                            duration: movie['duration']!,
-                            rating: movie['rating']!,
-                            description: movie['description']!,
-                            imageUrl: movie['imageUrl']!,
-                            videoUrl: movie['videoUrl']!,
-                          ),
-                        ),
-                      );
-                    },
                   ),
-                );
-              },
-            ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 12.0), // Padding below
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30), // Rounded corners for nav bar
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Apply blur effect
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24),
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: isDarkMode
-                    ? Colors.black.withOpacity(0.5)
-                    : Colors.white.withOpacity(0.5), // Semi-transparent with blur
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNavItem('assets/icons/home.svg', 'Home', 0),
-                  _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
-                  _buildNavItem('assets/icons/user.svg', 'Profile', 2),
-                  _buildNavItem('assets/icons/play-circle.svg', 'Segments', 3),
-                ],
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

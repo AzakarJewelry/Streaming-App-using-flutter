@@ -787,106 +787,113 @@ Widget _buildMoreMovies() {
     ],
   );
 }
- @override
-  Widget build(BuildContext context) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+@override
+Widget build(BuildContext context) {
+  final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    return WillPopScope(
-      onWillPop: () async {
-        DateTime now = DateTime.now();
-        if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
-          lastPressed = now;
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Press back again to exit'),
-              duration: Duration(seconds: 2),
-            ),
-          );
-          return false;
-        }
-        if (Platform.isAndroid) {
-          SystemNavigator.pop();
-        } else if (Platform.isIOS) {
-          exit(0);
-        }
-        return true;
-      },
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: isDarkMode
-                  ? [
-                      const Color(0xFF660066),
-                      const Color(0xFF4d004d),
-                      const Color(0xFF330033),
-                      const Color(0xFF1a001a),
-                      const Color(0xFF993366),
-                      const Color(0xFF000000),
-                    ]
-                  : [
-                      const Color(0xFFf9e6ff),
-                      const Color(0xFFf9e6ff),
-                      const Color(0xFFf2ccff),
-                      const Color(0xFFecb3ff),
-                      const Color(0xFFe699ff),
-                      const Color(0xFFdf80ff),
-                    ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+  return WillPopScope(
+    onWillPop: () async {
+      DateTime now = DateTime.now();
+      if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
+        lastPressed = now;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Press back again to exit'),
+            duration: Duration(seconds: 2),
           ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildTopBar(),
-                  const SizedBox(height: 20),
-                  _buildFeaturedMovie(context),
-                  const SizedBox(height: 25),
-                  _buildGenres(),
-                  const SizedBox(height: 25),
-                  _buildNewReleases(),
-                  _buildMoreMovies(),
-                ],
+        );
+        return false;
+      }
+      if (Platform.isAndroid) {
+        SystemNavigator.pop();
+      } else if (Platform.isIOS) {
+        exit(0);
+      }
+      return true;
+    },
+    child: Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: isDarkMode
+                    ? [
+                        const Color(0xFF660066),
+                        const Color(0xFF4d004d),
+                        const Color(0xFF330033),
+                        const Color(0xFF1a001a),
+                        const Color(0xFF993366),
+                        const Color(0xFF000000),
+                      ]
+                    : [
+                        const Color(0xFFf9e6ff),
+                        const Color(0xFFf9e6ff),
+                        const Color(0xFFf2ccff),
+                        const Color(0xFFecb3ff),
+                        const Color(0xFFe699ff),
+                        const Color(0xFFdf80ff),
+                      ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildTopBar(),
+                    const SizedBox(height: 20),
+                    _buildFeaturedMovie(context),
+                    const SizedBox(height: 25),
+                    _buildGenres(),
+                    const SizedBox(height: 25),
+                    _buildNewReleases(),
+                    _buildMoreMovies(),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-       bottomNavigationBar: Padding(
-  padding: const EdgeInsets.only(bottom: 12.0),
-  child: ClipRRect(
-    borderRadius: BorderRadius.circular(30),
-    child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20), // Stronger blur
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 24),
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: Colors.transparent, // Fully transparent background
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem('assets/icons/home.svg', 'Home', 0),
-            _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
-            _buildNavItem('assets/icons/user.svg', 'Profile', 2),
-            _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
-          ],
-        ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2), // Stronger blur
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildNavItem('assets/icons/home.svg', 'Home', 0),
+                        _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
+                        _buildNavItem('assets/icons/user.svg', 'Profile', 2),
+                        _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     ),
-  ),
-),
-
-      ),
-    );
-  }
-
+  );
+}
   Widget _buildNavItem(String iconPath, String label, int index) {
     final isSelected = _selectedNavIndex == index;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
