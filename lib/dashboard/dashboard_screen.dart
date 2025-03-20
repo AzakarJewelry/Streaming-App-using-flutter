@@ -1,22 +1,23 @@
 import 'dart:io';
 import 'dart:ui'; // Needed for ImageFilter.blur
 import 'package:azakarstream/dashboard/SearchScreen.dart';
+import '../../favorites/favorites_screen.dart'; // Import the FavoriteScreen
 import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';
 import 'movie_details_screen.dart';
 import 'view_all_movies_screen.dart'; // Import the new screen
 import 'genre_screen.dart'; // Import the GenreScreen
-import '../../favorites/favorites_screen.dart'; // Import the FavoriteScreen
 import '../../profile/profile_screen.dart'; // Import the ProfileScreen
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'play_drama_screen.dart'; // Import the PlayDramaScreen
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_protector/screen_protector.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
+
   runApp(const DashboardScreen());
 }
 
@@ -31,8 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
 
-  AdRequest? adRequest;
-  BannerAd? bannerAd;
+
 
   // Variable to track the last back button press time
   DateTime? lastPressed;
@@ -49,15 +49,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return null;
     });
 
-    bannerAd = BannerAd(
-      size: AdSize.fluid,
-      adUnitId: "ca-app-pub-3940256099942544/6300978111", // Test AdMob ID
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) => setState(() {}),
-        onAdFailedToLoad: (ad, error) => ad.dispose(),
-      ),
-    )..load();
   }
 
   Future<void> avoidScreenShot() async {
@@ -74,7 +65,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   void dispose() {
-    bannerAd?.dispose();
+
     super.dispose();
   }
 final List<Map<String, dynamic>> featuredMovies = [
@@ -796,204 +787,164 @@ Widget _buildMoreMovies() {
     ],
   );
 }
+ @override
+  Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-
-
-   Widget _buildFloatingBottomNavigationBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Blur effect for glassmorphism
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2), // Semi-transparent background
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(color: Colors.white.withOpacity(0.2)), // Subtle border
+    return WillPopScope(
+      onWillPop: () async {
+        DateTime now = DateTime.now();
+        if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
+          lastPressed = now;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Press back again to exit'),
+              duration: Duration(seconds: 2),
             ),
-            child: BottomNavigationBar(
-              backgroundColor: Colors.transparent, // Let container's color show
-              selectedItemColor: Colors.white,
-              unselectedItemColor: Colors.white70,
-              currentIndex: _selectedNavIndex,
-              onTap: (index) {
-                setState(() {
-                  _selectedNavIndex = index;
-                });
-                if (index == 1) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-                  );
-                } else if (index == 2) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                  );
-                } else if (index == 3) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
-                  );
-                }
-              },
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'Favorites',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.play_circle_fill),
-                  label: 'Reels',
-                ),
-              ],
-              type: BottomNavigationBarType.fixed,
+          );
+          return false;
+        }
+        if (Platform.isAndroid) {
+          SystemNavigator.pop();
+        } else if (Platform.isIOS) {
+          exit(0);
+        }
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: isDarkMode
+                  ? [
+                      const Color(0xFF660066),
+                      const Color(0xFF4d004d),
+                      const Color(0xFF330033),
+                      const Color(0xFF1a001a),
+                      const Color(0xFF993366),
+                      const Color(0xFF000000),
+                    ]
+                  : [
+                      const Color(0xFFf9e6ff),
+                      const Color(0xFFf9e6ff),
+                      const Color(0xFFf2ccff),
+                      const Color(0xFFecb3ff),
+                      const Color(0xFFe699ff),
+                      const Color(0xFFdf80ff),
+                    ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildTopBar(),
+                  const SizedBox(height: 20),
+                  _buildFeaturedMovie(context),
+                  const SizedBox(height: 25),
+                  _buildGenres(),
+                  const SizedBox(height: 25),
+                  _buildNewReleases(),
+                  _buildMoreMovies(),
+                ],
+              ),
             ),
           ),
         ),
+       bottomNavigationBar: Padding(
+  padding: const EdgeInsets.only(bottom: 12.0),
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(30),
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20), // Stronger blur
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.transparent, // Fully transparent background
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem('assets/icons/home.svg', 'Home', 0),
+            _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
+            _buildNavItem('assets/icons/user.svg', 'Profile', 2),
+            _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
+          ],
+        ),
+      ),
+    ),
+  ),
+),
+
       ),
     );
   }
-@override
-Widget build(BuildContext context) {
-  final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-  // BACK BUTTON
-  return WillPopScope(
-    onWillPop: () async {
-      DateTime now = DateTime.now();
-      if (lastPressed == null || now.difference(lastPressed!) > const Duration(seconds: 2)) {
-        lastPressed = now;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Press back again to exit'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-        return false;
-      }
-      if (Platform.isAndroid) {
-        SystemNavigator.pop();
-      } else if (Platform.isIOS) {
-        exit(0);
-      }
-      return true;
-    },
-    child: Scaffold(
-  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-  body: Container(
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-        colors: isDarkMode
-                ? [
-                    const Color(0xFF660066),
-                    const Color(0xFF4d004d),
-                    const Color(0xFF330033),
-                    const Color(0xFF1a001a),
-                    const Color(0xFF993366),
-                    const Color(0xFF000000),
-                  ]
-                : [
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf9e6ff),
-                    const Color(0xFFf2ccff),
-                    const Color(0xFFecb3ff),
-                    const Color(0xFFe699ff),
-                    const Color(0xFFdf80ff),
-                  ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
 
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildTopBar(),
-                const SizedBox(height: 20),
-                _buildFeaturedMovie(context),
-                const SizedBox(height: 25),
-                _buildGenres(),
-                const SizedBox(height: 25),
-                _buildNewReleases(),
-                _buildMoreMovies(),
-              ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: Column(
+  Widget _buildNavItem(String iconPath, String label, int index) {
+    final isSelected = _selectedNavIndex == index;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return GestureDetector(
+      onTap: () => _onItemTapped(index),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (bannerAd != null)
-            SizedBox(
-              height: 50,
-              child: AdWidget(ad: bannerAd!),
+          SvgPicture.asset(
+            iconPath,
+            height: 24,
+            width: 24,
+            colorFilter: ColorFilter.mode(
+              isSelected
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  : (isDarkMode ? Colors.grey[400]! : Colors.black),
+              BlendMode.srcIn,
             ),
-          BottomNavigationBar(
-            backgroundColor: const Color(0xFF06041F),
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white70,
-            currentIndex: _selectedNavIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedNavIndex = index;
-              });
-
-              if (index == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-                );
-              } else if (index == 2) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
-                );
-              } else if (index == 3) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
-                );
-              }
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Favorites',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.play_circle_fill),
-                label: 'Reels',
-              ),
-            ],
-            type: BottomNavigationBarType.fixed,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: isSelected
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  : (isDarkMode ? Colors.grey[400] : Colors.black),
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
           ),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedNavIndex = index;
+    });
+
+    if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+      );
+    } else if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
+    } else if (index == 3) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+      );
+    }
+  }
 }
 
 class _GenreChip extends StatelessWidget {
