@@ -10,6 +10,8 @@ import 'dart:io';
 import '../dashboard/dashboard_screen.dart';
 import '../favorites/favorites_screen.dart';
 import '../main.dart';
+import 'dart:ui';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -186,198 +188,290 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-@override
-Widget build(BuildContext context) {
-  // Determine whether the global theme is dark.
-  final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+  @override
+  Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-  return Scaffold(
-    body: Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: isDarkMode
-                ? [
-                const Color(0xFF06041F), // Dark Blue
-                const Color(0xFF06041F),
-              ]
-            : [
-                const Color(0xFF06041F), // Same for light mode
-                const Color(0xFF06041F),
-              ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-    ),
-      child: Column(
+    return Scaffold(
+      body: Stack(
         children: [
-          // Profile Header
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 40),
-            color: Colors.transparent, // Ensuring the background gradient is visible
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: isDarkMode
+                    ? [
+                        const Color(0xFF06041F), // Dark Blue
+                        const Color(0xFF06041F),
+                      ]
+                    : [
+                        const Color(0xFF06041F), // Same for light mode
+                        const Color(0xFF06041F),
+                      ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
             child: Column(
               children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              CircleAvatar(
-                radius: 60,
-                backgroundImage: profilePhotoUrl != null
-              ? FileImage(File(profilePhotoUrl!))
-              : null,
-                child: profilePhotoUrl == null
-              ? const Icon(
-                  Icons.person,
-                  size: 60,
-                  color: Colors.white,
-                )
-              : null,
-              ),
-              Positioned(
-                bottom: -15,
-                right: -15,
-                child: IconButton(
-            onPressed: _editProfilePhoto,
-            icon: const Icon(
-              Icons.camera_alt,
-              color: Colors.white,
-            ),
+                // Profile Header
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  color: Colors.transparent, // Ensuring the background gradient is visible
+                  child: Column(
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundImage: profilePhotoUrl != null
+                                ? FileImage(File(profilePhotoUrl!))
+                                : null,
+                            child: profilePhotoUrl == null
+                                ? const Icon(
+                                    Icons.person,
+                                    size: 60,
+                                    color: Colors.white,
+                                  )
+                                : null,
+                          ),
+                          Positioned(
+                            bottom: -15,
+                            right: -15,
+                            child: IconButton(
+                              onPressed: _editProfilePhoto,
+                              icon: const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        userName,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        userEmail,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white70,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        userBio,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.white60,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            userName,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            userEmail,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.white70,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            userBio,
-            style: const TextStyle(
-              fontSize: 14,
-              fontStyle: FontStyle.italic,
-              color: Colors.white60,
-            ),
-          ),
+                // Menu Options
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: isDarkMode
+                            ? [
+                                const Color(0xFF06041F), // Dark Blue
+                                const Color(0xFF06041F),
+                              ]
+                            : [
+                                const Color(0xFF06041F), // Same for light mode
+                                const Color(0xFF06041F),
+                              ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: ListView(
+                      padding: const EdgeInsets.all(20),
+                      children: [
+                        _buildMenuItem(
+                          icon: Icons.edit,
+                          title: 'Edit Profile',
+                          onTap: _showEditProfileDialog,
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.settings,
+                          title: 'Settings',
+                          onTap: () {
+                            final myAppState = MyApp.of(context);
+                            if (myAppState != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SettingsScreen(
+                                    isDarkMode: myAppState.isDarkMode,
+                                    onToggleDarkMode: myAppState.toggleDarkMode,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.info_outline,
+                          title: 'Terms & Conditions',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const TermsAndConditionsScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.info_outline,
+                          title: 'Visit our Social Media Platforms',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SocialMediaLinks(),
+                              ),
+                            );
+                          },
+                        ),
+                        _buildMenuItem(
+                          icon: Icons.logout,
+                          title: 'Logout',
+                          onTap: _logout,
+                        ),
+                      ].map((widget) {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: isDarkMode ? const Color(0xFF4d004d) : const Color(0xFFf9e6ff),
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
+                          ),
+                          child: widget,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          // Menu Options
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: isDarkMode
-                 ? [
-                const Color(0xFF06041F), // Dark Blue
-                const Color(0xFF06041F),
-              ]
-            : [
-                const Color(0xFF06041F), // Same for light mode
-                const Color(0xFF06041F),
-              ],
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-              ),
-              child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            _buildMenuItem(
-              icon: Icons.edit,
-              title: 'Edit Profile',
-              onTap: _showEditProfileDialog,
-            ),
-            _buildMenuItem(
-              icon: Icons.settings,
-              title: 'Settings',
-              onTap: () {
-                final myAppState = MyApp.of(context);
-                if (myAppState != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SettingsScreen(
-                  isDarkMode: myAppState.isDarkMode,
-                  onToggleDarkMode: myAppState.toggleDarkMode,
+          // Bottom Navigation Bar
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2), // Adjust blur strength
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24), // Adds space on left and right
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent, // Semi-transparent white
+                      
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildNavItem('assets/icons/home.svg', 'Home', 0),
+                        _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
+                        _buildNavItem('assets/icons/user.svg', 'Profile', 2),
+                        _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            );
-                }
-              },
-            ),
-            _buildMenuItem(
-              icon: Icons.info_outline,
-              title: 'Terms & Conditions',
-              onTap: () {
-                Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  const TermsAndConditionsScreen(),
-            ),
-                );
-              },
-            ),
-            _buildMenuItem(
-              icon: Icons.info_outline,
-              title: 'Visit our Social Media Platforms',
-              onTap: () {
-                Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SocialMediaLinks(),
-            ),
-                );
-              },
-            ),
-            _buildMenuItem(
-              icon: Icons.logout,
-              title: 'Logout',
-              onTap: _logout,
-            ),
-          ].map((widget) {
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                color: isDarkMode ? const Color(0xFF4d004d) : const Color(0xFFf9e6ff),
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
-            ),
-                ],
-              ),
-              child: widget,
-            );
-          }).toList(),
               ),
             ),
           ),
         ],
       ),
-    ),
-    bottomNavigationBar: _buildBottomNavigationBar(),
-  );
-}
+    );
+  }
+
+  /// Build bottom nav item
+  Widget _buildNavItem(String iconPath, String label, int index) {
+    final isSelected = _selectedNavIndex == index;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedNavIndex = index;
+        });
+
+        if (index == 0) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          );
+        } else if (index == 1) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+          );
+        }  else if (index == 3) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
+          );
+        }
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            iconPath,
+            height: 24,
+            width: 24,
+            colorFilter: ColorFilter.mode(
+              isSelected
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  : (isDarkMode ? Colors.grey[400]! : Colors.black),
+              BlendMode.srcIn,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: isSelected
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  : (isDarkMode ? Colors.grey[400] : Colors.black),
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildMenuItem({
     required IconData icon,
@@ -396,62 +490,6 @@ Widget build(BuildContext context) {
         ),
       ),
       onTap: onTap,
-    );
-  }
-
-  Widget _buildBottomNavigationBar() {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return BottomNavigationBar(
-      backgroundColor:  const Color(0xFF06041f),
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white.withOpacity(0.5),
-      currentIndex: _selectedNavIndex,
-      onTap: (index) {
-        setState(() {
-          _selectedNavIndex = index;
-        });
-
-        if (index == 0) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const DashboardScreen()),
-          );
-        } else if (index == 1) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-          );
-        } else if (index == 2) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => ProfileScreen()),
-          );
-        } else if (index == 3) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
-          );
-        }
-      },
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorites',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.play_circle_fill),
-          label: 'Segments',
-        ),
-      ],
-      type: BottomNavigationBarType.fixed,
     );
   }
 }

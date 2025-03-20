@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d0066)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6152ff)),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -110,12 +110,12 @@ class _SplashScreenState extends State<SplashScreen>
         decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          Color(0xFFf9e6ff),
-          Color(0xFFf9e6ff),
-          Color(0xFFf2ccff),
-          Color(0xFFecb3ff),
-          Color(0xFFe699ff),
-          Color(0xFFdf80ff),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -128,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
@@ -140,7 +140,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return const Icon(
                     Icons.image_not_supported,
                     size: 100,
-                    color: Color(0xFF4d0066),
+                    color: Color(0xFF6152ff),
                   );
                 },
               ),
@@ -149,12 +149,12 @@ class _SplashScreenState extends State<SplashScreen>
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: const Color(0xFF4d0066),
+                  color: const Color(0xFF6152ff),
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4d0066)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF6152ff)),
               ),
             ],
           ),
@@ -177,12 +177,13 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFf9e6ff),
-            Color(0xFFf9e6ff),
-            Color(0xFFf2ccff),
-            Color(0xFFecb3ff),
-            Color(0xFFe699ff),
-            Color(0xFFdf80ff),
+            colors:[
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
+                    const Color(0xFF06041f),
             ],
             
             begin: Alignment.topLeft,
@@ -225,7 +226,7 @@ class MyHomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
           width: 150,
           height: 150,
           fit: BoxFit.contain,
@@ -235,7 +236,7 @@ class MyHomePage extends StatelessWidget {
           'DramaMania',
           style: GoogleFonts.publicSans(
             fontSize: 45,
-            color: const Color(0xFF4d0066),
+            color: const Color(0xFF6152ff),
           ),
         ),
         const SizedBox(height: 8),
@@ -243,7 +244,7 @@ class MyHomePage extends StatelessWidget {
           'Streaming platform and downloads',
           style: TextStyle(
             fontSize: 14,
-            color: Color(0xFF4d0066),
+            color: Color(0xFF6152ff),
           ),
         ),
       ],
@@ -251,15 +252,14 @@ class MyHomePage extends StatelessWidget {
   }
 
   Widget _buttons(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _buildButton(context, 'Login', const LoginScreen()),
-        const SizedBox(height: 20),
-        _buildButton(context, 'Sign Up', const SignUpScreen()),
-      ],
-    );
-  }
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      _buildButton(context, 'Get Started', const LoginScreen()), // Navigates to LoginScreen
+    ],
+  );
+}
+
 
   Widget _buildButton(BuildContext context, String text, Widget screen) {
     return SizedBox(
@@ -273,7 +273,7 @@ class MyHomePage extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF4d0066),
+          backgroundColor: const Color(0xFF6152ff),
           foregroundColor: const Color(0xFFF5EFE6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),

@@ -1,10 +1,10 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart'; // Added import for Google Fonts
 import 'forgotpassword.dart';
 import 'dashboard/dashboard_screen.dart';
+import 'signup.dart'; // Import SignUpScreen
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF4d0066),
+        backgroundColor: const Color(0xFF6152ff),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
@@ -112,14 +112,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFf9e6ff),
-            Color(0xFFf9e6ff),
-            Color(0xFFf2ccff),
-            Color(0xFFecb3ff),
-            Color(0xFFe699ff),
-            Color(0xFFdf80ff),
+            colors: [
+              Color(0xFF06041f),
+              Color(0xFF06041f),
+              Color(0xFF06041f),
+              Color(0xFF06041f),
+              Color(0xFF06041f),
+              Color(0xFF06041f),
             ],
-            
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 20),
                 Image.network(
-                  'https://res.cloudinary.com/dkhe2vgto/image/upload/v1739954118/dramamania_wulnyr.png',
+                  'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
                   width: 100,
                   height: 100,
                   fit: BoxFit.contain,
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'DramaMania',
                   style: GoogleFonts.publicSans(
                     fontSize: 32,
-                    color: const Color(0xFF4d0066),
+                    color: const Color(0xFF6152ff),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -152,14 +152,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
+                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
                     ),
-                    labelStyle: const TextStyle(color: Color(0xFF4d0066)),
+                    labelStyle: const TextStyle(color: Color(0xFF6152ff)),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
+                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
                     ),
                   ),
-                  style: const TextStyle(color: Color(0xFF4d0066)),
+                  style: const TextStyle(color: Color(0xFFFFFFFF)),
                 ),
                 const SizedBox(height: 20),
                 TextField(
@@ -167,13 +167,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
+                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
                     ),
-                    labelStyle: const TextStyle(color: Color(0xFF4d0066)),
+                    labelStyle: const TextStyle(color: Color(0xFF6152ff)),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                        color: const Color(0xFF4d0066),
+                        color: const Color(0xFF6152ff),
                       ),
                       onPressed: () {
                         setState(() {
@@ -182,11 +182,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: const Color(0xFF4d0066)),
+                      borderSide: BorderSide(color: const Color(0xFF6152ff)),
                     ),
                   ),
                   obscureText: !_isPasswordVisible,
-                  style: const TextStyle(color: Color(0xFF4d0066)),
+                  style: const TextStyle(color: Color(0xFFFFFFFF)),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -201,11 +201,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               _rememberMe = value ?? false;
                             });
                           },
-                          activeColor: const Color(0xFF4d0066),
+                          activeColor: const Color(0xFF6152ff),
                         ),
                         const Text(
                           'Remember Me',
-                          style: TextStyle(color: Color(0xFF4d0066)),
+                          style: TextStyle(color: Color(0xFFFFFFFF)),
                         ),
                       ],
                     ),
@@ -220,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: const Text(
                         'Forgot Password?',
-                        style: TextStyle(color: Color(0xFF4d0066)),
+                        style: TextStyle(color: Color(0xFFFFFFFF)),
                       ),
                     ),
                   ],
@@ -229,13 +229,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: _isLoading ? null : _login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4d0066),
+                    backgroundColor: const Color(0xFF6152ff),
                     foregroundColor: const Color(0xFFF5EFE6),
                     minimumSize: const Size(double.infinity, 50),
                   ),
                   child: _isLoading
                       ? const CircularProgressIndicator(color: Color(0xFFF5EFE6))
                       : const Text('Log In'),
+                ),
+                const SizedBox(height: 20),
+                // "Don't have an account?" text
+                const Text(
+                  "Don't have an account?",
+                  style: TextStyle(color: Colors.white),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Sign Up",
+                    style: TextStyle(
+                      color: Color(0xFF6152ff), // Updated to #6152ff
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
               ],
