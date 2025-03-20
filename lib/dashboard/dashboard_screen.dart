@@ -368,7 +368,7 @@ Widget _buildTopBar() {
           Text(
             'DramaMania',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF4d0066),
+              color: isDark ? Colors.white : const Color(0xFF6152FF),
               fontSize: 20,
             ),
           ),
@@ -820,20 +820,22 @@ Widget build(BuildContext context) {
               gradient: LinearGradient(
                 colors: isDarkMode
                     ? [
-                        const Color(0xFF660066),
-                        const Color(0xFF4d004d),
-                        const Color(0xFF330033),
-                        const Color(0xFF1a001a),
-                        const Color(0xFF993366),
-                        const Color(0xFF000000),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
                       ]
                     : [
-                        const Color(0xFFf9e6ff),
-                        const Color(0xFFf9e6ff),
-                        const Color(0xFFf2ccff),
-                        const Color(0xFFecb3ff),
-                        const Color(0xFFe699ff),
-                        const Color(0xFFdf80ff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                    
                       ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,

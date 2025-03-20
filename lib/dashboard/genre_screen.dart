@@ -28,13 +28,13 @@ class GenreScreen extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
-               ? [
+              ? [
                 const Color(0xFF06041F), // Dark Blue
                 const Color(0xFF06041F),
               ]
             : [
-                const Color(0xFF06041F), // Same for light mode
-                const Color(0xFF06041F),
+                const Color(0xFFFFFFFF), // Same for light mode
+                const Color(0xFFFFFFFF),
               ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,

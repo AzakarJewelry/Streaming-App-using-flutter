@@ -99,10 +99,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
-    const Color textColor = Colors.white;
+    const Color textColor =  Color(0xFFFFFFFF);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:Color(0xFF06041F),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

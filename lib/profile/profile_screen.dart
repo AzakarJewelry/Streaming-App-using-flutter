@@ -284,13 +284,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       gradient: LinearGradient(
                         colors: isDarkMode
                             ? [
-                                const Color(0xFF06041F), // Dark Blue
-                                const Color(0xFF06041F),
-                              ]
-                            : [
-                                const Color(0xFF06041F), // Same for light mode
-                                const Color(0xFF06041F),
-                              ],
+                    Color(0xFF6152FF),
+                    Color(0xFF6152FF),
+                    Color(0xFF6152FF),
+                    Color(0xFF6152FF),
+                    Color(0xFF6152FF),
+                    Color(0xFF6152FF),
+                      ]
+                    : [
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                        Color(0xFFffffff),
+                    
+                      ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -359,7 +369,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return Container(
                           margin: const EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
-                            color: isDarkMode ? const Color(0xFF4d004d) : const Color(0xFFf9e6ff),
+                            color: isDarkMode ? const Color(0xFF06041F) : const Color(0xFF6152FF),
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
