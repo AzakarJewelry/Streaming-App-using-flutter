@@ -21,6 +21,7 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
   int _currentPartIndex = 0;
   bool _isPlaying = false;
   bool _hasVideos = true;
+  bool _isButtonVisible = true; // Button visibility
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
         setState(() {});
         _controller.play();
         _isPlaying = true;
+        _hideControlsAfterDelay();
       });
   }
 
@@ -65,8 +67,20 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
           _controller.play();
           _isPlaying = true;
         }
+        _isButtonVisible = true; // Show button when tapped
+        _hideControlsAfterDelay(); // Start hiding timer
       });
     }
+  }
+
+  void _hideControlsAfterDelay() {
+    Future.delayed(const Duration(seconds: 3), () {
+      if (_controller.value.isPlaying) {
+        setState(() {
+          _isButtonVisible = false;
+        });
+      }
+    });
   }
 
   void _playEpisode(int episodeIndex) {
@@ -78,106 +92,122 @@ class _PlayDramaScreenState extends State<PlayDramaScreen> {
       });
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      backgroundColor: Colors.black,
-      body: _hasVideos
-          ? Column(
-              children: [
-                // Video Player Section
-                Stack(
-                  children: [
-                    _controller.value.isInitialized
-                        ? AspectRatio(
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: VideoPlayer(_controller),
-                          )
-                        : Container(
-                            height: 200,
-                            color: Colors.black,
-                            child: const Center(child: CircularProgressIndicator()),
-                          ),
-                    Positioned(
-                      bottom: 10,
-                      right: 10,
-                      child: IconButton(
-                        icon: Icon(
-                          _isPlaying ? Icons.pause : Icons.play_arrow,
-                          color: Colors.white,
-                          size: 50,
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.black,
+    body: _hasVideos
+        ? Stack(
+            children: [
+              // Video Player Section with Gesture Detection
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _isButtonVisible = !_isButtonVisible;
+                  });
+                  if (_isButtonVisible) _hideControlsAfterDelay();
+                },
+                child: Center(
+                  child: _controller.value.isInitialized
+                      ? AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller),
+                        )
+                      : Container(
+                          color: Colors.black,
+                          child: const Center(child: CircularProgressIndicator()),
                         ),
-                        onPressed: _togglePlayPause,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-
-                // Title Section
-                Text(
-                  widget.title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-
-                // Episode Buttons Section
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(widget.videoList.length, (index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: _currentPartIndex == index
-                                ? Colors.purple
-                                : Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          onPressed: () => _playEpisode(index),
-                          child: Text(
-                            '${index + 1}',
-                            style: TextStyle(
-                              color: _currentPartIndex == index
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-              ],
-            )
-          : const Center(
-              child: Text(
-                "No videos available",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
                 ),
               ),
+
+              // Back Button & Title (Upper Left, Hidden Until Tap)
+              if (_isButtonVisible)
+                Positioned(
+                  top: 40, // Adjusted for safe area
+                  left: 10,
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        widget.title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+              // Play/Pause Button (Centered)
+              if (_isButtonVisible)
+                Center(
+                  child: IconButton(
+                    icon: Icon(
+                      _isPlaying ? Icons.pause : Icons.play_arrow,
+                      color: Colors.white.withOpacity(0.7),
+                      size: 70,
+                    ),
+                    onPressed: _togglePlayPause,
+                  ),
+                ),
+
+              // Episode Buttons (Hidden Until Tapped)
+              if (_isButtonVisible)
+                Positioned(
+                  bottom: 20,
+                  left: 0,
+                  right: 0,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(widget.videoList.length, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: _currentPartIndex == index
+                                  ? Colors.purple
+                                  : Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: () => _playEpisode(index),
+                            child: Text(
+                              '${index + 1}',
+                              style: TextStyle(
+                                color: _currentPartIndex == index
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ),
+            ],
+          )
+        : const Center(
+            child: Text(
+              "No videos available",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+              ),
             ),
-    );
-  }
+          ),
+  );
+}
+
+
 }

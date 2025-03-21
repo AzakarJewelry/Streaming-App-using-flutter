@@ -66,17 +66,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 final List<Map<String, dynamic>> featuredMovies = [
       {
-        'title': 'Back In Time',
+        'title': 'Spoiled Brat',
         'type': 'featured',
-        'imageUrl': 'https://res.cloudinary.com/dkhe2vgto/image/upload/v1741224873/48ea378a44de34027f8db1c4062a0f66_m1yzay.jpg',
+        'imageUrl': 'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742455958/poster_tatl47.jpg',
         'genre': 'Sci-Fi, Drama',
         'videoUrl': 'https://example.com/dandadan.mp4',
         'description': 'Dandadan is an action-packed sci-fi adventure about a mysterious power.',
         'episodes': [
-          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama01_gmmcxw.mp4',
-          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309652/CDrama02_ictkkw.mp4',
-          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309655/CDrama03_vvpqa7.mp4',
-          'https://res.cloudinary.com/dcwjifq5f/video/upload/v1741309650/CDrama04_mlwg86.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456059/CD01_vckl0v.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456053/CD02_ddcc3y.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456072/CD03_hde0im.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456073/CD04_pebplh.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456057/CD05_q5mfuj.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456054/CD06_qushaz.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456068/CD07_twfazj.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456050/CD08_y0ucj6.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456066/CD09_lslfgw.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456063/CD10_n4tj2o.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456050/CD11_rirqgw.mp4',
+          'https://res.cloudinary.com/daj3wmm8g/video/upload/v1742456045/CD12_gzfcrr.mp4',
+
+
         ],
       },
       {
