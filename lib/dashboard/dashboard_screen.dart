@@ -14,6 +14,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:screen_protector/screen_protector.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:async';
+
 
 
 
@@ -28,7 +30,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String? _selectedGenre; // Track the selected genre
   int _selectedNavIndex = 0; // Track the selected navigation index
 
-
+  Timer? _timer;
+  StreamSubscription? _streamSubscription;
+  String _data = "Loading...";
 
   // Variable to track the last back button press time
   DateTime? lastPressed;
@@ -37,6 +41,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     avoidScreenShot(); // Call the function after initState
+    fetchData();
+    startTimer();
 
     SystemChannels.lifecycle.setMessageHandler((msg) async {
       if (msg == AppLifecycleState.paused.toString()) {
@@ -58,10 +64,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
       (Route<dynamic> route) => false,
     );
   }
-
+  
+  // Simulated Async Data Fetching
+  Future<void> fetchData() async {
+    var data = await Future.delayed(Duration(seconds: 2), () => "Dashboard Data Loaded");
+    
+    if (!mounted) return; // Prevents calling setState after dispose
+    setState(() {
+      _data = data;
+    });
+  }
+ // Example of Using a Timer
+  void startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      setState(() {
+        _data = "Updated at ${DateTime.now()}";
+      });
+    });
+  }
   @override
   void dispose() {
-
+ _timer?.cancel(); // Cancel timer to prevent errors
+    _streamSubscription?.cancel(); // Cancel any active stream
     super.dispose();
   }
 final List<Map<String, dynamic>> featuredMovies = [
@@ -238,7 +266,6 @@ final List<Map<String, dynamic>> mostPopular = [
     'imageUrl':
         'https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg',
     'genre': 'Action, Mystery',
-    'type': 'movie',
     'duration': '2h 56m',
     'videoUrl': 'https://example.com/the_batman.mp4',
     'description': 'A dark, brooding detective battles corruption in Gotham City as he dons the cape to fight for justice.'
@@ -867,8 +894,8 @@ Widget build(BuildContext context) {
             ),
           ),
           Positioned(
-            left: 0,
-            right: 0,
+            left: 20,
+            right: 20,
             bottom: 0,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
@@ -878,7 +905,7 @@ Widget build(BuildContext context) {
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Stronger blur
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
-                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5 ),
                     decoration: BoxDecoration(
                       color: Colors.transparent,
                     
