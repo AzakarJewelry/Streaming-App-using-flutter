@@ -874,22 +874,27 @@ Widget build(BuildContext context) {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildTopBar(),
-                    const SizedBox(height: 20),
-                    _buildFeaturedMovie(context),
-                    const SizedBox(height: 25),
-                    _buildGenres(),
-                    const SizedBox(height: 25),
-                    _buildNewReleases(),
-                    _buildMoreMovies(),
-                  ],
-                ),
+          child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(), // Add bounce effect
+              padding: const EdgeInsets.only(
+                bottom: 80, // Add padding to prevent content from being hidden behind nav bar
+                left: 16.0,
+                right: 16.0,
+                top: 16.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildTopBar(),
+                  const SizedBox(height: 20),
+                  _buildFeaturedMovie(context),
+                  const SizedBox(height: 25),
+                  _buildGenres(),
+                  const SizedBox(height: 25),
+                  _buildNewReleases(),
+                  _buildMoreMovies(),
+                  const SizedBox(height: 60), // Extra space at bottom for better scrolling
+                ],
               ),
             ),
           ),
@@ -900,7 +905,7 @@ Widget build(BuildContext context) {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Stronger blur
                   child: Container(
@@ -1068,7 +1073,7 @@ class _MovieCard extends StatelessWidget {
               title: title,
               genre: genre,
               duration: duration,
-              rating: "", // Optionally update rating if needed
+            
               description: description, // Use the provided description
               imageUrl: imageUrl,
               videoUrl: videoUrl,

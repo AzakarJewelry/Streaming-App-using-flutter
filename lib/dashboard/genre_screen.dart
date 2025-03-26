@@ -81,7 +81,7 @@ class GenreScreen extends StatelessWidget {
                                       title: movie['title']!,
                                       genre: movie['genre']!,
                                       duration: movie['duration']!,
-                                      rating: movie['rating']!,
+                                    
                                       description:
                                           'This is a detailed description of the movie ${movie['title']!}.',
                                       imageUrl: movie['imageUrl']!,

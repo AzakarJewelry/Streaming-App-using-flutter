@@ -168,7 +168,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 title: movie['title']!,
                                 genre: movie['genre']!,
                                 duration: movie['duration']!,
-                                rating: movie['rating']!,
+                                
                                 description: movie['description']!,
                                 imageUrl: movie['imageUrl']!,
                                 videoUrl: movie['videoUrl']!,

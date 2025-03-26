@@ -69,39 +69,39 @@ class _SearchScreenState extends State<SearchScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-                controller: _searchController,
-                style: const TextStyle(color: Colors.white), // Typed text is white
-                decoration: InputDecoration(
-                  hintText: 'Search for movies or dramas...',
-                  hintStyle: const TextStyle(color: Colors.white), // Hint text is white
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Colors.white), // White border
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Colors.white), // White border when focused
-                  ),
-                  suffixIcon: _searchController.text.isNotEmpty
-                      ? IconButton(
-                          icon: const Icon(Icons.clear, color: Colors.white), // White icon
-                          onPressed: () {
-                            _searchController.clear();
-                            setState(() {
-                              _searchResults = [];
-                            });
-                          },
-                        )
-                      : IconButton(
-                          icon: const Icon(Icons.search, color: Colors.white), // White icon
-                          onPressed: () {
-                            _searchMovies(_searchController.text);
-                          },
-                        ),
+              controller: _searchController,
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black), // Typed text color based on theme
+              decoration: InputDecoration(
+                hintText: 'Search for movies or dramas...',
+                hintStyle: TextStyle(color: isDarkMode ? Colors.white : Colors.black), // Hint text color based on theme
+                enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(color: isDarkMode ? Colors.white : Colors.black), // Border color based on theme
                 ),
-                onChanged: (value) {
-                  _searchMovies(value);
-                },
+                focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(color: isDarkMode ? Colors.white : Colors.black), // Border color when focused based on theme
+                ),
+                suffixIcon: _searchController.text.isNotEmpty
+                  ? IconButton(
+                    icon: Icon(Icons.clear, color: isDarkMode ? Colors.white : Colors.black), // Icon color based on theme
+                    onPressed: () {
+                    _searchController.clear();
+                    setState(() {
+                      _searchResults = [];
+                    });
+                    },
+                  )
+                  : IconButton(
+                    icon: Icon(Icons.search, color: isDarkMode ? Colors.white : Colors.black), // Icon color based on theme
+                    onPressed: () {
+                    _searchMovies(_searchController.text);
+                    },
+                  ),
+              ),
+              onChanged: (value) {
+                _searchMovies(value);
+              },
               ),
             ),
             Expanded(
@@ -194,7 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       imageUrl: movie['imageUrl']!,
                                       videoUrl: movie['videoUrl']!,
                                       duration: movie['duration']!,
-                                      rating: movie['rating']!,
+                                      
                                     ),
                                   ),
                                 );

@@ -1,29 +1,25 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'play_movie_screen.dart';
-import '../favorites/favorite_manager.dart'; // Ensure this is implemented and properly connected to Firestore
+import '../favorites/favorite_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-
 
 class MovieDetailsScreen extends StatefulWidget {
   final String title;
+  final String imageUrl;
   final String genre;
   final String duration;
-  final String rating;
-  final String description;
-  final String imageUrl;
   final String videoUrl;
+  final String description;
 
   const MovieDetailsScreen({
     super.key,
     required this.title,
+    required this.imageUrl,
     required this.genre,
     required this.duration,
-    required this.rating,
-    required this.description,
-    required this.imageUrl,
     required this.videoUrl,
+    required this.description,
   });
 
   @override
@@ -32,53 +28,97 @@ class MovieDetailsScreen extends StatefulWidget {
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   InterstitialAd? _interstitialAd;
+  bool _isAdLoading = false;
+  bool _adShown = false;
+  bool _adLoadFailed = false;
+  bool _isDisposed = false;
 
   @override
   void initState() {
     super.initState();
-    _loadInterstitialAd(); // Load ad when the screen is initialized
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_isDisposed) {
+        _loadInterstitialAd();
+      }
+    });
   }
 
-  // Load the Interstitial Ad
-  void _loadInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Replace with your ad unit ID
-      request: AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          setState(() {
-            _interstitialAd = ad;
-          });
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
+ Future<void> _loadInterstitialAd() async {
+    if (_isAdLoading || _interstitialAd != null || _isDisposed) return;
+
+    _isAdLoading = true;
+
+    try {
+      await InterstitialAd.load(
+        adUnitId: 'ca-app-pub-3940256099942544/1033173712',
+        request: AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) {
+            if (_isDisposed || !mounted) {
               ad.dispose();
-              _interstitialAd = null;
-              _navigateToPlayMovie(); // Navigate after ad is dismissed
-            },
-            onAdFailedToShowFullScreenContent: (ad, error) {
-              ad.dispose();
-              _interstitialAd = null;
-              _navigateToPlayMovie(); // Navigate even if ad fails to show
-            },
-          );
-        },
-        onAdFailedToLoad: (error) {
-          print('Ad failed to load: $error');
-          _navigateToPlayMovie(); // Navigate directly if ad fails to load
-        },
-      ),
-    );
+              return;
+            }
+
+            setState(() {
+              _interstitialAd = ad;
+              _isAdLoading = false;
+            });
+
+            ad.fullScreenContentCallback = FullScreenContentCallback(
+              onAdDismissedFullScreenContent: (ad) {
+                _safeDisposeAd();
+                _navigateToPlayMovie();
+              },
+              onAdFailedToShowFullScreenContent: (ad, error) {
+                _safeDisposeAd();
+                _navigateToPlayMovie();
+              },
+            );
+          },
+          onAdFailedToLoad: (error) {
+            if (_isDisposed || !mounted) return;
+            setState(() {
+              _isAdLoading = false;
+            });
+            debugPrint('Ad failed to load: $error');
+            _navigateToPlayMovie();
+          },
+        ),
+      );
+    } catch (error) {
+      if (_isDisposed || !mounted) return;
+      setState(() {
+        _isAdLoading = false;
+      });
+      debugPrint('Error loading ad: $error');
+      _navigateToPlayMovie();
+    }
+  }
+
+  void _safeDisposeAd() {
+    if (_isDisposed) return;
+    _interstitialAd?.dispose();
+    _interstitialAd = null;
+    _adShown = true;
   }
 
   void _showInterstitialAd() {
-    if (_interstitialAd != null) {
-      _interstitialAd?.show();
+    if (_isDisposed || !mounted) return;
+    
+    if (_interstitialAd != null && !_adShown) {
+      try {
+        _interstitialAd?.show();
+      } catch (error) {
+        debugPrint('Error showing ad: $error');
+        _navigateToPlayMovie();
+      }
     } else {
-      _navigateToPlayMovie(); // Fallback if ad isn't loaded
+      _navigateToPlayMovie();
     }
   }
 
   void _navigateToPlayMovie() {
+    if (_isDisposed || !mounted) return;
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -88,6 +128,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   }
 
   void _startCountdown() {
+    if (_isDisposed || !mounted) return;
+    setState(() {
+      _adShown = false;
+    });
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -97,131 +141,146 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       ),
     );
   }
+    @override
+  void dispose() {
+    _isDisposed = true;
+    _interstitialAd?.dispose();
+    _interstitialAd = null;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
-    const Color textColor =  Color(0xFFFFFFFF);
+    final Color textColor = isDarkMode ? Colors.white : Colors.black;
+    final Color secondaryTextColor = isDarkMode ? Colors.white70 : Colors.black54;
+    final Color appBarColor = isDarkMode ? Colors.grey[900]! : Colors.grey[200]!;
+    final Color iconColor = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
-      backgroundColor:Color(0xFF06041F),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF06041F), Color(0xFF06041F)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              expandedHeight: 400,
-              floating: false,
-              pinned: true,
-              backgroundColor: Colors.grey[900],
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.pop(context),
-              ),
-              flexibleSpace: FlexibleSpaceBar(
-                background: Image.network(
-                  widget.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+      backgroundColor: isDarkMode ? const Color(0xFF06041F) : Colors.white,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 400,
+            floating: false,
+            pinned: true,
+            backgroundColor: appBarColor,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: iconColor),
+              onPressed: () => Navigator.pop(context),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.network(
+                widget.imageUrl,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) => 
+                  Center(child: Icon(Icons.error, color: iconColor)),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            widget.title,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          widget.title,
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        IconButton(
-                          icon: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
-                            color: isFavorite ? Colors.red : Colors.white,
-                            size: 30,
-                          ),
-                          onPressed: () async {
-                            try {
-                              await favoriteManager.toggleFavorite({
-                                'title': widget.title,
-                                'genre': widget.genre,
-                                'duration': widget.duration,
-                                'rating': widget.rating,
-                                'description': widget.description,
-                                'imageUrl': widget.imageUrl,
-                                'videoUrl': widget.videoUrl,
-                              });
-                            } catch (error) {
-                              debugPrint('Error toggling favorite: $error');
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          color: isFavorite ? Colors.red : iconColor,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          try {
+                            await favoriteManager.toggleFavorite({
+                              'title': widget.title,
+                              'genre': widget.genre,
+                              'duration': widget.duration,
+                              'description': widget.description,
+                              'imageUrl': widget.imageUrl,
+                              'videoUrl': widget.videoUrl,
+                            });
+                            if (mounted) setState(() {});
+                          } catch (error) {
+                            debugPrint('Error toggling favorite: $error');
+                            if (mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Failed to update favorites'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
                             }
-                            setState(() {});
-                          },
-                        ),
-                      ],
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    widget.genre,
+                    style: TextStyle(
+                      color: secondaryTextColor,
+                      fontSize: 16,
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      widget.genre,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  Column(
+                    children: [
+                      Text(
+                        widget.duration,
+                        style: TextStyle(
+                          color: secondaryTextColor,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      widget.description,
+                      style: TextStyle(
+                        color: textColor,
                         fontSize: 16,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 8),
-                    Column(
-                      children: [
-                        Text(
-                          widget.duration,
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          widget.rating,
-                          style: const TextStyle(
-                            color: Colors.amber,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        widget.description,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const SizedBox(height: 80),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 80),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _startCountdown,
@@ -232,11 +291,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    _interstitialAd?.dispose();
-    super.dispose();
-  }
+
 }
 
 class CountdownDialog extends StatefulWidget {
@@ -282,7 +337,10 @@ class _CountdownDialogState extends State<CountdownDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    
     return AlertDialog(
+      backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -290,11 +348,10 @@ class _CountdownDialogState extends State<CountdownDialog> {
           const SizedBox(height: 20),
           Text(
             "Playing movie in $countdown seconds...",
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
           ),
         ],
       ),
-      backgroundColor: Colors.black,
     );
   }
 }
