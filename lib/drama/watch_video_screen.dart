@@ -9,12 +9,14 @@
     const WatchVideoScreen({super.key});
 
     @override
+    // ignore: library_private_types_in_public_api
     _WatchVideoScreenState createState() => _WatchVideoScreenState();
   }
 
   class _WatchVideoScreenState extends State<WatchVideoScreen> {
     final PageController _pageController = PageController(initialPage: 0);
     late List<Map<String, dynamic>> _feedItems;
+    
 
     @override
     void initState() {
@@ -167,7 +169,8 @@
   }
 
   class _MultiPartVideoPlayerState extends State<MultiPartVideoPlayer> {
-    late VideoPlayerController _controller;
+  VideoPlayerController? _controller;
+
     bool _controlsVisible = true;
     Timer? _hideControlsTimer;
     
@@ -179,32 +182,52 @@
       _initializeVideoPlayer(widget.videoUrl);
     }
 
-    void _initializeVideoPlayer(String url) {
-      _controller = VideoPlayerController.network(url)
-        ..initialize().then((_) {
-          setState(() {});
-          _controller.play();
-          _startHideControlsTimer();
-        });
-    }
+void _initializeVideoPlayer(String url) {
+  // Dispose the previous controller before assigning a new one
+  _controller?.dispose();
+  _controller = null;
 
-    @override
-    void dispose() {
-      _controller.dispose();
-      _hideControlsTimer?.cancel();
-      super.dispose();
-    }
+  _controller = VideoPlayerController.network(url)
+    ..initialize().then((_) {
+      setState(() {}); // Update UI when video is ready
+      _controller?.play();
+      _startHideControlsTimer();
+    }).catchError((error) {
+      debugPrint("Video Initialization Error: $error");
+    });
+}
 
-    void _togglePlayPause() {
-      setState(() {
-        if (_controller.value.isPlaying) {
-          _controller.pause();
-        } else {
-          _controller.play();
-          _startHideControlsTimer();
-        }
-      });
+@override
+void didUpdateWidget(covariant MultiPartVideoPlayer oldWidget) {
+  super.didUpdateWidget(oldWidget);
+  
+  if (oldWidget.videoUrl != widget.videoUrl) {
+    _initializeVideoPlayer(widget.videoUrl);
+  }
+}
+
+@override
+void dispose() {
+  _hideControlsTimer?.cancel();
+  _controller?.dispose();
+  _controller = null; // Set to null after disposal
+  super.dispose();
+}
+
+
+  void _togglePlayPause() {
+  if (_controller == null || !_controller!.value.isInitialized) return;
+
+  setState(() {
+    if (_controller!.value.isPlaying) {
+      _controller!.pause();
+    } else {
+      _controller!.play();
+      _startHideControlsTimer();
     }
+  });
+}
+
 
     void _toggleControlsVisibility() {
       setState(() {
@@ -220,7 +243,7 @@
     void _startHideControlsTimer() {
       _hideControlsTimer?.cancel();
       _hideControlsTimer = Timer(const Duration(seconds: 3), () {
-        if (_controller.value.isPlaying) {
+        if (_controller != null && _controller!.value.isPlaying) {
           setState(() {
             _controlsVisible = false;
           });
@@ -234,11 +257,11 @@
       onTap: _toggleControlsVisibility,
       child: Stack(
         children: [
-          _controller.value.isInitialized
+          _controller != null && _controller!.value.isInitialized
               ? Center(
                   child: AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
+                    aspectRatio: _controller?.value.aspectRatio ?? 16 / 9,
+                    child: VideoPlayer(_controller!),
                   ),
                 )
               : const Center(child: CircularProgressIndicator()),

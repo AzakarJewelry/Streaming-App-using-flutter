@@ -47,11 +47,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           await _firestore.collection('users').doc(currentUser.uid).get();
 
       if (userDoc.exists) {
-        final data = userDoc.data() as Map<String, dynamic>?; // Safely cast to Map
+        final data = userDoc.data() as Map<String, dynamic>?;
         setState(() {
           userName = data?['username'] ?? 'No Name';
           userEmail = data?['email'] ?? 'No Email';
-          userBio = data?['bio'] ?? 'No Bio'; // Handle missing bio field gracefully
+          userBio = data?['bio'] ?? 'No Bio';
           profilePhotoUrl = data?['profilePhoto'];
           _nameController.text = userName;
           _emailController.text = userEmail;
@@ -67,10 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
 
     if (image != null) {
-      // Save the photo URL to Firestore (assumes file uploading logic exists)
       User? currentUser = _auth.currentUser;
       if (currentUser != null) {
-        String newPhotoUrl = image.path; // Replace with the actual URL after uploading
+        String newPhotoUrl = image.path;
         await _firestore.collection('users').doc(currentUser.uid).update({
           'profilePhoto': newPhotoUrl,
         });
@@ -134,35 +133,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _showEditProfileDialog() {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Edit Profile'),
+        backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: _nameController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Name',
+                labelStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.black54),
                 border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: isDarkMode ? Colors.white54 : Colors.black54),
+                ),
               ),
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
             ),
             const SizedBox(height: 10),
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Email',
+                labelStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.black54),
                 border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: isDarkMode ? Colors.white54 : Colors.black54),
+                ),
               ),
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
             ),
             const SizedBox(height: 10),
             TextField(
               controller: _bioController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Bio',
+                labelStyle: TextStyle(color: isDarkMode ? Colors.white70 : Colors.black54),
                 border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: isDarkMode ? Colors.white54 : Colors.black54),
+                ),
               ),
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
             ),
           ],
         ),
@@ -174,14 +194,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               });
               Navigator.pop(context);
             },
-            child: const Text('Cancel'),
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            ),
           ),
           TextButton(
             onPressed: () {
               _saveProfileChanges();
               Navigator.pop(context);
             },
-            child: const Text('Save'),
+            child: const Text(
+              'Save',
+              style: TextStyle(color: Color(0xFF6152FF)),
+            ),
           ),
         ],
       ),
@@ -190,229 +216,215 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDarkMode ? Colors.white : Colors.black;
+    final iconColor = isDarkMode ? Colors.white : Colors.black;
+    final backgroundColor = isDarkMode ? Colors.grey[900]! : Colors.white;
+    final cardColor = isDarkMode ? Colors.grey[800]! : Colors.white;
+    final shadowColor = isDarkMode ? Colors.black : Colors.grey[200]!;
 
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: isDarkMode
-                    ? [
-                        const Color(0xFF06041F), // Dark Blue
-                        const Color(0xFF06041F),
-                      ]
-                    : [
-                        const Color(0xFF06041F), // Same for light mode
-                        const Color(0xFF06041F),
-                      ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            child: Column(
-              children: [
-                // Profile Header
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 40),
-                  color: Colors.transparent, // Ensuring the background gradient is visible
-                  child: Column(
-                    children: [
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundImage: profilePhotoUrl != null
-                                ? FileImage(File(profilePhotoUrl!))
-                                : null,
-                            child: profilePhotoUrl == null
-                                ? const Icon(
-                                    Icons.person,
-                                    size: 60,
-                                    color: Colors.white,
-                                  )
-                                : null,
-                          ),
-                          Positioned(
-                            bottom: -15,
-                            right: -15,
-                            child: IconButton(
-                              onPressed: _editProfilePhoto,
-                              icon: const Icon(
+          Column(
+            children: [
+              // Profile Header
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                decoration: BoxDecoration(
+                  gradient: isDarkMode
+                      ? LinearGradient(
+                          colors: [Colors.grey[850]!, Colors.grey[900]!],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : LinearGradient(
+                          colors: [Colors.blue[50]!, Colors.white],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                ),
+                child: Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundColor: isDarkMode ? Colors.grey[800] : Colors.grey[200],
+                          backgroundImage: profilePhotoUrl != null
+                              ? FileImage(File(profilePhotoUrl!))
+                              : null,
+                          child: profilePhotoUrl == null
+                              ? Icon(
+                                  Icons.person,
+                                  size: 60,
+                                  color: iconColor,
+                                )
+                              : null,
+                        ),
+                        Positioned(
+                          bottom: -15,
+                          right: -15,
+                          child: IconButton(
+                            onPressed: _editProfilePhoto,
+                            icon: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF6152FF),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
                                 Icons.camera_alt,
                                 color: Colors.white,
+                                size: 20,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        userName,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      userName,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        userEmail,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white70,
-                        ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      userEmail,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: textColor.withOpacity(0.7),
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        userBio,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white60,
-                        ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      userBio,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontStyle: FontStyle.italic,
+                        color: textColor.withOpacity(0.5),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Menu Options
+              Expanded(
+                child: Container(
+                  color: backgroundColor,
+                  child: ListView(
+                    padding: const EdgeInsets.all(20),
+                    children: [
+                      _buildMenuItem(
+                        icon: Icons.edit,
+                        title: 'Edit Profile',
+                        onTap: _showEditProfileDialog,
+                        textColor: textColor,
+                        iconColor: iconColor,
+                        cardColor: cardColor,
+                        shadowColor: shadowColor,
+                      ),
+                      _buildMenuItem(
+                        icon: Icons.settings,
+                        title: 'Settings',
+                        onTap: () {
+                          final myAppState = MyApp.of(context);
+                          if (myAppState != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SettingsScreen(
+                                  isDarkMode: myAppState.isDarkMode,
+                                  onToggleDarkMode: myAppState.toggleDarkMode,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        textColor: textColor,
+                        iconColor: iconColor,
+                        cardColor: cardColor,
+                        shadowColor: shadowColor,
+                      ),
+                      _buildMenuItem(
+                        icon: Icons.info_outline,
+                        title: 'Terms & Conditions',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const TermsAndConditionsScreen(),
+                            ),
+                          );
+                        },
+                        textColor: textColor,
+                        iconColor: iconColor,
+                        cardColor: cardColor,
+                        shadowColor: shadowColor,
+                      ),
+                      _buildMenuItem(
+                        icon: Icons.info_outline,
+                        title: 'Visit our Social Media Platforms',
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SocialMediaLinks(),
+                            ),
+                          );
+                        },
+                        textColor: textColor,
+                        iconColor: iconColor,
+                        cardColor: cardColor,
+                        shadowColor: shadowColor,
+                      ),
+                      _buildMenuItem(
+                        icon: Icons.logout,
+                        title: 'Logout',
+                        onTap: _logout,
+                        textColor: textColor,
+                        iconColor: iconColor,
+                        cardColor: cardColor,
+                        shadowColor: shadowColor,
                       ),
                     ],
                   ),
                 ),
-                // Menu Options
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: isDarkMode
-                            ? [
-                    Color(0xFF6152FF),
-                    Color(0xFF6152FF),
-                    Color(0xFF6152FF),
-                    Color(0xFF6152FF),
-                    Color(0xFF6152FF),
-                    Color(0xFF6152FF),
-                      ]
-                    : [
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                    
-                      ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                    ),
-                    child: ListView(
-                      padding: const EdgeInsets.all(20),
-                      children: [
-                        _buildMenuItem(
-                          icon: Icons.edit,
-                          title: 'Edit Profile',
-                          onTap: _showEditProfileDialog,
-                        ),
-                        _buildMenuItem(
-                          icon: Icons.settings,
-                          title: 'Settings',
-                          onTap: () {
-                            final myAppState = MyApp.of(context);
-                            if (myAppState != null) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SettingsScreen(
-                                    isDarkMode: myAppState.isDarkMode,
-                                    onToggleDarkMode: myAppState.toggleDarkMode,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                        _buildMenuItem(
-                          icon: Icons.info_outline,
-                          title: 'Terms & Conditions',
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const TermsAndConditionsScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                        _buildMenuItem(
-                          icon: Icons.info_outline,
-                          title: 'Visit our Social Media Platforms',
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SocialMediaLinks(),
-                              ),
-                            );
-                          },
-                        ),
-                        _buildMenuItem(
-                          icon: Icons.logout,
-                          title: 'Logout',
-                          onTap: _logout,
-                        ),
-                      ].map((widget) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: isDarkMode ? const Color(0xFF06041F) : const Color(0xFF6152FF),
-                            borderRadius: BorderRadius.circular(15),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 10,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: widget,
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           // Bottom Navigation Bar
           Positioned(
-            left: 0,
-            right: 0,
+            left: 20,
+            right: 20,
             bottom: 0,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
                 child: BackdropFilter(
-                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Adjust blur strength
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Stronger blur
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 24), // Adds space on left and right
-                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(vertical: 5 ),
                     decoration: BoxDecoration(
-                      color: Colors.transparent, // Semi-transparent white
-                      
+                      color: Colors.transparent,
+                    
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buildNavItem('assets/icons/home.svg', 'Home', 0),
-                        _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
-                        _buildNavItem('assets/icons/user.svg', 'Profile', 2),
-                        _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
+                        _buildNavItem('assets/icons/home.svg', 'Home', 0, textColor),
+                        _buildNavItem('assets/icons/heart.svg', 'Favorites', 1, textColor),
+                        _buildNavItem('assets/icons/user.svg', 'Profile', 2, textColor),
+                        _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3, textColor),
                       ],
                     ),
                   ),
@@ -425,8 +437,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  /// Build bottom nav item
-  Widget _buildNavItem(String iconPath, String label, int index) {
+  Widget _buildNavItem(String iconPath, String label, int index, Color textColor) {
     final isSelected = _selectedNavIndex == index;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -446,7 +457,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             context,
             MaterialPageRoute(builder: (context) => const FavoriteScreen()),
           );
-        }  else if (index == 3) {
+        } else if (index == 3) {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
@@ -462,8 +473,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: 24,
             colorFilter: ColorFilter.mode(
               isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
-                  : (isDarkMode ? Colors.grey[400]! : Colors.black),
+                  ? const Color(0xFF6152FF)
+                  : isDarkMode ? Colors.white70 : Colors.black54,
               BlendMode.srcIn,
             ),
           ),
@@ -473,8 +484,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: TextStyle(
               fontSize: 12,
               color: isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
-                  : (isDarkMode ? Colors.grey[400] : Colors.black),
+                  ? const Color(0xFF6152FF)
+                  : isDarkMode ? Colors.white70 : Colors.black54,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
           ),
@@ -487,19 +498,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
     required IconData icon,
     required String title,
     VoidCallback? onTap,
+    required Color textColor,
+    required Color iconColor,
+    required Color cardColor,
+    required Color shadowColor,
   }) {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return ListTile(
-      leading: Icon(icon, color: isDark ? Colors.white : Colors.black),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: isDark ? Colors.white : Colors.black,
-        ),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
-      onTap: onTap,
+      child: ListTile(
+        leading: Icon(icon, color: iconColor),
+        title: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: textColor,
+          ),
+        ),
+        trailing: Icon(Icons.chevron_right, color: iconColor),
+        onTap: onTap,
+      ),
     );
   }
 }
