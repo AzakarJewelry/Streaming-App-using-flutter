@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6152ff)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF9610ff)),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -140,7 +140,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return const Icon(
                     Icons.image_not_supported,
                     size: 100,
-                    color: Color(0xFF6152ff),
+                    color: Color(0xFF9610ff),
                   );
                 },
               ),
@@ -149,12 +149,12 @@ class _SplashScreenState extends State<SplashScreen>
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: const Color(0xFF6152ff),
+                  color: const Color(0xFF9610ff),
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF6152ff)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF9610ff)),
               ),
             ],
           ),
@@ -236,7 +236,7 @@ class MyHomePage extends StatelessWidget {
           'DramaMania',
           style: GoogleFonts.publicSans(
             fontSize: 45,
-            color: const Color(0xFF6152ff),
+            color: const Color(0xFF9610ff),
           ),
         ),
         const SizedBox(height: 8),
@@ -244,7 +244,7 @@ class MyHomePage extends StatelessWidget {
           'Streaming platform and downloads',
           style: TextStyle(
             fontSize: 14,
-            color: Color(0xFF6152ff),
+            color: Color(0xFF9610ff),
           ),
         ),
       ],
@@ -273,7 +273,7 @@ class MyHomePage extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF6152ff),
+          backgroundColor: const Color(0xFF9610ff),
           foregroundColor: const Color(0xFFF5EFE6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),

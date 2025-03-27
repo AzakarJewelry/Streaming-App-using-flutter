@@ -90,7 +90,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF6152FF),
+                          backgroundColor: const Color(0xFF9610ff),
                           foregroundColor: Colors.white,
                         ),
                         child: const Text('Explore Movies'),
@@ -231,7 +231,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             width: 24,
             colorFilter: ColorFilter.mode(
               isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
                   : (isDarkMode ? Colors.grey[400]! : Colors.black),
               BlendMode.srcIn,
             ),
@@ -242,7 +242,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             style: TextStyle(
               fontSize: 12,
               color: isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
                   : (isDarkMode ? Colors.grey[400] : Colors.black),
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),

@@ -401,7 +401,7 @@ Widget _buildTopBar() {
           Text(
             'DramaMania',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF6152FF),
+              color: isDark ? Colors.white : const Color(0xFF9610ff),
               fontSize: 20,
             ),
           ),
@@ -431,7 +431,7 @@ Widget _buildTopBar() {
                   Icon(
                     Icons.search,
                     size: 18,
-                    color: isDark ? Colors.white : const Color(0xFF6152FF),
+                    color: isDark ? Colors.white : const Color(0xFF9610ff),
                   ),
                   const SizedBox(width: 4),
                   Text(
@@ -459,7 +459,7 @@ Widget _buildTopBar() {
         Text(
           'Genres',
           style: TextStyle(
-            color: isDark ? Colors.white : const Color(0xFF6152FF),
+            color: isDark ? Colors.white : const Color(0xFF9610ff),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -716,7 +716,7 @@ Widget _buildTopBar() {
           Text(
             'New Releases',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF6152FF),
+              color: isDark ? Colors.white : const Color(0xFF9610ff),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -734,7 +734,7 @@ Widget _buildTopBar() {
             child: Text(
               'View All',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF6152FF),
+                color: isDark ? Colors.white : const Color(0xFF9610ff),
               ),
             ),
           ),
@@ -774,7 +774,7 @@ Widget _buildMoreMovies() {
           Text(
             'Most Popular',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF6152FF),
+              color: isDark ? Colors.white : const Color(0xFF9610ff),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -792,7 +792,7 @@ Widget _buildMoreMovies() {
             child: Text(
               'View All',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF6152FF),
+                color: isDark ? Colors.white : const Color(0xFF9610ff),
               ),
             ),
           ),
@@ -949,7 +949,7 @@ Widget build(BuildContext context) {
             width: 24,
             colorFilter: ColorFilter.mode(
               isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
                   : (isDarkMode ? Colors.grey[400]! : Colors.black),
               BlendMode.srcIn,
             ),
@@ -960,7 +960,7 @@ Widget build(BuildContext context) {
             style: TextStyle(
               fontSize: 12,
               color: isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF6152FF))
+                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
                   : (isDarkMode ? Colors.grey[400] : Colors.black),
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
@@ -1009,7 +1009,7 @@ class _GenreChip extends StatelessWidget {
 
   // Fixed color for all genres
   Color getGenreColor() {
-    return const Color(0xFF6152FF); // New color
+    return const Color(0xFF9610ff); // New color
   }
 
   @override

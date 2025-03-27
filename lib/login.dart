@@ -102,13 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF6152ff),
+        backgroundColor: const Color(0xFF9610ff),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: const Color(0xFFF5EFE6),
+      backgroundColor: const Color(0xFF9610ff),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'DramaMania',
                   style: GoogleFonts.publicSans(
                     fontSize: 32,
-                    color: const Color(0xFF6152ff),
+                    color: const Color(0xFF9610ff),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -151,13 +151,13 @@ class _LoginScreenState extends State<LoginScreen> {
   controller: _emailController,
   decoration: InputDecoration(
     labelText: 'Email Address',
-    prefixIcon: const Icon(Icons.email, color: Color(0xFF6152ff)),
+    prefixIcon: const Icon(Icons.email, color: Color(0xFF9610ff)),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff)),
+      borderSide: BorderSide(color: Color(0xFF9610ff)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -169,11 +169,11 @@ TextField(
   controller: _passwordController,
   decoration: InputDecoration(
     labelText: 'Password',
-    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152ff)),
+    prefixIcon: const Icon(Icons.lock, color: Color(0xFF9610ff)),
     suffixIcon: IconButton(
       icon: Icon(
         _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-        color: const Color(0xFF6152ff),
+        color: const Color(0xFF9610ff),
       ),
       onPressed: () {
         setState(() {
@@ -183,10 +183,10 @@ TextField(
     ),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff)),
+      borderSide: BorderSide(color: Color(0xFF9610ff)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
     ),
   ),
   obscureText: !_isPasswordVisible,
@@ -205,7 +205,7 @@ TextField(
                               _rememberMe = value ?? false;
                             });
                           },
-                          activeColor: const Color(0xFF6152ff),
+                          activeColor: const Color(0xFF9610ff),
                         ),
                         const Text(
                           'Remember Me',
@@ -233,7 +233,7 @@ TextField(
                 ElevatedButton(
                   onPressed: _isLoading ? null : _login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6152ff),
+                    backgroundColor: const Color(0xFF9610ff),
                     foregroundColor: const Color(0xFFF5EFE6),
                     minimumSize: const Size(double.infinity, 50),
                   ),
@@ -259,7 +259,7 @@ TextField(
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(
-                      color: Color(0xFF6152ff), // Updated to #6152ff
+                      color: Color(0xFF9610ff), // Updated to #6152ff
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -173,7 +173,7 @@ Widget build(BuildContext context) {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _currentPartIndex == index
-                                  ? Colors.purple
+                                  ? const Color(0xFF9610ff)
                                   : Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),

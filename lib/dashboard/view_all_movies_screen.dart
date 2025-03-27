@@ -70,7 +70,7 @@ class ViewAllMoviesScreen extends StatelessWidget {
                   }
                 },
                 child: Card(
-                  color: const Color(0xFF6152FF), // Changed to 6152FF
+                  color: const Color(0xFF9610ff), // Changed to 6152FF
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),

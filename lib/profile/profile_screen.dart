@@ -206,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
             child: const Text(
               'Save',
-              style: TextStyle(color: Color(0xFF6152FF)),
+              style: TextStyle(color: Color(0xFF9610ff)),
             ),
           ),
         ],
@@ -272,7 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             icon: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: const Color(0xFF6152FF),
+                                color: const Color(0xFF9610ff),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
@@ -473,7 +473,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: 24,
             colorFilter: ColorFilter.mode(
               isSelected
-                  ? const Color(0xFF6152FF)
+                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
                   : isDarkMode ? Colors.white70 : Colors.black54,
               BlendMode.srcIn,
             ),
@@ -484,7 +484,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: TextStyle(
               fontSize: 12,
               color: isSelected
-                  ? const Color(0xFF6152FF)
+                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
                   : isDarkMode ? Colors.white70 : Colors.black54,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),

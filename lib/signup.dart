@@ -81,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         title: const Text('Sign Up'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF6152ff),
+        backgroundColor: const Color(0xFF9610ff),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
@@ -125,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       'DramaMania',
                         style: GoogleFonts.publicSans(
                         fontSize: 32,
-                        color: Color(0xFF6152ff),
+                        color: Color(0xFF9610ff),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -133,20 +133,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 20),
                   const Text(
                     'Create an account',
-                    style: TextStyle(fontSize: 16, color: Color(0xFF6152ff)),
+                    style: TextStyle(fontSize: 16, color: Color(0xFFFFFFFF)),
                   ),
                   const SizedBox(height: 40),
-                 TextField(
+                TextField(
   controller: _emailController,
   decoration: InputDecoration(
     labelText: 'Email',
-    prefixIcon: const Icon(Icons.email, color: Color(0xFF6152ff)),
+    prefixIcon: const Icon(Icons.email, color: Color(0xFF9610ff)),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff)),
+      borderSide: BorderSide(color: Color(0xFF9610ff)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -157,13 +157,13 @@ TextField(
   controller: _nameController,
   decoration: InputDecoration(
     labelText: 'Name',
-    prefixIcon: const Icon(Icons.person, color: Color(0xFF6152ff)),
+    prefixIcon: const Icon(Icons.person, color: Color(0xFF9610ff)),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff)),
+      borderSide: BorderSide(color: Color(0xFF9610ff)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -175,11 +175,11 @@ TextField(
   obscureText: !_passwordVisible,
   decoration: InputDecoration(
     labelText: 'Password',
-    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6152ff)),
+    prefixIcon: const Icon(Icons.lock, color: Color(0xFF9610ff)),
     suffixIcon: IconButton(
       icon: Icon(
         _passwordVisible ? Icons.visibility : Icons.visibility_off,
-        color: const Color(0xFF6152ff),
+        color: const Color(0xFF9610ff),
       ),
       onPressed: () {
         setState(() {
@@ -189,10 +189,10 @@ TextField(
     ),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff)),
+      borderSide: BorderSide(color: Color(0xFF9610ff)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -204,11 +204,11 @@ TextField(
   obscureText: !_confirmPasswordVisible,
   decoration: InputDecoration(
     labelText: 'Confirm Password',
-    prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF6152ff)),
+    prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF9610ff)),
     suffixIcon: IconButton(
       icon: Icon(
         _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-        color: const Color(0xFF6152ff),
+        color: const Color(0xFF9610ff),
       ),
       onPressed: () {
         setState(() {
@@ -218,10 +218,10 @@ TextField(
     ),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff)),
+      borderSide: BorderSide(color: Color(0xFF9610ff)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF6152ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -230,8 +230,8 @@ TextField(
                   ElevatedButton(
                     onPressed: _isLoading ? null : _signUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF6152ff),
-                      foregroundColor: const Color(0xFFF5EFE6),
+                      backgroundColor: const Color(0xFF9610ff),
+                      foregroundColor: const Color(0xFFFFFFFF),
                       minimumSize: const Size(double.infinity, 50),
                     ),
                     child: _isLoading
