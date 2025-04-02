@@ -92,12 +92,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
             ],
             
             begin: Alignment.topLeft,

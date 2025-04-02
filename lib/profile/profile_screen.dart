@@ -235,12 +235,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: BoxDecoration(
                   gradient: isDarkMode
                       ? LinearGradient(
-                          colors: [Colors.grey[850]!, Colors.grey[900]!],
+                          colors: [Colors.grey[900]!, Colors.grey[900]!],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         )
                       : LinearGradient(
-                          colors: [Colors.blue[50]!, Colors.white],
+                          colors: [Colors.white, Colors.white],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),

@@ -110,12 +110,12 @@ class _SplashScreenState extends State<SplashScreen>
         decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -132,10 +132,6 @@ class _SplashScreenState extends State<SplashScreen>
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const CircularProgressIndicator();
-                },
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(
                     Icons.image_not_supported,
@@ -178,12 +174,12 @@ class MyHomePage extends StatelessWidget {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors:[
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
-                    const Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
+                    Color(0xFF06041f),
             ],
             
             begin: Alignment.topLeft,

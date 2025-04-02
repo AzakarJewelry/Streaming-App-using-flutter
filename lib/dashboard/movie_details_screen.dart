@@ -30,7 +30,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   InterstitialAd? _interstitialAd;
   bool _isAdLoading = false;
   bool _adShown = false;
-  bool _adLoadFailed = false;
+  final bool _adLoadFailed = false;
   bool _isDisposed = false;
 
   @override

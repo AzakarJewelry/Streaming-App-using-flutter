@@ -340,109 +340,82 @@ Widget _buildFeaturedMovie(BuildContext context) {
       autoPlayInterval: const Duration(seconds: 3),
       viewportFraction: 1.0,
     ),
-    items: featuredMovies.map((movie) {
-      return GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PlayDramaScreen(
-                videoList: movie['episodes']!,
-                title: movie['title']!,
-              ),
-            ),
-          );
-        },
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: DecorationImage(
-              image: NetworkImage(movie['imageUrl']!),
-              fit: BoxFit.cover,
-            ),
+    items: featuredMovies.map((movie) => GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PlayDramaScreen(
+            videoList: movie['episodes']!,
+            title: movie['title']!,
           ),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                movie['title']!,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 10,
-                      color: Color(0xCC000000),
-                    ),
-                  ],
-                ),
+        ),
+      ),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          image: DecorationImage(
+            image: NetworkImage(movie['imageUrl']!),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              movie['title']!,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                shadows: [Shadow(blurRadius: 10, color: Color(0xCC000000))],
               ),
             ),
           ),
         ),
-      );
-    }).toList(),
+      ),
+    )).toList(),
   );
 }
 
 Widget _buildTopBar() {
-  final bool isDark = Theme.of(context).brightness == Brightness.dark;
   return SafeArea(
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // App title
-          Text(
-            'DramaMania',
-            style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF9610ff),
-              fontSize: 20,
-            ),
-          ),
-          // A small search hint container
+          Text('DramaMania', style: TextStyle(color: const Color(0xFF9610ff), fontSize: 20)),
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchScreen(
-                    allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SearchScreen(
+                  allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
+                ),
+              ),
+            ),
+            child: Row(
+                children: [
+                Icon(
+                  Icons.search,
+                  size: 18,
+                  color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : const Color(0xFF9610ff),
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  'Search',
+                  style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.white
+                    : const Color(0xFF9610ff),
                   ),
                 ),
-              );
-            },
-            child: Container(
-              width: 120,
-              height: 36,
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              decoration: BoxDecoration(
-                color: isDark ? Colors.grey[800] : Colors.grey[300],
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.search,
-                    size: 18,
-                    color: isDark ? Colors.white : const Color(0xFF9610ff),
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    'Search',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: isDark ? Colors.white70 : Colors.black54,
-                    ),
-                  ),
-                ],
-              ),
+              ],
             ),
           ),
         ],
@@ -452,14 +425,17 @@ Widget _buildTopBar() {
 }
 
   Widget _buildGenres() {
-    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final genres = [
+      'Fantasy', 'Drama', 'Action', 'Romance', 'Comedy', 'Anime',
+      'Horror', 'Thriller', 'Sci-Fi', 'Mystery', 'Adventure', 'Documentary'
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Genres',
           style: TextStyle(
-            color: isDark ? Colors.white : const Color(0xFF9610ff),
+            color: const Color(0xFF9610ff),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -469,236 +445,25 @@ Widget _buildTopBar() {
           height: 40,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: [
-              _GenreChip(
-                title: 'Fantasy',
-                genre: 'Fantasy',
-                isSelected: _selectedGenre == 'Fantasy',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
+            children: genres.map((genre) {
+              return _GenreChip(
+                title: genre,
+                genre: genre,
+                isSelected: _selectedGenre == genre,
+                onSelected: (selectedGenre) {
+                  setState(() => _selectedGenre = selectedGenre);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => GenreScreen(
-                        genre: genre,
+                        genre: selectedGenre,
                         allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
                       ),
                     ),
                   );
                 },
-              ),
-              _GenreChip(
-                title: 'Drama',
-                genre: 'Drama',
-                isSelected: _selectedGenre == 'Drama',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Action',
-                genre: 'Action',
-                isSelected: _selectedGenre == 'Action',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Romance',
-                genre: 'Romance',
-                isSelected: _selectedGenre == 'Romance',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Comedy',
-                genre: 'Comedy',
-                isSelected: _selectedGenre == 'Comedy',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Anime',
-                genre: 'Anime',
-                isSelected: _selectedGenre == 'Anime',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Horror',
-                genre: 'Horror',
-                isSelected: _selectedGenre == 'Horror',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Thriller',
-                genre: 'Thriller',
-                isSelected: _selectedGenre == 'Thriller',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Sci-Fi',
-                genre: 'Sci-Fi',
-                isSelected: _selectedGenre == 'Sci-Fi',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Mystery',
-                genre: 'Mystery',
-                isSelected: _selectedGenre == 'Mystery',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Adventure',
-                genre: 'Adventure',
-                isSelected: _selectedGenre == 'Adventure',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              _GenreChip(
-                title: 'Documentary',
-                genre: 'Documentary',
-                isSelected: _selectedGenre == 'Documentary',
-                onSelected: (genre) {
-                  setState(() {
-                    _selectedGenre = genre;
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GenreScreen(
-                        genre: genre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
+              );
+            }).toList(),
           ),
         ),
       ],
@@ -716,7 +481,7 @@ Widget _buildTopBar() {
           Text(
             'New Releases',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF9610ff),
+                color: const Color(0xFF9610ff),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -734,7 +499,7 @@ Widget _buildTopBar() {
             child: Text(
               'View All',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF9610ff),
+               color: const Color(0xFF9610ff),
               ),
             ),
           ),
@@ -774,7 +539,7 @@ Widget _buildMoreMovies() {
           Text(
             'Most Popular',
             style: TextStyle(
-              color: isDark ? Colors.white : const Color(0xFF9610ff),
+             color: const Color(0xFF9610ff),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -792,7 +557,7 @@ Widget _buildMoreMovies() {
             child: Text(
               'View All',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF9610ff),
+               color: const Color(0xFF9610ff),
               ),
             ),
           ),
@@ -1008,31 +773,38 @@ class _GenreChip extends StatelessWidget {
   });
 
   // Fixed color for all genres
-  Color getGenreColor() {
-    return const Color(0xFF9610ff); // New color
+  Color getGenreColor(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return isDarkMode ? Colors.black : const Color(0xFF9610ff);
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return InkWell(
       onTap: () => onSelected(genre),
-      hoverColor: getGenreColor().withOpacity(0.5),
+      hoverColor: getGenreColor(context).withOpacity(0.5),
       borderRadius: BorderRadius.circular(20),
       child: Container(
         margin: const EdgeInsets.only(right: 10),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? getGenreColor() : Colors.white,
+            color: isSelected
+              ? const Color(0xFF9610ff)
+              : (isDarkMode ? const Color(0xFF06041f) : Colors.white),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: getGenreColor(),
+            color: const Color(0xFF9610ff),
             width: 1,
           ),
         ),
         child: Text(
           title,
           style: TextStyle(
-            color: isSelected ? Colors.white : getGenreColor(), // White text when selected
+            color: isSelected
+                ? Colors.white
+                : const Color(0xFF9610ff), // Text color for both modes
             fontSize: 16,
           ),
         ),
@@ -1040,7 +812,6 @@ class _GenreChip extends StatelessWidget {
     );
   }
 }
-
 
 class _MovieCard extends StatelessWidget {
   final String title;
@@ -1051,14 +822,14 @@ class _MovieCard extends StatelessWidget {
   final String description; // New parameter
 
   const _MovieCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.imageUrl,
     required this.genre,
     required this.duration,
     required this.videoUrl,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1137,7 +908,7 @@ class _MovieCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: isDarkMode ? Colors.white : const Color(0xFF4d0066),
+                    color: const Color(0xFF9610ff),
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
