@@ -102,23 +102,23 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text('Login'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF9610ff),
+        backgroundColor: const Color(0xFF6237A0),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      backgroundColor: const Color(0xFF9610ff),
+      backgroundColor: const Color(0xFF6237A0),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF06041f),
-              Color(0xFF06041f),
-              Color(0xFF06041f),
-              Color(0xFF06041f),
-              Color(0xFF06041f),
-              Color(0xFF06041f),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 20),
                 Image.network(
-                  'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
+                  'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
                   width: 100,
                   height: 100,
                   fit: BoxFit.contain,
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'DramaMania',
                   style: GoogleFonts.publicSans(
                     fontSize: 32,
-                    color: const Color(0xFF9610ff),
+                    color: const Color(0xFF6237A0),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -151,13 +151,13 @@ class _LoginScreenState extends State<LoginScreen> {
   controller: _emailController,
   decoration: InputDecoration(
     labelText: 'Email Address',
-    prefixIcon: const Icon(Icons.email, color: Color(0xFF9610ff)),
+    prefixIcon: const Icon(Icons.email, color: Color(0xFF6237A0)),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff)),
+      borderSide: BorderSide(color: Color(0xFF6237A0)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF6237A0), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -169,11 +169,11 @@ TextField(
   controller: _passwordController,
   decoration: InputDecoration(
     labelText: 'Password',
-    prefixIcon: const Icon(Icons.lock, color: Color(0xFF9610ff)),
+    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6237A0)),
     suffixIcon: IconButton(
       icon: Icon(
         _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-        color: const Color(0xFF9610ff),
+        color: const Color(0xFF6237A0),
       ),
       onPressed: () {
         setState(() {
@@ -183,10 +183,10 @@ TextField(
     ),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff)),
+      borderSide: BorderSide(color: Color(0xFF6237A0)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF6237A0), width: 2),
     ),
   ),
   obscureText: !_isPasswordVisible,
@@ -205,7 +205,7 @@ TextField(
                               _rememberMe = value ?? false;
                             });
                           },
-                          activeColor: const Color(0xFF9610ff),
+                          activeColor: const Color(0xFF6237A0),
                         ),
                         const Text(
                           'Remember Me',
@@ -233,7 +233,7 @@ TextField(
                 ElevatedButton(
                   onPressed: _isLoading ? null : _login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF9610ff),
+                    backgroundColor: const Color(0xFF6237A0),
                     foregroundColor: const Color(0xFFF5EFE6),
                     minimumSize: const Size(double.infinity, 50),
                   ),
@@ -259,7 +259,7 @@ TextField(
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(
-                      color: Color(0xFF9610ff), // Updated to #6152ff
+                      color: Color(0xFF6237A0), // Updated to #6152ff
                       fontWeight: FontWeight.bold,
                     ),
                   ),

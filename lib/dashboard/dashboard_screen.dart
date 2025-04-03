@@ -386,7 +386,7 @@ Widget _buildTopBar() {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('DramaMania', style: TextStyle(color: const Color(0xFF9610ff), fontSize: 20)),
+          Text('DramaMania', style: TextStyle(color: const Color(0xFF6237A0), fontSize: 20)),
           GestureDetector(
             onTap: () => Navigator.push(
               context,
@@ -403,7 +403,7 @@ Widget _buildTopBar() {
                   size: 18,
                   color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
-                    : const Color(0xFF9610ff),
+                    : const Color(0xFF6237A0),
                 ),
                 const SizedBox(width: 4),
                 Text(
@@ -412,7 +412,7 @@ Widget _buildTopBar() {
                   fontSize: 14,
                   color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
-                    : const Color(0xFF9610ff),
+                    : const Color(0xFF6237A0),
                   ),
                 ),
               ],
@@ -435,7 +435,7 @@ Widget _buildTopBar() {
         Text(
           'Genres',
           style: TextStyle(
-            color: const Color(0xFF9610ff),
+            color: const Color(0xFF6237A0),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -481,7 +481,7 @@ Widget _buildTopBar() {
           Text(
             'New Releases',
             style: TextStyle(
-                color: const Color(0xFF9610ff),
+                color: const Color(0xFF6237A0),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -499,7 +499,7 @@ Widget _buildTopBar() {
             child: Text(
               'View All',
               style: TextStyle(
-               color: const Color(0xFF9610ff),
+               color: const Color(0xFF6237A0),
               ),
             ),
           ),
@@ -539,7 +539,7 @@ Widget _buildMoreMovies() {
           Text(
             'Most Popular',
             style: TextStyle(
-             color: const Color(0xFF9610ff),
+             color: const Color(0xFF6237A0),
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -557,7 +557,7 @@ Widget _buildMoreMovies() {
             child: Text(
               'View All',
               style: TextStyle(
-               color: const Color(0xFF9610ff),
+               color: const Color(0xFF6237A0),
               ),
             ),
           ),
@@ -618,12 +618,12 @@ Widget build(BuildContext context) {
               gradient: LinearGradient(
                 colors: isDarkMode
                     ? [
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
                       ]
                     : [
                         Color(0xFFffffff),
@@ -714,7 +714,7 @@ Widget build(BuildContext context) {
             width: 24,
             colorFilter: ColorFilter.mode(
               isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6237A0))
                   : (isDarkMode ? Colors.grey[400]! : Colors.black),
               BlendMode.srcIn,
             ),
@@ -725,7 +725,7 @@ Widget build(BuildContext context) {
             style: TextStyle(
               fontSize: 12,
               color: isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6237A0))
                   : (isDarkMode ? Colors.grey[400] : Colors.black),
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
@@ -775,7 +775,7 @@ class _GenreChip extends StatelessWidget {
   // Fixed color for all genres
   Color getGenreColor(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    return isDarkMode ? Colors.black : const Color(0xFF9610ff);
+    return isDarkMode ? Colors.black : const Color(0xFF6237A0);
   }
 
   @override
@@ -791,11 +791,11 @@ class _GenreChip extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
             color: isSelected
-              ? const Color(0xFF9610ff)
+              ? const Color(0xFF6237A0)
               : (isDarkMode ? const Color(0xFF06041f) : Colors.white),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: const Color(0xFF9610ff),
+            color: const Color(0xFF6237A0),
             width: 1,
           ),
         ),
@@ -804,7 +804,7 @@ class _GenreChip extends StatelessWidget {
           style: TextStyle(
             color: isSelected
                 ? Colors.white
-                : const Color(0xFF9610ff), // Text color for both modes
+                : const Color(0xFF6237A0), // Text color for both modes
             fontSize: 16,
           ),
         ),
@@ -908,7 +908,7 @@ class _MovieCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: const Color(0xFF9610ff),
+                    color: const Color(0xFF6237A0),
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),

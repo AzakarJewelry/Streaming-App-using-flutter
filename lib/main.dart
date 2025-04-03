@@ -110,12 +110,12 @@ class _SplashScreenState extends State<SplashScreen>
         decoration: const BoxDecoration(
           gradient: LinearGradient(
         colors: [
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -128,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
+                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
@@ -136,7 +136,7 @@ class _SplashScreenState extends State<SplashScreen>
                   return const Icon(
                     Icons.image_not_supported,
                     size: 100,
-                    color: Color(0xFF9610ff),
+                    color: Color(0xFF6237A0),
                   );
                 },
               ),
@@ -145,12 +145,12 @@ class _SplashScreenState extends State<SplashScreen>
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: const Color(0xFF9610ff),
+                  color: const Color(0xFF6237A0),
                 ),
               ),
               const SizedBox(height: 16),
               const CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF9610ff)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF6237A0)),
               ),
             ],
           ),
@@ -174,12 +174,13 @@ class MyHomePage extends StatelessWidget {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors:[
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
             ],
             
             begin: Alignment.topLeft,
@@ -222,7 +223,7 @@ class MyHomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
+          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
           width: 150,
           height: 150,
           fit: BoxFit.contain,
@@ -232,7 +233,7 @@ class MyHomePage extends StatelessWidget {
           'DramaMania',
           style: GoogleFonts.publicSans(
             fontSize: 45,
-            color: const Color(0xFF9610ff),
+            color: const Color(0xFF6237A0),
           ),
         ),
         const SizedBox(height: 8),
@@ -240,7 +241,7 @@ class MyHomePage extends StatelessWidget {
           'Streaming platform and downloads',
           style: TextStyle(
             fontSize: 14,
-            color: Color(0xFF9610ff),
+            color: Color(0xFF6237A0),
           ),
         ),
       ],
@@ -269,7 +270,7 @@ class MyHomePage extends StatelessWidget {
           );
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF9610ff),
+          backgroundColor: const Color(0xFF6237A0),
           foregroundColor: const Color(0xFFF5EFE6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),

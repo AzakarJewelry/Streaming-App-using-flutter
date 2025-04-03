@@ -81,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         title: const Text('Sign Up'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF9610ff),
+        backgroundColor: const Color(0xFF6237A0),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
@@ -92,12 +92,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
-                    Color(0xFF06041f),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
+                    Color(0xFF1F1B24),
             ],
             
             begin: Alignment.topLeft,
@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Image.network(
-                    'https://res.cloudinary.com/daj3wmm8g/image/upload/v1742359300/Layer_x5F_1_ynndpp.png',
+                    'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
                     height: 100,
                     width: 100,
                   ),
@@ -125,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       'DramaMania',
                         style: GoogleFonts.publicSans(
                         fontSize: 32,
-                        color: Color(0xFF9610ff),
+                        color: Color(0xFF6237A0),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -140,13 +140,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   controller: _emailController,
   decoration: InputDecoration(
     labelText: 'Email',
-    prefixIcon: const Icon(Icons.email, color: Color(0xFF9610ff)),
+    prefixIcon: const Icon(Icons.email, color: Color(0xFF6237A0)),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff)),
+      borderSide: BorderSide(color: Color(0xFF6237A0)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF6237A0), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -157,13 +157,13 @@ TextField(
   controller: _nameController,
   decoration: InputDecoration(
     labelText: 'Name',
-    prefixIcon: const Icon(Icons.person, color: Color(0xFF9610ff)),
+    prefixIcon: const Icon(Icons.person, color: Color(0xFF6237A0)),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff)),
+      borderSide: BorderSide(color: Color(0xFF6237A0)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF6237A0), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -175,11 +175,11 @@ TextField(
   obscureText: !_passwordVisible,
   decoration: InputDecoration(
     labelText: 'Password',
-    prefixIcon: const Icon(Icons.lock, color: Color(0xFF9610ff)),
+    prefixIcon: const Icon(Icons.lock, color: Color(0xFF6237A0)),
     suffixIcon: IconButton(
       icon: Icon(
         _passwordVisible ? Icons.visibility : Icons.visibility_off,
-        color: const Color(0xFF9610ff),
+        color: const Color(0xFF6237A0),
       ),
       onPressed: () {
         setState(() {
@@ -189,10 +189,10 @@ TextField(
     ),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff)),
+      borderSide: BorderSide(color: Color(0xFF6237A0)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF6237A0), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -204,11 +204,11 @@ TextField(
   obscureText: !_confirmPasswordVisible,
   decoration: InputDecoration(
     labelText: 'Confirm Password',
-    prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF9610ff)),
+    prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF6237A0)),
     suffixIcon: IconButton(
       icon: Icon(
         _confirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
-        color: const Color(0xFF9610ff),
+        color: const Color(0xFF6237A0),
       ),
       onPressed: () {
         setState(() {
@@ -218,10 +218,10 @@ TextField(
     ),
     labelStyle: const TextStyle(color: Colors.white),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff)),
+      borderSide: BorderSide(color: Color(0xFF6237A0)),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Color(0xFF9610ff), width: 2),
+      borderSide: BorderSide(color: Color(0xFF6237A0), width: 2),
     ),
   ),
   style: const TextStyle(color: Colors.white),
@@ -230,7 +230,7 @@ TextField(
                   ElevatedButton(
                     onPressed: _isLoading ? null : _signUp,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF9610ff),
+                      backgroundColor: const Color(0xFF6237A0),
                       foregroundColor: const Color(0xFFFFFFFF),
                       minimumSize: const Size(double.infinity, 50),
                     ),
