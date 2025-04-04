@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'play_movie_screen.dart';
-import '../favorites/favorite_manager.dart';
+import 'play_movie_screen.dart'; // Ensure this path is correct
+import '../favorites/favorite_manager.dart'; // Import the favorite manager
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
@@ -43,7 +44,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     });
   }
 
- Future<void> _loadInterstitialAd() async {
+  Future<void> _loadInterstitialAd() async {
     if (_isAdLoading || _interstitialAd != null || _isDisposed) return;
 
     _isAdLoading = true;
@@ -58,12 +59,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               ad.dispose();
               return;
             }
-
             setState(() {
               _interstitialAd = ad;
               _isAdLoading = false;
             });
-
             ad.fullScreenContentCallback = FullScreenContentCallback(
               onAdDismissedFullScreenContent: (ad) {
                 _safeDisposeAd();
@@ -104,7 +103,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   void _showInterstitialAd() {
     if (_isDisposed || !mounted) return;
-    
     if (_interstitialAd != null && !_adShown) {
       try {
         _interstitialAd?.show();
@@ -141,7 +139,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       ),
     );
   }
-    @override
+
+  @override
   void dispose() {
     _isDisposed = true;
     _interstitialAd?.dispose();
@@ -154,8 +153,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final bool isFavorite = favoriteManager.isFavorite(widget.title);
     final Color textColor = isDarkMode ? Colors.white : Colors.black;
-    final Color secondaryTextColor = isDarkMode ? Colors.white70 : Colors.black54;
-    final Color appBarColor = isDarkMode ? Colors.grey[900]! : Colors.grey[200]!;
+    final Color secondaryTextColor =
+        isDarkMode ? Colors.white70 : Colors.black54;
+    final Color appBarColor =
+        isDarkMode ? Colors.grey[900]! : Colors.grey[200]!;
     final Color iconColor = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
@@ -186,8 +187,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     ),
                   );
                 },
-                errorBuilder: (context, error, stackTrace) => 
-                  Center(child: Icon(Icons.error, color: iconColor)),
+                errorBuilder: (context, error, stackTrace) =>
+                    Center(child: Icon(Icons.error, color: iconColor)),
               ),
             ),
           ),
@@ -211,7 +212,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ),
                       IconButton(
                         icon: Icon(
-                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                          isFavorite
+                              ? Icons.favorite
+                              : Icons.favorite_border,
                           color: isFavorite ? Colors.red : iconColor,
                           size: 30,
                         ),
@@ -286,12 +289,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         onPressed: _startCountdown,
         backgroundColor: const Color(0xFF9610ff),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
-        label: const Text('Play Movie', style: TextStyle(color: Colors.white)),
+        label: const Text('Play Movie',
+            style: TextStyle(color: Colors.white)),
       ),
     );
   }
-
-
 }
 
 class CountdownDialog extends StatefulWidget {
@@ -338,7 +340,7 @@ class _CountdownDialogState extends State<CountdownDialog> {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    
+
     return AlertDialog(
       backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
       content: Column(
@@ -348,7 +350,8 @@ class _CountdownDialogState extends State<CountdownDialog> {
           const SizedBox(height: 20),
           Text(
             "Playing movie in $countdown seconds...",
-            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+            style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.black),
           ),
         ],
       ),

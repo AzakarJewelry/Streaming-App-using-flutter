@@ -1,11 +1,11 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'favorite_manager.dart'; // Import the favorite manager
-import '../dashboard/movie_details_screen.dart'; // Import the movie details screen
-import '../dashboard/dashboard_screen.dart'; // Import your dashboard screen
-import '../profile/profile_screen.dart'; // Import your profile screen
-import 'dart:ui'; // Required for BackdropFilter and ImageFilter
+import '../dashboard/movie_details_screen.dart'; // Adjust the path as needed
+import '../dashboard/dashboard_screen.dart'; // Adjust the path as needed
+import '../profile/profile_screen.dart'; // Adjust the path as needed
+import 'package:azakarstream/drama/watch_video_screen.dart'; // Adjust the path as needed
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -41,11 +41,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
       );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -146,6 +141,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         trailing: IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () {
+                            // Remove favorite and update Firestore.
                             setState(() {
                               favoriteManager.toggleFavorite(movie);
                             });
@@ -161,6 +157,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           },
                         ),
                         onTap: () {
+                          // Navigate to the movie details screen.
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -168,7 +165,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 title: movie['title']!,
                                 genre: movie['genre']!,
                                 duration: movie['duration']!,
-                                
                                 description: movie['description']!,
                                 imageUrl: movie['imageUrl']!,
                                 videoUrl: movie['videoUrl']!,
@@ -189,13 +185,11 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(30),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Stronger blur
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     padding: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                    ),
+                    decoration: const BoxDecoration(color: Colors.transparent),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -215,7 +209,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     );
   }
 
-  /// Build bottom nav item
+  /// Build bottom navigation item
   Widget _buildNavItem(String iconPath, String label, int index) {
     final isSelected = _selectedIndex == index;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;

@@ -822,7 +822,6 @@ class _MovieCard extends StatelessWidget {
   final String description; // New parameter
 
   const _MovieCard({
-    super.key,
     required this.title,
     required this.imageUrl,
     required this.genre,

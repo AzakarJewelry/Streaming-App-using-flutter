@@ -10,7 +10,8 @@ class FavoriteManager extends ChangeNotifier {
   List<Map<String, String>> get favoriteMovies => _favoriteMovies;
 
   FavoriteManager() {
-    // Load the current user’s favorites from Firestore when the manager is created
+    // Load the current user’s favorites from Firestore when the manager is created.
+    // Make sure the user is already logged in.
     loadFavorites();
   }
 
@@ -79,4 +80,5 @@ class FavoriteManager extends ChangeNotifier {
   }
 }
 
+// Create a global instance that can be imported anywhere.
 final favoriteManager = FavoriteManager();
