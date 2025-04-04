@@ -127,7 +127,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
+                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743736420/nyyycvigtashwyvqjbtj.png',
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
@@ -222,7 +222,7 @@ class MyHomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
+          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743736420/nyyycvigtashwyvqjbtj.png',
           width: 150,
           height: 150,
           fit: BoxFit.contain,
@@ -237,7 +237,7 @@ class MyHomePage extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         const Text(
-          'Streaming platform and downloads',
+          'A Streaming platform for Movies and Dramas',
           style: TextStyle(
             fontSize: 14,
             color: Color(0xFF6237A0),

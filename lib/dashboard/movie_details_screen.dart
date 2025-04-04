@@ -287,7 +287,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _startCountdown,
-        backgroundColor: const Color(0xFF9610ff),
+        backgroundColor: const Color(0xFF6237A0),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
         label: const Text('Play Movie',
             style: TextStyle(color: Colors.white)),

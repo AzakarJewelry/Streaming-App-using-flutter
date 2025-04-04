@@ -68,33 +68,33 @@ class SocialMediaLinks extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSocialMediaButton(
+                _buildSocialMediaButton(
                 context: context,
                 icon: FontAwesomeIcons.facebook,
                 text: "Follow us on FACEBOOK",
                 url: "https://www.facebook.com/brljewelry",
-              ),
-              _buildSocialMediaButton(
+                ),
+                _buildSocialMediaButton(
                 context: context,
                 icon: FontAwesomeIcons.instagram,
                 text: "Follow us on INSTAGRAM",
                 url:
-                    "https://www.instagram.com/brljewelry/?fbclid=IwY2xjawIfd-9leHRuA2FlbQIxMAABHQNDxTVHF8beBPiz_bU0nq9LQYKF4jotLMDMxAWENi_VsixRsk3uk6iyyw_aem_NzsftROLtfWkvdZRic5d3w#",
-              ),
-              _buildSocialMediaButton(
+                  "https://www.instagram.com/brljewelry/?fbclid=IwY2xjawIfd-9leHRuA2FlbQIxMAABHQNDxTVHF8beBPiz_bU0nq9LQYKF4jotLMDMxAWENi_VsixRsk3uk6iyyw_aem_NzsftROLtfWkvdZRic5d3w#",
+                ),
+                _buildSocialMediaButton(
                 context: context,
                 icon: FontAwesomeIcons.tiktok,
                 text: "Follow us on TIKTOK",
                 url:
-                    "https://www.tiktok.com/@brljewelry?fbclid=IwY2xjawIfeIdleHRuA2FlbQIxMAABHeZJoXIR5sEwkoKjaA1DpupQfQQ5j868v7KIXlPpp-rSdvq61PgeuxBr0Q_aem_-lFBLucTu7Rp2lZyD7AMPQ",
-              ),
-              _buildSocialMediaButton(
+                  "https://www.tiktok.com/@brljewelry?fbclid=IwY2xjawIfeIdleHRuA2FlbQIxMAABHeZJoXIR5sEwkoKjaA1DpupQfQQ5j868v7KIXlPpp-rSdvq61PgeuxBr0Q_aem_-lFBLucTu7Rp2lZyD7AMPQ",
+                ),
+                _buildSocialMediaButton(
                 context: context,
                 icon: FontAwesomeIcons.youtube,
                 text: "Subscribe on YOUTUBE",
                 url: "https://www.youtube.com/@azakarjewelryyoutubechanne502",
-              ),
-              _buildSocialMediaButton(
+                ),
+                _buildSocialMediaButton(
                 context: context,
                 icon: FontAwesomeIcons.shoppingBag,
                 text: "Shop on SHOPEE",

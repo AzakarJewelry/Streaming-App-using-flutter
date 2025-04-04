@@ -484,7 +484,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: TextStyle(
               fontSize: 12,
               color: isSelected
-                  ? (isDarkMode ? Colors.white : const Color(0xFF9610ff))
+                  ? (isDarkMode ? Colors.white : const Color(0xFF6237A0))
                   : isDarkMode ? Colors.white70 : Colors.black54,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),

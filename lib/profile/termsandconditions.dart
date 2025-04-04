@@ -79,7 +79,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
       appBar: AppBar(
         title: const Text('Terms and Conditions'),
         foregroundColor: Colors.white,
-        backgroundColor: const Color(0xFF6152FF),
+        backgroundColor: const Color(0xFF6237A0),
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -133,7 +133,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isAgreedSubmitted
                         ? Colors.grey
-                        : const Color(0xFF6152FF),
+                        : const Color(0xFF6237A0),
                     foregroundColor: Colors.white,
                   ),
                   onPressed: isAgreedSubmitted ? null : _submitAgreement,
