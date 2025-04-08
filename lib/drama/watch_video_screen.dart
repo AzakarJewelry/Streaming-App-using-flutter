@@ -228,7 +228,6 @@ void dispose() {
   });
 }
 
-
     void _toggleControlsVisibility() {
       setState(() {
         _controlsVisible = !_controlsVisible;

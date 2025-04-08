@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'play_movie_screen.dart'; // Ensure this path is correct
 import '../favorites/favorite_manager.dart'; // Import the favorite manager
