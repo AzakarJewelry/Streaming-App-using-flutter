@@ -81,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         title: const Text('Sign Up'),
         foregroundColor: const Color(0xFFF5EFE6),
-        backgroundColor: const Color(0xFF6237A0),
+        backgroundColor: const Color(0xFF1F1B24),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFF5EFE6)),
           onPressed: () => Navigator.pop(context),
