@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'favorite_manager.dart'; // Import the favorite manager
-import '../dashboard/movie_details_screen.dart'; // Adjust the path as needed
-import '../dashboard/dashboard_screen.dart'; // Adjust the path as needed
-import '../profile/profile_screen.dart'; // Adjust the path as needed
-import 'package:azakarstream/drama/watch_video_screen.dart'; // Adjust the path as needed
+import 'favorite_manager.dart';
+import '../dashboard/movie_details_screen.dart';
+import '../dashboard/dashboard_screen.dart';
+import '../profile/profile_screen.dart';
+import 'package:azakarstream/drama/watch_video_screen.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -15,32 +15,46 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  final int _selectedIndex = 1; // Index for Favorites tab (0-indexed)
+  final int _selectedIndex = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    favoriteManager.addListener(_updateUI);
+  }
+
+  @override
+  void dispose() {
+    favoriteManager.removeListener(_updateUI);
+    super.dispose();
+  }
+
+  void _updateUI() {
+    setState(() {});
+  }
 
   void _onItemTapped(int index) {
     if (index == _selectedIndex) return;
 
-    if (index == 0) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
-      );
-    } else if (index == 1) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const FavoriteScreen()),
-      );
-    } else if (index == 2) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ProfileScreen()),
-      );
-    } else if (index == 3) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WatchVideoScreen()),
-      );
+    Widget screen;
+    switch (index) {
+      case 0:
+        screen = const DashboardScreen();
+        break;
+      case 2:
+        screen = const ProfileScreen();
+        break;
+      case 3:
+        screen = const WatchVideoScreen();
+        break;
+      default:
+        return;
     }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => screen),
+    );
   }
 
   @override
@@ -58,41 +72,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       body: Stack(
         children: [
           favoriteManager.favoriteMovies.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.favorite_border,
-                        size: 80,
-                        color: isDarkMode ? Colors.grey[600] : Colors.grey[400],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'Your favorite movies will appear here.',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: isDarkMode ? Colors.grey[400] : Colors.grey,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const DashboardScreen()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF6237A0),
-                          foregroundColor: Colors.white,
-                        ),
-                        child: const Text('Explore Movies'),
-                      ),
-                    ],
-                  ),
-                )
+              ? _buildEmptyState(isDarkMode)
               : ListView.builder(
                   padding: const EdgeInsets.all(8.0),
                   itemCount: favoriteManager.favoriteMovies.length,
@@ -124,40 +104,52 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             color: isDarkMode ? Colors.white : Colors.black,
                           ),
                         ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 4),
-                            Text(
-                              "Genre: ${movie['genre']}",
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: isDarkMode ? Colors.white70 : Colors.black54,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                          ],
+                        subtitle: Text(
+                          "Genre: ${movie['genre']}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: isDarkMode ? Colors.white70 : Colors.black54,
+                          ),
                         ),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            // Remove favorite and update Firestore.
-                            setState(() {
-                              favoriteManager.toggleFavorite(movie);
-                            });
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                          onPressed: () async {
+                            // Show confirmation dialog before removing
+                            final shouldRemove = await showDialog<bool>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Remove from Favorites'),
                                 content: Text(
-                                  "${movie['title']} removed from favorites.",
-                                  style: const TextStyle(fontSize: 14),
+                                  "Are you sure you want to remove ${movie['title']} from your favorites?",
                                 ),
-                                duration: const Duration(seconds: 2),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, false),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, true),
+                                    child: const Text('Remove'),
+                                  ),
+                                ],
                               ),
                             );
+
+                            if (shouldRemove == true) {
+                              await favoriteManager.toggleFavorite(movie);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "${movie['title']} removed from favorites.",
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                            }
                           },
                         ),
                         onTap: () {
-                          // Navigate to the movie details screen.
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -176,40 +168,70 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     );
                   },
                 ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: const BoxDecoration(color: Colors.transparent),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _buildNavItem('assets/icons/home.svg', 'Home', 0),
-                        _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
-                        _buildNavItem('assets/icons/user.svg', 'Profile', 2),
-                        _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+          _buildBottomNav(isDarkMode),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(bool isDarkMode) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.favorite_border, size: 80, color: isDarkMode ? Colors.grey[600] : Colors.grey[400]),
+          const SizedBox(height: 16),
+          Text(
+            'Your favorite movies will appear here.',
+            style: TextStyle(fontSize: 18, color: isDarkMode ? Colors.grey[400] : Colors.grey),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardScreen()));
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF6237A0),
+              foregroundColor: Colors.white,
             ),
+            child: const Text('Explore Movies'),
           ),
         ],
       ),
     );
   }
 
-  /// Build bottom navigation item
+  Widget _buildBottomNav(bool isDarkMode) {
+    return Positioned(
+      left: 0,
+      right: 0,
+      bottom: 0,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 12.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              decoration: const BoxDecoration(color: Colors.transparent),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem('assets/icons/home.svg', 'Home', 0),
+                  _buildNavItem('assets/icons/heart.svg', 'Favorites', 1),
+                  _buildNavItem('assets/icons/user.svg', 'Profile', 2),
+                  _buildNavItem('assets/icons/play-circle.svg', 'Reels', 3),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildNavItem(String iconPath, String label, int index) {
     final isSelected = _selectedIndex == index;
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;

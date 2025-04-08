@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 const SizedBox(height: 20),
                 Image.network(
-                  'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743736420/nyyycvigtashwyvqjbtj.png',
+                  'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
                   width: 100,
                   height: 100,
                   fit: BoxFit.contain,
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'DramaMania',
                   style: GoogleFonts.publicSans(
                     fontSize: 32,
-                    color: const Color(0xFF6237A0),
+                    color: const Color(0xFFFFFFFF),
                   ),
                 ),
                 const SizedBox(height: 30),

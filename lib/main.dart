@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF9610ff)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFFFFFFF)),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -127,7 +127,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743736420/nyyycvigtashwyvqjbtj.png',
+                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
                 width: 150,
                 height: 150,
                 fit: BoxFit.contain,
@@ -144,7 +144,7 @@ class _SplashScreenState extends State<SplashScreen>
                 widget.splashName,
                 style: GoogleFonts.publicSans(
                   fontSize: 45,
-                  color: const Color(0xFF6237A0),
+                  color: const Color(0xFFFFFFFF),
                 ),
               ),
               const SizedBox(height: 16),
@@ -222,7 +222,7 @@ class MyHomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743736420/nyyycvigtashwyvqjbtj.png',
+          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
           width: 150,
           height: 150,
           fit: BoxFit.contain,
@@ -232,7 +232,7 @@ class MyHomePage extends StatelessWidget {
           'DramaMania',
           style: GoogleFonts.publicSans(
             fontSize: 45,
-            color: const Color(0xFF6237A0),
+            color: const Color(0xFFFFFFFF),
           ),
         ),
         const SizedBox(height: 8),
@@ -240,7 +240,7 @@ class MyHomePage extends StatelessWidget {
           'A Streaming platform for Movies and Dramas',
           style: TextStyle(
             fontSize: 14,
-            color: Color(0xFF6237A0),
+            color: Color(0xFFFFFFFF),
           ),
         ),
       ],

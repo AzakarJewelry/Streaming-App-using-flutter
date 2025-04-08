@@ -424,28 +424,37 @@ Widget _buildTopBar() {
   );
 }
 
-  Widget _buildGenres() {
-    final genres = [
-      'Fantasy', 'Drama', 'Action', 'Romance', 'Comedy', 'Anime',
-      'Horror', 'Thriller', 'Sci-Fi', 'Mystery', 'Adventure', 'Documentary'
-    ];
-    return Column(
+ Widget _buildGenres() {
+  final genres = [
+    'Fantasy', 'Drama', 'Action', 'Romance', 'Comedy', 'Anime',
+    'Horror', 'Thriller', 'Sci-Fi', 'Mystery', 'Adventure', 'Documentary'
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Genres',
           style: TextStyle(
             color: const Color(0xFF6237A0),
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
           ),
         ),
         const SizedBox(height: 10),
         SizedBox(
-          height: 40,
-          child: ListView(
+          height: 43,
+          child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            children: genres.map((genre) {
+            physics: const BouncingScrollPhysics(),
+            itemCount: genres.length,
+            padding: const EdgeInsets.only(right: 6),
+            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            itemBuilder: (context, index) {
+              final genre = genres[index];
               return _GenreChip(
                 title: genre,
                 genre: genre,
@@ -455,20 +464,27 @@ Widget _buildTopBar() {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GenreScreen(
+                      builder: (_) => GenreScreen(
                         genre: selectedGenre,
-                        allMovies: [...featuredMovies, ...newReleases, ...mostPopular],
+                        allMovies: [
+                          ...featuredMovies,
+                          ...newReleases,
+                          ...mostPopular,
+                        ],
                       ),
                     ),
                   );
                 },
               );
-            }).toList(),
+            },
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
+
 
   Widget _buildNewReleases() {
   final bool isDark = Theme.of(context).brightness == Brightness.dark;
@@ -772,7 +788,6 @@ class _GenreChip extends StatelessWidget {
     required this.onSelected,
   });
 
-  // Fixed color for all genres
   Color getGenreColor(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return isDarkMode ? Colors.black : const Color(0xFF6237A0);
@@ -781,37 +796,49 @@ class _GenreChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final Color selectedColor = const Color(0xFF6237A0);
+    final Color unselectedBg = isDarkMode ? const Color(0xFF06041F) : Colors.white;
+    final Color textColor = isSelected ? Colors.white : selectedColor;
 
-    return InkWell(
-      onTap: () => onSelected(genre),
-      hoverColor: getGenreColor(context).withOpacity(0.5),
-      borderRadius: BorderRadius.circular(20),
-      child: Container(
-        margin: const EdgeInsets.only(right: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        decoration: BoxDecoration(
-            color: isSelected
-              ? const Color(0xFF6237A0)
-              : (isDarkMode ? const Color(0xFF06041f) : Colors.white),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: const Color(0xFF6237A0),
-            width: 1,
+    return Padding(
+      padding: const EdgeInsets.only(right: 8.0),
+      child: InkWell(
+        onTap: () => onSelected(genre),
+        borderRadius: BorderRadius.circular(20),
+        splashColor: selectedColor.withOpacity(0.2),
+        highlightColor: selectedColor.withOpacity(0.1),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: isSelected ? selectedColor : unselectedBg,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: selectedColor, width: 1),
+            boxShadow: isSelected
+                ? [
+                    BoxShadow(
+                      color: selectedColor.withOpacity(0.4),
+                      offset: const Offset(0, 2),
+                      blurRadius: 6,
+                    )
+                  ]
+                : [],
           ),
-        ),
-        child: Text(
-          title,
-          style: TextStyle(
-            color: isSelected
-                ? Colors.white
-                : const Color(0xFF6237A0), // Text color for both modes
-            fontSize: 16,
+          child: Text(
+            title,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.3,
+            ),
           ),
         ),
       ),
     );
   }
 }
+
 
 class _MovieCard extends StatelessWidget {
   final String title;

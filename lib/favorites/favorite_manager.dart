@@ -7,18 +7,19 @@ class FavoriteManager extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  List<Map<String, String>> get favoriteMovies => _favoriteMovies;
+  List<Map<String, String>> get favoriteMovies => List.unmodifiable(_favoriteMovies);
 
   FavoriteManager() {
-    // Load the current user’s favorites from Firestore when the manager is created.
-    // Make sure the user is already logged in.
-    loadFavorites();
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
+        loadFavorites();
+      }
+    });
   }
 
-  /// Loads the favorite movies from Firestore for the current user.
   Future<void> loadFavorites() async {
     final user = _auth.currentUser;
-    if (user == null) return; // If not logged in, exit early.
+    if (user == null) return;
 
     try {
       final snapshot = await _firestore
@@ -31,13 +32,13 @@ class FavoriteManager extends ChangeNotifier {
       for (var doc in snapshot.docs) {
         final data = doc.data();
         _favoriteMovies.add({
-          'title': data['title'] as String,
-          'genre': data['genre'] as String,
-          'duration': data['duration'] as String,
-          'rating': data['rating'] as String,
-          'description': data['description'] as String,
-          'imageUrl': data['imageUrl'] as String,
-          'videoUrl': data['videoUrl'] as String,
+          'title': data['title'] ?? '',
+          'genre': data['genre'] ?? '',
+          'duration': data['duration'] ?? '',
+          'rating': data['rating'] ?? '',
+          'description': data['description'] ?? '',
+          'imageUrl': data['imageUrl'] ?? '',
+          'videoUrl': data['videoUrl'] ?? '',
         });
       }
       notifyListeners();
@@ -46,27 +47,25 @@ class FavoriteManager extends ChangeNotifier {
     }
   }
 
-  /// Toggles a movie as favorite or not.
   Future<void> toggleFavorite(Map<String, String> movie) async {
     final user = _auth.currentUser;
-    if (user == null) return; // Ensure the user is logged in
+    if (user == null) return;
 
-    final existingIndex =
-        _favoriteMovies.indexWhere((item) => item['title'] == movie['title']);
     final userFavoritesRef = _firestore
         .collection('users')
         .doc(user.uid)
         .collection('favorites');
 
+    final docId = movie['title']!;
+    final existingIndex = _favoriteMovies.indexWhere((item) => item['title'] == docId);
+
     try {
       if (existingIndex >= 0) {
-        // Movie already a favorite; remove it both locally and in Firestore.
         _favoriteMovies.removeAt(existingIndex);
-        await userFavoritesRef.doc(movie['title']).delete();
+        await userFavoritesRef.doc(docId).delete();
       } else {
-        // Movie is not a favorite; add it locally and in Firestore.
         _favoriteMovies.add(movie);
-        await userFavoritesRef.doc(movie['title']).set(movie);
+        await userFavoritesRef.doc(docId).set(movie);
       }
       notifyListeners();
     } catch (e) {
@@ -74,11 +73,9 @@ class FavoriteManager extends ChangeNotifier {
     }
   }
 
-  /// Checks whether a movie (by title) is a favorite.
   bool isFavorite(String title) {
     return _favoriteMovies.any((movie) => movie['title'] == title);
   }
 }
 
-// Create a global instance that can be imported anywhere.
 final favoriteManager = FavoriteManager();

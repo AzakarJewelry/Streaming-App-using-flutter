@@ -21,7 +21,7 @@ class GenreScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('$genre Movies or Dramas'),
-        backgroundColor: const Color(0xFF9610ff),
+        backgroundColor: const Color(0xFF6237A0),
         foregroundColor: const Color(0xFFF5EFE6),
       ),
       body: Container(
@@ -44,9 +44,9 @@ class GenreScreen extends StatelessWidget {
             ? Center(
                 child: Text(
                   'No movies found in the $genre genre.',
-                  style: TextStyle(
+                    style: TextStyle(
                     fontSize: 18,
-                    color: isDarkMode ? Colors.white : Colors.black,
+                    color: const Color(0xFF6237A0),
                   ),
                 ),
               )
