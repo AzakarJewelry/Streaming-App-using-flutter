@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:ui'; // Needed for ImageFilter.blur
 import 'package:azakarstream/dashboard/SearchScreen.dart';
-
 import '../../favorites/favorites_screen.dart'; // Import the FavoriteScreen
 import 'package:azakarstream/drama/watch_video_screen.dart';
 import 'package:flutter/material.dart';

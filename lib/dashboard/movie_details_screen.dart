@@ -30,66 +30,68 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   InterstitialAd? _interstitialAd;
   bool _isAdLoading = false;
   bool _adShown = false;
-  final bool _adLoadFailed = false;
   bool _isDisposed = false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_isDisposed) {
-        _loadInterstitialAd();
-      }
-    });
+    // Attempt to load the ad immediately.
+    _loadInterstitialAd();
   }
 
   Future<void> _loadInterstitialAd() async {
     if (_isAdLoading || _interstitialAd != null || _isDisposed) return;
 
-    _isAdLoading = true;
+    setState(() {
+      _isAdLoading = true;
+    });
 
+    debugPrint("Loading interstitial ad...");
     try {
       await InterstitialAd.load(
-        adUnitId: 'ca-app-pub-3940256099942544/1033173712',
-        request: AdRequest(),
+        adUnitId: 'ca-app-pub-3940256099942544/1033173712', // Test Ad Unit ID
+        request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (ad) {
+          onAdLoaded: (InterstitialAd ad) {
             if (_isDisposed || !mounted) {
               ad.dispose();
               return;
             }
+            debugPrint("Interstitial ad loaded successfully.");
             setState(() {
               _interstitialAd = ad;
               _isAdLoading = false;
             });
             ad.fullScreenContentCallback = FullScreenContentCallback(
               onAdDismissedFullScreenContent: (ad) {
+                debugPrint("Interstitial ad dismissed.");
                 _safeDisposeAd();
                 _navigateToPlayMovie();
               },
               onAdFailedToShowFullScreenContent: (ad, error) {
+                debugPrint("Interstitial ad failed to show: $error");
                 _safeDisposeAd();
                 _navigateToPlayMovie();
               },
             );
           },
-          onAdFailedToLoad: (error) {
-            if (_isDisposed || !mounted) return;
-            setState(() {
-              _isAdLoading = false;
-            });
-            debugPrint('Ad failed to load: $error');
-            _navigateToPlayMovie();
+          onAdFailedToLoad: (LoadAdError error) {
+            debugPrint("Interstitial ad failed to load: $error");
+            if (!_isDisposed && mounted) {
+              setState(() {
+                _isAdLoading = false;
+              });
+            }
           },
         ),
       );
     } catch (error) {
-      if (_isDisposed || !mounted) return;
-      setState(() {
-        _isAdLoading = false;
-      });
-      debugPrint('Error loading ad: $error');
-      _navigateToPlayMovie();
+      debugPrint("Error loading interstitial ad: $error");
+      if (!_isDisposed && mounted) {
+        setState(() {
+          _isAdLoading = false;
+        });
+      }
     }
   }
 
@@ -104,18 +106,30 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     if (_isDisposed || !mounted) return;
     if (_interstitialAd != null && !_adShown) {
       try {
+        debugPrint("Showing interstitial ad...");
         _interstitialAd?.show();
       } catch (error) {
-        debugPrint('Error showing ad: $error');
+        debugPrint("Error showing interstitial ad: $error");
         _navigateToPlayMovie();
       }
     } else {
-      _navigateToPlayMovie();
+      debugPrint("Interstitial ad not available, attempting reload.");
+      // Try to load the ad again
+      _loadInterstitialAd().then((_) {
+        if (_interstitialAd != null) {
+          debugPrint("Ad loaded on reload, now showing ad.");
+          _interstitialAd?.show();
+        } else {
+          debugPrint("Ad still not available, navigating directly.");
+          _navigateToPlayMovie();
+        }
+      });
     }
   }
 
   void _navigateToPlayMovie() {
     if (_isDisposed || !mounted) return;
+    debugPrint("Navigating to PlayMovie screen.");
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -126,9 +140,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   void _startCountdown() {
     if (_isDisposed || !mounted) return;
+    // Reset the ad shown flag in case the user triggers it again.
     setState(() {
       _adShown = false;
     });
+    debugPrint("Starting countdown before showing ad...");
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -154,8 +170,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     final Color textColor = isDarkMode ? Colors.white : Colors.black;
     final Color secondaryTextColor =
         isDarkMode ? Colors.white70 : Colors.black54;
-    final Color appBarColor =
-        isDarkMode ? Colors.grey[900]! : Colors.grey[200]!;
+    final Color appBarColor = isDarkMode ? Colors.grey[900]! : Colors.grey[200]!;
     final Color iconColor = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
@@ -211,9 +226,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       ),
                       IconButton(
                         icon: Icon(
-                          isFavorite
-                              ? Icons.favorite
-                              : Icons.favorite_border,
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
                           color: isFavorite ? Colors.red : iconColor,
                           size: 30,
                         ),
@@ -253,17 +266,12 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
-                  Column(
-                    children: [
-                      Text(
-                        widget.duration,
-                        style: TextStyle(
-                          color: secondaryTextColor,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                    ],
+                  Text(
+                    widget.duration,
+                    style: TextStyle(
+                      color: secondaryTextColor,
+                      fontSize: 16,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Padding(
@@ -288,8 +296,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
         onPressed: _startCountdown,
         backgroundColor: const Color(0xFF6237A0),
         icon: const Icon(Icons.play_arrow, color: Colors.white),
-        label: const Text('Play Movie',
-            style: TextStyle(color: Colors.white)),
+        label: const Text(
+          'Play Movie',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
@@ -339,7 +349,6 @@ class _CountdownDialogState extends State<CountdownDialog> {
   @override
   Widget build(BuildContext context) {
     final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return AlertDialog(
       backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
       content: Column(
@@ -350,7 +359,8 @@ class _CountdownDialogState extends State<CountdownDialog> {
           Text(
             "Playing movie in $countdown seconds...",
             style: TextStyle(
-                color: isDarkMode ? Colors.white : Colors.black),
+              color: isDarkMode ? Colors.white : Colors.black,
+            ),
           ),
         ],
       ),
