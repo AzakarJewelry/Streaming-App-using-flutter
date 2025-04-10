@@ -79,7 +79,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
       appBar: AppBar(
         title: const Text('Terms and Conditions'),
         foregroundColor: Colors.white,
-        backgroundColor: const Color(0xFF6237A0),
+        backgroundColor: const Color(0xFF06041F),
       ),
       body: Container(
         decoration: const BoxDecoration(

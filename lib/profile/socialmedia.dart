@@ -50,7 +50,8 @@ class SocialMediaLinks extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Social Media Links'),
         centerTitle: true,
-        foregroundColor: Colors.black, // AppBar text color set to white
+        foregroundColor: Colors.white,
+        backgroundColor: const Color(0xFF06041F),
       ),
       body: Container(
         decoration: const BoxDecoration(
