@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SettingsScreen extends StatefulWidget {
   final bool isDarkMode;
@@ -39,13 +41,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  void _rateUs(double rating) {
+  Future<void> _rateUs(double rating) async {
     setState(() {
       _rating = rating;
     });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('You rated: ${rating.toString()} stars')),
-    );
+
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+
+      await FirebaseFirestore.instance.collection('ratings').add({
+        'userId': user?.uid ?? 'anonymous',
+        'email': user?.email ?? 'anonymous',
+        'rating': rating,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Thanks! You rated: $rating stars')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to save rating: $e')),
+      );
+    }
   }
 
   @override
@@ -62,14 +80,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
-                ? [
-                    const Color(0xFF06041F),
-                    const Color(0xFF06041F)
-                  ]
-                : [
-                    const Color(0xFFFFFFFF),
-                    const Color(0xFFFFFFFF)
-                  ],
+                ? [const Color(0xFF06041F), const Color(0xFF06041F)]
+                : [const Color(0xFFFFFFFF), const Color(0xFFFFFFFF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
