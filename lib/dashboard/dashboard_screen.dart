@@ -642,6 +642,7 @@ Widget build(BuildContext context) {
                       ]
                     : [
                         Color(0xFFFFFFFF), // pure white
+                        Color(0xFFFFFFFF),
                         Color(0xFFFDFDFD), // slightly off-white
                         Color(0xFFF9F9F9), // more visible change
                         Color(0xFFF5F5F5),
