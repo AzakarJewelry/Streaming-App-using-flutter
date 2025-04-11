@@ -641,13 +641,11 @@ Widget build(BuildContext context) {
                     Color(0xFF1F1B24),
                       ]
                     : [
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
-                        Color(0xFFffffff),
+                        Color(0xFFFFFFFF), // pure white
+                        Color(0xFFFDFDFD), // slightly off-white
+                        Color(0xFFF9F9F9), // more visible change
+                        Color(0xFFF5F5F5),
+                        Color(0xFFF2F2F2),
                     
                       ],
                 begin: Alignment.topLeft,
