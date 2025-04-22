@@ -45,7 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
         backgroundColor: Colors.transparent,
         title: Text(
           'Search Movies or Dramas',
-          style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
+          style: TextStyle(color: Color(0xFF5F666C)),
         ),
       ),
       body: Container(
@@ -53,8 +53,8 @@ class _SearchScreenState extends State<SearchScreen> {
           gradient: LinearGradient(
             colors: isDarkMode
                 ? [
-                    const Color(0xFF06041F), // Dark Blue
-                    const Color(0xFF06041F),
+                    const Color(0xFF1F1B24), // Dark Blue
+                    const Color(0xFF1F1B24),
                   ]
                 : [
                     const Color(0xFFFFFFFF), // Same for light mode
@@ -69,39 +69,44 @@ class _SearchScreenState extends State<SearchScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-              controller: _searchController,
-              style: TextStyle(color: isDarkMode ? Colors.white : Colors.black), // Typed text color based on theme
-              decoration: InputDecoration(
-                hintText: 'Search for movies or dramas...',
-                hintStyle: TextStyle(color: isDarkMode ? Colors.white : Colors.black), // Hint text color based on theme
-                enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(color: isDarkMode ? Colors.white : Colors.black), // Border color based on theme
-                ),
-                focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(color: isDarkMode ? Colors.white : Colors.black), // Border color when focused based on theme
-                ),
-                suffixIcon: _searchController.text.isNotEmpty
-                  ? IconButton(
-                    icon: Icon(Icons.clear, color: isDarkMode ? Colors.white : Colors.black), // Icon color based on theme
-                    onPressed: () {
-                    _searchController.clear();
-                    setState(() {
-                      _searchResults = [];
-                    });
-                    },
-                  )
-                  : IconButton(
-                    icon: Icon(Icons.search, color: isDarkMode ? Colors.white : Colors.black), // Icon color based on theme
-                    onPressed: () {
-                    _searchMovies(_searchController.text);
-                    },
+                controller: _searchController,
+                style: TextStyle(
+                    color: isDarkMode ? Colors.white : Colors.black), // Typed text color based on theme
+                decoration: InputDecoration(
+                  hintText: 'Search for movies or dramas...',
+                  hintStyle: TextStyle(color: Color(0xFF5F666C)), // Hint text color changed to 5F666C
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(
+                        color: isDarkMode ? Colors.white : Colors.black), // Border color based on theme
                   ),
-              ),
-              onChanged: (value) {
-                _searchMovies(value);
-              },
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(
+                        color: isDarkMode ? Colors.white : Colors.black), // Border color when focused based on theme
+                  ),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: Icon(Icons.clear,
+                              color: isDarkMode ? Colors.white : Colors.black), // Icon color based on theme
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() {
+                              _searchResults = [];
+                            });
+                          },
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.search,
+                              color: isDarkMode ? Colors.white : Colors.black), // Icon color based on theme
+                          onPressed: () {
+                            _searchMovies(_searchController.text);
+                          },
+                        ),
+                ),
+                onChanged: (value) {
+                  _searchMovies(value);
+                },
               ),
             ),
             Expanded(
@@ -109,7 +114,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.movie_filter, size: 80, color: Colors.grey),
+                        const Icon(Icons.movie_filter,
+                            size: 80, color: Colors.grey),
                         const SizedBox(height: 10),
                         const Text(
                           'No movies found!',
@@ -122,7 +128,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       itemBuilder: (context, index) {
                         final movie = _searchResults[index];
                         return Card(
-                          color: Colors.black, // Dark background for movie item
+                          color: isDarkMode
+                              ? Colors.black
+                              : Colors.white, // Background color based on theme
                           margin: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
                           elevation: 4,
@@ -154,10 +162,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                   ),
                             title: Text(
                               movie['title'] ?? 'Unknown',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                color: Colors.white, // White text
+                                color: isDarkMode
+                                    ? Colors.white
+                                    : Colors.black, // Text color based on theme
                               ),
                             ),
                             subtitle: Column(
@@ -166,11 +176,18 @@ class _SearchScreenState extends State<SearchScreen> {
                                 const SizedBox(height: 4),
                                 Text(
                                   "Genre: ${movie['genre'] ?? 'N/A'}",
-                                  style: const TextStyle(fontSize: 14, color: Colors.white70),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : Colors.black), // Text color based on theme
                                 ),
                               ],
                             ),
-                            trailing: const Icon(Icons.arrow_forward_ios, color: Colors.white), // White icon
+                            trailing: Icon(Icons.arrow_forward_ios,
+                                color: isDarkMode
+                                    ? Colors.white
+                                    : Colors.black), // Icon color based on theme
                             onTap: () {
                               if (movie['type'] == 'featured') {
                                 Navigator.push(
@@ -194,7 +211,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                       imageUrl: movie['imageUrl']!,
                                       videoUrl: movie['videoUrl']!,
                                       duration: movie['duration']!,
-                                      
                                     ),
                                   ),
                                 );

@@ -382,7 +382,7 @@ Widget _buildFeaturedMovie(BuildContext context) {
 Widget _buildTopBar() {
   return SafeArea(
     child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -438,7 +438,7 @@ Widget _buildTopBar() {
   ];
 
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    padding: const EdgeInsets.symmetric(),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -491,121 +491,126 @@ Widget _buildTopBar() {
   );
 }
 
-
-
-  Widget _buildNewReleases() {
+Widget _buildNewReleases() {
   final bool isDark = Theme.of(context).brightness == Brightness.dark;
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'New Releases',
-            style: TextStyle(
-                color: const Color(0xFF6237A0),
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ViewAllMoviesScreen(movies: newReleases),
-                ),
-              );
-            },
-            child: Text(
-              'View All',
+
+  return Padding(
+    padding: const EdgeInsets.symmetric(),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'New Releases',
               style: TextStyle(
-               color: const Color(0xFF6237A0),
+                color: const Color(0xFF6237A0),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 15),
-      SizedBox(
-        height: 260, // Adjusted height for fixed picture size
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: newReleases
-              .map(
-                (movie) => _MovieCard(
-                  title: movie['title']!,
-                  imageUrl: movie['imageUrl']!,
-                  genre: movie['genre']!,
-                  duration: movie['duration']!,
-                  videoUrl: movie['videoUrl']!,
-                  description: movie['description']!,
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ViewAllMoviesScreen(movies: newReleases),
+                  ),
+                );
+              },
+              child: Text(
+                'View All',
+                style: TextStyle(
+                  color: const Color(0xFF6237A0),
                 ),
-              )
-              .toList(),
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
+        const SizedBox(height: 15),
+        SizedBox(
+          height: 260, // Adjusted height for fixed picture size
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: newReleases
+                .map(
+                  (movie) => _MovieCard(
+                    title: movie['title']!,
+                    imageUrl: movie['imageUrl']!,
+                    genre: movie['genre']!,
+                    duration: movie['duration']!,
+                    videoUrl: movie['videoUrl']!,
+                    description: movie['description']!,
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    ),
   );
 }
 
 Widget _buildMoreMovies() {
   final bool isDark = Theme.of(context).brightness == Brightness.dark;
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Most Popular',
-            style: TextStyle(
-             color: const Color(0xFF6237A0),
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ViewAllMoviesScreen(movies: mostPopular),
-                ),
-              );
-            },
-            child: Text(
-              'View All',
+  return Padding(
+    padding: const EdgeInsets.symmetric(),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Most Popular',
               style: TextStyle(
-               color: const Color(0xFF6237A0),
+                color: const Color(0xFF6237A0),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 15),
-      SizedBox(
-        height: 260, // Adjusted height for fixed picture size
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: mostPopular
-              .map(
-                (movie) => _MovieCard(
-                  title: movie['title']!,
-                  imageUrl: movie['imageUrl']!,
-                  genre: movie['genre']!,
-                  duration: movie['duration']!,
-                  videoUrl: movie['videoUrl']!,
-                  description: movie['description']!,
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ViewAllMoviesScreen(movies: mostPopular),
+                  ),
+                );
+              },
+              child: Text(
+                'View All',
+                style: TextStyle(
+                  color: const Color(0xFF6237A0),
                 ),
-              )
-              .toList(),
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
+        const SizedBox(height: 15),
+        SizedBox(
+          height: 260, // Adjusted height for fixed picture size
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: mostPopular
+                .map(
+                  (movie) => _MovieCard(
+                    title: movie['title']!,
+                    imageUrl: movie['imageUrl']!,
+                    genre: movie['genre']!,
+                    duration: movie['duration']!,
+                    videoUrl: movie['videoUrl']!,
+                    description: movie['description']!,
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
+    ),
   );
 }
 @override
@@ -820,15 +825,15 @@ class _GenreChip extends StatelessWidget {
             color: isSelected ? selectedColor : unselectedBg,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: selectedColor, width: 1),
-            boxShadow: isSelected
-                ? [
-                    BoxShadow(
-                      color: selectedColor.withOpacity(0.4),
-                      offset: const Offset(0, 2),
-                      blurRadius: 6,
-                    )
-                  ]
-                : [],
+            // boxShadow: isSelected
+            //     ? [
+            //         BoxShadow(
+            //           color: selectedColor.withOpacity(0.4),
+            //           offset: const Offset(0, 2),
+            //           blurRadius: 6,
+            //         )
+            //       ]
+            //     : [],
           ),
           child: Text(
             title,
@@ -889,14 +894,14 @@ class _MovieCard extends StatelessWidget {
         margin: const EdgeInsets.only(right: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: isDarkMode ? Colors.black : Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
+            color: isDarkMode ? Colors.black : const Color(0xFFF0F0F0),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black.withOpacity(0.1),
+          //     blurRadius: 8,
+          //     offset: const Offset(0, 4),
+          //   ),
+          // ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -80,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: isDarkMode
-                ? [const Color(0xFF06041F), const Color(0xFF06041F)]
+                ? [const Color(0xFF1F1B24), const Color(0xFF1F1B24)]
                 : [const Color(0xFFFFFFFF), const Color(0xFFFFFFFF)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

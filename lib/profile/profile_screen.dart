@@ -221,7 +221,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final iconColor = isDarkMode ? Colors.white : Colors.black;
     final backgroundColor = isDarkMode ? Colors.grey[900]! : Colors.white;
     final cardColor = isDarkMode ? Colors.grey[800]! : Colors.white;
-    final shadowColor = isDarkMode ? Colors.black : Colors.grey[200]!;
+    final borderColor = isDarkMode ? Colors.white54 : Colors.black54;
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -328,7 +328,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: textColor,
                         iconColor: iconColor,
                         cardColor: cardColor,
-                        shadowColor: shadowColor,
                       ),
                       _buildMenuItem(
                         icon: Icons.settings,
@@ -350,7 +349,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: textColor,
                         iconColor: iconColor,
                         cardColor: cardColor,
-                        shadowColor: shadowColor,
                       ),
                       _buildMenuItem(
                         icon: Icons.info_outline,
@@ -367,7 +365,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: textColor,
                         iconColor: iconColor,
                         cardColor: cardColor,
-                        shadowColor: shadowColor,
                       ),
                       _buildMenuItem(
                         icon: Icons.info_outline,
@@ -383,7 +380,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: textColor,
                         iconColor: iconColor,
                         cardColor: cardColor,
-                        shadowColor: shadowColor,
                       ),
                       _buildMenuItem(
                         icon: Icons.logout,
@@ -392,7 +388,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: textColor,
                         iconColor: iconColor,
                         cardColor: cardColor,
-                        shadowColor: shadowColor,
                       ),
                     ],
                   ),
@@ -494,41 +489,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildMenuItem({
-    required IconData icon,
-    required String title,
-    VoidCallback? onTap,
-    required Color textColor,
-    required Color iconColor,
-    required Color cardColor,
-    required Color shadowColor,
-  }) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: shadowColor,
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
+ Widget _buildMenuItem({
+  required IconData icon,
+  required String title,
+  VoidCallback? onTap,
+  required Color textColor,
+  required Color iconColor,
+  required Color cardColor,
+}) {
+  final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+  final borderColor = isDarkMode ? const Color(0xFF2C2C2E) : const Color(0xFFF0F0F0);
+
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 8),
+    decoration: BoxDecoration(
+      color: cardColor,
+      borderRadius: BorderRadius.circular(15),
+      border: Border.all(
+        color: borderColor,
+        width: 1.5,
       ),
-      child: ListTile(
-        leading: Icon(icon, color: iconColor),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: textColor,
-          ),
+    ),
+    child: ListTile(
+      leading: Icon(icon, color: iconColor),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: textColor,
         ),
-        trailing: Icon(Icons.chevron_right, color: iconColor),
-        onTap: onTap,
       ),
-    );
-  }
+      trailing: Icon(Icons.chevron_right, color: iconColor),
+      onTap: onTap,
+    ),
+  );
+}
 }

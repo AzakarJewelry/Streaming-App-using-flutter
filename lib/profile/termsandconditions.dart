@@ -84,7 +84,7 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF06041F), Color(0xFF06041F)],
+            colors: [Color(0xFF1F1B24), Color(0xFF1F1B24)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),

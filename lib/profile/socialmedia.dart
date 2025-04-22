@@ -51,14 +51,14 @@ class SocialMediaLinks extends StatelessWidget {
         title: const Text('Social Media Links'),
         centerTitle: true,
         foregroundColor: Colors.white,
-        backgroundColor: const Color(0xFF06041F),
+        backgroundColor: const Color(0xFF1F1B24),
       ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF06041F), // Dark Blue
-              Color(0xFF06041F),
+              Color(0xFF1F1B24), // Dark Blue
+              Color(0xFF1F1B24),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

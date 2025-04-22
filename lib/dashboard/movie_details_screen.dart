@@ -174,7 +174,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     final Color iconColor = isDarkMode ? Colors.white : Colors.black;
 
     return Scaffold(
-      backgroundColor: isDarkMode ? const Color(0xFF06041F) : Colors.white,
+      backgroundColor: isDarkMode ? const Color(0xFF1F1B24) : Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
