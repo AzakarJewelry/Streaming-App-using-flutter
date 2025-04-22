@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Image.network(
-                    'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
+                    'https://res.cloudinary.com/daj3wmm8g/image/upload/v1745289721/icon_t7h2fd.png',
                     height: 100,
                     width: 100,
                   ),
@@ -123,9 +123,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Center(
                     child: Text(
                       'DramaMania',
-                        style: GoogleFonts.publicSans(
-                        fontSize: 32,
-                        color: Color(0xFFFFFFFF),
+                      style: GoogleFonts.baloo2(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF6237A0),
                       ),
                       textAlign: TextAlign.center,
                     ),

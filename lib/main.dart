@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       home: SplashScreen(
-        splashName: 'DramaMania',
+        splashName: '',
         splashDuration: 3,
       ),
     );
@@ -130,9 +130,9 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.network(
-                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
-                width: 150,
-                height: 150,
+                'https://res.cloudinary.com/daj3wmm8g/image/upload/v1745289721/icon_t7h2fd.png',
+                width: 100,
+                height: 100,
                 fit: BoxFit.contain,
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(
@@ -225,22 +225,15 @@ class MyHomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1743660281/Layer_x5F_1_cllwff.png',
-          width: 150,
-          height: 150,
+          'https://res.cloudinary.com/daj3wmm8g/image/upload/v1745302027/logo_1_bhm4b3.png',
+          width: 250,
+          height: 300,
           fit: BoxFit.contain,
         ),
         const SizedBox(height: 16),
-        Text(
-          'DramaMania',
-          style: GoogleFonts.publicSans(
-            fontSize: 45,
-            color: const Color(0xFFFFFFFF),
-          ),
-        ),
         const SizedBox(height: 8),
         const Text(
-          'A Streaming platform for Movies and Dramas',
+          '',
           style: TextStyle(
             fontSize: 14,
             color: Color(0xFFFFFFFF),

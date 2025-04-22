@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:screen_protector/screen_protector.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
+import 'package:google_fonts/google_fonts.dart';
 
 
 
@@ -385,7 +386,14 @@ Widget _buildTopBar() {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('DramaMania', style: TextStyle(color: const Color(0xFF6237A0), fontSize: 20)),
+              Text(
+                  'DramaMania',
+                    style: GoogleFonts.baloo2(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 30,
+                    color: const Color(0xFF6237A0),
+                  ),
+                ),
           GestureDetector(
             onTap: () => Navigator.push(
               context,
